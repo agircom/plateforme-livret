@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RRHN</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/styles_bo.css">
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-route.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-sanitize.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/controllers.js"></script>
+        <script src="js/directives.js"></script>
+        <script src="js/services.js"></script>
+    </head>
+    <body>
+        <div id="rrhn-app" ng-app="FeaderApp">
+                <div id="main">
+                    <header ng-include="'partials/common/header.html'"></header>
+                    <div class="menu-bo" ng-if="layout.requireMenu" ng-include="'partials/common/menu.html'"></div>
+                    <div ng-class="{plate:layout.requireMenu}" class="container" ng-view></div>
+                </div>
+            <footer ng-include="'partials/common/footer.html'"></footer>
+        </div>
+    </body>
+</html>

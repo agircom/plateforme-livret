@@ -1,0 +1,346 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 7 mars 2014, 16:45:16
+    Author     : SH
+*/
+
+body {
+    background:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:100%;
+    line-height:1em;
+    color: #808080;}
+html {
+    min-width:1000px
+}
+html,body {
+    height:100%
+}
+/* Global Structure */
+#main {
+    font-size: .814em;}
+/* Header */
+header {
+    height:100px;
+    margin:0 auto;
+    width: 1000px;
+    overflow:hidden;
+    position:relative
+}
+#logo {
+    width:231px;
+    height:76px;
+    background:url(../images/logo-reseau-rural.png) no-repeat;
+    float:left;
+}
+#slogan {
+    width:500px;
+    position:relative;
+    float:left;
+    margin:40px 40px 0 0;
+}
+#slogan img {
+    position:absolute;
+    right:-7px;
+    bottom:0px;
+}
+
+#slogan h1 {
+    font-size: 16px;
+    margin: 2px;
+}
+
+#slogan h2 {
+    font-size: 14px;
+    color: #808080;
+    margin: 2px;
+}
+#formlogin {
+    width:219px;
+    position:relative;
+    float:left;   
+}
+
+/* Content */
+section#content {
+    width:739px;
+    float:left
+}
+
+/* Sidebar */
+aside {float:left;
+       width:261px
+}
+/* Footer */
+footer {
+    position: absolute;
+    bottom: 0px;
+    text-align:center;
+    width: 100%;
+    height: 50px;
+    font-size:0.814em;
+    line-height:1.538em;
+    border-top:3px solid #666666;}
+footer a {
+    color:#808080;
+    text-decoration: none;
+}        
+
+/* Left & Right alignment */
+.fleft {
+    float:left
+}
+.fright {
+    float:right
+}
+.clear {
+    clear:both
+}
+.col-1,.col-2,.col-3 {
+    float:left
+}
+.alignright {
+    text-align:right
+}
+.aligncenter {
+    text-align:center
+}
+.wrapper {
+    margin:0 auto;
+    width:1000px;
+    overflow:hidden
+}
+
+/* form defaults */
+input,select,textarea {
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:1em;
+    vertical-align:middle;
+    font-weight:normal;
+    color:#5c5c5c;
+    margin:0;
+    padding:0
+}
+fieldset {
+    border:0
+}
+
+/* autres */
+p {
+    margin-bottom:20px;
+    line-height:1.538em
+}
+address {
+    font-style:normal;
+    line-height:1.538em;
+    float:left;
+    margin-right:55px
+}
+address b {
+    width:84px !important;
+    width:81px;
+    float:left
+}
+
+/* txt,links,lines,titles */
+a {
+    color:#f85811;
+    outline:none
+}
+a:hover {
+    text-decoration:none
+}
+h1 {
+    color:#000;
+    font-size: 18px 
+}
+h2 {
+    color:#000;
+    font-weight:normal;
+    font-size:16px;
+    line-height:1.2em;
+    margin-bottom:20px
+}
+h2 span {
+    color:#f85811
+}
+
+/* content */
+#contenu .inside {
+    padding:24px 40px 30px 50px
+}
+
+.article-accueil {
+    margin:0 auto;
+    width:739px;
+    overflow:hidden}
+
+/* Sidebar */
+aside{
+    font-size: 10px;
+}
+aside .inside {
+    padding:13px 5px 0 30px
+}
+aside h2 {
+    letter-spacing:-1px;
+    font-weight:normal;
+    font-size:18px;
+    line-height:1.2em;
+    margin-bottom:10px
+}
+
+.liens-sidebar a {
+    color:#fff;
+}
+
+.liens-sidebar {
+    background: #de7e08;
+    padding: 5px;
+}
+
+.liens-sidebar div {
+    display:block;
+    width: 100%;
+    height : auto;
+}
+
+.liens-sidebar img {
+    vertical-align:middle;
+    display:inline-block;
+    padding-right: 20px;
+}
+
+.liens-sidebar span {
+    display:inline-block;
+}
+
+.ligne-sidebar {
+    margin-top:10px;
+    border-bottom: 2px solid #818284
+}
+
+.trousse-outils-sidebar {
+    display:block;
+    width: 100%;
+    height : auto;
+}
+
+.trousse-outils-sidebar h2{
+    font-weight: bold;
+    text-transform:uppercase;
+    color: #818284;
+    font-size: 12px;
+}
+
+.bloc-trousse-outils-sidebar{
+    text-align: center;
+    display:inline-block;
+    float:left;
+    width:33%;
+}
+
+.temoignage-sidebar a span{
+    text-transform:uppercase;
+    color: #808080;
+}
+
+.partenaire-sidebar{
+    display:block;
+    position: absolute;
+    padding-top:100px;
+}
+
+.partenaire-sidebar img{
+    float:left;
+    display:inline-block;
+    padding-right:2px
+}
+/* footer */
+footer .inside {
+    padding-top:36px}
+
+/* page d'accueil */
+.presentation-livret {
+    display:block;
+    width: 100%;
+    height : auto;
+    background: #d3d3d4;
+    color:#000;
+}
+
+.presentation-livret h1 {
+    padding: 20px 0 0 20px;
+    font-size:16px;
+    text-transform:uppercase;
+}
+
+.contenu-presentation-livret {
+    padding:0px 20px 30px 20px;
+}
+
+.contenu-presentation-livret p {
+    text-transform:uppercase;
+    font-size: 14px;
+    font-weight: bold;
+}
+.contenu-presentation-livret li {
+    font-size: 12px;
+}
+.bas-presentation-livret{
+    width: 100%;
+    height: 100px;
+    padding:0px 0px 20px 20px;
+    color:#fff;
+    font-size: 10px;
+}
+.bloc-bas-pres{
+    display:inline-block;
+    float:left;
+    width:18%;
+    height: 100px;
+    margin: 0 5px 0 0;
+    padding: 0 5px 5px 5px;
+}
+.bloc-bas-pres h4{
+    font-size:14px;
+    text-transform:uppercase;
+    margin: 5px;
+}
+
+.bloc-bas-pres a h4{
+    color: #818284;
+}
+.etape1 {
+    background: #8fa11f;
+}
+
+.etape2 {
+    background: #de7d0a;
+}
+
+.etape3 {
+    background: #009c8f;
+}
+
+.voir-tuto-pres {
+    width:21%;
+    color: #808080 ;
+    padding-top: 50px;
+}
+
+.img-voir-tuto-pres {
+    width:14%;
+}
+
+.img-voir-tuto-pres img {
+    padding-top: 30px;
+}
+
+.img-demarche-accueil{
+    margin: 10px 20px 0 0;
+}

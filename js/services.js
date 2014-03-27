@@ -2,11 +2,12 @@
 
 var FeaderAppServices = angular.module('FeaderApp.Services', []);
 
-FeaderAppServices.factory('SessionSvc', ['$rootScope', '$location', '$log', 'ApiSvc',
+FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', '$log', 'ApiSvc',
     function($rootScope, $location, $log, ApiSvc) {
         return {
             logged: false,
             permissions: 0,
+            salt: '!P10p&42!',
             data: {
                 firstName: 'JEANNE',
                 lastName: 'DESCHAMP'
@@ -17,21 +18,25 @@ FeaderAppServices.factory('SessionSvc', ['$rootScope', '$location', '$log', 'Api
             getPermissions: function() {
                 return this.permissions;
             },
+            Create: function(identifiant, passwd) {
+                var encryptedPassword = CryptoJS.SHA1(CryptoJS.SHA1(passwd) + this.salt).toString();
+                ApiSvc.accountCreate(identifiant, encryptedPassword);
+            },
             Login: function(identifiant, password, callback) {
-                $log.info('SessionSvc: Login');
+                $log.info('UserSvc: Login');
                 var result = {};
                 if (identifiant === 'user' && password === 'user') {
-                    $log.info('SessionSvc: user logged');
+                    $log.info('UserSvc: user logged');
                     result.success = true;
                     this.permissions = 1;
                     this.logged = true;
                 } else if (identifiant === 'admin' && password === 'admin') {
-                    $log.info('SessionSvc: admin logged');
+                    $log.info('UserSvc: admin logged');
                     result.success = true;
                     this.permissions = 2;
                     this.logged = true;
                 } else {
-                    $log.info('SessionSvc: unknown user');
+                    $log.info('UserSvc: unknown user');
                     result.error = true;
                     result.errorMessage = 'Identifiants invalides';
                     this.permissions = 0;
@@ -40,7 +45,7 @@ FeaderAppServices.factory('SessionSvc', ['$rootScope', '$location', '$log', 'Api
                 callback(result);
             },
             Logout: function(callback) {
-                $log.info('SessionSvc: Logout');
+                $log.info('UserSvc: Logout');
                 var result = {};
                 this.permissions = 0;
                 this.logged = false;
@@ -58,7 +63,14 @@ FeaderAppServices.factory('ApiSvc', ['$http',
     function($http) {
         return {
             apiUrl: 'api',
-            last_don: null,
+            accountCreate: function(identifiant, passwd) {
+                var currentTime = +new Date();
+                return $http.post(this.apiUrl + '/account/create', {
+                    user: identifiant,
+                    passwd: passwd,
+                    timestamp: currentTime
+                });
+            },
             getCounters: function() {
                 return $http.get(this.apiUrl + '/don/counters');
             },

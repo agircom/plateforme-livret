@@ -78,15 +78,15 @@
         }
     ]);
 
-    FeaderApp.run(['$rootScope', '$location', 'SessionSvc',
-        function($rootScope, $location, SessionSvc) {
+    FeaderApp.run(['$rootScope', '$location', 'UserSvc',
+        function($rootScope, $location, UserSvc) {
 
             $rootScope.layout = {
                 requireMenu: false
             };
 
             $rootScope.$on('$routeChangeStart', function(event, next, current) {
-                if (next.requireLogin && !SessionSvc.isLogged()) {
+                if (next.requireLogin && !UserSvc.isLogged()) {
                     $rootScope.layout.requireMenu = false;
                     $location.path('/home');
                 } else if (next.requireMenu) {

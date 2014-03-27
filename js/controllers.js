@@ -2,23 +2,23 @@
 
 var FeaderAppControllers = angular.module('FeaderApp.Controllers', ['ngSanitize']);
 
-FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'SessionSvc',
-    function($scope, $location, SessionSvc) {
+FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'UserSvc',
+    function($scope, $location, UserSvc) {
         $scope.identifiant = '';
         $scope.password = '';
-        $scope.logged = SessionSvc.isLogged();
+        $scope.logged = UserSvc.isLogged();
         $scope.login = function() {
-            SessionSvc.Login($scope.identifiant, $scope.password, function(result) {
+            UserSvc.Login($scope.identifiant, $scope.password, function(result) {
                 if (result.success) {
                     $scope.identifiant = '';
                     $scope.password = '';
-                    $scope.logged = SessionSvc.isLogged();
+                    $scope.logged = UserSvc.isLogged();
                     $location.path('/plateforme');
                 }
             });
         };
         $scope.logout = function() {
-            SessionSvc.Logout(function(result) {
+            UserSvc.Logout(function(result) {
                 if (result.success) {
                     $scope.logged = false;
                     $location.path('/home');
@@ -26,7 +26,7 @@ FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'Sess
             });
         };
         $scope.getName = function() {
-            return SessionSvc.getCompleteName();
+            return UserSvc.getCompleteName();
         };
     }
 ]);
@@ -41,12 +41,13 @@ FeaderAppControllers.controller('HomeCtrl.Right', ['$scope', '$location',
         };
     }
 ]);
-FeaderAppControllers.controller('AccountCtrl.Create', ['$scope',
-    function($scope) {
+FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
+    function($scope, UserSvc) {
         $scope.username = '';
         $scope.passwd = '';
         $scope.create = function() {
             alert(42);
+            UserSvc.Create($scope.username, $scope.passwd);
         };
     }
 ]);

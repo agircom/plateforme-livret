@@ -1,7 +1,7 @@
 <?php
 
 header("Content-Type: application/json");
-define('__SALT__', '');
+define('__SALT__', '!P10p&42!');
 
 require_once 'common.inc.php';
 
@@ -16,9 +16,10 @@ $app = new \Slim\Slim();
 
 // REST Api routes
 $app->post('/account/create', function() use($app) {
-    $user = $user = $app->request->params('user');
-    $passwd = $app->request->params('passwd');
-    $timestamp = $app->request->params('timestamp');
+    $data = json_decode($app->request->getBody());
+    $user = $data->user;
+    $passwd = $data->passwd;
+    $timestamp = $data->timestamp;
     if (!isset($user) || !isset($passwd) || !isset($timestamp)) {
         $app->response()->status(400);
     } else {

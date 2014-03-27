@@ -9,6 +9,12 @@
             requireMenu: false,
             requireLogin: false
         },
+        '/account/create': {
+            templateUrl: 'partials/account/create.html',
+            controller: 'AccountCtrl.Create',
+            requireMenu: false,
+            requireLogin: false
+        },
         '/plateforme': {
             templateUrl: 'partials/backoffice/home.html',
             controller: 'BackofficeCtrl.Home',

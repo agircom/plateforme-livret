@@ -34,6 +34,22 @@ FeaderAppControllers.controller('HomeCtrl.Home', ['$scope',
     function($scope) {
     }
 ]);
+FeaderAppControllers.controller('HomeCtrl.Right', ['$scope', '$location',
+    function($scope, $location) {
+        $scope.gotoAccountCreate = function() {
+            $location.path('/account/create');
+        };
+    }
+]);
+FeaderAppControllers.controller('AccountCtrl.Create', ['$scope',
+    function($scope) {
+        $scope.username = '';
+        $scope.passwd = '';
+        $scope.create = function() {
+            alert(42);
+        };
+    }
+]);
 FeaderAppControllers.controller('BackofficeCtrl.Home', ['$scope',
     function($scope) {
 

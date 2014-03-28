@@ -2,8 +2,8 @@
 
 var FeaderAppServices = angular.module('FeaderApp.Services', []);
 
-FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', '$log', 'ApiSvc',
-    function($rootScope, $location, $log, ApiSvc) {
+FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', 'ApiSvc',
+    function($rootScope, $location, ApiSvc) {
         return {
             logged: false,
             permissions: 0,
@@ -30,30 +30,12 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', '$log', 'ApiSvc
                                 cbError(data, status);
                         });
             },
-            Login: function(identifiant, password, callback) {
-                $log.info('UserSvc: Login');
+            Login: function(identifiant, password, cbSucess, cbError) {
                 var result = {};
-                if (identifiant === 'user' && password === 'user') {
-                    $log.info('UserSvc: user logged');
-                    result.success = true;
-                    this.permissions = 1;
-                    this.logged = true;
-                } else if (identifiant === 'admin' && password === 'admin') {
-                    $log.info('UserSvc: admin logged');
-                    result.success = true;
-                    this.permissions = 2;
-                    this.logged = true;
-                } else {
-                    $log.info('UserSvc: unknown user');
-                    result.error = true;
-                    result.errorMessage = 'Identifiants invalides';
-                    this.permissions = 0;
-                    this.logged = false;
-                }
-                callback(result);
+                
+                cbSucess(result);
             },
             Logout: function(callback) {
-                $log.info('UserSvc: Logout');
                 var result = {};
                 this.permissions = 0;
                 this.logged = false;
@@ -72,30 +54,14 @@ FeaderAppServices.factory('ApiSvc', ['$http',
         return {
             apiUrl: 'api',
             accountCreate: function(identifiant, passwd) {
-                var currentTime = +new Date();
                 return $http.post(this.apiUrl + '/account/create', {
                     user: identifiant,
-                    passwd: passwd,
-                    timestamp: currentTime
+                    passwd: passwd
                 });
             },
-            getCounters: function() {
-                return $http.get(this.apiUrl + '/don/counters');
-            },
-            getRemaining: function(fb_id) {
-                return $http.get(this.apiUrl + '/don/remaining/' + fb_id);
-            },
-            getSpot: function() {
-                return $http.get(this.apiUrl + '/partner/random');
-            },
-            getLastDon: function() {
-                return $http.get(this.apiUrl + '/don/last');
-            },
-            makeGoodeed: function(infos) {
-                return $http.post(this.apiUrl + '/don/make', infos);
-            },
-            syncUser: function(user) {
-                return $http.post(this.apiUrl + '/user/' + user.id, user);
+            getToken: function(identifiant, passwd) {
+                var currentTime = +new Date();
+                return $http.get(this.apiUrl + '/token');
             }
         };
     }

@@ -19,8 +19,7 @@ $app->post('/account/create', function() use($app) {
     $data = json_decode($app->request->getBody());
     $user = $data->user;
     $passwd = $data->passwd;
-    $timestamp = $data->timestamp;
-    if (!isset($user) || !isset($passwd) || !isset($timestamp) || empty($user) || empty($passwd) || empty($timestamp)) {
+    if (!isset($user) || !isset($passwd) || empty($user) || empty($passwd)) {
         $app->response()->status(400);
     } else {
         $userExists = R::findOne('user', 'username=?', array($user));

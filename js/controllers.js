@@ -8,14 +8,18 @@ FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'User
         $scope.password = '';
         $scope.logged = UserSvc.isLogged();
         $scope.login = function() {
-            UserSvc.Login($scope.identifiant, $scope.password, function(result) {
-                if (result.success) {
-                    $scope.identifiant = '';
-                    $scope.password = '';
-                    $scope.logged = UserSvc.isLogged();
-                    $location.path('/plateforme');
-                }
-            });
+            UserSvc.Login($scope.identifiant, $scope.password,
+                    function(data, status) {
+                        if (result.success) {
+                            $scope.identifiant = '';
+                            $scope.password = '';
+                            $scope.logged = UserSvc.isLogged();
+                            $location.path('/plateforme');
+                        }
+                    },
+                    function(data, status) {
+                        alert(status);
+                    });
         };
         $scope.logout = function() {
             UserSvc.Logout(function(result) {

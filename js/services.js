@@ -18,9 +18,17 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', '$log', 'ApiSvc
             getPermissions: function() {
                 return this.permissions;
             },
-            Create: function(identifiant, passwd) {
+            Create: function(identifiant, passwd, cbSuccess, cbError) {
                 var encryptedPassword = CryptoJS.SHA1(CryptoJS.SHA1(passwd) + this.salt).toString();
-                ApiSvc.accountCreate(identifiant, encryptedPassword);
+                ApiSvc.accountCreate(identifiant, encryptedPassword)
+                        .success(function(data, status) {
+                            if (cbSuccess !== undefined)
+                                cbSuccess(data, status);
+                        })
+                        .error(function(data, status) {
+                            if (cbError !== undefined)
+                                cbError(data, status);
+                        });
             },
             Login: function(identifiant, password, callback) {
                 $log.info('UserSvc: Login');

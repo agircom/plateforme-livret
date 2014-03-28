@@ -45,9 +45,51 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
     function($scope, UserSvc) {
         $scope.username = '';
         $scope.passwd = '';
+        $scope.message = {
+            type: null,
+            text: '',
+            show: false
+        };
         $scope.create = function() {
-            alert(42);
-            UserSvc.Create($scope.username, $scope.passwd);
+            $scope.message.show = false;
+            UserSvc.Create($scope.username, $scope.passwd,
+                    function(data, status) {
+                        var msg = '';
+                        switch (status) {
+                            case 201:
+                                msg = 'Votre compte a bien ete cree';
+                                break;
+                            default:
+                                msg = 'Votre compte a ete cree avec des erreurs';
+                                break;
+                        }
+                        $scope.showSuccess(msg);
+                    },
+                    function(data, status) {
+                        var msg = '';
+                        switch (status) {
+                            case 400:
+                                msg = 'Les donnees saisies sont incorrectes';
+                                break;
+                            case 423:
+                                msg = 'Ce nom d\'utilisateur existe deja';
+                                break;
+                            default :
+                                msg = 'Une erreur inconnue s\'est produite';
+                                break;
+                        }
+                        $scope.showError(msg);
+                    });
+        };
+        $scope.showError = function(message) {
+            $scope.message.type = 'error';
+            $scope.message.text = message;
+            $scope.message.show = true;
+        };
+        $scope.showSuccess = function(message) {
+            $scope.message.type = 'success';
+            $scope.message.text = message;
+            $scope.message.show = true;
         };
     }
 ]);

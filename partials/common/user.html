@@ -13,7 +13,10 @@
             <br>
             <input type="button" value="Connexion" ng-click="login()">
             <div>
-                <a href=""><img src="images/se-souvenir-de-moi.png" alt="mon-compte" title="Mon Compte" /><span>se souvenir de moi</span></a>
+                <a href="#" onclick="return false;" ng-click="switchRememberMe()">
+                    <img ng-src="images/se-souvenir-de-moi-{{rememberMe}}.png" alt="mon-compte" title="Mon Compte" />
+                    <span>se souvenir de moi</span>
+                </a>
             </div>
             <div>
                 <a href=""><img src="images/mot-de-passe-oublie.png" alt="contact" title="Contact" /><span>mot de passe oublié</span></a>
@@ -22,7 +25,8 @@
         <div ng-if="User.isLogged()" id="userPannel">
             Bonjour {{User.getCompleteName()}}
             <br>
-            <a href="#/plateforme">Acc&eacute;der a la plateforme</a>
+            <a ng-if="isAtHome()" href="#/plateforme">Acc&eacute;der a la plateforme</a>
+            <a ng-if="!isAtHome()" href="#/home">Retour a l'accueil</a>
             <br>
             <a href="#" on-click="return false;" ng-click="logout()">Se d&eacute;connecter</a>
         </div>

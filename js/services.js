@@ -29,13 +29,17 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', 'ApiSvc',
                                 cbError(data, status);
                         });
             },
-            Login: function(identifiant, passwd, cbSuccess, cbError) {
+            Login: function(identifiant, passwd, store, cbSuccess, cbError) {
                 var _self = this;
                 passwd = CryptoJS.SHA1(CryptoJS.SHA1(passwd) + this.salt).toString();
                 ApiSvc.getToken(identifiant, passwd)
                         .success(function(data, status) {
                             _self.id = data.user;
                             _self.session_token = data.session_token;
+                            if (store) {
+                                localStorage.setItem('App-User', data.user);
+                                localStorage.setItem('App-Token', data.session_token);
+                            }
 //                            _self.permissions = ;
                             ApiSvc.setHeaders(data.user, data.session_token);
                             _self.logged = true;
@@ -51,9 +55,21 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', 'ApiSvc',
                 this.logged = false;
                 this.id = null;
                 this.session_token = null;
+                localStorage.clear();
                 ApiSvc.setHeaders(false);
                 if (typeof callback === 'function') {
                     callback();
+                }
+            },
+            restoreSession: function() {
+                var user = localStorage.getItem('App-User');
+                var session_token = localStorage.getItem('App-Token');
+                if (user !== null && session_token !== null) {
+                    this.id = user;
+                    this.session_token = session_token;
+                    ApiSvc.setHeaders(user, session_token);
+                    this.logged = true;
+                    this.updateInfos();
                 }
             },
             getInfos: function() {

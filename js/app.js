@@ -85,6 +85,7 @@
                 requireMenu: false
             };
             
+            UserSvc.restoreSession();
             $rootScope.User = UserSvc;
 
             $rootScope.$on('$routeChangeStart', function(event, next, current) {

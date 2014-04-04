@@ -7,11 +7,23 @@ FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'User
         $scope.identifiant = '';
         $scope.passwd = '';
         $scope.loginInProgress = false;
+        $scope.rememberMe = 'on';
         $scope.error = '';
+        $scope.switchRememberMe = function() {
+            if ($scope.rememberMe === 'on') {
+                $scope.rememberMe = 'off';
+            } else if ($scope.rememberMe === 'off') {
+                $scope.rememberMe = 'on';
+            }
+        };
+        $scope.isAtHome = function() {
+            return ($location.path().split('/')[1] === 'home') ? true : false;
+        };
         $scope.login = function() {
             $scope.loginInProgress = true;
             $scope.error = '';
-            UserSvc.Login($scope.identifiant, $scope.passwd,
+            var store = ($scope.rememberMe === 'on') ? true : false;
+            UserSvc.Login($scope.identifiant, $scope.passwd, store,
                     function(data, status) {
                         $scope.identifiant = '';
                         $scope.passwd = '';

@@ -11,17 +11,74 @@ $app->response->headers->set('Content-Type', 'application/json');
 
 require_once 'common.inc.php';
 
-// REST Api account create
-$app->post('/account/create', function() use($app) {
+// REST Api get session token
+$app->get('/token', function() use ($app) {
+    // get params
+    $givenUser = $app->request->get('user');
+    $givenPasswd = $app->request->get('passwd');
+    $givenTimestamp = $app->request->get('timestamp');
+    if (!isset($givenUser) || !isset($givenPasswd) || !isset($givenTimestamp)) {
+        // bad request params
+        $app->response()->status(400);
+    } else {
+        // check user credentials
+        $user_record = R::findOne('user', 'username=? AND passwd=?', array($givenUser, $givenPasswd));
+        if (is_null($user_record)) {
+            // unknown user
+            $app->response()->status(403);
+        } else {
+            // check last timestamp
+            if ($user_record->last_timestamp === $givenTimestamp) {
+                // request already executed
+                $app->response()->status(406);
+            } else {
+                // generate token
+                $session_token = md5(uniqid(mt_rand(), true));
+                // update user infos
+                $date = new DateTime();
+                $data = array();
+                $user_record->session_token = $session_token;
+                $user_record->last_timestamp = $givenTimestamp;
+                $user_record->date_last_connect = $date;
+                $data['user'] = R::store($user_record);
+                $data['session_token'] = $session_token;
+                echo json_encode($data);
+            }
+        }
+    }
+});
+
+// REST Api user get
+$app->get('/user', function() use ($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    $data = $user_record->export();
+    // clear fields
+    unset($data['passwd']);
+    unset($data['session_token']);
+    unset($data['last_timestamp']);
+    unset($data['date_create']);
+    unset($data['date_last_connect']);
+    unset($data['id']);
+    echo json_encode($data);
+});
+
+// REST Api user create
+$app->post('/user', function() use($app) {
+    // get user infos
     $data = json_decode($app->request->getBody(), true);
     $givenUserInfos = $data['userInfos'];
     if (is_null($givenUserInfos) || !checkUserInfosCreatePattern($givenUserInfos)) {
+        // missing params
         $app->response()->status(400);
     } else {
+        // check if user already exists
         $userExists = R::findOne('user', 'username=?', array($givenUserInfos['username']));
         if (!is_null($userExists)) {
+            // username exists
             $app->response()->status(423);
         } else {
+            // create new user
             $user_record = R::dispense('user');
             $user_record->username = $givenUserInfos['username'];
             $user_record->passwd = $givenUserInfos['passwd'];
@@ -41,27 +98,6 @@ $app->post('/account/create', function() use($app) {
     }
 });
 
-// REST Api get session token
-$app->get('/token', function() use ($app) {
-    // get params
-    $user = $app->request->get('user');
-    $passwd = $app->request->get('passwd');
-    $timestamp = $app->request->get('timestamp');
-    if (!isset($user) || !isset($passwd) || !isset($timestamp)) {
-        // bad request params
-        $app->response()->status(400);
-    } else {
-        // check user credentials
-        $user_record = R::findOne('user', 'username=? AND passwd=? AND last_timestamp!=?', array($user, $passwd, $timestamp));
-        if (is_null($user_record)) {
-            $app->response()->status(403);
-        } else {
-            $data['user'] = $user_record;
-            $data = array('token' => 42);
-            echo json_encode($data);
-        }
-    }
-});
 
 // run REST Api
 $app->run();

@@ -5,26 +5,39 @@ var FeaderAppControllers = angular.module('FeaderApp.Controllers', ['ngSanitize'
 FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'UserSvc',
     function($scope, $location, UserSvc) {
         $scope.identifiant = '';
-        $scope.password = '';
+        $scope.passwd = '';
+        $scope.loginInProgress = false;
+        $scope.error = '';
         $scope.login = function() {
-            UserSvc.Login($scope.identifiant, $scope.password,
+            $scope.loginInProgress = true;
+            $scope.error = '';
+            UserSvc.Login($scope.identifiant, $scope.passwd,
                     function(data, status) {
-                        console.log('login success', data, status);
-//                        if (result.success) {
-//                            $scope.identifiant = '';
-//                            $scope.password = '';
-//                            $location.path('/plateforme');
-//                        }
+                        $scope.identifiant = '';
+                        $scope.passwd = '';
+                        $scope.loginInProgress = false;
                     },
                     function(data, status) {
-                        console.log('login error', data, status);
+                        var msg = '';
+                        switch (status) {
+                            case 400:
+                                msg = 'Vous devez saisir vos identifiants';
+                                break;
+                            case 403:
+                                msg = 'Les identifants sont incorrects';
+                                break;
+                            default:
+                                msg = 'Erreur de connexion';
+                                break;
+                        }
+                        $scope.error = msg;
+                        $scope.passwd = '';
+                        $scope.loginInProgress = false;
                     });
         };
         $scope.logout = function() {
-            UserSvc.Logout(function(result) {
-                if (result.success) {
-                    $location.path('/home');
-                }
+            UserSvc.Logout(function() {
+                $location.path('/home');
             });
         };
     }
@@ -55,7 +68,7 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
         };
         $scope.create = function() {
             $scope.message.show = false;
-            UserSvc.Create($scope.userInfos,
+            UserSvc.Subscribe($scope.userInfos,
                     function(data, status) {
                         var msg = '';
                         switch (status) {

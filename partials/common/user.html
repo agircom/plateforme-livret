@@ -1,20 +1,30 @@
 <div ng-controller="CommonCtrl.User">
-    <div ng-if="!User.isLogged()" id="formlogin">
-        Login :<input type="text" ng-model="identifiant">
+    <div ng-show="loginInProgress">
+        Connexion en cours...
         <br>
-        Password :<input type="password" ng-model="password">
-        <br>
-        <input type="button" value="Connexion" ng-click="login()">
-        <div>
-            <a href=""><img src="images/se-souvenir-de-moi.png" alt="mon-compte" title="Mon Compte" /><span>se souvenir de moi</span></a>
-        </div>
-        <div>
-            <a href=""><img src="images/mot-de-passe-oublie.png" alt="contact" title="Contact" /><span>mot de passe oublié</span></a>
-        </div>
+        <img src="images/loading.gif">
     </div>
-    <div ng-if="User.isLogged()" id="userPannel">
-        Bonjour {{User.getName()}}
-        <br>
-        <a href="#" on-click="return false;" ng-click="logout()">Se d&eacute;connecter</a>
+    <div ng-hide="loginInProgress">
+        <div ng-if="!User.isLogged()" id="formlogin">
+            <div ng-if="error !== ''" ng-bind="error" class="message_error"><br></div>
+            Login :<input type="text" ng-model="$parent.identifiant">
+            <br>
+            Password :<input type="password" ng-model="$parent.passwd">
+            <br>
+            <input type="button" value="Connexion" ng-click="login()">
+            <div>
+                <a href=""><img src="images/se-souvenir-de-moi.png" alt="mon-compte" title="Mon Compte" /><span>se souvenir de moi</span></a>
+            </div>
+            <div>
+                <a href=""><img src="images/mot-de-passe-oublie.png" alt="contact" title="Contact" /><span>mot de passe oublié</span></a>
+            </div>
+        </div>
+        <div ng-if="User.isLogged()" id="userPannel">
+            Bonjour {{User.getCompleteName()}}
+            <br>
+            <a href="#/plateforme">Acc&eacute;der a la plateforme</a>
+            <br>
+            <a href="#" on-click="return false;" ng-click="logout()">Se d&eacute;connecter</a>
+        </div>
     </div>
 </div>

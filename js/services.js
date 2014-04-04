@@ -8,25 +8,22 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', 'ApiSvc',
             logged: false,
             permissions: 0,
             salt: '!P10p&42!',
-            data: {
-                firstName: 'JEANNE',
-                lastName: 'DESCHAMP'
-            },
+            data: {},
             isLogged: function() {
                 return this.logged;
             },
             getPermissions: function() {
                 return this.permissions;
             },
-            Create: function(identifiant, passwd, cbSuccess, cbError) {
-                var encryptedPassword = CryptoJS.SHA1(CryptoJS.SHA1(passwd) + this.salt).toString();
-                ApiSvc.accountCreate(identifiant, encryptedPassword)
+            Create: function(userInfos, cbSuccess, cbError) {
+                userInfos.passwd = CryptoJS.SHA1(CryptoJS.SHA1(userInfos.passwd) + this.salt).toString();
+                ApiSvc.accountCreate(userInfos)
                         .success(function(data, status) {
-                            if (cbSuccess !== undefined)
+                            if (typeof cbSuccess === 'function')
                                 cbSuccess(data, status);
                         })
                         .error(function(data, status) {
-                            if (cbError !== undefined)
+                            if (typeof cbError === 'function')
                                 cbError(data, status);
                         });
             },
@@ -53,10 +50,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
     function($http) {
         return {
             apiUrl: 'api',
-            accountCreate: function(identifiant, passwd) {
+            accountCreate: function(userInfos) {
                 return $http.post(this.apiUrl + '/account/create', {
-                    user: identifiant,
-                    passwd: passwd
+                    userInfos: userInfos
                 });
             },
             getToken: function(identifiant, passwd) {

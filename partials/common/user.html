@@ -1,8 +1,8 @@
 <div ng-controller="CommonCtrl.User">
-    <div ng-if="!logged" id="formlogin">
-        Login :<input type="text" ng-model="$parent.identifiant">
+    <div ng-if="!User.isLogged()" id="formlogin">
+        Login :<input type="text" ng-model="identifiant">
         <br>
-        Password :<input type="password" ng-model="$parent.password">
+        Password :<input type="password" ng-model="password">
         <br>
         <input type="button" value="Connexion" ng-click="login()">
         <div>
@@ -12,8 +12,8 @@
             <a href=""><img src="images/mot-de-passe-oublie.png" alt="contact" title="Contact" /><span>mot de passe oublié</span></a>
         </div>
     </div>
-    <div ng-if="logged" id="userPannel">
-        Bonjour {{$parent.getName()}}
+    <div ng-if="User.isLogged()" id="userPannel">
+        Bonjour {{User.getName()}}
         <br>
         <a href="#" on-click="return false;" ng-click="logout()">Se d&eacute;connecter</a>
     </div>

@@ -6,31 +6,26 @@ FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'User
     function($scope, $location, UserSvc) {
         $scope.identifiant = '';
         $scope.password = '';
-        $scope.logged = UserSvc.isLogged();
         $scope.login = function() {
             UserSvc.Login($scope.identifiant, $scope.password,
                     function(data, status) {
-                        if (result.success) {
-                            $scope.identifiant = '';
-                            $scope.password = '';
-                            $scope.logged = UserSvc.isLogged();
-                            $location.path('/plateforme');
-                        }
+                        console.log('login success', data, status);
+//                        if (result.success) {
+//                            $scope.identifiant = '';
+//                            $scope.password = '';
+//                            $location.path('/plateforme');
+//                        }
                     },
                     function(data, status) {
-                        alert(status);
+                        console.log('login error', data, status);
                     });
         };
         $scope.logout = function() {
             UserSvc.Logout(function(result) {
                 if (result.success) {
-                    $scope.logged = false;
                     $location.path('/home');
                 }
             });
-        };
-        $scope.getName = function() {
-            return UserSvc.getCompleteName();
         };
     }
 ]);
@@ -47,8 +42,12 @@ FeaderAppControllers.controller('HomeCtrl.Right', ['$scope', '$location',
 ]);
 FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
     function($scope, UserSvc) {
-        $scope.username = '';
-        $scope.passwd = '';
+        $scope.userInfos = {
+            username: null,
+            passwd: null,
+            firstName: null,
+            lastName: null
+        };
         $scope.message = {
             type: null,
             text: '',
@@ -56,7 +55,7 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
         };
         $scope.create = function() {
             $scope.message.show = false;
-            UserSvc.Create($scope.username, $scope.passwd,
+            UserSvc.Create($scope.userInfos,
                     function(data, status) {
                         var msg = '';
                         switch (status) {
@@ -68,6 +67,12 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
                                 break;
                         }
                         $scope.showSuccess(msg);
+                        $scope.userInfos = {
+                            username: null,
+                            passwd: null,
+                            firstName: null,
+                            lastName: null
+                        };
                     },
                     function(data, status) {
                         var msg = '';

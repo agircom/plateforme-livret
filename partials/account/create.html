@@ -1,13 +1,21 @@
 <div class="wrapper">
     <section id="content">
-        <div ng-show="message.show" 
+        <div ng-if="message.show" 
              ng-bind="message.text" 
              ng-class="{message_success: message.type === 'success', message_error: message.type === 'error'}">
         </div>
-        <div ng-hide="message.show && message.type === 'success'">
-            Adresse e-mail : <input type="text" ng-model="username">
+        <div ng-hide="message.show && message.type === 'success'" id="form-subscribe">
+            <label for="form-subscribe-identifiant">Adresse e-mail</label>
+            <input type="text" ng-model="userInfos.username" id="form-subscribe-identifiant">
             <br>
-            Mot de passe : <input type="password" ng-model="passwd">
+            <label for="form-subscribe-passwd">Mot de passe</label>
+            <input type="password" ng-model="userInfos.passwd" id="form-subscribe-passwd">
+            <br>
+            <label for="form-subscribe-firstname">Pr&eacute;nom</label>
+            <input type="text" ng-model="userInfos.firstName" id="form-subscribe-firstname">
+            <br>
+            <label for="form-subscribe-lastname">Nom</label>
+            <input type="text" ng-model="userInfos.lastName" id="form-subscribe-lastname">
             <br>
             <button ng-click="create()">S'inscrire</button>
         </div>

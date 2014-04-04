@@ -84,6 +84,8 @@
             $rootScope.layout = {
                 requireMenu: false
             };
+            
+            $rootScope.User = UserSvc;
 
             $rootScope.$on('$routeChangeStart', function(event, next, current) {
                 if (next.requireLogin && !UserSvc.isLogged()) {

@@ -20,6 +20,15 @@ html {
 html,body {
     height:100%
 }
+.message_success {
+    color: #8fa11f;
+    font-weight: bold;
+}
+.message_error {
+    color: crimson;
+    font-weight: bold;
+}
+
 /* Global Structure */
 #main {
     font-size: .814em;}

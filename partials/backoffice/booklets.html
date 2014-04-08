@@ -11,6 +11,7 @@
     </div>
 </div>
 <ul ng-if="booklets.length > 0" id="booklets-list">
+<<<<<<< HEAD
     
     <li ng-repeat="booklet in booklets | orderBy:'name'">
         <a href="#" onclick="return false;" ng-click="selectBooklet(booklet.id)">
@@ -18,5 +19,15 @@
         </a>
         <a href="#" onclick="return false;" ng-click="copyBooklet(booklet.id)">Dupliquer</a>
         <a href="#" onclick="return false;" ng-click="deleteBooklet(booklet.id)">Supprimer</a>
+    <li ng-repeat="booklet in booklets| orderBy:'name'">
+        <div class="booklet-list-header">
+            <a href="#" onclick="return false;" ng-click="selectBooklet(booklet.id)">{{booklet.name}}</a>
+            <a href="#" onclick="return false;" ng-click="duplicateBooklet(booklet.id)">Dupliquer</a>
+            <a href="#" onclick="return false;" ng-click="deleteBooklet(booklet.id)">Supprimer</a>
+        </div>
+        <div class="booklet-list-body" ng-show="booklet.id === selectedBooklet">
+            pictures
+        </div>
+
     </li>
 </ul>

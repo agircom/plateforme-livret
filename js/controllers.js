@@ -145,7 +145,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', 'BookletSv
                 }
             });
         };
-        $scope.bookCreate = function() {
+        $scope.createBooklet = function() {
             $scope.error = '';
             if ($scope.newBookName.length === 0) {
                 $scope.error = 'Vous devez saisir un nom de livret';
@@ -166,6 +166,25 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', 'BookletSv
                 }
             });
         };
+        $scope.selectBooklet = function(book_id) {
+            if ($scope.selectedBooklet === book_id) {
+                $scope.selectedBooklet = false;
+            } else {
+                $scope.selectedBooklet = book_id;
+            }
+        };
+        $scope.duplicateBooklet = function(book_id) {
+            
+        };
+        $scope.deleteBooklet = function(book_id) {
+            BookletSvc.delete(book_id).success(function() {
+                if ($scope.selectedBooklet === book_id) {
+                    $scope.selectedBooklet = false;
+                }
+                $scope.reload();
+            });
+        };
+
         $scope.reload();
     }
 ]);

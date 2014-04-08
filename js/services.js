@@ -163,10 +163,6 @@ FeaderAppServices.factory('BookletSvc', ['ApiSvc',
             create: function(book_name) {
                 return ApiSvc.postBooklet(book_name);
             },
-            duplicate: function(book_id) {
-                var book_data = this.get(book_id);
-                return this.create(book_data);
-            },
             update: function(book_id, book_data) {
                 return ApiSvc.putBooklet(book_id, book_data);
             },

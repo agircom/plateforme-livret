@@ -13,41 +13,43 @@
 <ul id="booklets-list">
     <li ng-repeat="booklet in booklets| orderBy:'name'">
         <div class="booklet-list-header">
-            <a style="font-size:18px; padding-right:600px" href="#" onclick="return false;" ng-click="selectBooklet(booklet.id)">{{booklet.name}}</a>
+            <a style="font-size:18px; padding-right:400px" href="#" onclick="return false;" ng-click="selectBooklet(booklet.id)">{{booklet.name}}</a>
             <a style="font-size:12px; text-align:left" href="#" onclick="return false;" ng-click="duplicateBooklet(booklet.id)">Dupliquer</a>
             <a style="font-size:12px; text-align:left" href="#" onclick="return false;" ng-click="deleteBooklet(booklet.id)">Supprimer</a>
         </div>
         <div class="booklet-list-body" ng-show="booklet.id === selectedBooklet">
+            <div style="background-color: #fff; width:100%;">
             <div class="pochette">
                 <h3> > La Pochette</h3>
                 <img src="images/phototheque.png" alt="phototheque" title="Photothèque"/>
                 <h4> Commencer maintenant</h4>
-                <adress>Pochette Format A3 (recto/verso)</adress>
+                <span>Pochette Format A3 (recto/verso)</span>
             </div>
             <div class="pres-terrritoire">
                 <h3> > La présentation du territoire</h3>
                 <img src="images/phototheque.png" alt="phototheque" title="Photothèque"/>
                 <h4> Commencer maintenant</h4>
-                <adress>1 Feuillet Format A4 (recto/verso)</adress>
+                <span>1 Feuillet Format A4 (recto/verso)</span>
             </div>
             <div class="offre-locale">
                 <h3> > L'Offre locale</h3>
                 <img src="images/phototheque.png" alt="phototheque" title="Photothèque"/>
                 <h4> Commencer maintenant</h4>
-                <adress>Feuillet Format A4 (recto/verso)</adress>
-                <adress>Quantité: suivant contenu</adress>
+                <span>Feuillet Format A4 (recto/verso)</span>
+                <span>Quantité: suivant contenu</span>
             </div>
             <div class="bien-vivre">
                 <h3> > Les règles pour bien vivre ensemble</h3>
                 <img src="images/phototheque.png" alt="phototheque" title="Photothèque"/>
                 <h4> Commencer maintenant</h4>
-                <adress>1 Feuillet Format A4 (recto/verso)</adress>
+                <span>1 Feuillet Format A4 (recto/verso)</span>
             </div>
             <div class="agenda">
                 <h3> > L'agenda</h3>
                 <img src="images/phototheque.png" alt="phototheque" title="Photothèque"/>
                 <h4> Commencer maintenant</h4>
-                <adress>1 Feuillet Format A4 (recto/verso)</adress>
+                <span>1 Feuillet Format A4 (recto/verso)</span>
+            </div>
             </div>
         </div>
     </li>

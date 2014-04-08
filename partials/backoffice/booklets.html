@@ -1,1 +1,7 @@
-booklets
+<div ng-show="booklets.length === 0" id="booklet-create">
+    <span>Creer mon livret maintenant</span>
+    <br>
+    <label for="booklet-create-name">Nom de mon livret</label>
+    <input type="text" ng-model="newBookName" id="booklet-create-name">
+    <a href="#" onclick="return false;" ng-click="bookCreate()">OK</a>
+</div>

@@ -134,7 +134,22 @@ FeaderAppControllers.controller('BackofficeCtrl.Home', ['$scope',
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', 'BookletSvc',
     function($scope, BookletSvc) {
-        $scope.booklets = BookletSvc.getAll();
+        $scope.booklets = [];
+        $scope.selectedBooklet = false;
+        $scope.reload = function() {
+            BookletSvc.getAll().success(function(data) {
+                if (data.booklets) {
+                    $scope.booklets = data;
+                }
+            });
+        };
+        $scope.bookCreate = function() {
+            BookletSvc.create($scope.newBookName).success(function(data) {
+                $scope.reload();
+                $scope.selectedBooklet = data.book_id;
+            });
+        };
+        $scope.reload();
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Account', ['$scope',

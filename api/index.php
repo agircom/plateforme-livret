@@ -98,6 +98,16 @@ $app->post('/user', function() use($app) {
     }
 });
 
+$app->get('/booklets', function() use ($app) {
+    $user_record = retrieveUserByToken();
+    $user_books = R::findAll('books', 'user=?', array($user_record->id));
+    if (count($user_books) > 0) {
+        echo json_encode($user_books->exportAll());
+    } else {
+        echo json_encode(false);
+    }
+});
+
 
 // run REST Api
 $app->run();

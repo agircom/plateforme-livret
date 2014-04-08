@@ -132,9 +132,9 @@ FeaderAppControllers.controller('BackofficeCtrl.Home', ['$scope',
 
     }
 ]);
-FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope',
-    function($scope) {
-
+FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', 'BookletSvc',
+    function($scope, BookletSvc) {
+        $scope.booklets = BookletSvc.getAll();
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Account', ['$scope',

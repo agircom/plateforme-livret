@@ -109,6 +109,12 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                 $http.defaults.headers.common['App-User'] = user;
                 $http.defaults.headers.common['App-Token'] = session_token;
             },
+            getToken: function(identifiant, passwd) {
+                var currentTime = +new Date();
+                return $http.get(this.apiUrl + '/token', {
+                    params: {user: identifiant, passwd: passwd, timestamp: currentTime}
+                });
+            },
             getUser: function() {
                 var currentTime = +new Date();
                 return $http.get(this.apiUrl + '/user', {
@@ -120,11 +126,52 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                     userInfos: userInfos
                 });
             },
-            getToken: function(identifiant, passwd) {
-                var currentTime = +new Date();
-                return $http.get(this.apiUrl + '/token', {
-                    params: {user: identifiant, passwd: passwd, timestamp: currentTime}
+            getBooklet: function(book_id) {
+                if (book_id !== undefined) {
+                    return $http.get(this.apiUrl + '/booklet/' + book_id);
+                } else {
+                    return $http.get(this.apiUrl + '/booklets');
+                }
+            },
+            postBooklet: function(book_data) {
+                return $http.post(this.apiUrl + '/booklet', {
+                    book_data: book_data
                 });
+            },
+            putBooklet: function(book_id, book_data) {
+                return $http.put(this.apiUrl + '/booklet/' + book_id, {
+                    book_data: book_data
+                });
+            },
+            deleteBooklet: function(book_id) {
+                return $http.delete(this.apiUrl + '/booklet/' + book_id);
+            }
+        };
+    }
+]);
+
+
+FeaderAppServices.factory('BookletSvc', ['ApiSvc',
+    function(ApiSvc) {
+        return {
+            getAll: function() {
+                return ApiSvc.getBooklet();
+            },
+            get: function(book_id) {
+                return ApiSvc.getBooklet(book_id);
+            },
+            create: function(book_data) {
+                return ApiSvc.postBooklet(book_data);
+            },
+            duplicate: function(book_id) {
+                var book_data = this.get(book_id);
+                return this.create(book_data);
+            },
+            update: function(book_id, book_data) {
+                return ApiSvc.putBooklet(book_id, book_data);
+            },
+            delete: function(book_id) {
+                return ApiSvc.deleteBooklet(book_id);
             }
         };
     }

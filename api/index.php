@@ -42,7 +42,7 @@ $app->get('/token', function() use ($app) {
                 $user_record->date_last_connect = $date;
                 $data['user'] = R::store($user_record);
                 $data['session_token'] = $session_token;
-                echo json_encode($data);
+                echo json_encode($data, JSON_NUMERIC_CHECK);
             }
         }
     }
@@ -60,7 +60,7 @@ $app->get('/user', function() use ($app) {
     unset($data['date_create']);
     unset($data['date_last_connect']);
     unset($data['id']);
-    echo json_encode($data);
+    echo json_encode($data, JSON_NUMERIC_CHECK);
 });
 
 // REST Api user create
@@ -107,7 +107,7 @@ $app->get('/booklets', function() use ($app) {
     if (count($user_books) > 0) {
         $data['booklets'] = R::exportAll($user_books);
     }
-    echo json_encode($data);
+    echo json_encode($data, JSON_NUMERIC_CHECK);
 });
 
 $app->get('/booklet/:booklet_id', function($booklet_id) use ($app) {
@@ -119,7 +119,7 @@ $app->get('/booklet/:booklet_id', function($booklet_id) use ($app) {
     if (!is_null($booklet_record)) {
         $data['booklet'] = $booklet_record->export();
     }
-    echo json_encode($data);
+    echo json_encode($data, JSON_NUMERIC_CHECK);
 });
 
 $app->post('/booklet', function() use ($app) {
@@ -139,7 +139,7 @@ $app->post('/booklet', function() use ($app) {
         $booklet_record->date_create = $date;
         $booklet_record->date_last_update = null;
         $book_id = R::store($booklet_record);
-        echo json_encode(array('booklet_id' => $book_id));
+        echo json_encode(array('booklet_id' => $book_id), JSON_NUMERIC_CHECK);
     }
 });
 

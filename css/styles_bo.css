@@ -47,7 +47,7 @@ margin:0;
 }
 
 .plate{
-    width:85%;
+    width: 80%;
     float: left;
     /* margin-left: 20px; */
 }
@@ -86,10 +86,57 @@ margin:0;
     font-weight: bold;
 }
 
-#booklets-list h1 {
+.booklet-list-header {
     padding: 15px;
     background-color: #DD6B5C;
     -webkit-border-radius: 0px 20px 0px 20px;
     color: #fff;
     text-transform: uppercase;
 }
+
+.booklet-list-header h1 {
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.booklet-list-header a {
+    color: #fff;
+    text-decoration:none;
+}
+
+h3{
+    font-family: Arial;
+    /* width: 300px; */
+    color: #DD6B5C;
+    font-size: 14px;
+    height: 25px;
+    text-transform:uppercase;
+    margin-bottom: 0;
+}
+
+.pochette {
+    width:20%;
+    float: left;
+}
+
+.pres-terrritoire {
+    width:20%;
+    float: left;
+}
+
+.offre-locale {
+    width:20%;
+    float: left;
+}
+
+.bien-vivre {
+    width:20%;
+    float: left;
+}
+
+.agenda {
+    width:20%;
+    float: left;
+}
+
+

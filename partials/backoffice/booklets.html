@@ -10,7 +10,7 @@
         <a href="#" onclick="return false;" ng-click="createBooklet()">OK</a>
     </div>
 </div>
-<ul ng-if="booklets.length > 0" id="booklets-list">
+<ul id="booklets-list">
     <li ng-repeat="booklet in booklets| orderBy:'name'">
         <div class="booklet-list-header">
             <a style="font-size:18px; padding-right:400px" href="#" onclick="return false;" ng-click="selectBooklet(booklet.id)">{{booklet.name}}</a>

@@ -143,6 +143,20 @@ $app->post('/booklet', function() use ($app) {
     }
 });
 
+$app->delete('/booklet/:book_id', function($book_id) use ($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    // retrieve booklet
+    $booklet_record = retrieveBookletById($book_id);
+    if ($booklet_record->user !== $user_record->id) {
+        // current user is not the booklet owner
+        $app->response()->status(401);
+    } else {
+        // delete the booklet
+        R::trash($booklet_record);
+    }
+});
+
 // run REST Api
 $app->run();
 R::close();

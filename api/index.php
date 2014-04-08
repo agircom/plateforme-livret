@@ -110,12 +110,12 @@ $app->get('/booklets', function() use ($app) {
     echo json_encode($data);
 });
 
-$app->get('/booklet/:book_id', function($book_id) use ($app) {
+$app->get('/booklet/:booklet_id', function($booklet_id) use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
     $data = array('booklet' => false);
     // retrieve booklet by id
-    $booklet_record = R::findOne('booklet', 'id=? && user=?', array($book_id, $user_record->id));
+    $booklet_record = R::findOne('booklet', 'id=? && user=?', array($booklet_id, $user_record->id));
     if (!is_null($booklet_record)) {
         $data['booklet'] = $booklet_record->export();
     }
@@ -143,11 +143,11 @@ $app->post('/booklet', function() use ($app) {
     }
 });
 
-$app->delete('/booklet/:book_id', function($book_id) use ($app) {
+$app->delete('/booklet/:booklet_id', function($booklet_id) use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
     // retrieve booklet
-    $booklet_record = retrieveBookletById($book_id);
+    $booklet_record = retrieveBookletById($booklet_id);
     if ($booklet_record->user !== $user_record->id) {
         // current user is not the booklet owner
         $app->response()->status(401);

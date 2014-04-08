@@ -153,8 +153,8 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', 'BookletSv
             }
             BookletSvc.create($scope.newBookName).success(function(data) {
                 $scope.newBookName = '';
+                $scope.selectedBooklet = data.booklet_id;
                 $scope.reload();
-                $scope.selectedBooklet = data.book_id;
             }).error(function(data, status) {
                 switch (status) {
                     case 400:
@@ -166,25 +166,27 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', 'BookletSv
                 }
             });
         };
-        $scope.selectBooklet = function(book_id) {
-            if ($scope.selectedBooklet === book_id) {
+        $scope.selectBooklet = function(booklet_id) {
+            if ($scope.selectedBooklet === booklet_id) {
                 $scope.selectedBooklet = false;
             } else {
-                $scope.selectedBooklet = book_id;
+                $scope.selectedBooklet = booklet_id;
             }
         };
-        $scope.duplicateBooklet = function(book_id) {
-            
+        $scope.duplicateBooklet = function(booklet_id) {
+            BookletSvc.duplicate(booklet_id, function(data) {
+                $scope.selectedBooklet = data.booklet_id;
+                $scope.reload();
+            });
         };
-        $scope.deleteBooklet = function(book_id) {
-            BookletSvc.delete(book_id).success(function() {
-                if ($scope.selectedBooklet === book_id) {
+        $scope.deleteBooklet = function(booklet_id) {
+            BookletSvc.delete(booklet_id).success(function() {
+                if ($scope.selectedBooklet === booklet_id) {
                     $scope.selectedBooklet = false;
                 }
                 $scope.reload();
             });
         };
-
         $scope.reload();
     }
 ]);

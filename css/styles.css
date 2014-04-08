@@ -121,13 +121,14 @@ header {
 
 #slogan h1 {
     font-family: 'HelveticaNeueThin',Arial;
-    font-weight: 900;
+    font-weight: bolder;
     font-size: 16px;
     margin: 2px;
 }
 
 #slogan h2 {
     font-family: 'EurostileNormalRegular', Arial;
+    font-weight: normal;
     font-size: 14px;
     color: #808080;
     margin: 2px;
@@ -236,8 +237,7 @@ h2 {
     font-weight:bolder;
     font-size:18px;
     line-height:1.2em;
-    margin-bottom:20px
-}
+    margin-bottom:20px}
 h2 span {
     color:#f85811
 }

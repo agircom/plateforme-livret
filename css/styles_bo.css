@@ -48,4 +48,48 @@ margin:0;
 
 .plate{
     width:85%;
-    float: left;}
+    float: left;
+    margin-left: 20px;
+}
+
+/* mes livrets */
+#booklet-create {
+    margin: 0 0 20px 20px;
+    border-bottom: 1px #DD6B5C solid;    
+}
+
+.titre-creer-livret {
+   
+}
+.titre-creer-livret h2 {
+    font-family: 'HelveticaNeueThin', Arial;
+    /* width: 300px; */
+    color: #DD6B5C;
+    font-size: 16px;
+    text-transform:uppercase;
+    margin-bottom: 0;
+}
+
+.titre-creer-livret img {
+  vertical-align: middle; 
+}
+
+#booklets-list {
+    margin-left: 20px;
+}
+
+.form-creer-livret{
+    margin: 0 0 10px 0;    
+}
+
+.form-creer-livret label{
+    font-weight: bold;
+}
+
+#booklets-list h1 {
+    padding: 15px;
+    background-color: #DD6B5C;
+    -webkit-border-radius: 0px 20px 0px 20px;
+    color: #fff;
+    text-transform: uppercase;
+}

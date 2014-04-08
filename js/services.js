@@ -157,17 +157,25 @@ FeaderAppServices.factory('BookletSvc', ['ApiSvc',
             getAll: function() {
                 return ApiSvc.getBooklet();
             },
-            get: function(book_id) {
-                return ApiSvc.getBooklet(book_id);
+            get: function(booklet_id) {
+                return ApiSvc.getBooklet(booklet_id);
             },
-            create: function(book_name) {
-                return ApiSvc.postBooklet(book_name);
+            create: function(booklet_name) {
+                return ApiSvc.postBooklet(booklet_name);
             },
-            update: function(book_id, book_data) {
-                return ApiSvc.putBooklet(book_id, book_data);
+            duplicate: function(booklet_id, cbSuccess) {
+                ApiSvc.getBooklet(booklet_id).success(function(data) {
+                    var copyDate = new Date();
+                    ApiSvc.postBooklet(data.booklet.name + ' (copie du ' + copyDate.toLocaleString() + ')').success(function(data) {
+                        cbSuccess(data);
+                    });
+                });
             },
-            delete: function(book_id) {
-                return ApiSvc.deleteBooklet(book_id);
+            update: function(booklet_id, booklet_data) {
+                return ApiSvc.putBooklet(booklet_id, booklet_data);
+            },
+            delete: function(booklet_id) {
+                return ApiSvc.deleteBooklet(booklet_id);
             }
         };
     }

@@ -1,7 +1,16 @@
-<div ng-show="booklets.length === 0" id="booklet-create">
+<div id="booklet-create">
     <span>Creer mon livret maintenant</span>
     <br>
+    <div ng-if="error !== ''" ng-bind="error" style="color: red"></div>
     <label for="booklet-create-name">Nom de mon livret</label>
-    <input type="text" ng-model="newBookName" id="booklet-create-name">
+    <input type="text" id="booklet-create-name" ng-model="newBookName" ng-trim="true" placeholder="entrez le nom de votre livret">
     <a href="#" onclick="return false;" ng-click="bookCreate()">OK</a>
 </div>
+<ul ng-if="booklets.length > 0" id="booklets-list">
+    
+    <li ng-repeat="booklet in booklets | orderBy:'name'">
+        <a href="#" onclick="return false;" ng-click="selectBooklet(booklet.id)">{{booklet.name}}</a>
+        <a href="#" onclick="return false;" ng-click="copyBooklet(booklet.id)">Dupliquer</a>
+        <a href="#" onclick="return false;" ng-click="deleteBooklet(booklet.id)">Supprimer</a>
+    </li>
+</ul>

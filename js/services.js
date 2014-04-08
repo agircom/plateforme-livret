@@ -133,9 +133,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                     return $http.get(this.apiUrl + '/booklets');
                 }
             },
-            postBooklet: function(book_data) {
+            postBooklet: function(book_name) {
                 return $http.post(this.apiUrl + '/booklet', {
-                    book_data: book_data
+                    name: book_name
                 });
             },
             putBooklet: function(book_id, book_data) {
@@ -160,8 +160,8 @@ FeaderAppServices.factory('BookletSvc', ['ApiSvc',
             get: function(book_id) {
                 return ApiSvc.getBooklet(book_id);
             },
-            create: function(book_data) {
-                return ApiSvc.postBooklet(book_data);
+            create: function(book_name) {
+                return ApiSvc.postBooklet(book_name);
             },
             duplicate: function(book_id) {
                 var book_data = this.get(book_id);

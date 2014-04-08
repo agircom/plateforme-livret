@@ -99,13 +99,48 @@ $app->post('/user', function() use($app) {
 });
 
 $app->get('/booklets', function() use ($app) {
-    $data = array('booklets'=>false);
+    // retrieve user
     $user_record = retrieveUserByToken();
-    $user_books = R::findAll('books', 'user=?', array($user_record->id));
+    $data = array('booklets' => false);
+    // retrieve booklets by user
+    $user_books = R::findAll('booklet', 'user=?', array($user_record->id));
     if (count($user_books) > 0) {
-        echo json_encode($user_books->exportAll());
+        $data['booklets'] = R::exportAll($user_books);
     }
     echo json_encode($data);
+});
+
+$app->get('/booklet/:book_id', function($book_id) use ($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    $data = array('booklet' => false);
+    // retrieve booklet by id
+    $booklet_record = R::findOne('booklet', 'id=? && user=?', array($book_id, $user_record->id));
+    if (!is_null($booklet_record)) {
+        $data['booklet'] = $booklet_record->export();
+    }
+    echo json_encode($data);
+});
+
+$app->post('/booklet', function() use ($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    $data = json_decode($app->request->getBody(), true);
+    if (!key_exists('name', $data) || is_null($data['name'])) {
+        // bad params
+        $app->response()->status(400);
+    } else {
+        $givenName = $data['name'];
+        $date = new DateTime();
+        // create new booklet
+        $booklet_record = R::dispense('booklet');
+        $booklet_record->user = $user_record->id;
+        $booklet_record->name = $givenName;
+        $booklet_record->date_create = $date;
+        $booklet_record->date_last_update = null;
+        $book_id = R::store($booklet_record);
+        echo json_encode(array('booklet_id' => $book_id));
+    }
 });
 
 // run REST Api

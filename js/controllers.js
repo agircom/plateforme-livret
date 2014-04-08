@@ -134,19 +134,36 @@ FeaderAppControllers.controller('BackofficeCtrl.Home', ['$scope',
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', 'BookletSvc',
     function($scope, BookletSvc) {
+        $scope.newBookName = '';
         $scope.booklets = [];
         $scope.selectedBooklet = false;
+        $scope.error = '';
         $scope.reload = function() {
             BookletSvc.getAll().success(function(data) {
-                if (data.booklets) {
-                    $scope.booklets = data;
+                if (data.booklets !== false) {
+                    $scope.booklets = data.booklets;
                 }
             });
         };
         $scope.bookCreate = function() {
+            $scope.error = '';
+            if ($scope.newBookName.length === 0) {
+                $scope.error = 'Vous devez saisir un nom de livret';
+                return;
+            }
             BookletSvc.create($scope.newBookName).success(function(data) {
+                $scope.newBookName = '';
                 $scope.reload();
                 $scope.selectedBooklet = data.book_id;
+            }).error(function(data, status) {
+                switch (status) {
+                    case 400:
+                        $scope.error = 'Vous devez saisir un nom de livret';
+                        break;
+                    default:
+                        $scope.error = 'Une erreur est survenue lors de la creation du livret';
+                        break;
+                }
             });
         };
         $scope.reload();

@@ -7,9 +7,9 @@
     <div ng-hide="loginInProgress">
         <div ng-if="!User.isLogged()" id="formlogin">
             <div ng-if="error !== ''" ng-bind="error" class="message_error"><br></div>
-            Login :<input type="text" ng-model="$parent.identifiant">
+            <span style="padding-right: 25px">Login :</span><input type="text" ng-model="$parent.identifiant">
             <br>
-            Password :<input type="password" ng-model="$parent.passwd">
+            <span>Password :</span><input type="password" ng-model="$parent.passwd">
             <br>
             <input type="button" value="Connexion" ng-click="login()">
             <div>

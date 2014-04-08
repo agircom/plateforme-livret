@@ -7,6 +7,48 @@ and open the template in the editor.
     Created on : 7 mars 2014, 16:45:16
     Author     : SH
 */
+	@font-face {
+        font-family: 'EurostileNormalRegular';
+        src: url('font/eurostile-normal.eot');
+        src: url('font/eurostile-normal.eot') format('embedded-opentype'),
+         url('font/eurostile-normal.woff') format('woff'),
+         url('font/eurostile-normal.ttf') format('truetype'),
+         url('font/eurostile-normal.svg#EurostileNormalRegular') format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+	@font-face {
+        font-family: 'HelveticaNeueThin';
+        src: url('font/789611817-helvetica-neue-thin-1361522098.eot');
+        src: url('font/789611817-helvetica-neue-thin-1361522098.eot?#iefix') format('embedded-opentype'),
+        url('font/789611817-helvetica-neue-thin-1361522098.svg#HelveticaNeue') format('svg'),
+        url('font/789611817-helvetica-neue-thin-1361522098.woff') format('woff'),
+        url('font/789611817-helvetica-neue-thin-1361522098.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+	@font-face {
+        font-family: 'HelveticaNeueRegular';
+        src: url('font/345520020-helvetica-neue-regular-1361522098.eot');
+        src: url('font/345520020-helvetica-neue-regular-1361522098.eot?#iefix') format('embedded-opentype'),
+        url('font/345520020-helvetica-neue-regular-1361522098.svg#HelveticaNeue') format('svg'),
+        url('font/345520020-helvetica-neue-regular-1361522098.woff') format('woff'),
+        url('font/345520020-helvetica-neue-regular-1361522098.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+    
+	@font-face {
+        font-family: 'Arial';
+        src: url('font/867950440-ArialMT.eot');
+        src: url('font/867950440-ArialMT.eot?#iefix') format('embedded-opentype'),
+        url('font/867950440-ArialMT.svg#Arial') format('svg'),
+        url('font/867950440-ArialMT.woff') format('woff'),
+        url('font/867950440-ArialMT.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+    
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -78,11 +120,14 @@ header {
 }
 
 #slogan h1 {
+    font-family: 'HelveticaNeueThin',Arial;
+    font-weight: 900;
     font-size: 16px;
     margin: 2px;
 }
 
 #slogan h2 {
+    font-family: 'EurostileNormalRegular', Arial;
     font-size: 14px;
     color: #808080;
     margin: 2px;
@@ -150,9 +195,8 @@ input,select,textarea {
     vertical-align:middle;
     font-weight:normal;
     color:#5c5c5c;
-    margin:0;
-    padding:0
-}
+    margin: 0;
+    padding: 0;}
 fieldset {
     border:0
 }
@@ -187,9 +231,10 @@ h1 {
     font-size: 18px 
 }
 h2 {
+    font-family: 'HelveticaNeueThin',Arial;
     color:#000;
-    font-weight:normal;
-    font-size:16px;
+    font-weight:bolder;
+    font-size:18px;
     line-height:1.2em;
     margin-bottom:20px
 }
@@ -216,7 +261,7 @@ aside .inside {
 }
 aside h2 {
     letter-spacing:-1px;
-    font-weight:normal;
+    font-weight: bolder;
     font-size:18px;
     line-height:1.2em;
     margin-bottom:10px
@@ -302,7 +347,9 @@ footer .inside {
 }
 
 .presentation-livret h1 {
-    padding: 20px 0 0 20px;
+    font-family: 'HelveticaNeueThin',Arial;
+    font-weight: bolder;
+    padding: 20px 0 10px 20px;
     font-size:16px;
     text-transform:uppercase;
 }
@@ -313,11 +360,12 @@ footer .inside {
 
 .contenu-presentation-livret p {
     text-transform:uppercase;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
 }
 .contenu-presentation-livret li {
     font-size: 12px;
+    margin-left: 30px;
 }
 .bas-presentation-livret{
     width: 100%;

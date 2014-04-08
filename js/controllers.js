@@ -187,6 +187,21 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', 'BookletSv
                 $scope.reload();
             });
         };
+        $scope.createFolio = function(booklet_id, folio_type) {
+            switch(folio_type) {
+                case 'folio1':
+                    
+                    break;
+                case 'folio2':
+                    break;
+                case 'folio3':
+                    break;
+                case 'folio4':
+                    break;
+                case 'folio5':
+                    break;
+            }
+        };
         $scope.reload();
     }
 ]);

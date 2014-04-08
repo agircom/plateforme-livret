@@ -107,6 +107,7 @@ $app->get('/booklets', function() use ($app) {
     if (count($user_books) > 0) {
         $data['booklets'] = R::exportAll($user_books);
     }
+    // retrieve booklets 
     echo json_encode($data, JSON_NUMERIC_CHECK);
 });
 

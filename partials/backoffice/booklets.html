@@ -2,7 +2,6 @@
     <div class="titre-creer-livret">
         <h2>Creer mon livret maintenant<img src="images/mes-livrets.png" alt="mes-livrets" title="Mes livrets" width="48" height="48"/></h2>        
     </div>
-    <br>
     <div class="form-creer-livret">
         <div ng-if="error !== ''" ng-bind="error" style="color: red"></div>
         <label for="booklet-create-name">Nom de mon livret</label>
@@ -13,9 +12,17 @@
 <ul id="booklets-list">
     <li ng-repeat="booklet in booklets| orderBy:'name'">
         <div class="booklet-list-header">
-            <a style="font-size:18px; padding-right:400px" href="#" onclick="return false;" ng-click="selectBooklet(booklet.id)">{{booklet.name}}</a>
-            <a style="font-size:12px; text-align:left" href="#" onclick="return false;" ng-click="duplicateBooklet(booklet.id)">Dupliquer</a>
-            <a style="font-size:12px; text-align:left" href="#" onclick="return false;" ng-click="deleteBooklet(booklet.id)">Supprimer</a>
+            <a style="font-size:18px; padding-right:400px" href="#" onclick="return false;" ng-click="selectBooklet(booklet.id)">
+                {{booklet.name}}
+            </a>
+            <a style="font-size:12px; float:right;" href="#" onclick="return false;" ng-click="deleteBooklet(booklet.id)">
+                <img src="images/supprimer.png" width="32" height="32" alt="Supprimer" title="Supprimer"/>
+                Supprimer
+            </a>
+            <a style="font-size:12px; float:right;" href="#" onclick="return false;" ng-click="duplicateBooklet(booklet.id)">
+                <img src="images/dupliquer.png" width="32" height="32" alt="dupliquer" title="Dupliquer"/>
+                Dupliquer
+            </a>
         </div>
         <div class="booklet-list-body" ng-show="booklet.id === selectedBooklet">
             <div style="background-color: #fff; width:100%;">

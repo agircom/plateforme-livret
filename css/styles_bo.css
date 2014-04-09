@@ -118,35 +118,26 @@ h3{
 }
 
 .pochette {
+}
+
+.folio {
     width:20%;
+    text-align:center;
     float: left;
     display: inline-block;
 }
 
-.pres-terrritoire {
-    width:20%;
-    float: left;
-    display: inline-block;
+.folio img{
+    padding: 15px 0 15px 0;
 }
 
-.offre-locale {
-    width:20%;
-    float: left;
-    display: inline-block;
+.folio button{
+    background-color: #00a295;
+    color:#fff;
+    text-transform: uppercase;
+    -webkit-border-radius: 0px 20px 0px 20px;
+    padding:5px;
 }
-
-.bien-vivre {
-    width:20%;
-    float: left;
-    display: inline-block;
-}
-
-.agenda {
-    width:20%;
-    float: left;
-    display: inline-block;
-}
-
 /* doc pres territoire */
 
 .cadre-pres-territoire{

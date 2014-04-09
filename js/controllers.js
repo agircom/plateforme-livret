@@ -146,6 +146,9 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$location
             });
         };
         $scope.isFolioTypePresent = function(index, folio_type) {
+            if ($scope.booklets[index].ownFolio === undefined) {
+                return false;
+            }
             for (var i = 0; i < $scope.booklets[index].ownFolio.length; ++i) {
                 if ($scope.booklets[index].ownFolio[i].type === folio_type) {
                     return true;

@@ -147,4 +147,17 @@ h3{
     display: inline-block;
 }
 
+/* doc pres territoire */
+
+.cadre-pres-territoire{
+    overflow:auto;
+    width: 100%;
+}
+
+.template-pres-territoire{
+    width:30%;
+    float: left;
+    display: inline-block;
+}
+
 

@@ -147,7 +147,7 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                 return $http.delete(this.apiUrl + '/booklet/' + booklet_id);
             },
             postFolio: function(booklet_id, folio_type) {
-                
+                return $http.post(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_type);
             }
         };
     }

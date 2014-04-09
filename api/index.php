@@ -159,6 +159,39 @@ $app->delete('/booklet/:booklet_id', function($booklet_id) use ($app) {
     }
 });
 
+$app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $folio_type) use ($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    // retrieve booklet
+    $booklet_record = retrieveBookletById($booklet_id);
+    if ($booklet_record->user !== $user_record->id) {
+        // current user is not the booklet owner
+        $app->response()->status(401);
+    } else {
+        // check if booklet already have folio type
+        $present = false;
+        foreach ($booklet_record->ownFolioList as $folio) {
+            if ($folio->type === $folio_type) {
+                $present = true;
+            }
+        }
+        if ($present) {
+            // folio type already exists for this booklet
+            $app->response()->status(423);
+        } else {
+            // TODO: check if folio type template exists in database
+            // create folio
+            $folio_record = R::dispense('folio');
+            $folio_record->type = $folio_type;
+            $folio_record->content = 'folio template : ' . $folio_type;
+//            $folio_id = R::store($folio_record);
+            // update booklet with new folio
+            $booklet_record->ownFolioList[] = $folio_record;
+            echo json_encode(R::store($booklet_record), JSON_NUMERIC_CHECK);
+        }
+    }
+});
+
 // run REST Api
 $app->run();
 R::close();

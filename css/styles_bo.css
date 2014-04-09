@@ -150,6 +150,7 @@ h3{
 /* doc pres territoire */
 
 .cadre-pres-territoire{
+    padding-left: 20px;
     overflow:auto;
     width: 100%;
 }
@@ -158,6 +159,17 @@ h3{
     width:30%;
     float: left;
     display: inline-block;
+}
+
+.template-pres-territoire h3{
+    background-color:#00a295;
+    -webkit-border-radius: 0px 10px 0px 10px;
+    padding: 5px;
+    color: #fff;
+    text-tranform:uppercase;
+    width:100px;
+    font-family: Arial;
+    text-align: center;
 }
 
 

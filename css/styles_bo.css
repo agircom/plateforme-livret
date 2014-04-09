@@ -62,7 +62,7 @@ margin:0;
    
 }
 .titre-creer-livret h2 {
-    font-family: 'HelveticaNeueThin', Arial;
+    font-family: 'EurostileNormalRegular', Arial;
     /* width: 300px; */
     color: #DD6B5C;
     font-size: 16px;
@@ -166,7 +166,7 @@ h3{
     -webkit-border-radius: 0px 10px 0px 10px;
     padding: 5px;
     color: #fff;
-    text-tranform:uppercase;
+    text-transform:uppercase;
     width:100px;
     font-family: Arial;
     text-align: center;

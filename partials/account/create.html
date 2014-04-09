@@ -1,23 +1,53 @@
 <div class="wrapper">
     <section id="content">
+        <h4>Vous souhaitez créer un livret d’accueil personnalisé pour les habitants de votre territoire. Créez maintenant votre compte pour accéder à la plate-forme.  
+Ce compte est l’unique accès à votre livret. Ce livret n’est modifiable qu’après la saisie de vos identifiants. Si vous souhaitez que d’autres personnes contribuent, pensez à leur communiquer votre login et votre mot de passe. 
+Les champs obligatoires sont indiqués par un *</h4>
         <div ng-if="message.show" 
              ng-bind="message.text" 
              ng-class="{message_success: message.type === 'success', message_error: message.type === 'error'}">
         </div>
         <div ng-hide="message.show && message.type === 'success'" id="form-subscribe">
-            <label for="form-subscribe-identifiant">Adresse e-mail</label>
-            <input type="text" ng-model="userInfos.username" id="form-subscribe-identifiant">
-            <br>
-            <label for="form-subscribe-passwd">Mot de passe</label>
-            <input type="password" ng-model="userInfos.passwd" id="form-subscribe-passwd">
-            <br>
-            <label for="form-subscribe-firstname">Pr&eacute;nom</label>
-            <input type="text" ng-model="userInfos.firstName" id="form-subscribe-firstname">
-            <br>
-            <label for="form-subscribe-lastname">Nom</label>
-            <input type="text" ng-model="userInfos.lastName" id="form-subscribe-lastname">
-            <br>
-            <button ng-click="create()">S'inscrire</button>
+            <fieldset>
+                <legend>Votre identité</legend>
+                <label for="form-subscribe-name-compagny">Nom de votre structure* : </label>
+                <input type="text" ng-model="userInfos.username" id="form-subscribe-name-compagny">
+                <br>
+                <label for="form-subscribe-lastname">Nom référent (responsable de la saisie du livret)* :</label>
+                <input type="text" ng-model="userInfos.lastName" id="form-subscribe-lastname">
+                <br>
+                <label for="form-subscribe-firstname">Pr&eacute;nom référent*</label>
+                <input type="text" ng-model="userInfos.firstName" id="form-subscribe-firstname">
+                <br>
+                <label for="form-subscribe-fonction">Fonction : </label>
+                <input type="text" ng-model="userInfos.fonction" id="form-subscribe-fonction">
+                <br>
+                <label for="form-subscribe-identifiant">Adresse e-mail* :</label>
+                <input type="text" ng-model="userInfos.username" id="form-subscribe-identifiant">
+                <br>
+                <label for="form-subscribe-identifiant">Confirmez Adresse e-mail* :</label>
+                <input type="text" ng-model="userInfos.username" id="form-subscribe-identifiant">
+                <br>
+                <label for="form-subscribe-phone">Téléphone :</label>
+                <input type="text" ng-model="userInfos.phone" id="form-subscribe-phone">
+                <br>
+                <label for="form-subscribe-adress">Adresse* :</label>
+                <input type="text" ng-model="userInfos.adress" id="form-subscribe-adress">
+                <br>
+                <label for="form-subscribe-cp">Code Postal* :</label>
+                <input type="text" ng-model="userInfos.cp" id="form-subscribe-cp">
+                <br>
+                <label for="form-subscribe-passwd">Mot de passe* :</label>
+                <input type="password" ng-model="userInfos.passwd" id="form-subscribe-passwd">
+                <br>   
+                <label for="form-subscribe-passwd">Confirmez Mot de passe* :</label>
+                <input type="password" ng-model="userInfos.passwd" id="form-subscribe-passwd">
+                <br> 
+                <label for="form-subscribe-accept">J’accepte les conditions d’utilisation de la plate-forme (<a href="">Consulter les conditions d’utilisation</a>) :</label>
+                <input style="width:auto;" type="checkbox" ng-model="userInfos.accept" id="form-subscribe-accept">
+                <br>
+                <button ng-click="create()">Valider</button>
+            </fieldset>
         </div>
     </section>
     <aside ng-include="'partials/home/right.html'"></aside>

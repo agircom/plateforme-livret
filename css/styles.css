@@ -36,6 +36,7 @@ and open the template in the editor.
         url('font/345520020-helvetica-neue-regular-1361522098.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
+        letter-spacing:15px;
     }
     
 	@font-face {
@@ -91,36 +92,41 @@ html,body {
 }
 
 /* Global Structure */
+#rrhn-app {min-height: 100%}
 #main {
-    font-size: .814em;}
+    /* margin:0 auto; */
+    /* width: 90%; */
+    font-size: .814em;
+    overflow:auto;
+    padding-bottom: 150px}
 /* Header */
 header {
-    height:100px;
-    margin:0 auto;
+    height: 120px;
+    margin:0 auto; 
     width: 1000px;
     overflow:hidden;
     position:relative
 }
 #logo {
-    width:231px;
+    width: 221px;
     height:76px;
     background:url(../images/logo-reseau-rural.png) no-repeat;
     float:left;
 }
 #slogan {
-    width:500px;
+    width: 500px;
     position:relative;
     float:left;
     margin:40px 40px 0 0;
 }
 #slogan img {
     position:absolute;
-    right:-7px;
+    right: -7px;
     bottom:0px;
 }
 
 #slogan h1 {
-    font-family: 'HelveticaNeueThin',Arial;
+    font-family: 'EurostileNormalRegular',Arial;
     font-weight: bolder;
     font-size: 16px;
     margin: 2px;
@@ -140,25 +146,29 @@ header {
 }
 
 /* Content */
+container {    
+    width: 739px;
+    float:left}
 section#content {
-    width:739px;
+    width: 739px;
     float:left
 }
 
 /* Sidebar */
-aside {float:left;
-       width:261px
-}
+aside {float:right;
+       width: 260px;}
 /* Footer */
 footer {
-    position: absolute;
-    bottom: 0px;
+    /* position: relative; */
+    /* bottom: 0px; */
     text-align:center;
     width: 100%;
     height: 50px;
     font-size:0.814em;
     line-height:1.538em;
-    border-top:3px solid #666666;}
+    border-top:3px solid #666666;
+    margin-top:20px;
+    margin-bottom:20px;}
 footer a {
     color:#808080;
     text-decoration: none;
@@ -185,12 +195,12 @@ footer a {
 }
 .wrapper {
     margin:0 auto;
-    width:1000px;
+    width: 1024px;
     overflow:hidden
 }
 
 /* form defaults */
-input,select,textarea {
+/*input,select,textarea {
     font-family:Arial,Helvetica,sans-serif;
     font-size:1em;
     vertical-align:middle;
@@ -200,8 +210,75 @@ input,select,textarea {
     padding: 0;}
 fieldset {
     border:0
+} */
+form {
+ background-color:#FAFAFA;
+ padding:10px;
+ width:280px;
+ }
+fieldset {
+ padding:0 20px 20px 20px;
+ margin-bottom:10px;
+ border: 1px solid #de7e08;
+ }
+legend {
+ color: #de7e08;
+ font-weight:bold
+ }
+label {
+ margin-top:10px;
+ display:block;
+ }
+label.inline {
+ display:inline;
+ margin-right:50px;
+ }
+input, textarea, select, option {
+ background-color:#FFF3F3;
+ }
+input, textarea, select {
+ padding:3px;
+ border:1px solid #F5C5C5;
+ border-radius:5px;
+ width: 120px;
+ box-shadow:1px 1px 2px #C0C0C0 inset;
+ }
+select {
+ margin-top:10px;
+ }
+input[type=radio] {
+ background-color:transparent;
+ border:none;
+ width:10px;
+ }
+input[type=submit], input[type=reset] {
+ width:100px;
+ margin-left:5px;
+ box-shadow:1px 1px 1px #D83F3D;
+ cursor:pointer;
+ }
+ 
+ input:focus, textarea:focus {
+ background-color:white;
+ }
+input[type=submit]:focus, input[type=reset]:focus {
+ background-color:#FFF3F3;
 }
 
+input[type=submit]:hover, input[type=reset]:hover {
+ background-color:#FCDEDE;
+ }
+input[type=submit]:active, input[type=reset]:active {
+ background-color:#FCDEDE;
+ box-shadow:1px 1px 1px #D83F3D inset;
+}
+
+button {
+ width:100px;
+ margin-left:5px;
+ box-shadow:1px 1px 1px #D83F3D;
+ cursor:pointer;
+ }
 /* autres */
 p {
     margin-bottom:20px;
@@ -232,9 +309,9 @@ h1 {
     font-size: 18px 
 }
 h2 {
-    font-family: 'HelveticaNeueThin',Arial;
+    font-family: 'EurostileNormalRegular',Arial;
     color:#000;
-    font-weight:bolder;
+    font-weight: bolder;
     font-size:18px;
     line-height:1.2em;
     margin-bottom:20px}
@@ -324,8 +401,8 @@ aside h2 {
 
 .partenaire-sidebar{
     display:block;
-    position: absolute;
-    padding-top:100px;
+    /* position: absolute; */
+    /* padding-top:100px; */
 }
 
 .partenaire-sidebar img{
@@ -347,7 +424,7 @@ footer .inside {
 }
 
 .presentation-livret h1 {
-    font-family: 'HelveticaNeueThin',Arial;
+    font-family: 'EurostileNormalRegular',Arial;
     font-weight: bolder;
     padding: 20px 0 10px 20px;
     font-size:16px;
@@ -420,3 +497,4 @@ footer .inside {
 .img-demarche-accueil{
     margin: 10px 20px 0 0;
 }
+

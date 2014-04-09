@@ -22,7 +22,8 @@
             <div class="pochette">
                 <h3> > La Pochette</h3>
                 <img src="images/phototheque.png" alt="phototheque" title="Photothèque"/>
-                <button ng-click="createFolio(booklet.id, 'folio1')">Commencer maintenant</button>
+                <button ng-if="!isFolioTypePresent($index,'folio1')" ng-click="createFolio(booklet.id, 'folio1')">Commencer maintenant</button>
+                <button ng-if="isFolioTypePresent($index, 'folio1')">Modifier</button>
                 <br>
                 <span>Pochette Format A3 (recto/verso)</span>
             </div>

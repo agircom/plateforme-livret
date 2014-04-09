@@ -142,11 +142,15 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$location
             BookletSvc.getAll().success(function(data) {
                 if (data.booklets !== false) {
                     $scope.booklets = data.booklets;
-                    console.log(data.booklets);
                 }
             });
         };
-        $scope.isFolioTypePresent = function(folio_type) {
+        $scope.isFolioTypePresent = function(index, folio_type) {
+            for (var i = 0; i < $scope.booklets[index].ownFolio.length; ++i) {
+                if ($scope.booklets[index].ownFolio[i].type === folio_type) {
+                    return true;
+                }
+            }
             return false;
         };
         $scope.createBooklet = function() {

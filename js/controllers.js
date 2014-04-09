@@ -201,7 +201,9 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$location
         $scope.createFolio = function(booklet_id, folio_type) {
             switch(folio_type) {
                 case 'folio1':
-                    BookletSvc.createFolio(booklet_id, folio_type);
+                    BookletSvc.createFolio(booklet_id, folio_type).success(function(data) {
+                        $scope.reload();
+                    });
                     break;
                 case 'folio2':
                     $location.path('/plateforme/booklet/' + booklet_id + '/folio2');
@@ -214,7 +216,15 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$location
                     break;
             }
         };
+        $scope.editFolio = function(booklet_id, folio_id) {
+            $location.path('/plateforme/booklet/' + booklet_id + '/folio/' + folio_id);
+        };
         $scope.reload();
+    }
+]);
+FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams',
+    function($scope, $routeParams) {
+        $scope.folio_id = $routeParams.folio_id;
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Account', ['$scope',

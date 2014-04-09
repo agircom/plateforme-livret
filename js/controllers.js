@@ -132,8 +132,8 @@ FeaderAppControllers.controller('BackofficeCtrl.Home', ['$scope',
 
     }
 ]);
-FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', 'BookletSvc',
-    function($scope, BookletSvc) {
+FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$location', 'BookletSvc',
+    function($scope, $location, BookletSvc) {
         $scope.newBookName = '';
         $scope.booklets = [];
         $scope.selectedBooklet = false;
@@ -190,9 +190,10 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', 'BookletSv
         $scope.createFolio = function(booklet_id, folio_type) {
             switch(folio_type) {
                 case 'folio1':
-                    
+                    BookletSvc.createFolio(booklet_id, folio_type);
                     break;
                 case 'folio2':
+                    $location.path('/plateforme/booklet/' + booklet_id + '/folio2');
                     break;
                 case 'folio3':
                     break;

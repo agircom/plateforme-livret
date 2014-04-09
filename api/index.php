@@ -137,6 +137,7 @@ $app->post('/booklet', function() use ($app) {
         $booklet_record = R::dispense('booklet');
         $booklet_record->user = $user_record->id;
         $booklet_record->name = $givenName;
+        $booklet_record->ownFolioList = array();
         $booklet_record->date_create = $date;
         $booklet_record->date_last_update = null;
         $book_id = R::store($booklet_record);

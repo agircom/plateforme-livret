@@ -126,25 +126,28 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                     userInfos: userInfos
                 });
             },
-            getBooklet: function(book_id) {
-                if (book_id !== undefined) {
-                    return $http.get(this.apiUrl + '/booklet/' + book_id);
+            getBooklet: function(booklet_id) {
+                if (booklet_id !== undefined) {
+                    return $http.get(this.apiUrl + '/booklet/' + booklet_id);
                 } else {
                     return $http.get(this.apiUrl + '/booklets');
                 }
             },
-            postBooklet: function(book_name) {
+            postBooklet: function(booklet_name) {
                 return $http.post(this.apiUrl + '/booklet', {
-                    name: book_name
+                    name: booklet_name
                 });
             },
-            putBooklet: function(book_id, book_data) {
-                return $http.put(this.apiUrl + '/booklet/' + book_id, {
-                    book_data: book_data
+            putBooklet: function(booklet_id, booklet_data) {
+                return $http.put(this.apiUrl + '/booklet/' + booklet_id, {
+                    book_data: booklet_data
                 });
             },
-            deleteBooklet: function(book_id) {
-                return $http.delete(this.apiUrl + '/booklet/' + book_id);
+            deleteBooklet: function(booklet_id) {
+                return $http.delete(this.apiUrl + '/booklet/' + booklet_id);
+            },
+            postFolio: function(booklet_id, folio_type) {
+                
             }
         };
     }
@@ -162,6 +165,12 @@ FeaderAppServices.factory('BookletSvc', ['ApiSvc',
             },
             create: function(booklet_name) {
                 return ApiSvc.postBooklet(booklet_name);
+            },
+            createFolio: function(booklet_id, folio_type) {
+                return ApiSvc.postFolio(booklet_id, folio_type);
+            },
+            createSheet: function() {
+                
             },
             duplicate: function(booklet_id, cbSuccess) {
                 ApiSvc.getBooklet(booklet_id).success(function(data) {

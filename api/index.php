@@ -1,6 +1,7 @@
 <?php
 
-require_once 'RedBeanPHP' . DIRECTORY_SEPARATOR . 'rb.php';
+//require_once 'RedBeanPHP' . DIRECTORY_SEPARATOR . 'rb.php';
+require_once 'RedBeanPHP' . DIRECTORY_SEPARATOR . 'rb.phar';
 R::setup('mysql:host=localhost;dbname=feader', 'root', '');
 
 require_once 'Slim' . DIRECTORY_SEPARATOR . 'Slim.php';
@@ -97,7 +98,7 @@ $app->post('/user', function() use($app) {
             $user_record->date_last_connect = null;
             $user_record->session_token = null;
             $user_record->last_timestamp = null;
-            $user_record->ownBookletList = array();
+            $user_record->xownBookletList = array();
             $id = R::store($user_record);
             if (!is_int($id)) {
                 $app->response()->status(202);
@@ -115,7 +116,7 @@ $app->get('/booklets', function() use ($app) {
         return;
     }
     // export user booklets
-    $data = array('booklets' => R::exportAll($user_record->ownBooklet));
+    $data = array('booklets' => R::exportAll($user_record->xownBookletList));
     echo json_encode($data, JSON_NUMERIC_CHECK);
 });
 
@@ -126,12 +127,12 @@ $app->get('/booklet/:booklet_id', function($booklet_id) use ($app) {
         return;
     }
     // retrieve booklet
-    if (!isset($user_record->ownBooklet[$booklet_id])) {
+    if (!isset($user_record->xownBookletList[$booklet_id])) {
         // booklet doesn't exist or is not the owner
         $app->response()->status(404);
     } else {
         // send back booklet infos
-        $data = array('booklet' => $user_record->ownBooklet[$booklet_id]->export());
+        $data = array('booklet' => $user_record->xownBookletList[$booklet_id]->export());
         echo json_encode($data, JSON_NUMERIC_CHECK);
     }
 });
@@ -152,13 +153,13 @@ $app->post('/booklet', function() use ($app) {
         // create new booklet
         $booklet_record = R::dispense('booklet');
         $booklet_record->name = $givenName;
-        $booklet_record->ownFolioList = array();
+        $booklet_record->xownFolioList = array();
         $booklet_record->date_create = $date;
         $booklet_record->date_last_update = null;
         // save booklet to user
-        $user_record->ownBookletList[] = $booklet_record;
+        $user_record->xownBookletList[] = $booklet_record;
         R::store($user_record);
-        $last_booklet = end($user_record->ownBooklet);
+        $last_booklet = end($user_record->xownBookletList);
         $booklet_id = $last_booklet->id;
         echo json_encode(array('booklet_id' => $booklet_id), JSON_NUMERIC_CHECK);
     }
@@ -171,15 +172,19 @@ $app->post('/booklet/:booklet_id/duplicate', function($booklet_id) use ($app) {
         return;
     }
     // retrieve booklet
-    if (!isset($user_record->ownBooklet[$booklet_id])) {
+    if (!isset($user_record->xownBookletList[$booklet_id])) {
         // booklet doesn't exist or is not the owner
         $app->response()->status(404);
     } else {
         // duplicate booklet
-        
-        // send back booklet infos
-        $data = array('booklet' => $user_record->ownBooklet[$booklet_id]->export());
-        echo json_encode($data, JSON_NUMERIC_CHECK);
+        $new_booklet_record = R::dup($user_record->xownBookletList[$booklet_id]);
+        $new_booklet_record->name .= ' (copie du ' . date('d-m-Y \a H:i') . ')';
+        // store new booklet
+        $user_record->xownBookletList[] = $new_booklet_record;
+        R::store($user_record);
+        $last_booklet = end($user_record->xownBookletList);
+        $booklet_id = $last_booklet->id;
+        echo json_encode(array('booklet_id' => $booklet_id), JSON_NUMERIC_CHECK);
     }
 });
 
@@ -190,12 +195,12 @@ $app->delete('/booklet/:booklet_id', function($booklet_id) use ($app) {
         return;
     }
     // retrieve booklet
-    if (!isset($user_record->ownBooklet[$booklet_id])) {
-        // current user is not the booklet owner
-        $app->response()->status(401);
+    if (!isset($user_record->xownBookletList[$booklet_id])) {
+        // booklet doesn't exist or is not the owner
+        $app->response()->status(404);
     } else {
         // delete the booklet
-        unset($user_record->ownBooklet[$booklet_id]);
+        unset($user_record->xownBookletList[$booklet_id]);
         R::store($user_record);
     }
 });
@@ -207,14 +212,13 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
         return;
     }
     // retrieve booklet
-    $booklet_record = retrieveBookletById($booklet_id);
-    if ($booklet_record->user !== $user_record->id) {
-        // current user is not the booklet owner
-        $app->response()->status(401);
+    if (!isset($user_record->xownBookletList[$booklet_id])) {
+        // booklet doesn't exist or is not the owner
+        $app->response()->status(404);
     } else {
-        // check if booklet already have folio type
+        $booklet_record = $user_record->xownBookletList[$booklet_id];
         $present = false;
-        foreach ($booklet_record->ownFolioList as $folio) {
+        foreach ($booklet_record->xownFolioList as $folio) {
             if ($folio->type === $folio_type) {
                 $present = true;
             }
@@ -225,13 +229,18 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
         } else {
             // TODO: check if folio type template exists in database
             // create folio
+            $date = new DateTime();
             $folio_record = R::dispense('folio');
             $folio_record->type = $folio_type;
             $folio_record->content = 'folio template : ' . $folio_type;
-//            $folio_id = R::store($folio_record);
-            // update booklet with new folio
-            $booklet_record->ownFolioList[] = $folio_record;
-            echo json_encode(R::store($booklet_record), JSON_NUMERIC_CHECK);
+            $folio_record->date_create = $date;
+            $folio_record->date_last_update = null;
+            // save folio to booklet
+            $booklet_record->xownFolioList[] = $folio_record;
+            R::store($booklet_record);
+            $last_folio = end($booklet_record->xownFolioList);
+            $folio_id = $last_folio->id;
+            echo json_encode(array('folio_id' => $folio_id), JSON_NUMERIC_CHECK);
         }
     }
 });

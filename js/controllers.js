@@ -17,7 +17,8 @@ FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'User
             }
         };
         $scope.isAtHome = function() {
-            return ($location.path().split('/')[1] === 'home') ? true : false;
+            return ($location.path().split('/')[1] === 'home' || 
+                    $location.path() === '/account/create') ? true : false;
         };
         $scope.login = function() {
             $scope.loginInProgress = true;
@@ -236,7 +237,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$location
             }
         };
         $scope.duplicateBooklet = function(booklet_id) {
-            BookletSvc.duplicate(booklet_id, function(data) {
+            BookletSvc.duplicate(booklet_id).success(function(data) {
                 $scope.selectedBooklet = data.booklet_id;
                 $scope.reload();
             });

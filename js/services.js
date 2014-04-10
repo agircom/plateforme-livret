@@ -138,6 +138,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                     name: booklet_name
                 });
             },
+            postBookletDuplicate: function(booklet_id) {
+                return $http.post(this.apiUrl + '/booklet/' + booklet_id + '/duplicate');
+            },
             putBooklet: function(booklet_id, booklet_data) {
                 return $http.put(this.apiUrl + '/booklet/' + booklet_id, {
                     book_data: booklet_data
@@ -172,13 +175,8 @@ FeaderAppServices.factory('BookletSvc', ['ApiSvc',
             createSheet: function() {
                 
             },
-            duplicate: function(booklet_id, cbSuccess) {
-                ApiSvc.getBooklet(booklet_id).success(function(data) {
-                    var copyDate = new Date();
-                    ApiSvc.postBooklet(data.booklet.name + ' (copie du ' + copyDate.toLocaleString() + ')').success(function(data) {
-                        cbSuccess(data);
-                    });
-                });
+            duplicate: function(booklet_id) {
+                return ApiSvc.postBookletDuplicate(booklet_id);
             },
             update: function(booklet_id, booklet_data) {
                 return ApiSvc.putBooklet(booklet_id, booklet_data);

@@ -48,14 +48,3 @@ function retrieveUserByToken() {
     }
     return false;
 }
-
-function retrieveBookletById($booklet_id) {
-    global $app;
-    $booklet_record = R::findOne('booklet', 'id=?', array($booklet_id));
-    if (is_null($booklet_record)) {
-        // booklet doesn't exist
-        $app->response()->status(404);
-    } else {
-        return $booklet_record;
-    }
-}

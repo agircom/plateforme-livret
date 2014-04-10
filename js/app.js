@@ -16,11 +16,7 @@
             requireLogin: false
         },
         '/plateforme': {
-            templateUrl: 'partials/backoffice/home.html',
-            controller: 'BackofficeCtrl.Home',
-            requireMenu: true,
-            requireLogin: true,
-            requireAccess: [1, 2]
+            redirectTo: '/plateforme/booklets'
         },
         '/plateforme/booklets': {
             templateUrl: 'partials/backoffice/booklets.html',

@@ -82,12 +82,19 @@ $app->post('/user', function() use($app) {
             $user_record = R::dispense('user');
             $user_record->username = $givenUserInfos['username'];
             $user_record->passwd = $givenUserInfos['passwd'];
+            $user_record->name = $givenUserInfos['name'];
             $user_record->firstName = $givenUserInfos['firstName'];
             $user_record->lastName = $givenUserInfos['lastName'];
+            $user_record->fonction = (isset($givenUserInfos['lastName'])) ? $givenUserInfos['lastName'] : null;
+            $user_record->phone = (isset($givenUserInfos['phone'])) ? $givenUserInfos['phone'] : null;
+            $user_record->address = $givenUserInfos['address'];
+            $user_record->cp = $givenUserInfos['cp'];
+            $user_record->contract_accepted = $givenUserInfos['contract_accepted'];
             $user_record->date_create = new DateTime();
             $user_record->date_last_connect = null;
             $user_record->session_token = null;
             $user_record->last_timestamp = null;
+            $user_record->ownBookletList = array();
             $id = R::store($user_record);
             if (!is_int($id)) {
                 $app->response()->status(202);

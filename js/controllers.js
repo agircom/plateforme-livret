@@ -68,18 +68,58 @@ FeaderAppControllers.controller('HomeCtrl.Right', ['$scope', '$location',
 FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
     function($scope, UserSvc) {
         $scope.userInfos = {
-            username: null,
-            passwd: null,
+            name: null,
+            lastName: null,
             firstName: null,
-            lastName: null
+            fonction: null,
+            username: null,
+            phone: null,
+            address: null,
+            cp: null,
+            passwd: null,
+            contract_accepted: false
         };
+        $scope.username2 = '';
+        $scope.passwd2 = '';
         $scope.message = {
             type: null,
             text: '',
             show: false
         };
+        $scope.createInProgress = false;
         $scope.create = function() {
             $scope.message.show = false;
+            $scope.createInProgress = true;
+            if ($scope.userInfos.passwd !== $scope.passwd2) {
+                $scope.userInfos.passwd = '';
+                $scope.passwd2 = '';
+                $scope.showError('Vueillez saisir les meme mot de passe');
+                return;
+            }
+            if ($scope.userInfos.username !== $scope.username2) {
+                $scope.userInfos.passwd = '';
+                $scope.passwd2 = '';
+                $scope.showError('Vueillez saisir les meme adresse mail');
+                return;
+            }
+            if ($scope.userInfos.name === '' ||
+                    $scope.userInfos.lastName === '' ||
+                    $scope.userInfos.firstName === '' ||
+                    $scope.userInfos.address === '' ||
+                    $scope.userInfos.username === '' ||
+                    $scope.userInfos.cp === '' ||
+                    $scope.userInfos.passwd === '') {
+                $scope.userInfos.passwd = '';
+                $scope.passwd2 = '';
+                $scope.showError('Champs obligatoires non renseignes');
+                return;
+            }
+            if (!$scope.userInfos.contract_accepted) {
+                $scope.userInfos.passwd = '';
+                $scope.passwd2 = '';
+                $scope.showError('Vous devez accepter les conditions d\'utilisation avant de creer votre compte');
+                return;
+            }
             UserSvc.Subscribe($scope.userInfos,
                     function(data, status) {
                         var msg = '';
@@ -93,10 +133,16 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
                         }
                         $scope.showSuccess(msg);
                         $scope.userInfos = {
-                            username: null,
-                            passwd: null,
+                            name: null,
+                            lastName: null,
                             firstName: null,
-                            lastName: null
+                            fonction: null,
+                            username: null,
+                            phone: null,
+                            address: null,
+                            cp: null,
+                            passwd: null,
+                            contract_accepted: false
                         };
                     },
                     function(data, status) {
@@ -112,6 +158,8 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
                                 msg = 'Une erreur inconnue s\'est produite';
                                 break;
                         }
+                        $scope.userInfos.passwd = '';
+                        $scope.passwd2 = '';
                         $scope.showError(msg);
                     });
         };
@@ -119,11 +167,13 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
             $scope.message.type = 'error';
             $scope.message.text = message;
             $scope.message.show = true;
+            $scope.createInProgress = false;
         };
         $scope.showSuccess = function(message) {
             $scope.message.type = 'success';
             $scope.message.text = message;
             $scope.message.show = true;
+            $scope.createInProgress = false;
         };
     }
 ]);
@@ -199,7 +249,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$location
             });
         };
         $scope.createFolio = function(booklet_id, folio_type) {
-            switch(folio_type) {
+            switch (folio_type) {
                 case 'folio1':
                     BookletSvc.createFolio(booklet_id, folio_type).success(function(data) {
                         $scope.reload();

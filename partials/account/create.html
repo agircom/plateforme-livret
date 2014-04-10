@@ -1,17 +1,22 @@
 <div class="wrapper">
     <section id="content">
         <h4>Vous souhaitez créer un livret d’accueil personnalisé pour les habitants de votre territoire. Créez maintenant votre compte pour accéder à la plate-forme.  
-Ce compte est l’unique accès à votre livret. Ce livret n’est modifiable qu’après la saisie de vos identifiants. Si vous souhaitez que d’autres personnes contribuent, pensez à leur communiquer votre login et votre mot de passe. 
-Les champs obligatoires sont indiqués par un *</h4>
+            Ce compte est l’unique accès à votre livret. Ce livret n’est modifiable qu’après la saisie de vos identifiants. Si vous souhaitez que d’autres personnes contribuent, pensez à leur communiquer votre login et votre mot de passe. 
+            Les champs obligatoires sont indiqués par un *</h4>
         <div ng-if="message.show" 
              ng-bind="message.text" 
              ng-class="{message_success: message.type === 'success', message_error: message.type === 'error'}">
         </div>
-        <div ng-hide="message.show && message.type === 'success'" id="form-subscribe">
+        <div ng-show="createInProgress">
+            Creation de votre compte...
+            <br>
+            <img src="images/loading.gif">
+        </div>
+        <div ng-hide="(message.show && message.type === 'success') || createInProgress" id="form-subscribe">
             <fieldset>
                 <legend>Votre identité</legend>
                 <label for="form-subscribe-name-compagny">Nom de votre structure* : </label>
-                <input type="text" ng-model="userInfos.username" id="form-subscribe-name-compagny">
+                <input type="text" ng-model="userInfos.name" id="form-subscribe-name-compagny">
                 <br>
                 <label for="form-subscribe-lastname">Nom référent (responsable de la saisie du livret)* :</label>
                 <input type="text" ng-model="userInfos.lastName" id="form-subscribe-lastname">
@@ -26,13 +31,13 @@ Les champs obligatoires sont indiqués par un *</h4>
                 <input type="text" ng-model="userInfos.username" id="form-subscribe-identifiant">
                 <br>
                 <label for="form-subscribe-identifiant">Confirmez Adresse e-mail* :</label>
-                <input type="text" ng-model="userInfos.username" id="form-subscribe-identifiant">
+                <input type="text" ng-model="username2" id="form-subscribe-identifiant">
                 <br>
                 <label for="form-subscribe-phone">Téléphone :</label>
                 <input type="text" ng-model="userInfos.phone" id="form-subscribe-phone">
                 <br>
                 <label for="form-subscribe-adress">Adresse* :</label>
-                <input type="text" ng-model="userInfos.adress" id="form-subscribe-adress">
+                <input type="text" ng-model="userInfos.address" id="form-subscribe-adress">
                 <br>
                 <label for="form-subscribe-cp">Code Postal* :</label>
                 <input type="text" ng-model="userInfos.cp" id="form-subscribe-cp">
@@ -41,10 +46,10 @@ Les champs obligatoires sont indiqués par un *</h4>
                 <input type="password" ng-model="userInfos.passwd" id="form-subscribe-passwd">
                 <br>   
                 <label for="form-subscribe-passwd">Confirmez Mot de passe* :</label>
-                <input type="password" ng-model="userInfos.passwd" id="form-subscribe-passwd">
+                <input type="password" ng-model="passwd2" id="form-subscribe-passwd">
                 <br> 
                 <label for="form-subscribe-accept">J’accepte les conditions d’utilisation de la plate-forme (<a href="">Consulter les conditions d’utilisation</a>) :</label>
-                <input style="width:auto;" type="checkbox" ng-model="userInfos.accept" id="form-subscribe-accept">
+                <input style="width:auto;" type="checkbox" ng-model="userInfos.contract_accepted" id="form-subscribe-accept">
                 <br>
                 <button ng-click="create()">Valider</button>
             </fieldset>

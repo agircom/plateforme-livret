@@ -4,10 +4,14 @@ define('__SALT__', '!P10p&42!');
 
 function checkUserInfosCreatePattern($givenUserInfos) {
     $patternUserInfos = array(
-        'username',
-        'passwd',
+        'name',
+        'lastName',
         'firstName',
-        'lastName'
+        'username',
+        'address',
+        'cp',
+        'passwd',
+        'contract_accepted'
     );
     if (count(array_diff($patternUserInfos, array_keys($givenUserInfos))) > 0) {
         return false;
@@ -16,6 +20,9 @@ function checkUserInfosCreatePattern($givenUserInfos) {
         if (is_null($givenUserInfos[$infoKey])) {
             return false;
         }
+    }
+    if (!$givenUserInfos['contract_accepted']) {
+        return false;
     }
     return true;
 }

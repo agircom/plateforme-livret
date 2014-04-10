@@ -116,13 +116,15 @@ $app->get('/booklets', function() use ($app) {
 $app->get('/booklet/:booklet_id', function($booklet_id) use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
-    $data = array('booklet' => false);
-    // retrieve booklet by id
-    $booklet_record = R::findOne('booklet', 'id=? && user=?', array($booklet_id, $user_record->id));
-    if (!is_null($booklet_record)) {
-        $data['booklet'] = $booklet_record->export();
+    // retrieve booklet
+    if (!isset($user_record->ownBooklet[$booklet_id])) {
+        // booklet doesn't exist or is not the owner
+        $app->response()->status(404);
+    } else {
+        // send back booklet infos
+        $data = array('booklet' => $user_record->ownBooklet[$booklet_id]->export());
+        echo json_encode($data, JSON_NUMERIC_CHECK);
     }
-    echo json_encode($data, JSON_NUMERIC_CHECK);
 });
 
 $app->post('/booklet', function() use ($app) {

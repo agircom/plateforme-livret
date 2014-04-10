@@ -42,9 +42,11 @@ function retrieveUserByToken() {
         if (is_null($user_record)) {
             // bad session token
             $app->response()->status(401);
+        } else {
+            return $user_record;
         }
     }
-    return $user_record;
+    return false;
 }
 
 function retrieveBookletById($booklet_id) {

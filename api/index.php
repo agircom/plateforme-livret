@@ -52,6 +52,9 @@ $app->get('/token', function() use ($app) {
 $app->get('/user', function() use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
     $data = $user_record->export();
     // clear fields
     unset($data['passwd']);
@@ -108,6 +111,9 @@ $app->post('/user', function() use($app) {
 $app->get('/booklets', function() use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
     // export user booklets
     $data = array('booklets' => R::exportAll($user_record->ownBooklet));
     echo json_encode($data, JSON_NUMERIC_CHECK);
@@ -116,6 +122,9 @@ $app->get('/booklets', function() use ($app) {
 $app->get('/booklet/:booklet_id', function($booklet_id) use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
     // retrieve booklet
     if (!isset($user_record->ownBooklet[$booklet_id])) {
         // booklet doesn't exist or is not the owner
@@ -130,6 +139,9 @@ $app->get('/booklet/:booklet_id', function($booklet_id) use ($app) {
 $app->post('/booklet', function() use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
     $data = json_decode($app->request->getBody(), true);
     if (!key_exists('name', $data) || is_null($data['name'])) {
         // bad params
@@ -152,9 +164,31 @@ $app->post('/booklet', function() use ($app) {
     }
 });
 
+$app->post('/booklet/:booklet_id/duplicate', function($booklet_id) use ($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
+    // retrieve booklet
+    if (!isset($user_record->ownBooklet[$booklet_id])) {
+        // booklet doesn't exist or is not the owner
+        $app->response()->status(404);
+    } else {
+        // duplicate booklet
+        
+        // send back booklet infos
+        $data = array('booklet' => $user_record->ownBooklet[$booklet_id]->export());
+        echo json_encode($data, JSON_NUMERIC_CHECK);
+    }
+});
+
 $app->delete('/booklet/:booklet_id', function($booklet_id) use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
     // retrieve booklet
     if (!isset($user_record->ownBooklet[$booklet_id])) {
         // current user is not the booklet owner
@@ -169,6 +203,9 @@ $app->delete('/booklet/:booklet_id', function($booklet_id) use ($app) {
 $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $folio_type) use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
     // retrieve booklet
     $booklet_record = retrieveBookletById($booklet_id);
     if ($booklet_record->user !== $user_record->id) {

@@ -108,13 +108,8 @@ $app->post('/user', function() use($app) {
 $app->get('/booklets', function() use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
-    $data = array('booklets' => false);
-    // retrieve booklets by user
-    $user_books = R::findAll('booklet', 'user=?', array($user_record->id));
-    if (count($user_books) > 0) {
-        $data['booklets'] = R::exportAll($user_books);
-    }
-    // retrieve booklets 
+    // export user booklets
+    $data = array('booklets' => R::exportAll($user_record->ownBooklet));
     echo json_encode($data, JSON_NUMERIC_CHECK);
 });
 
@@ -142,13 +137,16 @@ $app->post('/booklet', function() use ($app) {
         $date = new DateTime();
         // create new booklet
         $booklet_record = R::dispense('booklet');
-        $booklet_record->user = $user_record->id;
         $booklet_record->name = $givenName;
         $booklet_record->ownFolioList = array();
         $booklet_record->date_create = $date;
         $booklet_record->date_last_update = null;
-        $book_id = R::store($booklet_record);
-        echo json_encode(array('booklet_id' => $book_id), JSON_NUMERIC_CHECK);
+        // save booklet to user
+        $user_record->ownBookletList[] = $booklet_record;
+        R::store($user_record);
+        $last_booklet = end($user_record->ownBooklet);
+        $booklet_id = $last_booklet->id;
+        echo json_encode(array('booklet_id' => $booklet_id), JSON_NUMERIC_CHECK);
     }
 });
 
@@ -156,13 +154,13 @@ $app->delete('/booklet/:booklet_id', function($booklet_id) use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
     // retrieve booklet
-    $booklet_record = retrieveBookletById($booklet_id);
-    if ($booklet_record->user !== $user_record->id) {
+    if (!isset($user_record->ownBooklet[$booklet_id])) {
         // current user is not the booklet owner
         $app->response()->status(401);
     } else {
         // delete the booklet
-        R::trash($booklet_record);
+        unset($user_record->ownBooklet[$booklet_id]);
+        R::store($user_record);
     }
 });
 

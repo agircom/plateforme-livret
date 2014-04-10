@@ -9,6 +9,12 @@
             requireMenu: false,
             requireLogin: false
         },
+        '/home/rrhn': {
+            templateUrl: 'partials/home/reseauhautnormand.html',
+            controller: 'HomeCtrl.Home',
+            requireMenu: false,
+            requireLogin: false
+        },
         '/account/create': {
             templateUrl: 'partials/account/create.html',
             controller: 'AccountCtrl.Create',

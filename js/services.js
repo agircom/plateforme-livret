@@ -153,6 +153,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                 return $http.post(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_type, {
                     folio_type_template: folio_type_template
                 });
+            },
+            getFolio: function(booklet_id, folio_id) {
+                return $http.get(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_id);
             }
         };
     }
@@ -171,12 +174,6 @@ FeaderAppServices.factory('BookletSvc', ['ApiSvc',
             create: function(booklet_name) {
                 return ApiSvc.postBooklet(booklet_name);
             },
-            createFolio: function(booklet_id, folio_type, folio_type_template) {
-                return ApiSvc.postFolio(booklet_id, folio_type, folio_type_template);
-            },
-            createSheet: function() {
-                
-            },
             duplicate: function(booklet_id) {
                 return ApiSvc.postBookletDuplicate(booklet_id);
             },
@@ -185,6 +182,15 @@ FeaderAppServices.factory('BookletSvc', ['ApiSvc',
             },
             delete: function(booklet_id) {
                 return ApiSvc.deleteBooklet(booklet_id);
+            },
+            createFolio: function(booklet_id, folio_type, folio_type_template) {
+                return ApiSvc.postFolio(booklet_id, folio_type, folio_type_template);
+            },
+            getFolio: function(booklet_id, folio_id) {
+                return ApiSvc.getFolio(booklet_id, folio_id);
+            },
+            createSheet: function() {
+                
             }
         };
     }

@@ -232,7 +232,13 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
             $date = new DateTime();
             $folio_record = R::dispense('folio');
             $folio_record->type = $folio_type;
-            $folio_record->content = 'folio template : ' . $folio_type;
+            if ($folio_type === 'folio2') {
+                $data = json_decode($app->request->getBody(), true);
+                $folio_template = $data['folio_type_template'];
+                $folio_record->content = 'folio template : ' . $folio_type . ' template name : ' . $folio_template;
+            } else {
+                $folio_record->content = 'folio template : ' . $folio_type;
+            }
             $folio_record->date_create = $date;
             $folio_record->date_last_update = null;
             // save folio to booklet
@@ -241,6 +247,28 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
             $last_folio = end($booklet_record->xownFolioList);
             $folio_id = $last_folio->id;
             echo json_encode(array('folio_id' => $folio_id), JSON_NUMERIC_CHECK);
+        }
+    }
+});
+
+$app->get('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_id) use ($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
+    // retrieve booklet
+    if (!isset($user_record->xownBookletList[$booklet_id])) {
+        // booklet doesn't exist or is not the owner
+        $app->response()->status(404);
+    } else {
+        // retrieve folio booklet
+        if (!isset($user_record->xownBookletList[$booklet_id]->xownFolioList[$folio_id])) {
+            // folio booklet doesn't exist or is not the owner
+            $app->response()->status(404);
+        } else {
+            $folio_record = $user_record->xownBookletList[$booklet_id]->xownFolioList[$folio_id];
+            echo json_encode(array('folio' => $folio_record->export()), JSON_NUMERIC_CHECK);
         }
     }
 });

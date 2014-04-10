@@ -111,13 +111,13 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
                     $scope.userInfos.passwd === '') {
                 $scope.userInfos.passwd = '';
                 $scope.passwd2 = '';
-                $scope.showError('Champs obligatoires non renseignes');
+                $scope.showError('Les champs marqués d’un * doivent être complétés');
                 return;
             }
             if (!$scope.userInfos.contract_accepted) {
                 $scope.userInfos.passwd = '';
                 $scope.passwd2 = '';
-                $scope.showError('Vous devez accepter les conditions d\'utilisation avant de creer votre compte');
+                $scope.showError('Vous devez accepter les conditions d\'utilisation');
                 return;
             }
             UserSvc.Subscribe($scope.userInfos,
@@ -125,7 +125,7 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
                         var msg = '';
                         switch (status) {
                             case 201:
-                                msg = 'Votre compte a bien ete cree';
+                                msg = 'Votre compte a été créé avec succès. Vous pouvez dès maintenant accéder à la plate-forme pour créer votre livret d\'accueil.';
                                 break;
                             default:
                                 msg = 'Votre compte a ete cree avec des erreurs';
@@ -149,7 +149,7 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
                         var msg = '';
                         switch (status) {
                             case 400:
-                                msg = 'Les donnees saisies sont incorrectes';
+                                msg = 'Les champs marqués d’un * doivent être complétés';
                                 break;
                             case 423:
                                 msg = 'Ce nom d\'utilisateur existe deja';

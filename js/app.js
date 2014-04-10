@@ -38,9 +38,9 @@
             requireLogin: false,
             requireAccess: [1, 2]
         },
-        '/plateforme/booklet/:booklet_id/folio2': {
-            templateUrl: 'partials/backoffice/folio2.html',
-            controller: 'BackofficeCtrl.Folio',
+        '/plateforme/booklet/:booklet_id/folio2choice': {
+            templateUrl: 'partials/backoffice/folio2choice.html',
+            controller: 'BackofficeCtrl.Folio2Choice',
             requireMenu: true,
             requireLogin: false,
             requireAccess: [1, 2]

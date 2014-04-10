@@ -275,9 +275,37 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         $scope.folio_id = $routeParams.folio_id;
     }
 ]);
-FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$routeParams',
-    function($scope, $routeParams) {
+FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$routeParams', '$location', 'BookletSvc',
+    function($scope, $routeParams, $location, BookletSvc) {
         $scope.booklet_id = $routeParams.booklet_id;
+        $scope.template = null;
+        $scope.editFolio = function(folio_id) {
+            $location.path('/plateforme/booklet/' + $scope.booklet_id + '/folio/' + folio_id);
+        };
+        $scope.makeChoice = function(template_name) {
+            $scope.template = template_name;
+        };
+        $scope.confirmChoiceNext = function() {
+            if ($scope.template === null) {
+                alert('Vous devez selectionner un modele');
+            } else {
+                BookletSvc.createFolio($scope.booklet_id, 'folio2', $scope.template).success(function(data) {
+                    $scope.editFolio(data.folio_id);
+                });
+            }
+        };
+        $scope.confirmChoiceReturn = function() {
+            if ($scope.template === null) {
+                alert('Vous devez selectionner un modele');
+            } else {
+                BookletSvc.createFolio($scope.booklet_id, 'folio2', $scope.template).success(function(data) {
+                    $location.path('/plateforme/booklets');
+                });
+            }
+        };
+        $scope.gotoBooklets = function() {
+            $location.path('/plateforme/booklets');
+        };
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Account', ['$scope',

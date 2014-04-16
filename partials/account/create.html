@@ -54,7 +54,7 @@
                 <button ng-click="create()">Valider</button>
             </fieldset>
         </div>
-        <div ng-init="showCGU = false" ng-if="showCGU" ng-include="'partials/common/cgu.html'"></div>
+        <div ng-init="showCGU = false" ng-if="showCGU" ng-include="'partials/common/cgu.html'" onload="parent=$parent"></div>
     </section>
     <aside ng-include="'partials/home/right.html'"></aside>
 </div>

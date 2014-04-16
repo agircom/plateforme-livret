@@ -7,19 +7,21 @@
     <div ng-hide="loginInProgress">
         <div ng-if="!User.isLogged()" id="formlogin">
             <div ng-if="error !== ''" ng-bind="error" class="message_error"><br></div>
-            <span style="padding-right: 25px">Login :</span><input type="text" ng-model="$parent.identifiant">
+            <span style="padding-right: 25px"><img src="images/mot-de-passe-oublie.png" alt="contact" title="Contact" />Login :</span><input placeholder="LOGIN" type="text" ng-model="$parent.identifiant">
             <br>
-            <span>Password :</span><input type="password" ng-model="$parent.passwd">
+            <img src="images/mot-de-passe-oublie.png" alt="contact" title="Contact" /><span>Password :</span><input placeholder="MOT DE PASSE" type="password" ng-model="$parent.passwd">
             <br>
-            <input type="button" value="Connexion" ng-click="login()">
-            <div>
-                <a href="#" onclick="return false;" ng-click="switchRememberMe()">
-                    <img ng-src="images/se-souvenir-de-moi-{{rememberMe}}.png" alt="mon-compte" title="Mon Compte" />
-                    <span>se souvenir de moi</span>
-                </a>
-            </div>
-            <div>
-                <a href=""><img src="images/mot-de-passe-oublie.png" alt="contact" title="Contact" /><span>mot de passe oublié</span></a>
+            <input style="width:16px; height:16px;" type="image" src="images/mot-de-passe-oublie.png" name="image" id="connexion" alt="Connexion" ng-click="login()">
+            <div style="display:block">
+                <div class="souv-mdp">
+                    <a href="#" onclick="return false;" ng-click="switchRememberMe()">
+                        <img ng-src="images/se-souvenir-de-moi-{{rememberMe}}.png" alt="mon-compte" title="Mon Compte" />
+                        <span>se souvenir de moi</span>
+                    </a>
+                </div>
+                <div class="souv-mdp">
+                    <a href=""><img src="images/mot-de-passe-oublie.png" alt="contact" title="Contact" /><span>mot de passe oublié</span></a>
+                </div>
             </div>
         </div>
         <div ng-if="User.isLogged()" id="userPannel">

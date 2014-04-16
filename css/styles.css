@@ -145,6 +145,28 @@ header {
     float:left;   
 }
 
+#formlogin img{
+    vertical-align: middle;
+    margin-right: 5px;   
+}
+
+#connexion input{
+    width : 16px;
+    height: 16px;
+}
+
+.souv-mdp{
+    display: inline-block;
+    float: left;
+    width: 50%;
+    font-size: 8px;
+}
+
+.souv-mdp img{
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
 /* Content */
 container {    
     width: 739px;
@@ -227,7 +249,6 @@ legend {
  }
 label {
  margin-top:10px;
- display:block;
  }
 label.inline {
  display:inline;
@@ -279,6 +300,16 @@ button {
  box-shadow:1px 1px 1px #D83F3D;
  cursor:pointer;
  }
+ 
+ /* formlaire creation compte */
+ form-subscribe span.label {
+	display: block;
+	font-weight: bold;
+}
+ form-subscribe span.input {
+	display: block;
+	margin: .5em 0 0 30px;
+}
 /* autres */
 p {
     margin-bottom:20px;

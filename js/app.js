@@ -3,6 +3,18 @@
 (function() {
 
     var appRoutes = {
+        '/mentionslegales': {
+            templateUrl: 'partials/common/mentionslegales.html',
+            controller: 'HomeCtrl.Home',
+            requireMenu: false,
+            requireLogin: false
+        },
+        '/sitemap': {
+            templateUrl: 'partials/common/sitemap.html',
+            controller: 'HomeCtrl.Home',
+            requireMenu: false,
+            requireLogin: false
+        },
         '/home': {
             templateUrl: 'partials/home/home.html',
             controller: 'HomeCtrl.Home',

@@ -15,8 +15,10 @@
         <div ng-hide="(message.show && message.type === 'success') || createInProgress" id="form-subscribe">
             <fieldset>
                 <legend>Votre identité</legend>
-                <label for="form-subscribe-name-compagny">Nom de votre structure* : </label>
-                <input type="text" ng-model="userInfos.name" id="form-subscribe-name-compagny">
+                <p>
+                    <span class="label"><label for="form-subscribe-name-compagny">Nom de votre structure* : </label></span>
+                    <span class="input"><input type="text" ng-model="userInfos.name" id="form-subscribe-name-compagny"></span>
+                </p>
                 <br>
                 <label for="form-subscribe-lastname">Nom référent (responsable de la saisie du livret)* :</label>
                 <input type="text" ng-model="userInfos.lastName" id="form-subscribe-lastname">

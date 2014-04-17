@@ -1,14 +1,18 @@
 <?php
 
-//require_once 'RedBeanPHP' . DIRECTORY_SEPARATOR . 'rb.php';
+// Api config
+$config = include_once 'config.inc.php';
+// Api includes
 require_once 'RedBeanPHP' . DIRECTORY_SEPARATOR . 'rb.phar';
-R::setup('mysql:host=localhost;dbname=feader', 'root', '');
+R::setup('mysql:host=' . $config['bdd']['host'] . ';dbname=' . $config['bdd']['name'], $config['bdd']['user'], $config['bdd']['passwd']);
 
 require_once 'Slim' . DIRECTORY_SEPARATOR . 'Slim.php';
 \Slim\Slim::registerAutoloader();
 
 $app = new \Slim\Slim();
 $app->response->headers->set('Content-Type', 'application/json');
+
+require_once 'PHPMailer' . DIRECTORY_SEPARATOR . 'PHPMailerAutoload.php';
 
 require_once 'common.inc.php';
 
@@ -23,7 +27,7 @@ $app->get('/token', function() use ($app) {
         $app->response()->status(400);
     } else {
         // check user credentials
-        $user_record = R::findOne('user', 'username=? AND passwd=?', array($givenUser, $givenPasswd));
+        $user_record = R::findOne('user', 'username=? AND passwd=? AND confirmed=?', array($givenUser, $givenPasswd, true));
         if (is_null($user_record)) {
             // unknown user
             $app->response()->status(403);
@@ -82,6 +86,7 @@ $app->post('/user', function() use($app) {
             // username exists
             $app->response()->status(423);
         } else {
+            $confirm_key = md5(uniqid(mt_rand(), true));
             // create new user
             $user_record = R::dispense('user');
             $user_record->username = $givenUserInfos['username'];
@@ -94,19 +99,21 @@ $app->post('/user', function() use($app) {
             $user_record->address = $givenUserInfos['address'];
             $user_record->cp = $givenUserInfos['cp'];
             $user_record->cgu_accepted = $givenUserInfos['contract_accepted'];
-            $user_record->confirmed = $givenUserInfos['contract_accepted'];
+            $user_record->confirmed = false;
+            $user_record->confirm_date = null;
+            $user_record->confirm_key = $confirm_key;
             $user_record->date_create = new DateTime();
-            $user_record->date_confirm = null;
             $user_record->date_last_connect = null;
             $user_record->session_token = null;
             $user_record->last_timestamp = null;
             $user_record->xownBookletList = array();
-            $id = R::store($user_record);
-            if (!is_int($id)) {
-                $app->response()->status(202);
-            } else {
-                $app->response()->status(201);
-            }
+            R::store($user_record);
+            $mail_confirm_data = array();
+            $mail_confirm_data['mail'] = $user_record->username;
+            $mail_confirm_data['name'] = $user_record->firstName . ' ' . $user_record->lastName;
+            $mail_confirm_data['confirm_key'] = $confirm_key;
+            sendAccountCreationConfirmEmail($mail_confirm_data);
+            $app->response()->status(201);
         }
     }
 });

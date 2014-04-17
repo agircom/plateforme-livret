@@ -33,6 +33,12 @@
             requireMenu: false,
             requireLogin: false
         },
+        '/account/confirm/:confirm_key': {
+            templateUrl: 'partials/account/confirm.html',
+            controller: 'AccountCtrl.Confirm',
+            requireMenu: false,
+            requireLogin: false
+        },
         '/plateforme': {
             redirectTo: '/plateforme/booklets'
         },

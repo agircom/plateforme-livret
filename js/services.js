@@ -29,6 +29,9 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', 'ApiSvc',
                                 cbError(data, status);
                         });
             },
+            Confirm: function(confirm_key) {
+                return ApiSvc.postUserConfirm(confirm_key);
+            },
             Login: function(identifiant, passwd, store, cbSuccess, cbError) {
                 var _self = this;
                 passwd = CryptoJS.SHA1(CryptoJS.SHA1(passwd) + this.salt).toString();
@@ -125,6 +128,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                 return $http.post(this.apiUrl + '/user', {
                     userInfos: userInfos
                 });
+            },
+            postUserConfirm: function(user_confirm_key) {
+                return $http.post(this.apiUrl + '/account/confirm/' + user_confirm_key);
             },
             getBooklet: function(booklet_id) {
                 if (booklet_id !== undefined) {

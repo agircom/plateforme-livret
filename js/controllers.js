@@ -178,6 +178,11 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
         };
     }
 ]);
+FeaderAppControllers.controller('AccountCtrl.Confirm', ['$scope', '$routeParams',
+    function($scope, $routeParams) {
+        $scope.key = $routeParams.confirm_key;
+    }
+]);
 FeaderAppControllers.controller('BackofficeCtrl.Home', ['$scope',
     function($scope) {
 

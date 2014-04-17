@@ -1,8 +1,5 @@
 <?php
 
-define('__SALT__', '!P10p&42!');
-define('__MAIL_FROM__', 'confirmation@rrhn.fr');
-
 function checkUserInfosCreatePattern($givenUserInfos) {
     $patternUserInfos = array(
         'name',
@@ -48,6 +45,43 @@ function retrieveUserByToken() {
         }
     }
     return false;
+}
+
+function sendMail($dest, $subject, $body) {
+    global $config;
+    $mail = new PHPMailer();
+    $mail->IsSMTP();
+    $mail->SMTPDebug = $config['smtp']['debug'];
+    $mail->SMTPAuth = $config['smtp']['auth'];
+    $mail->SMTPSecure = $config['smtp']['secure'];
+    $mail->Host = $config['smtp']['host'];
+    $mail->Port = $config['smtp']['port'];
+    $mail->Username = $config['smtp']['user'];
+    $mail->Password = $config['smtp']['passwd'];
+    $mail->isHTML(true);
+    $mail->SetFrom($config['smtp']['from'], $config['smtp']['from_name']);
+    $mail->addAddress($dest['mail'], $dest['name']);
+    $mail->Subject = $subject;
+    $mail->Body = $body;
+
+    if (!$mail->Send()) {
+//        echo 'Message could not be sent.';
+//        echo 'Mailer Error: ' . $mail->ErrorInfo;
+        return false;
+    } else {
+//        echo 'Message has been sent';
+        return true;
+    }
+}
+
+function sendAccountCreationConfirmEmail($dest) {
+    $subject = 'Confirmation creation de compte';
+    $body = 'Cher (chère) ' . $dest['name'] . ', <br>';
+    $body .= 'Votre compte a été créé avec succès.<br>';
+    $body .= 'Pour confirmer votre compte et commencer la creation d\'un livret vueillez cliquer sur ce lien: <br>';
+    $body .= '<a href="http://localhost/agircom/plateforme-livret/index.html#/account/confirm/'.$dest['confirm_key'].'">lien d\'activation</a> <br><br>';
+    $body .= 'Le Réseau Rural Haut-Normand';
+    return sendMail($dest, $subject, $body);
 }
 
 function sendAccountCreationConfirm($dest) {

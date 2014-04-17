@@ -59,13 +59,6 @@ FeaderAppControllers.controller('HomeCtrl.Home', ['$scope',
     function($scope) {
     }
 ]);
-FeaderAppControllers.controller('HomeCtrl.Right', ['$scope', '$location',
-    function($scope, $location) {
-        $scope.gotoAccountCreate = function() {
-            $location.path('/account/create');
-        };
-    }
-]);
 FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
     function($scope, UserSvc) {
         $scope.userInfos = {
@@ -178,9 +171,26 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
         };
     }
 ]);
-FeaderAppControllers.controller('AccountCtrl.Confirm', ['$scope', '$routeParams',
-    function($scope, $routeParams) {
-        $scope.key = $routeParams.confirm_key;
+FeaderAppControllers.controller('AccountCtrl.Confirm', ['$scope', '$routeParams', 'UserSvc',
+    function($scope, $routeParams, UserSvc) {
+        $scope.error = false;
+        $scope.success = false;
+        UserSvc.Confirm($routeParams.confirm_key).success(function(data) {
+            $scope.success = true;
+        }).error(function(data, status) {
+            $scope.error = true;
+        });
+    }
+]);
+FeaderAppControllers.controller('AccountCtrl.ResetPasswd', ['$scope', 'UserSvc',
+    function($scope, UserSvc) {
+        $scope.email = '';
+        $scope.error = false;
+        $scope.error_message = '';
+        $scope.passwdChanged = false;
+        $scope.resetPasswd = function() {
+            alert(42);
+        };
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Home', ['$scope',

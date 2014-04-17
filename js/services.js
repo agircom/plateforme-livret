@@ -30,7 +30,7 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', 'ApiSvc',
                         });
             },
             Confirm: function(confirm_key) {
-                return ApiSvc.postUserConfirm(confirm_key);
+                return ApiSvc.putUserConfirm(confirm_key);
             },
             Login: function(identifiant, passwd, store, cbSuccess, cbError) {
                 var _self = this;
@@ -129,8 +129,8 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                     userInfos: userInfos
                 });
             },
-            postUserConfirm: function(user_confirm_key) {
-                return $http.post(this.apiUrl + '/account/confirm/' + user_confirm_key);
+            putUserConfirm: function(user_confirm_key) {
+                return $http.put(this.apiUrl + '/user/confirm/' + user_confirm_key);
             },
             getBooklet: function(booklet_id) {
                 if (booklet_id !== undefined) {

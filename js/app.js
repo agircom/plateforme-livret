@@ -33,6 +33,12 @@
             requireMenu: false,
             requireLogin: false
         },
+        '/account/resetpasswd': {
+            templateUrl: 'partials/account/reset-passwd.html',
+            controller: 'AccountCtrl.ResetPasswd',
+            requireMenu: false,
+            requireLogin: false
+        },
         '/account/confirm/:confirm_key': {
             templateUrl: 'partials/account/confirm.html',
             controller: 'AccountCtrl.Confirm',

@@ -1,0 +1,20 @@
+<div class="wrapper">
+    <section id="content">
+        <h4>Vous avez oublié votre mot de passe ? Vous allez pouvoir le réinitialiser grâce à votre boîte mail.</h4>
+        <div>
+            <fieldset>
+                <legend>Reinitialisez votre mot de passe</legend>
+                <div ng-if="passwdChanged">
+                    Consultez votre messagerie, vous allez recevoir une mail pour réinitialiser votre mot de passe.
+                </div>
+                <div ng-if="!passwdChanged">
+                    <div ng-if="error" ng-bind="error_message" class="error"></div>
+                    <label for="account-reset-passwd">Votre mail</label> <input type="text" ng-model="email" id="account-reset-passwd">
+                    <br>
+                    <button ng-click="resetPasswd()">Valider</button>
+                </div>                
+            </fieldset>
+        </div>
+    </section>
+    <aside ng-include="'partials/home/right.html'"></aside>
+</div>

@@ -53,7 +53,7 @@ $app->get('/token', function() use ($app) {
     }
 });
 
-// REST Api user get
+// REST Api get user
 $app->get('/user', function() use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
@@ -71,7 +71,7 @@ $app->get('/user', function() use ($app) {
     echo json_encode($data, JSON_NUMERIC_CHECK);
 });
 
-// REST Api user create
+// REST Api create user
 $app->post('/user', function() use($app) {
     // get user infos
     $data = json_decode($app->request->getBody(), true);
@@ -118,6 +118,23 @@ $app->post('/user', function() use($app) {
     }
 });
 
+// REST Api confirm user
+$app->put('/user/confirm/:confirm_key', function($confirm_key) use ($app) {
+    // get user by confirm_key
+    $user_record = R::findOne('user', 'confirm_key=?', array($confirm_key));
+    if (is_null($user_record)) {
+        // can't find user
+        $app->response()->status(404);
+        return;
+    }
+    $user_record->confirmed = true;
+    $user_record->confirm_date = new DateTime();
+    $user_record->confirm_key = null;
+    R::store($user_record);
+    $app->response(200);
+});
+
+// REST Api get user booklets
 $app->get('/booklets', function() use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
@@ -129,6 +146,7 @@ $app->get('/booklets', function() use ($app) {
     echo json_encode($data, JSON_NUMERIC_CHECK);
 });
 
+// REST Api get booklet by id
 $app->get('/booklet/:booklet_id', function($booklet_id) use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
@@ -146,6 +164,7 @@ $app->get('/booklet/:booklet_id', function($booklet_id) use ($app) {
     }
 });
 
+// REST Api create booklet
 $app->post('/booklet', function() use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
@@ -174,6 +193,7 @@ $app->post('/booklet', function() use ($app) {
     }
 });
 
+// REST Api duplicate booklet
 $app->post('/booklet/:booklet_id/duplicate', function($booklet_id) use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
@@ -197,6 +217,7 @@ $app->post('/booklet/:booklet_id/duplicate', function($booklet_id) use ($app) {
     }
 });
 
+// REST Api delete booklet
 $app->delete('/booklet/:booklet_id', function($booklet_id) use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
@@ -214,6 +235,7 @@ $app->delete('/booklet/:booklet_id', function($booklet_id) use ($app) {
     }
 });
 
+// REST Api create booklet folio
 $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $folio_type) use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
@@ -260,6 +282,7 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
     }
 });
 
+// REST Api get booklet folio by id
 $app->get('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_id) use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();

@@ -81,19 +81,29 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
             show: false
         };
         $scope.createInProgress = false;
+        $scope.isValideEmail = function(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        };
         $scope.create = function() {
             $scope.message.show = false;
             $scope.createInProgress = true;
             if ($scope.userInfos.passwd !== $scope.passwd2) {
                 $scope.userInfos.passwd = '';
                 $scope.passwd2 = '';
-                $scope.showError('Vueillez saisir les meme mot de passe');
+                $scope.showError('Veuillez saisir les meme mot de passe');
+                return;
+            }
+            if (!$scope.isValideEmail($scope.userInfos.username)) {
+                $scope.userInfos.passwd = '';
+                $scope.passwd2 = '';
+                $scope.showError('Le format de l\'adresse mail n\'est pas correct.');
                 return;
             }
             if ($scope.userInfos.username !== $scope.username2) {
                 $scope.userInfos.passwd = '';
                 $scope.passwd2 = '';
-                $scope.showError('Vueillez saisir les meme adresse mail');
+                $scope.showError('Veuillez saisir les meme adresse mail');
                 return;
             }
             if ($scope.userInfos.name === '' ||
@@ -188,8 +198,23 @@ FeaderAppControllers.controller('AccountCtrl.ResetPasswd', ['$scope', 'UserSvc',
         $scope.error = false;
         $scope.error_message = '';
         $scope.passwdChanged = false;
+        $scope.isValideEmail = function(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        };
         $scope.resetPasswd = function() {
-            alert(42);
+            $scope.error = false;
+            if (!$scope.isValideEmail($scope.email)) {
+                $scope.error = true;
+                $scope.error_message = 'Vous devez saisir votre adresse mail.';
+            } else {
+                UserSvc.ResetPasswd($scope.email).success(function(data) {
+                    $scope.passwdChanged = true;
+                }).error(function(data, status) {
+                    $scope.error = true;
+                    $scope.error_message = 'Cette adresse mail est inconnue.';
+                });
+            }
         };
     }
 ]);

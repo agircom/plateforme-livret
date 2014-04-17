@@ -22,6 +22,9 @@ function checkUserInfosCreatePattern($givenUserInfos) {
     if (!$givenUserInfos['contract_accepted']) {
         return false;
     }
+    if (!isValidEmail($givenUserInfos['username'])) {
+        return false;
+    }
     return true;
 }
 
@@ -45,6 +48,16 @@ function retrieveUserByToken() {
         }
     }
     return false;
+}
+
+function isValidEmail($email) {
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
+function random_password($length = 8) {
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    $password = substr(str_shuffle($chars), 0, $length);
+    return $password;
 }
 
 function sendMail($dest, $subject, $body) {
@@ -74,46 +87,21 @@ function sendMail($dest, $subject, $body) {
     }
 }
 
-function sendAccountCreationConfirmEmail($dest) {
+function sendAccountCreationConfirmEmail($dest, $confirm_key) {
     $subject = 'Confirmation creation de compte';
     $body = 'Cher (chère) ' . $dest['name'] . ', <br>';
     $body .= 'Votre compte a été créé avec succès.<br>';
     $body .= 'Pour confirmer votre compte et commencer la creation d\'un livret vueillez cliquer sur ce lien: <br>';
-    $body .= '<a href="http://localhost/agircom/plateforme-livret/index.html#/account/confirm/'.$dest['confirm_key'].'">lien d\'activation</a> <br><br>';
+    $body .= '<a href="http://localhost/agircom/plateforme-livret/index.html#/account/confirm/' . $confirm_key . '">lien d\'activation</a> <br><br>';
     $body .= 'Le Réseau Rural Haut-Normand';
     return sendMail($dest, $subject, $body);
 }
 
-function sendAccountCreationConfirm($dest) {
-    $to = $dest;
-    $from = __MAIL_FROM__;
-    $day = date("Y-m-d");
-    $hour = date("H:i");
-    $Subject = "Test Mail - $day $hour";
-    $mail_Data = "";
-    $mail_Data .= "<html> \n";
-    $mail_Data .= "<head> \n";
-    $mail_Data .= "<title> Subject </title> \n";
-    $mail_Data .= "</head> \n";
-    $mail_Data .= "<body> \n";
-    $mail_Data .= "Mail HTML simple  : <b>$Subject </b> <br> \n";
-    $mail_Data .= "<br> \n";
-    $mail_Data .= "bla bla <font color=red> bla </font> bla <br> \n";
-    $mail_Data .= "Etc.<br> \n";
-    $mail_Data .= "</body> \n";
-    $mail_Data .= "</HTML> \n";
-    $headers = "MIME-Version: 1.0 \n";
-    $headers .= "Content-type: text/html; charset=iso-8859-1 \n";
-    $headers .= "From: $from  \n";
-    $headers .= "Disposition-Notification-To: $from  \n";
-    // high priority
-    $headers .= "X-Priority: 1  \n";
-    $headers .= "X-MSMail-Priority: High \n";
-    $CR_Mail = TRUE;
-    $CR_Mail = @mail($to, $Subject, $mail_Data, $headers);
-    if ($CR_Mail === FALSE) {
-        echo " ### CR_Mail=$CR_Mail - Erreur envoi mail <br> \n";
-    } else {
-        echo " *** CR_Mail=$CR_Mail - Mail envoyé<br> \n";
-    }
+function sendAccountResetPasswdEmail($dest, $newPasswd) {
+    $subject = 'Reinitialisation de votre mot de passe';
+    $body = 'Cher (chère) ' . $dest['name'] . ', <br>';
+    $body .= 'Vous avez souhaité réinitialiser votre mot de passe.<br>';
+    $body .= 'Voici votre nouveau mot de passe: <b>' . $newPasswd . '</b><br>';
+    $body .= 'Cordialement<br>Le Réseau Rural Haut-Normand';
+    return sendMail($dest, $subject, $body);
 }

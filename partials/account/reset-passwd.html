@@ -8,8 +8,8 @@
                     Consultez votre messagerie, vous allez recevoir une mail pour réinitialiser votre mot de passe.
                 </div>
                 <div ng-if="!passwdChanged">
-                    <div ng-if="error" ng-bind="error_message" class="error"></div>
-                    <label for="account-reset-passwd">Votre mail</label> <input type="text" ng-model="email" id="account-reset-passwd">
+                    <div ng-if="$parent.error" ng-bind="$parent.error_message" class="error"></div>
+                    <label for="account-reset-passwd">Votre mail</label> <input type="text" ng-model="$parent.email" id="account-reset-passwd">
                     <br>
                     <button ng-click="resetPasswd()">Valider</button>
                 </div>                

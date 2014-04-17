@@ -108,11 +108,10 @@ $app->post('/user', function() use($app) {
             $user_record->last_timestamp = null;
             $user_record->xownBookletList = array();
             R::store($user_record);
-            $mail_confirm_data = array();
-            $mail_confirm_data['mail'] = $user_record->username;
-            $mail_confirm_data['name'] = $user_record->firstName . ' ' . $user_record->lastName;
-            $mail_confirm_data['confirm_key'] = $confirm_key;
-            sendAccountCreationConfirmEmail($mail_confirm_data);
+            $mail_data = array();
+            $mail_data['mail'] = $user_record->username;
+            $mail_data['name'] = $user_record->firstName . ' ' . $user_record->lastName;
+            sendAccountCreationConfirmEmail($mail_data, $confirm_key);
             $app->response()->status(201);
         }
     }
@@ -132,6 +131,26 @@ $app->put('/user/confirm/:confirm_key', function($confirm_key) use ($app) {
     $user_record->confirm_key = null;
     R::store($user_record);
     $app->response(200);
+});
+
+// REST Api reset user passwd
+$app->post('/user/resetpasswd', function() use ($app, $config) {
+    // get params
+    $data = json_decode($app->request->getBody(), true);
+    $givenUsername = $data['username'];
+    $user_record = R::findOne('user', 'username=? AND confirmed=?', array($givenUsername, true));
+    if (is_null($user_record)) {
+        // unknown user or not confirmed
+        $app->response()->status(404);
+        return;
+    }
+    $newPasswd = random_password();
+    $user_record->passwd = sha1(sha1($newPasswd) . $config['app']['salt']);
+    R::store($user_record);
+    $mail_data = array();
+    $mail_data['mail'] = $user_record->username;
+    $mail_data['name'] = $user_record->firstName . ' ' . $user_record->lastName;
+    sendAccountResetPasswdEmail($mail_data, $newPasswd);
 });
 
 // REST Api get user booklets

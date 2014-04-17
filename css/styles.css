@@ -98,10 +98,10 @@ html,body {
     /* width: 90%; */
     font-size: .814em;
     overflow:auto;
-    padding-bottom: 150px}
+    padding-bottom: 100px;}
 /* Header */
 header {
-    height: 120px;
+    height: 170px;
     margin:0 auto; 
     width: 1000px;
     overflow:hidden;
@@ -117,7 +117,7 @@ header {
     width: 500px;
     position:relative;
     float:left;
-    margin:40px 40px 0 0;
+    margin: 40px 60px 40px 0;
 }
 #slogan img {
     position:absolute;
@@ -147,7 +147,13 @@ header {
 
 #formlogin img{
     vertical-align: middle;
-    margin-right: 5px;   
+    margin: 2px;   
+}
+
+#formlogin h4{
+    text-transform: uppercase;  
+    color: #87888a;
+    padding: 2px 0; 
 }
 
 #connexion input{
@@ -165,6 +171,47 @@ header {
 .souv-mdp img{
     vertical-align: middle;
     margin-right: 5px;
+}
+#userPannel h3{
+    text-transform: uppercase;  
+    color: #4d4d4d;
+    padding: 2px 0 10px 0; 
+    font-size: 14px;
+    font-weight: bolder;
+}
+#userPannel h4{
+    text-transform: uppercase;  
+    color: #87888a;
+    padding: 2px 0; 
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+#userPannel img{
+    vertical-align: middle;
+    margin: 2px;   
+}
+
+#userPannel .menuPannel{
+    width: 160px;
+    text-align: right;
+    float:right;
+}
+
+.menuPannel a{
+    color: #676666;
+    font-size: 10px;
+}
+
+#userPannel .namePannel img{
+    display:inline-block;
+    float:left;
+}
+
+#userPannel .namePannel h3{
+    display:inline-block;
+    float:right;
+    padding-top:5px;
 }
 
 /* Content */
@@ -261,7 +308,7 @@ input, textarea, select {
  padding:3px;
  border:1px solid #F5C5C5;
  border-radius:5px;
- width: 120px;
+ /* width: 120px; */
  box-shadow:1px 1px 2px #C0C0C0 inset;
  }
 select {
@@ -302,12 +349,18 @@ button {
  }
  
  /* formlaire creation compte */
- form-subscribe span.label {
-	display: block;
+ #form-subscribe label {
+	/* display: block; */
 	font-weight: bold;
+        float: left;
+        
+	/* padding-top: 5px; */
+        
+	/* text-align: right; */
+	width: 370px;
 }
- form-subscribe span.input {
-	display: block;
+ #form-subscribe input {
+	/* display: block; */
 	margin: .5em 0 0 30px;
 }
 /* autres */
@@ -348,6 +401,16 @@ h2 {
     margin-bottom:20px}
 h2 span {
     color:#f85811
+}
+
+h3 {
+    color:#f85811;
+}
+
+h4{
+    /* font-weight: bold; */
+    font-size: 10px;
+    /* line-height: 2em; */
 }
 
 /* content */

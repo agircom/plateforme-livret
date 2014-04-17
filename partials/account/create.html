@@ -22,7 +22,7 @@
                 <label for="form-subscribe-lastname">Nom r&eacute;f&eacute;rent (responsable de la saisie du livret)* :</label>
                 <input type="text" ng-model="userInfos.lastName" id="form-subscribe-lastname">
                 <br>
-                <label for="form-subscribe-firstname">Pr&eacute;nom r&eacute;f&eacute;rent*</label>
+                <label for="form-subscribe-firstname">Pr&eacute;nom r&eacute;f&eacute;rent* :</label>
                 <input type="text" ng-model="userInfos.firstName" id="form-subscribe-firstname">
                 <br>
                 <label for="form-subscribe-fonction">Fonction : </label>
@@ -50,8 +50,10 @@
                 <input type="password" ng-model="passwd2" id="form-subscribe-passwd">
                 <br> 
                 <input type="checkbox" ng-model="userInfos.contract_accepted" id="form-subscribe-accept"> <label for="form-subscribe-accept">J’accepte les conditions d’utilisation de la plate-forme ( <a href="#" onclick="return false;" ng-click="showCGU = !showCGU">Consulter les conditions d'utilisation</a> ) :</label>
+                <div style="clear: both;"></div>
                 <br>
                 <button ng-click="create()">Valider</button>
+                
             </fieldset>
         </div>
         <div ng-init="showCGU = false" ng-if="showCGU" ng-include="'partials/common/cgu.html'" onload="parent=$parent"></div>

@@ -2,6 +2,7 @@
     <section id="content">
         <h4>Vous souhaitez créer un livret d’accueil personnalisé pour les habitants de votre territoire. Créez maintenant votre compte pour accéder à la plate-forme.  
             Ce compte est l’unique accès à votre livret. Ce livret n’est modifiable qu’après la saisie de vos identifiants. Si vous souhaitez que d’autres personnes contribuent, pensez à leur communiquer votre login et votre mot de passe. 
+            <br>
             Les champs obligatoires sont indiqués par un *</h4>
         <div ng-if="message.show" 
              ng-bind="message.text" 
@@ -15,24 +16,22 @@
         <div ng-hide="(message.show && message.type === 'success') || createInProgress" id="form-subscribe">
             <fieldset>
                 <legend>Votre identité</legend>
-                <p>
-                    <span class="label"><label for="form-subscribe-name-compagny">Nom de votre structure* : </label></span>
-                    <span class="input"><input type="text" ng-model="userInfos.name" id="form-subscribe-name-compagny"></span>
-                </p>
+                <label for="form-subscribe-name-compagny">Nom de votre structure* : </label>
+                <input type="text" ng-model="userInfos.name" id="form-subscribe-name-compagny">
                 <br>
-                <label for="form-subscribe-lastname">Nom référent (responsable de la saisie du livret)* :</label>
+                <label for="form-subscribe-lastname">Nom r&eacute;f&eacute;rent (responsable de la saisie du livret)* :</label>
                 <input type="text" ng-model="userInfos.lastName" id="form-subscribe-lastname">
                 <br>
-                <label for="form-subscribe-firstname">Pr&eacute;nom référent*</label>
+                <label for="form-subscribe-firstname">Pr&eacute;nom r&eacute;f&eacute;rent*</label>
                 <input type="text" ng-model="userInfos.firstName" id="form-subscribe-firstname">
                 <br>
                 <label for="form-subscribe-fonction">Fonction : </label>
                 <input type="text" ng-model="userInfos.fonction" id="form-subscribe-fonction">
                 <br>
-                <label for="form-subscribe-identifiant">Adresse e-mail* :</label>
+                <label for="form-subscribe-identifiant">Adresse mail* :</label>
                 <input type="text" ng-model="userInfos.username" id="form-subscribe-identifiant">
                 <br>
-                <label for="form-subscribe-identifiant">Confirmez Adresse e-mail* :</label>
+                <label for="form-subscribe-identifiant">Confirmez votre adresse mail* :</label>
                 <input type="text" ng-model="username2" id="form-subscribe-identifiant">
                 <br>
                 <label for="form-subscribe-phone">Téléphone :</label>
@@ -44,14 +43,13 @@
                 <label for="form-subscribe-cp">Code Postal* :</label>
                 <input type="text" ng-model="userInfos.cp" id="form-subscribe-cp">
                 <br>
-                <label for="form-subscribe-passwd">Mot de passe* :</label>
+                <label for="form-subscribe-passwd">Mot de passe choisi* :</label>
                 <input type="password" ng-model="userInfos.passwd" id="form-subscribe-passwd">
                 <br>   
-                <label for="form-subscribe-passwd">Confirmez Mot de passe* :</label>
+                <label for="form-subscribe-passwd">Confirmez le mot de passe choisi* :</label>
                 <input type="password" ng-model="passwd2" id="form-subscribe-passwd">
                 <br> 
-                <label for="form-subscribe-accept">J’accepte les conditions d’utilisation de la plate-forme (<a href="#" onclick="return false;" ng-click="showCGU = !showCGU">Consulter les conditions d’utilisation</a>) :</label>
-                <input style="width:auto;" type="checkbox" ng-model="userInfos.contract_accepted" id="form-subscribe-accept">
+                <input type="checkbox" ng-model="userInfos.contract_accepted" id="form-subscribe-accept"> <label for="form-subscribe-accept">J’accepte les conditions d’utilisation de la plate-forme ( <a href="#" onclick="return false;" ng-click="showCGU = !showCGU">Consulter les conditions d'utilisation</a> ) :</label>
                 <br>
                 <button ng-click="create()">Valider</button>
             </fieldset>

@@ -93,8 +93,10 @@ $app->post('/user', function() use($app) {
             $user_record->phone = (isset($givenUserInfos['phone'])) ? $givenUserInfos['phone'] : null;
             $user_record->address = $givenUserInfos['address'];
             $user_record->cp = $givenUserInfos['cp'];
-            $user_record->contract_accepted = $givenUserInfos['contract_accepted'];
+            $user_record->cgu_accepted = $givenUserInfos['contract_accepted'];
+            $user_record->confirmed = $givenUserInfos['contract_accepted'];
             $user_record->date_create = new DateTime();
+            $user_record->date_confirm = null;
             $user_record->date_last_connect = null;
             $user_record->session_token = null;
             $user_record->last_timestamp = null;

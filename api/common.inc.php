@@ -1,5 +1,29 @@
 <?php
 
+function checkContactInfosPattern($givenContactInfos) {
+    $patternContactInfos = array(
+        'name',
+        'lastName',
+        'firstName',
+        'email',
+        'address',
+        'cp',
+        'question'
+    );
+    if (count(array_diff($patternContactInfos, array_keys($givenContactInfos))) > 0) {
+        return false;
+    }
+    foreach ($patternContactInfos as $infoKey) {
+        if (is_null($givenContactInfos[$infoKey])) {
+            return false;
+        }
+    }
+    if (!isValidEmail($givenContactInfos['email'])) {
+        return false;
+    }
+    return true;
+}
+
 function checkUserInfosCreatePattern($givenUserInfos) {
     $patternUserInfos = array(
         'name',
@@ -85,6 +109,15 @@ function sendMail($dest, $subject, $body) {
 //        echo 'Message has been sent';
         return true;
     }
+}
+
+function sendContactEmail($dest, $contactinfos) {
+    $subject = 'Contact';
+    $body = 'Formulaire de contact, <br>';
+    foreach($contactinfos as $key=>$value) {
+        $body .= "$key : $value<br>";
+    }
+    return sendMail($dest, $subject, $body);
 }
 
 function sendAccountCreationConfirmEmail($dest, $confirm_key) {

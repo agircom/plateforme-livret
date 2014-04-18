@@ -15,6 +15,12 @@
             requireMenu: false,
             requireLogin: false
         },
+        '/contact': {
+            templateUrl: 'partials/common/contact.html',
+            controller: 'CommonCtrl.Contact',
+            requireMenu: false,
+            requireLogin: false
+        },
         '/home': {
             templateUrl: 'partials/home/home.html',
             controller: 'HomeCtrl.Home',

@@ -55,22 +55,94 @@ FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'User
         };
     }
 ]);
+FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'ApiSvc',
+    function($scope, ToolSvc, ApiSvc) {
+        $scope.contactInfos = {
+            name: '',
+            lastName: '',
+            firstName: '',
+            fonction: '',
+            email: '',
+            phone: '',
+            address: '',
+            cp: '',
+            question: ''
+        };
+        $scope.email2 = '';
+        $scope.contactInProgress = false;
+        $scope.message = {
+            type: null,
+            text: '',
+            show: false
+        };
+        $scope.contact = function() {
+            $scope.message.show = false;
+            $scope.contactInProgress = true;
+            if ($scope.contactInfos.name === '' ||
+                    $scope.contactInfos.lastName === '' ||
+                    $scope.contactInfos.firstName === '' ||
+                    $scope.contactInfos.address === '' ||
+                    $scope.contactInfos.email === '' ||
+                    $scope.contactInfos.cp === '' ||
+                    $scope.contactInfos.question === '') {
+                $scope.showError('Les champs marqués d’un * doivent être complétés');
+                return;
+            }
+            if ($scope.contactInfos.email !== $scope.email2) {
+                $scope.showError('Veuillez saisir les meme adresse mail');
+                return;
+            }
+            if (!ToolSvc.isValidEmail($scope.contactInfos.email)) {
+                $scope.showError('Le format de l\'adresse mail n\'est pas correct.');
+                return;
+            }
+            ApiSvc.postContact($scope.contactInfos).success(function(data) {
+                $scope.showSuccess("Nous avons bien en compte votre demande, nous vous recontacterons très rapidement.Le Réseau Rural Haut-Normand");
+                $scope.contactInfos = {
+                    name: '',
+                    lastName: '',
+                    firstName: '',
+                    fonction: '',
+                    email: '',
+                    phone: '',
+                    address: '',
+                    cp: '',
+                    question: ''
+                };
+            }).error(function(data, status) {
+
+            });
+        };
+        $scope.showError = function(message) {
+            $scope.message.type = 'error';
+            $scope.message.text = message;
+            $scope.message.show = true;
+            $scope.contactInProgress = false;
+        };
+        $scope.showSuccess = function(message) {
+            $scope.message.type = 'success';
+            $scope.message.text = message;
+            $scope.message.show = true;
+            $scope.contactInProgress = false;
+        };
+    }
+]);
 FeaderAppControllers.controller('HomeCtrl.Home', ['$scope',
     function($scope) {
     }
 ]);
-FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
-    function($scope, UserSvc) {
+FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'ToolSvc',
+    function($scope, UserSvc, ToolSvc) {
         $scope.userInfos = {
-            name: null,
-            lastName: null,
-            firstName: null,
-            fonction: null,
-            username: null,
-            phone: null,
-            address: null,
-            cp: null,
-            passwd: null,
+            name: '',
+            lastName: '',
+            firstName: '',
+            fonction: '',
+            username: '',
+            phone: '',
+            address: '',
+            cp: '',
+            passwd: '',
             contract_accepted: false
         };
         $scope.username2 = '';
@@ -81,10 +153,6 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
             show: false
         };
         $scope.createInProgress = false;
-        $scope.isValideEmail = function(email) {
-            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(email);
-        };
         $scope.create = function() {
             $scope.message.show = false;
             $scope.createInProgress = true;
@@ -94,7 +162,7 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
                 $scope.showError('Veuillez saisir les meme mot de passe');
                 return;
             }
-            if (!$scope.isValideEmail($scope.userInfos.username)) {
+            if (!ToolSvc.isValidEmail($scope.userInfos.username)) {
                 $scope.userInfos.passwd = '';
                 $scope.passwd2 = '';
                 $scope.showError('Le format de l\'adresse mail n\'est pas correct.');
@@ -137,15 +205,15 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc',
                         }
                         $scope.showSuccess(msg);
                         $scope.userInfos = {
-                            name: null,
-                            lastName: null,
-                            firstName: null,
-                            fonction: null,
-                            username: null,
-                            phone: null,
-                            address: null,
-                            cp: null,
-                            passwd: null,
+                            name: '',
+                            lastName: '',
+                            firstName: '',
+                            fonction: '',
+                            username: '',
+                            phone: '',
+                            address: '',
+                            cp: '',
+                            passwd: '',
                             contract_accepted: false
                         };
                     },
@@ -192,19 +260,15 @@ FeaderAppControllers.controller('AccountCtrl.Confirm', ['$scope', '$routeParams'
         });
     }
 ]);
-FeaderAppControllers.controller('AccountCtrl.ResetPasswd', ['$scope', 'UserSvc',
-    function($scope, UserSvc) {
+FeaderAppControllers.controller('AccountCtrl.ResetPasswd', ['$scope', 'UserSvc', 'ToolSvc',
+    function($scope, UserSvc, ToolSvc) {
         $scope.email = '';
         $scope.error = false;
         $scope.error_message = '';
         $scope.passwdChanged = false;
-        $scope.isValideEmail = function(email) {
-            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(email);
-        };
         $scope.resetPasswd = function() {
             $scope.error = false;
-            if (!$scope.isValideEmail($scope.email)) {
+            if (!ToolSvc.isValidEmail($scope.email)) {
                 $scope.error = true;
                 $scope.error_message = 'Vous devez saisir votre adresse mail.';
             } else {
@@ -216,11 +280,6 @@ FeaderAppControllers.controller('AccountCtrl.ResetPasswd', ['$scope', 'UserSvc',
                 });
             }
         };
-    }
-]);
-FeaderAppControllers.controller('BackofficeCtrl.Home', ['$scope',
-    function($scope) {
-
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$location', 'BookletSvc',

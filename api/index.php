@@ -16,6 +16,22 @@ require_once 'PHPMailer' . DIRECTORY_SEPARATOR . 'PHPMailerAutoload.php';
 
 require_once 'common.inc.php';
 
+// REST Api post contact
+$app->post('/contact', function() use ($app) {
+    // get params
+    $data = json_decode($app->request->getBody(), true);
+    $givenContactInfos = $data['contactInfos'];
+    if (is_null($givenContactInfos) || !checkContactInfosPattern($givenContactInfos)) {
+        // missing params
+        $app->response()->status(400);
+        return;
+    }
+    $mail_data = array();
+    $mail_data['mail'] = 'thomas.beauvallet@gmail.com';
+    $mail_data['name'] = 'Thomas Beauvallet';
+    sendContactEmail($mail_data, $givenContactInfos);
+});
+
 // REST Api get session token
 $app->get('/token', function() use ($app) {
     // get params
@@ -73,21 +89,21 @@ $app->get('/user', function() use ($app) {
 
 // REST Api create user
 $app->post('/user', function() use($app) {
-    // get user infos
+// get user infos
     $data = json_decode($app->request->getBody(), true);
     $givenUserInfos = $data['userInfos'];
     if (is_null($givenUserInfos) || !checkUserInfosCreatePattern($givenUserInfos)) {
-        // missing params
+// missing params
         $app->response()->status(400);
     } else {
-        // check if user already exists
+// check if user already exists
         $userExists = R::findOne('user', 'username=?', array($givenUserInfos['username']));
         if (!is_null($userExists)) {
-            // username exists
+// username exists
             $app->response()->status(423);
         } else {
             $confirm_key = md5(uniqid(mt_rand(), true));
-            // create new user
+// create new user
             $user_record = R::dispense('user');
             $user_record->username = $givenUserInfos['username'];
             $user_record->passwd = $givenUserInfos['passwd'];
@@ -119,10 +135,10 @@ $app->post('/user', function() use($app) {
 
 // REST Api confirm user
 $app->put('/user/confirm/:confirm_key', function($confirm_key) use ($app) {
-    // get user by confirm_key
+// get user by confirm_key
     $user_record = R::findOne('user', 'confirm_key=?', array($confirm_key));
     if (is_null($user_record)) {
-        // can't find user
+// can't find user
         $app->response()->status(404);
         return;
     }
@@ -135,12 +151,12 @@ $app->put('/user/confirm/:confirm_key', function($confirm_key) use ($app) {
 
 // REST Api reset user passwd
 $app->post('/user/resetpasswd', function() use ($app, $config) {
-    // get params
+// get params
     $data = json_decode($app->request->getBody(), true);
     $givenUsername = $data['username'];
     $user_record = R::findOne('user', 'username=? AND confirmed=?', array($givenUsername, true));
     if (is_null($user_record)) {
-        // unknown user or not confirmed
+// unknown user or not confirmed
         $app->response()->status(404);
         return;
     }
@@ -155,29 +171,29 @@ $app->post('/user/resetpasswd', function() use ($app, $config) {
 
 // REST Api get user booklets
 $app->get('/booklets', function() use ($app) {
-    // retrieve user
+// retrieve user
     $user_record = retrieveUserByToken();
     if (!$user_record) {
         return;
     }
-    // export user booklets
+// export user booklets
     $data = array('booklets' => R::exportAll($user_record->xownBookletList));
     echo json_encode($data, JSON_NUMERIC_CHECK);
 });
 
 // REST Api get booklet by id
 $app->get('/booklet/:booklet_id', function($booklet_id) use ($app) {
-    // retrieve user
+// retrieve user
     $user_record = retrieveUserByToken();
     if (!$user_record) {
         return;
     }
-    // retrieve booklet
+// retrieve booklet
     if (!isset($user_record->xownBookletList[$booklet_id])) {
-        // booklet doesn't exist or is not the owner
+// booklet doesn't exist or is not the owner
         $app->response()->status(404);
     } else {
-        // send back booklet infos
+// send back booklet infos
         $data = array('booklet' => $user_record->xownBookletList[$booklet_id]->export());
         echo json_encode($data, JSON_NUMERIC_CHECK);
     }
@@ -185,25 +201,25 @@ $app->get('/booklet/:booklet_id', function($booklet_id) use ($app) {
 
 // REST Api create booklet
 $app->post('/booklet', function() use ($app) {
-    // retrieve user
+// retrieve user
     $user_record = retrieveUserByToken();
     if (!$user_record) {
         return;
     }
     $data = json_decode($app->request->getBody(), true);
     if (!key_exists('name', $data) || is_null($data['name'])) {
-        // bad params
+// bad params
         $app->response()->status(400);
     } else {
         $givenName = $data['name'];
         $date = new DateTime();
-        // create new booklet
+// create new booklet
         $booklet_record = R::dispense('booklet');
         $booklet_record->name = $givenName;
         $booklet_record->xownFolioList = array();
         $booklet_record->date_create = $date;
         $booklet_record->date_last_update = null;
-        // save booklet to user
+// save booklet to user
         $user_record->xownBookletList[] = $booklet_record;
         R::store($user_record);
         $last_booklet = end($user_record->xownBookletList);
@@ -214,20 +230,20 @@ $app->post('/booklet', function() use ($app) {
 
 // REST Api duplicate booklet
 $app->post('/booklet/:booklet_id/duplicate', function($booklet_id) use ($app) {
-    // retrieve user
+// retrieve user
     $user_record = retrieveUserByToken();
     if (!$user_record) {
         return;
     }
-    // retrieve booklet
+// retrieve booklet
     if (!isset($user_record->xownBookletList[$booklet_id])) {
-        // booklet doesn't exist or is not the owner
+// booklet doesn't exist or is not the owner
         $app->response()->status(404);
     } else {
-        // duplicate booklet
+// duplicate booklet
         $new_booklet_record = R::dup($user_record->xownBookletList[$booklet_id]);
         $new_booklet_record->name .= ' (copie du ' . date('d-m-Y \a H:i') . ')';
-        // store new booklet
+// store new booklet
         $user_record->xownBookletList[] = $new_booklet_record;
         R::store($user_record);
         $last_booklet = end($user_record->xownBookletList);
@@ -238,17 +254,17 @@ $app->post('/booklet/:booklet_id/duplicate', function($booklet_id) use ($app) {
 
 // REST Api delete booklet
 $app->delete('/booklet/:booklet_id', function($booklet_id) use ($app) {
-    // retrieve user
+// retrieve user
     $user_record = retrieveUserByToken();
     if (!$user_record) {
         return;
     }
-    // retrieve booklet
+// retrieve booklet
     if (!isset($user_record->xownBookletList[$booklet_id])) {
-        // booklet doesn't exist or is not the owner
+// booklet doesn't exist or is not the owner
         $app->response()->status(404);
     } else {
-        // delete the booklet
+// delete the booklet
         unset($user_record->xownBookletList[$booklet_id]);
         R::store($user_record);
     }
@@ -256,14 +272,14 @@ $app->delete('/booklet/:booklet_id', function($booklet_id) use ($app) {
 
 // REST Api create booklet folio
 $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $folio_type) use ($app) {
-    // retrieve user
+// retrieve user
     $user_record = retrieveUserByToken();
     if (!$user_record) {
         return;
     }
-    // retrieve booklet
+// retrieve booklet
     if (!isset($user_record->xownBookletList[$booklet_id])) {
-        // booklet doesn't exist or is not the owner
+// booklet doesn't exist or is not the owner
         $app->response()->status(404);
     } else {
         $booklet_record = $user_record->xownBookletList[$booklet_id];
@@ -274,11 +290,11 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
             }
         }
         if ($present) {
-            // folio type already exists for this booklet
+// folio type already exists for this booklet
             $app->response()->status(423);
         } else {
-            // TODO: check if folio type template exists in database
-            // create folio
+// TODO: check if folio type template exists in database
+// create folio
             $date = new DateTime();
             $folio_record = R::dispense('folio');
             $folio_record->type = $folio_type;
@@ -291,7 +307,7 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
             }
             $folio_record->date_create = $date;
             $folio_record->date_last_update = null;
-            // save folio to booklet
+// save folio to booklet
             $booklet_record->xownFolioList[] = $folio_record;
             R::store($booklet_record);
             $last_folio = end($booklet_record->xownFolioList);
@@ -303,19 +319,19 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
 
 // REST Api get booklet folio by id
 $app->get('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_id) use ($app) {
-    // retrieve user
+// retrieve user
     $user_record = retrieveUserByToken();
     if (!$user_record) {
         return;
     }
-    // retrieve booklet
+// retrieve booklet
     if (!isset($user_record->xownBookletList[$booklet_id])) {
-        // booklet doesn't exist or is not the owner
+// booklet doesn't exist or is not the owner
         $app->response()->status(404);
     } else {
-        // retrieve folio booklet
+// retrieve folio booklet
         if (!isset($user_record->xownBookletList[$booklet_id]->xownFolioList[$folio_id])) {
-            // folio booklet doesn't exist or is not the owner
+// folio booklet doesn't exist or is not the owner
             $app->response()->status(404);
         } else {
             $folio_record = $user_record->xownBookletList[$booklet_id]->xownFolioList[$folio_id];

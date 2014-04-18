@@ -115,6 +115,11 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                 $http.defaults.headers.common['App-User'] = user;
                 $http.defaults.headers.common['App-Token'] = session_token;
             },
+            postContact: function(contactInfos) {
+                return $http.post(this.apiUrl + '/contact', {
+                    contactInfos: contactInfos
+                });
+            },
             getToken: function(identifiant, passwd) {
                 var currentTime = +new Date();
                 return $http.get(this.apiUrl + '/token', {
@@ -204,7 +209,19 @@ FeaderAppServices.factory('BookletSvc', ['ApiSvc',
                 return ApiSvc.getFolio(booklet_id, folio_id);
             },
             createSheet: function() {
-                
+
+            }
+        };
+    }
+]);
+
+
+FeaderAppServices.factory('ToolSvc', [
+    function() {
+        return {
+            isValidEmail: function(email) {
+                var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(email);
             }
         };
     }

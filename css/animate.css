@@ -1,0 +1,31 @@
+/* 
+    Created on : 18 avr. 2014, 16:32:46
+    Author     : Thomas BEAUVALLET
+*/
+
+.menubo.ng-hide {
+    margin-left: -100%;
+    opacity: 0;
+    /*display: none !important;*/
+    display:inline-block!important;
+}
+.menubo {
+    -webkit-transition:all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
+    -moz-transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
+    -ms-transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
+    -o-transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
+    transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
+    display:inline-block!important;
+}
+#menu-backoffice {
+    -webkit-transition:all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
+    -moz-transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
+    -ms-transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
+    -o-transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
+    transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
+    display:block!important;
+    overflow: hidden;
+}
+#menu-backoffice.ng-hide {
+    width: 64px;
+}

@@ -266,19 +266,30 @@ FeaderAppControllers.controller('AccountCtrl.ResetPasswd', ['$scope', 'UserSvc',
         $scope.error = false;
         $scope.error_message = '';
         $scope.passwdChanged = false;
+        $scope.resetInProgress = false;
         $scope.resetPasswd = function() {
             $scope.error = false;
-            if (!ToolSvc.isValidEmail($scope.email)) {
+            $scope.resetInProgress = true;
+            if ($scope.email === '') {
+                $scope.resetInProgress = false;
                 $scope.error = true;
                 $scope.error_message = 'Vous devez saisir votre adresse mail.';
-            } else {
-                UserSvc.ResetPasswd($scope.email).success(function(data) {
-                    $scope.passwdChanged = true;
-                }).error(function(data, status) {
-                    $scope.error = true;
-                    $scope.error_message = 'Cette adresse mail est inconnue.';
-                });
+                return;
             }
+            if (!ToolSvc.isValidEmail($scope.email)) {
+                $scope.resetInProgress = false;
+                $scope.error = true;
+                $scope.error_message = 'Le format de votre adresse mail est incorrect.';
+                return;
+            }
+            UserSvc.ResetPasswd($scope.email).success(function(data) {
+                $scope.passwdChanged = true;
+                $scope.resetInProgress = false;
+            }).error(function(data, status) {
+                $scope.resetInProgress = false;
+                $scope.error = true;
+                $scope.error_message = 'Cette adresse mail est inconnue.';
+            });
         };
     }
 ]);

@@ -1,7 +1,12 @@
 <div class="wrapper">
     <section id="content">
         <h4>Vous avez oublié votre mot de passe ? Vous allez pouvoir le réinitialiser grâce à votre boîte mail.</h4>
-        <div>
+        <div ng-show="resetInProgress">
+            R&eacute;initialisation de votre mot de passe en cours...
+            <br>
+            <img src="images/loading.gif">
+        </div>
+        <div ng-hide="resetInProgress">
             <fieldset>
                 <legend>Reinitialisez votre mot de passe</legend>
                 <div ng-if="passwdChanged">

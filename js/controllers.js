@@ -17,8 +17,7 @@ FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'User
             }
         };
         $scope.isAtHome = function() {
-            return ($location.path().split('/')[1] === 'home' ||
-                    $location.path() === '/account/create') ? true : false;
+            return ($location.path().split('/')[1] === 'plateforme') ? false : true;
         };
         $scope.login = function() {
             $scope.loginInProgress = true;

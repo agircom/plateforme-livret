@@ -197,10 +197,10 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'Too
                         var msg = '';
                         switch (status) {
                             case 201:
-                                msg = 'Votre compte a été créé avec succès. Vous allez recevoir un mail vous permettant d\'activer votre compte et de commencer la creation de vos livrets.';
+                                msg = 'Votre compte a été créé avec succès. Pour valider la création de votre compte, merci de cliquer sur le lien que vous venez de recevoir par mail.';
                                 break;
                             default:
-                                msg = 'Votre compte a été créé avec succès. Vous allez recevoir un mail vous permettant d\'activer votre compte et de commencer la creation de vos livrets.';
+                                msg = 'Votre compte a été créé avec succès. Pour valider la création de votre compte, merci de cliquer sur le lien que vous venez de recevoir par mail.';
                                 break;
                         }
                         $scope.showSuccess(msg);

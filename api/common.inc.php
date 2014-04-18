@@ -87,6 +87,7 @@ function random_password($length = 8) {
 function sendMail($dest, $subject, $body) {
     global $config;
     $mail = new PHPMailer();
+    $mail->CharSet = 'UTF-8';
     $mail->IsSMTP();
     $mail->SMTPDebug = $config['smtp']['debug'];
     $mail->SMTPAuth = $config['smtp']['auth'];
@@ -121,11 +122,11 @@ function sendContactEmail($dest, $contactinfos) {
 }
 
 function sendAccountCreationConfirmEmail($dest, $confirm_key) {
-    $subject = 'Confirmation creation de compte';
+    $subject = 'Création de votre compte pour créer votre livret d’accueil';
     $body = 'Cher (chère) ' . $dest['name'] . ', <br>';
-    $body .= 'Votre compte a été créé avec succès.<br>';
-    $body .= 'Pour confirmer votre compte et commencer la creation d\'un livret vueillez cliquer sur ce lien: <br>';
-    $body .= '<a href="http://localhost/agircom/plateforme-livret/index.html#/account/confirm/' . $confirm_key . '">lien d\'activation</a> <br><br>';
+    $body .= 'Pour valider compte, merci de cliquer sur le lien ci après (Si le lien ne fonctionne pas, copiez-le et collez-le dans votre navigateur.)<br><br>';
+    $body .= '<a href="http://localhost/agircom/plateforme-livret/index.html#/account/confirm/' . $confirm_key . '">http://localhost/agircom/plateforme-livret/index.html#/account/confirm/' . $confirm_key . '</a> <br><br>';
+    $body .= 'Votre compte sera alors immédiatement activé et vous pourrez commencer la création de votre livret.<br>';
     $body .= 'Le Réseau Rural Haut-Normand';
     return sendMail($dest, $subject, $body);
 }

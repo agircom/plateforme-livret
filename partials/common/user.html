@@ -6,12 +6,13 @@
     </div>
     <div ng-hide="loginInProgress">
         <div ng-if="!User.isLogged()" id="formlogin">
+            <h4> > Se Connecter à la plate-forme</h4>
             <div ng-if="error !== ''" ng-bind="error" class="message_error"><br></div>
-            <span style="padding-right: 25px"><img src="images/mot-de-passe-oublie.png" alt="contact" title="Contact" />Login :</span><input placeholder="LOGIN" type="text" ng-model="$parent.identifiant">
+            <img src="images/pictos/login.png" alt="login" title="Login" /><input placeholder="LOGIN" type="text" ng-model="$parent.identifiant">
+            <br>            
+            <img src="images/pictos/motdepasse.png" alt="mdp" title="Mot de passe" /><input placeholder="MOT DE PASSE" type="password" ng-model="$parent.passwd">
             <br>
-            <img src="images/mot-de-passe-oublie.png" alt="contact" title="Contact" /><span>Password :</span><input placeholder="MOT DE PASSE" type="password" ng-model="$parent.passwd">
-            <br>
-            <input style="width:16px; height:16px;" type="image" src="images/mot-de-passe-oublie.png" name="image" id="connexion" alt="Connexion" ng-click="login()">
+            <input style="width:16px; height:16px; margin: 5px 0 5px 5px;" type="image" src="images/pictos/connexion.png" name="image" id="connexion" alt="Connexion" ng-click="login()">
             <div style="display:block">
                 <div class="souv-mdp">
                     <a href="#" onclick="return false;" ng-click="switchRememberMe()">
@@ -20,20 +21,21 @@
                     </a>
                 </div>
                 <div class="souv-mdp">
-                    <a href="#/account/resetpasswd">
-                        <img src="images/mot-de-passe-oublie.png" alt="Mot de passe oublie" title="Mot de passe oublie" />
-                        <span>mot de passe oublié</span>
-                    </a>
+                    <a href=""><img src="images/mot-de-passe-oublie.png" alt="contact" title="Contact" /><span>mot de passe oublié</span></a>
                 </div>
             </div>
         </div>
         <div ng-if="User.isLogged()" id="userPannel">
-            Bonjour {{User.getCompleteName()}}
-            <br>
-            <a ng-if="isAtHome()" href="#/plateforme">Acc&eacute;der a la plateforme</a>
-            <a ng-if="!isAtHome()" href="#/home">Retour a l'accueil</a>
-            <br>
-            <a href="#" on-click="return false;" ng-click="logout()">Se d&eacute;connecter</a>
+            <h4>Bonjour</h4> 
+            <div class="namePannel">
+                <img src="images/pictos/login.png" alt="login" title="Login" />
+                <h3>{{User.getCompleteName()}}</h3>
+            </div>
+            <div class="menuPannel">
+                <span><a ng-if="isAtHome()" href="#/plateforme">Acc&eacute;der a la plateforme</a></span><br />
+                <span><a ng-if="!isAtHome()" href="#/home">Retour a l'accueil</a></span><br />
+                <span><a href="#" on-click="return false;" ng-click="logout()">Se d&eacute;connecter<img src="images/pictos/se-deconnecter.png" alt="se-deconnecter" title="Se déconnecter" /></a></span>
+            </div>
         </div>
     </div>
 </div>

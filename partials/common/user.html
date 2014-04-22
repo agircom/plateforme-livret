@@ -21,7 +21,10 @@
                     </a>
                 </div>
                 <div class="souv-mdp">
-                    <a href=""><img src="images/mot-de-passe-oublie.png" alt="contact" title="Contact" /><span>mot de passe oublié</span></a>
+                    <a href="#/account/resetpasswd">
+                        <img src="images/mot-de-passe-oublie.png" alt="contact" title="Contact" />
+                        <span>mot de passe oublié</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -34,7 +37,7 @@
             <div class="menuPannel">
                 <span><a ng-if="isAtHome()" href="#/plateforme">Acc&eacute;der a la plateforme</a></span><br />
                 <span><a ng-if="!isAtHome()" href="#/home">Retour a l'accueil</a></span><br />
-                <span><a href="#" on-click="return false;" ng-click="logout()">Se d&eacute;connecter<img src="images/pictos/se-deconnecter.png" alt="se-deconnecter" title="Se déconnecter" /></a></span>
+                <span><a href="#" onclick="return false;" ng-click="logout()">Se d&eacute;connecter<img src="images/pictos/se-deconnecter.png" alt="se-deconnecter" title="Se déconnecter" /></a></span>
             </div>
         </div>
     </div>

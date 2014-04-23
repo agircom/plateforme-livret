@@ -32,6 +32,11 @@ $app->post('/contact', function() use ($app) {
     sendContactEmail($mail_data, $givenContactInfos);
 });
 
+/*
+ * 
+ * API USER
+ * 
+ */
 // REST Api get session token
 $app->get('/token', function() use ($app) {
     // get params
@@ -125,8 +130,8 @@ $app->post('/user', function() use($app) {
     $user_record->session_token = null;
     $user_record->last_timestamp = null;
     $user_record->xownBookletList = array();
-    $user_record->setMeta("cast.phone","string");
-    $user_record->setMeta("cast.cp","string");
+    $user_record->setMeta("cast.phone", "string");
+    $user_record->setMeta("cast.cp", "string");
     R::store($user_record);
     $mail_data = array();
     $mail_data['mail'] = $user_record->username;
@@ -188,6 +193,12 @@ $app->post('/user/resetpasswd', function() use ($app, $config) {
     $mail_data['name'] = $user_record->first_name . ' ' . $user_record->last_name;
     sendAccountResetPasswdEmail($mail_data, $newPasswd);
 });
+
+/*
+ * 
+ * API BOOKLETS
+ * 
+ */
 
 // REST Api get user booklets
 $app->get('/booklets', function() use ($app) {
@@ -360,6 +371,44 @@ $app->get('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_i
     $folio_record = $user_record->xownBookletList[$booklet_id]->xownFolioList[$folio_id];
     echo json_encode(array('folio' => $folio_record->export()), JSON_NUMERIC_CHECK);
 });
+
+
+/*
+ * 
+ * INIT APP (TEMPLATES)
+ * 
+ */
+// REST Api template init
+$app->get('/templates/init', function() use ($app) {
+    R::trashAll(R::findAll('templatepage'));
+    R::trashAll(R::findAll('templatefolio'));
+    $templates_path = '..' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
+    $handle = opendir($templates_path);
+    while (false !== ($folio = readdir($handle))) {
+        if ($folio != "." && $folio != "..") {
+            if (is_dir($templates_path . $folio)) {
+                $handle_folio = opendir($templates_path . $folio);
+                $template_folio_record = R::dispense('templatefolio');
+                $template_folio_record->type = $folio;
+                $template_folio_record->xownTemplatepageList = array();
+                while (false !== ($page = readdir($handle_folio))) {
+                    if ($page != "." && $page != "..") {
+                        $content = file_get_contents($templates_path . $folio . DIRECTORY_SEPARATOR . $page);
+                        $template_page_record = R::dispense('templatepage');
+                        $template_page_record->order = basename($page, '.html');
+                        $template_page_record->content = $content;
+                        $template_folio_record->xownTemplatepageList[] = $template_page_record;
+                    }
+                }
+                R::store($template_folio_record);
+                closedir($handle_folio);
+            }
+        }
+    }
+    closedir($handle);
+});
+
+
 
 // run REST Api
 $app->run();

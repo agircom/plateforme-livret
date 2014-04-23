@@ -130,6 +130,12 @@ FeaderAppControllers.controller('HomeCtrl.Home', ['$scope',
     function($scope) {
     }
 ]);
+
+/*
+ * 
+ * CONTROLLER ACCOUNT
+ * 
+ */
 FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'ToolSvc',
     function($scope, UserSvc, ToolSvc) {
         $scope.userInfos = {
@@ -343,6 +349,12 @@ FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'Too
         };
     }
 ]);
+
+/*
+ * 
+ * CONTROLLER BACKOFFICE BOOKLETS
+ * 
+ */
 FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$location', 'BookletSvc',
     function($scope, $location, BookletSvc) {
         $scope.newBookName = '';
@@ -450,10 +462,18 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
     function($scope, $routeParams, BookletSvc) {
         $scope.booklet_id = $routeParams.booklet_id;
         $scope.folio_id = $routeParams.folio_id;
-        $scope.folio_content = '';
+        $scope.folio = null;
+        $scope.selected_page = 0;
         BookletSvc.getFolio($scope.booklet_id, $scope.folio_id).success(function(data) {
-            $scope.folio_content = data.folio.content;
+            $scope.folio = data.folio[0];
         });
+        
+        $scope.selectPage = function(page_index) {
+            $scope.selected_page = page_index;
+        };
+        $scope.save = function() {
+            
+        };
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$routeParams', '$location', 'BookletSvc',
@@ -489,6 +509,12 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$rout
         };
     }
 ]);
+
+/*
+ * 
+ * CONTROLLER BACKOFFICE LIBRARY
+ * 
+ */
 FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope',
     function($scope) {
 

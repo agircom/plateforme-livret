@@ -1,4 +1,7 @@
-affichage folio id {{folio_id}} 
-<div>
-    {{folio_content}}
+<div id="folio-edit-content">
+    {{folio.ownPage[selected_page].content}}
+</div>
+<div id="folio-edit-toolbox">
+    <a href="#" onclick="return false;" ng-click="selectPage(0)">Recto</a>
+    <a href="#" onclick="return false;" ng-click="selectPage(1)">Verso</a>
 </div>

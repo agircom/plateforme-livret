@@ -371,7 +371,8 @@ $app->get('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_i
         return;
     }
     $folio_record = $user_record->xownBookletList[$booklet_id]->xownFolioList[$folio_id];
-    echo json_encode(array('folio' => $folio_record->export()), JSON_NUMERIC_CHECK);
+//    echo json_encode(array('folio' => $folio_record->export()), JSON_NUMERIC_CHECK);
+    echo json_encode(array('folio' => R::exportAll($user_record->xownBookletList[$booklet_id]->xownFolioList[$folio_id])), JSON_NUMERIC_CHECK);
 });
 
 

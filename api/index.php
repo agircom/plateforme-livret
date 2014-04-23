@@ -313,40 +313,35 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
         // booklet doesn't exist or is not the owner
         $app->response()->status(404);
         return;
-    } else {
-        $booklet_record = $user_record->xownBookletList[$booklet_id];
-        $present = false;
-        foreach ($booklet_record->xownFolioList as $folio) {
-            if ($folio->type === $folio_type) {
-                $present = true;
-            }
-        }
-        if ($present) {
+    }
+    $booklet_record = $user_record->xownBookletList[$booklet_id];
+    foreach ($booklet_record->xownFolioList as $folio) {
+        if ($folio->type === $folio_type) {
             // folio type already exists for this booklet
             $app->response()->status(423);
             return;
         }
-        // TODO: check if folio type template exists in database
-        // create folio
-        $date = new DateTime();
-        $folio_record = R::dispense('folio');
-        $folio_record->type = $folio_type;
-        if ($folio_type === 'folio2') {
-            $data = json_decode($app->request->getBody(), true);
-            $folio_template = $data['folio_type_template'];
-            $folio_record->content = 'folio template : ' . $folio_type . ' template name : ' . $folio_template;
-        } else {
-            $folio_record->content = 'folio template : ' . $folio_type;
-        }
-        $folio_record->date_create = $date;
-        $folio_record->date_last_update = null;
-        // save folio to booklet
-        $booklet_record->xownFolioList[] = $folio_record;
-        R::store($booklet_record);
-        $last_folio = end($booklet_record->xownFolioList);
-        $folio_id = $last_folio->id;
-        echo json_encode(array('folio_id' => $folio_id), JSON_NUMERIC_CHECK);
     }
+    // TODO: check if folio type template exists in database
+    // create folio
+    $date = new DateTime();
+    $folio_record = R::dispense('folio');
+    $folio_record->type = $folio_type;
+    if ($folio_type === 'folio2') {
+        $data = json_decode($app->request->getBody(), true);
+        $folio_template = $data['folio_type_template'];
+        $folio_record->content = 'folio template : ' . $folio_type . ' template name : ' . $folio_template;
+    } else {
+        $folio_record->content = 'folio template : ' . $folio_type;
+    }
+    $folio_record->date_create = $date;
+    $folio_record->date_last_update = null;
+    // save folio to booklet
+    $booklet_record->xownFolioList[] = $folio_record;
+    R::store($booklet_record);
+    $last_folio = end($booklet_record->xownFolioList);
+    $folio_id = $last_folio->id;
+    echo json_encode(array('folio_id' => $folio_id), JSON_NUMERIC_CHECK);
 });
 
 // REST Api get booklet folio by id

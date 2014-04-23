@@ -179,10 +179,8 @@ FeaderAppServices.factory('ApiSvc', ['$http',
             deleteBooklet: function(booklet_id) {
                 return $http.delete(this.apiUrl + '/booklet/' + booklet_id);
             },
-            postFolio: function(booklet_id, folio_type, folio_type_template) {
-                return $http.post(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_type, {
-                    folio_type_template: folio_type_template
-                });
+            postFolio: function(booklet_id, folio_type_template) {
+                return $http.post(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_type_template);
             },
             getFolio: function(booklet_id, folio_id) {
                 return $http.get(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_id);
@@ -213,8 +211,8 @@ FeaderAppServices.factory('BookletSvc', ['ApiSvc',
             delete: function(booklet_id) {
                 return ApiSvc.deleteBooklet(booklet_id);
             },
-            createFolio: function(booklet_id, folio_type, folio_type_template) {
-                return ApiSvc.postFolio(booklet_id, folio_type, folio_type_template);
+            createFolio: function(booklet_id, folio_type_template) {
+                return ApiSvc.postFolio(booklet_id, folio_type_template);
             },
             getFolio: function(booklet_id, folio_id) {
                 return ApiSvc.getFolio(booklet_id, folio_id);

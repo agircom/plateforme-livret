@@ -357,7 +357,11 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$location
                         $scope.booklets[booklet].folios = {};
                         if ($scope.booklets[booklet].ownFolio !== undefined) {
                             for (var folio in $scope.booklets[booklet].ownFolio) {
-                                $scope.booklets[booklet].folios[$scope.booklets[booklet].ownFolio[folio].type] = $scope.booklets[booklet].ownFolio[folio].id;
+                                if ($scope.booklets[booklet].ownFolio[folio].type in {'territoire1':null, 'territoire2':null, 'territoire3':null}) {
+                                    $scope.booklets[booklet].folios['territoire'] = $scope.booklets[booklet].ownFolio[folio].id;
+                                } else {
+                                    $scope.booklets[booklet].folios[$scope.booklets[booklet].ownFolio[folio].type] = $scope.booklets[booklet].ownFolio[folio].id;
+                                }
                             }
                         }
                     }
@@ -408,19 +412,31 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$location
         };
         $scope.createFolio = function(booklet_id, folio_type) {
             switch (folio_type) {
-                case 'folio1':
-                    BookletSvc.createFolio(booklet_id, folio_type).success(function(data) {
-                        $scope.editFolio(booklet_id, data.folio_id);
-                    });
-                    break;
-                case 'folio2':
+                case 'territoire':
                     $location.path('/plateforme/booklet/' + booklet_id + '/folio2choice');
                     break;
-                case 'folio3':
-                    break;
-                case 'folio4':
-                    break;
-                case 'folio5':
+                default:
+                    BookletSvc.createFolio(booklet_id, folio_type).success(function(data) {
+                        $scope.editFolio(booklet_id, data.folio_id);
+                    }).error(function(data, status) {
+                        switch (status) {
+                            case 401:
+                                alert('Vous devez etre connecte pour creer un folio');
+                                break;
+                            case 404:
+                                alert('Le livret est introuvable ou ne vuos appartient pas');
+                                break;
+                            case 423:
+                                alert('Ce folio existe deja pour ce livret');
+                                break;
+                            case 415:
+                                alert('Le modele de folio demande est innexistant');
+                                break;
+                            default:
+                                alert('Une erreur est survenue lors de la creation du folio');
+                                break;
+                        }
+                    });
                     break;
             }
         };
@@ -454,7 +470,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$rout
             if ($scope.template === null) {
                 alert('Vous devez selectionner un modele');
             } else {
-                BookletSvc.createFolio($scope.booklet_id, 'folio2', $scope.template).success(function(data) {
+                BookletSvc.createFolio($scope.booklet_id, $scope.template).success(function(data) {
                     $scope.editFolio(data.folio_id);
                 });
             }
@@ -463,7 +479,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$rout
             if ($scope.template === null) {
                 alert('Vous devez selectionner un modele');
             } else {
-                BookletSvc.createFolio($scope.booklet_id, 'folio2', $scope.template).success(function(data) {
+                BookletSvc.createFolio($scope.booklet_id, $scope.template).success(function(data) {
                     $location.path('/plateforme/booklets');
                 });
             }

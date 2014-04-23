@@ -322,20 +322,27 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
             return;
         }
     }
-    // TODO: check if folio type template exists in database
+    // check if folio type template exists in database
+    $template_folio_record = R::findOne('templatefolio', 'type=?', array($folio_type));
+    if (is_null($template_folio_record)) {
+        // folio type template doesn't exist 
+       $app->response()->status(415);
+        return;
+    }
     // create folio
     $date = new DateTime();
     $folio_record = R::dispense('folio');
     $folio_record->type = $folio_type;
-    if ($folio_type === 'folio2') {
-        $data = json_decode($app->request->getBody(), true);
-        $folio_template = $data['folio_type_template'];
-        $folio_record->content = 'folio template : ' . $folio_type . ' template name : ' . $folio_template;
-    } else {
-        $folio_record->content = 'folio template : ' . $folio_type;
-    }
+    $folio_record->xownPageList = array();
     $folio_record->date_create = $date;
     $folio_record->date_last_update = null;
+    // copy page from templates
+    foreach ($template_folio_record->xownTemplatepageList as $tpl_page) {
+        $page_record = R::dispense('page');
+        $page_record->order = $tpl_page->order;
+        $page_record->content = $tpl_page->content;
+        $folio_record->xownPageList[] = $page_record;
+    }
     // save folio to booklet
     $booklet_record->xownFolioList[] = $folio_record;
     R::store($booklet_record);

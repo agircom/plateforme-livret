@@ -76,10 +76,10 @@
             requireAccess: [1, 2]
         },
         '/plateforme/account': {
-            templateUrl: 'partials/backoffice/account.html',
-            controller: 'BackofficeCtrl.Account',
+            templateUrl: 'partials/account/profil.html',
+            controller: 'AccountCtrl.Profil',
             requireMenu: true,
-            requireLogin: false,
+            requireLogin: true,
             requireAccess: [1, 2]
         },
         '/plateforme/library': {

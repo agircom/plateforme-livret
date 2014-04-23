@@ -1,0 +1,45 @@
+<div class="wrapper">
+    <section id="content">
+        <div ng-if="message.show" 
+             ng-bind="message.text" 
+             ng-class="{message_success: message.type === 'success', message_error: message.type === 'error'}">
+        </div>
+        <div ng-show="saveInProgress">
+            Enregistrement des changements...
+            <br>
+            <img src="images/loading.gif">
+        </div>
+        <div ng-hide="(message.show && message.type === 'success') || saveInProgress" id="form-subscribe">
+            <fieldset>
+                <legend>Vos informations de compte</legend>
+                Nom de votre structure : {{User.getInfos().name}}
+                <br>
+                Nom r&eacute;f&eacute;rent (responsable de la saisie du livret) : {{User.getInfos().last_name}}
+                <br>
+                Pr&eacute;nom r&eacute;f&eacute;rent : {{User.getInfos().first_name}}
+                <br>
+                Fonction : {{User.getInfos().fonction}}
+                <br>
+                Adresse mail : {{User.getInfos().username}}
+                <br>
+                Téléphone : {{User.getInfos().phone}}
+                <br>
+                Adresse : {{User.getInfos().address}}
+                <br>
+                Code Postal : {{User.getInfos().cp}}
+                <br>
+                <label for="form-profil-passwd">Mot de passe choisi* :</label>
+                <input type="password" ng-model="passwd" id="form-profil-passwd">
+                <br>   
+                <label for="form-profil-passwd2">Confirmez le mot de passe choisi* :</label>
+                <input type="password" ng-model="passwd2" id="form-profil-passwd2">
+                <div style="clear: both;"></div>
+                <br>
+                <button ng-click="save()">Enregistrer</button>
+
+            </fieldset>
+        </div>
+        <div ng-init="showCGU = false" ng-if="showCGU" ng-include="'partials/common/cgu.html'" onload="parent = $parent"></div>
+    </section>
+    <aside ng-include="'partials/home/right.html'"></aside>
+</div>

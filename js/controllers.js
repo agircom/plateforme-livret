@@ -58,8 +58,8 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
     function($scope, ToolSvc, ApiSvc) {
         $scope.contactInfos = {
             name: '',
-            lastName: '',
-            firstName: '',
+            last_name: '',
+            first_name: '',
             fonction: '',
             email: '',
             phone: '',
@@ -78,8 +78,8 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
             $scope.message.show = false;
             $scope.contactInProgress = true;
             if ($scope.contactInfos.name === '' ||
-                    $scope.contactInfos.lastName === '' ||
-                    $scope.contactInfos.firstName === '' ||
+                    $scope.contactInfos.last_name === '' ||
+                    $scope.contactInfos.first_name === '' ||
                     $scope.contactInfos.address === '' ||
                     $scope.contactInfos.email === '' ||
                     $scope.contactInfos.cp === '' ||
@@ -99,8 +99,8 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
                 $scope.showSuccess("Nous avons bien en compte votre demande, nous vous recontacterons très rapidement.Le Réseau Rural Haut-Normand");
                 $scope.contactInfos = {
                     name: '',
-                    lastName: '',
-                    firstName: '',
+                    last_name: '',
+                    first_name: '',
                     fonction: '',
                     email: '',
                     phone: '',
@@ -134,8 +134,8 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'Too
     function($scope, UserSvc, ToolSvc) {
         $scope.userInfos = {
             name: '',
-            lastName: '',
-            firstName: '',
+            last_name: '',
+            first_name: '',
             fonction: '',
             username: '',
             phone: '',
@@ -174,8 +174,8 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'Too
                 return;
             }
             if ($scope.userInfos.name === '' ||
-                    $scope.userInfos.lastName === '' ||
-                    $scope.userInfos.firstName === '' ||
+                    $scope.userInfos.last_name === '' ||
+                    $scope.userInfos.first_name === '' ||
                     $scope.userInfos.address === '' ||
                     $scope.userInfos.username === '' ||
                     $scope.userInfos.cp === '' ||
@@ -205,8 +205,8 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'Too
                         $scope.showSuccess(msg);
                         $scope.userInfos = {
                             name: '',
-                            lastName: '',
-                            firstName: '',
+                            last_name: '',
+                            first_name: '',
                             fonction: '',
                             username: '',
                             phone: '',
@@ -290,6 +290,13 @@ FeaderAppControllers.controller('AccountCtrl.ResetPasswd', ['$scope', 'UserSvc',
                 $scope.error_message = 'Cette adresse mail est inconnue.';
             });
         };
+    }
+]);
+FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'ToolSvc',
+    function($scope, UserSvc, ToolSvc) {
+        $scope.passwd = '';
+        $scope.passwd2 = '';
+        
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$location', 'BookletSvc',
@@ -420,11 +427,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$rout
         $scope.gotoBooklets = function() {
             $location.path('/plateforme/booklets');
         };
-    }
-]);
-FeaderAppControllers.controller('BackofficeCtrl.Account', ['$scope',
-    function($scope) {
-        
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope',

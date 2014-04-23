@@ -84,7 +84,7 @@ $app->get('/user', function() use ($app) {
     unset($data['date_create']);
     unset($data['date_last_connect']);
     unset($data['id']);
-    echo json_encode($data, JSON_NUMERIC_CHECK);
+    echo json_encode($data);
 });
 
 // REST Api create user
@@ -110,9 +110,9 @@ $app->post('/user', function() use($app) {
     $user_record->username = $givenUserInfos['username'];
     $user_record->passwd = $givenUserInfos['passwd'];
     $user_record->name = $givenUserInfos['name'];
-    $user_record->firstName = $givenUserInfos['firstName'];
-    $user_record->lastName = $givenUserInfos['lastName'];
-    $user_record->fonction = (isset($givenUserInfos['lastName'])) ? $givenUserInfos['lastName'] : null;
+    $user_record->first_name = $givenUserInfos['first_name'];
+    $user_record->last_name = $givenUserInfos['last_name'];
+    $user_record->fonction = (isset($givenUserInfos['fonction'])) ? $givenUserInfos['fonction'] : null;
     $user_record->phone = (isset($givenUserInfos['phone'])) ? $givenUserInfos['phone'] : null;
     $user_record->address = $givenUserInfos['address'];
     $user_record->cp = $givenUserInfos['cp'];
@@ -125,6 +125,8 @@ $app->post('/user', function() use($app) {
     $user_record->session_token = null;
     $user_record->last_timestamp = null;
     $user_record->xownBookletList = array();
+    $user_record->setMeta("cast.phone","string");
+    $user_record->setMeta("cast.cp","string");
     R::store($user_record);
     $mail_data = array();
     $mail_data['mail'] = $user_record->username;
@@ -165,7 +167,7 @@ $app->post('/user/resetpasswd', function() use ($app, $config) {
     R::store($user_record);
     $mail_data = array();
     $mail_data['mail'] = $user_record->username;
-    $mail_data['name'] = $user_record->firstName . ' ' . $user_record->lastName;
+    $mail_data['name'] = $user_record->first_name . ' ' . $user_record->last_name;
     sendAccountResetPasswdEmail($mail_data, $newPasswd);
 });
 

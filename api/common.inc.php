@@ -3,8 +3,8 @@
 function checkContactInfosPattern($givenContactInfos) {
     $patternContactInfos = array(
         'name',
-        'lastName',
-        'firstName',
+        'last_name',
+        'first_name',
         'email',
         'address',
         'cp',
@@ -27,8 +27,8 @@ function checkContactInfosPattern($givenContactInfos) {
 function checkUserInfosCreatePattern($givenUserInfos) {
     $patternUserInfos = array(
         'name',
-        'lastName',
-        'firstName',
+        'last_name',
+        'first_name',
         'username',
         'address',
         'cp',

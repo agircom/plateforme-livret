@@ -135,6 +135,24 @@ $app->post('/user', function() use($app) {
     $app->response()->status(201);
 });
 
+// REST Api update user
+$app->put('/user', function() use ($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
+    // get parameters
+    $data = json_decode($app->request->getBody(), true);
+    $givenUserInfos = $data['userInfos'];
+    foreach ($givenUserInfos as $key => $value) {
+        if (isset($user_record->$key)) {
+            $user_record->$key = $value;
+        }
+    }
+    R::store($user_record);
+});
+
 // REST Api confirm user
 $app->put('/user/confirm/:confirm_key', function($confirm_key) use ($app) {
     // get user by confirm_key

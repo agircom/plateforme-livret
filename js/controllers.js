@@ -294,9 +294,53 @@ FeaderAppControllers.controller('AccountCtrl.ResetPasswd', ['$scope', 'UserSvc',
 ]);
 FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'ToolSvc',
     function($scope, UserSvc, ToolSvc) {
+        $scope.saveInProgress = false;
         $scope.passwd = '';
         $scope.passwd2 = '';
-        
+        $scope.message = {
+            type: null,
+            text: '',
+            show: false
+        };
+        $scope.save = function() {
+            $scope.saveInProgress = true;
+            if ($scope.passwd !== $scope.passwd2) {
+                $scope.passwd = '';
+                $scope.passwd2 = '';
+                $scope.saveInProgress = false;
+                $scope.showError('Veuillez saisir les meme mot de passe');
+                return;
+            }
+            if ($scope.passwd === '') {
+                $scope.saveInProgress = false;
+                $scope.showError('Les champs marqués d’un * doivent être complétés');
+                return;
+            }
+            var userInfos = {
+                passwd: $scope.passwd
+            };
+            $scope.passwd = '';
+            $scope.passwd2 = '';
+            UserSvc.ProfilUpdate(userInfos).success(function(data) {
+                $scope.saveInProgress = false;
+                $scope.showSuccess('Les modifications ont bien ete effectuees.');
+            }).error(function(data, status) {
+                $scope.saveInProgress = false;
+                $scope.showError('Impossible de sauvegarder vos nouvelles informations');
+            });
+        };
+        $scope.showError = function(message) {
+            $scope.message.type = 'error';
+            $scope.message.text = message;
+            $scope.message.show = true;
+            $scope.createInProgress = false;
+        };
+        $scope.showSuccess = function(message) {
+            $scope.message.type = 'success';
+            $scope.message.text = message;
+            $scope.message.show = true;
+            $scope.createInProgress = false;
+        };
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$location', 'BookletSvc',

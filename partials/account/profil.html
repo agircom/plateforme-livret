@@ -9,7 +9,7 @@
             <br>
             <img src="images/loading.gif">
         </div>
-        <div ng-hide="(message.show && message.type === 'success') || saveInProgress" id="form-subscribe">
+        <div ng-hide="saveInProgress" id="form-subscribe">
             <fieldset>
                 <legend>Vos informations de compte</legend>
                 Nom de votre structure : {{User.getInfos().name}}

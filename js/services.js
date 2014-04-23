@@ -32,6 +32,12 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', 'ApiSvc',
             ResetPasswd: function(username) {
                 return ApiSvc.postUserResetPasswd(username);
             },
+            ProfilUpdate: function(userInfos) {
+                if (typeof userInfos.passwd !== undefined) {
+                    userInfos.passwd = CryptoJS.SHA1(CryptoJS.SHA1(userInfos.passwd) + this.salt).toString();
+                }
+                return ApiSvc.putUser(userInfos);
+            },
             Confirm: function(confirm_key) {
                 return ApiSvc.putUserConfirm(confirm_key);
             },
@@ -134,6 +140,11 @@ FeaderAppServices.factory('ApiSvc', ['$http',
             },
             postUser: function(userInfos) {
                 return $http.post(this.apiUrl + '/user', {
+                    userInfos: userInfos
+                });
+            },
+            putUser: function(userInfos) {
+                return $http.put(this.apiUrl + '/user', {
                     userInfos: userInfos
                 });
             },

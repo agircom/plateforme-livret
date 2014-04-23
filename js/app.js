@@ -58,21 +58,21 @@
             templateUrl: 'partials/backoffice/booklets.html',
             controller: 'BackofficeCtrl.Booklets',
             requireMenu: true,
-            requireLogin: false,
+            requireLogin: true,
             requireAccess: [1, 2]
         },
         '/plateforme/booklet/:booklet_id/folio/:folio_id': {
             templateUrl: 'partials/backoffice/folio.html',
             controller: 'BackofficeCtrl.Folio',
             requireMenu: true,
-            requireLogin: false,
+            requireLogin: true,
             requireAccess: [1, 2]
         },
         '/plateforme/booklet/:booklet_id/folio2choice': {
             templateUrl: 'partials/backoffice/folio2choice.html',
             controller: 'BackofficeCtrl.Folio2Choice',
             requireMenu: true,
-            requireLogin: false,
+            requireLogin: true,
             requireAccess: [1, 2]
         },
         '/plateforme/account': {
@@ -86,21 +86,21 @@
             templateUrl: 'partials/backoffice/library.html',
             controller: 'BackofficeCtrl.Library',
             requireMenu: true,
-            requireLogin: false,
+            requireLogin: true,
             requireAccess: [1, 2]
         },
         '/plateforme/help': {
             templateUrl: 'partials/backoffice/help.html',
             controller: 'BackofficeCtrl.Help',
             requireMenu: true,
-            requireLogin: false,
+            requireLogin: true,
             requireAccess: [1, 2]
         },
         '/plateforme/contact': {
             templateUrl: 'partials/backoffice/contact.html',
             controller: 'BackofficeCtrl.Contact',
             requireMenu: true,
-            requireLogin: false,
+            requireLogin: true,
             requireAccess: [1, 2]
         }
     };
@@ -130,7 +130,7 @@
             $rootScope.layout = {
                 requireMenu: false
             };
-            
+
             UserSvc.restoreSession();
             $rootScope.User = UserSvc;
 
@@ -138,10 +138,12 @@
                 if (next.requireLogin && !UserSvc.isLogged()) {
                     $rootScope.layout.requireMenu = false;
                     $location.path('/home');
-                } else if (next.requireMenu) {
-                    $rootScope.layout.requireMenu = true;
                 } else {
-                    $rootScope.layout.requireMenu = false;
+                    if (next.requireMenu) {
+                        $rootScope.layout.requireMenu = true;
+                    } else {
+                        $rootScope.layout.requireMenu = false;
+                    }
                 }
             });
 

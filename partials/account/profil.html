@@ -12,27 +12,23 @@
         <div ng-hide="saveInProgress" id="form-subscribe">
             <fieldset>
                 <legend>Vos informations de compte</legend>
-                Nom de votre structure : {{User.getInfos().name}}
-                <br>
-                Nom r&eacute;f&eacute;rent (responsable de la saisie du livret) : {{User.getInfos().last_name}}
-                <br>
-                Pr&eacute;nom r&eacute;f&eacute;rent : {{User.getInfos().first_name}}
-                <br>
-                Fonction : {{User.getInfos().fonction}}
-                <br>
-                Adresse mail : {{User.getInfos().username}}
-                <br>
-                Téléphone : {{User.getInfos().phone}}
-                <br>
-                Adresse : {{User.getInfos().address}}
-                <br>
-                Code Postal : {{User.getInfos().cp}}
-                <br>
+                <label>Nom de votre structure : {{User.getInfos().name}}</label>
+                <label style="width: 390px;">Nom r&eacute;f&eacute;rent (responsable de la saisie du livret) : {{User.getInfos().last_name}}</label>
+                <label>Pr&eacute;nom r&eacute;f&eacute;rent : {{User.getInfos().first_name}}</label>
+                <label>Fonction : {{User.getInfos().fonction}}</label>
+                <label>Adresse mail : {{User.getInfos().username}}</label>
+                <label>Téléphone : {{User.getInfos().phone}}</label>
+                <label>Adresse : {{User.getInfos().address}}</label>
+                <label>Code Postal : {{User.getInfos().cp}}</label>
+                <div style="clear: both;"></div>
+                <div>
                 <label for="form-profil-passwd">Mot de passe choisi* :</label>
                 <input type="password" ng-model="passwd" id="form-profil-passwd">
-                <br>   
+                </div>
+                <div>
                 <label for="form-profil-passwd2">Confirmez le mot de passe choisi* :</label>
                 <input type="password" ng-model="passwd2" id="form-profil-passwd2">
+                </div>
                 <div style="clear: both;"></div>
                 <br>
                 <button ng-click="save()">Enregistrer</button>

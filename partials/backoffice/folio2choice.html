@@ -1,35 +1,55 @@
-<div style="background-color: #e7e7e9; border: 1px solid #DD6B5C; margin-left: 10px;">
-    <h1 style="color: #DD6B5C; text-tranform:uppercase; font-weight:normal;"><img style="vertical-align: middle;" src="images/titre-folio.png" width="32" height="32" alt="Supprimer" title="Supprimer"/>La présentation du territoire</h1>
-    <h2 style="background-color:#DD6B5C; -webkit-border-radius: 0px 20px 0px 20px; padding: 15px; color: #fff; text-tranform:uppercase; width:300px; float: right; font-family: Arial;">Choisir Votre document</h2>
-    <div class="cadre-pres-territoire">
-        <div class="template-pres-territoire">
-            <a href="#" onclick="return false;" ng-click="makeChoice('territoire1')">
-                <img src="images/pres-territoire-template1.jpg" alt="1" title="1"/>
-                <h3>Choisir<div ng-if="template === 'territoire1'"> &radic;</div></h3>
-            </a>
+<div class="fond-pres-territoire">
+    <h1><img style="vertical-align: middle; padding-right:5px;" src="images/titre-folio.png" width="32" height="32" alt="Supprimer" title="Supprimer"/>La présentation du territoire</h1>
+    <h2>Choisir Votre document</h2>
+    <div style="width:100%; display:inline-block;">
+        <div class="left-pres-territoire">
+            <p style="height: 200px">Recto</p>
+            <p>Verso</p>
         </div>
-        <div class="template-pres-territoire">
-            <a href="#" onclick="return false;" ng-click="makeChoice('territoire2')">
-                <img src="images/pres-territoire-template2.jpg" alt="2" title="2"/>
-                <h3>Choisir<div ng-if="template === 'territoire2'"> &radic;</div></h3>
-            </a>
+        <div class="cadre-pres-territoire">
+            <div class="template-pres-territoire">
+                <a href="#" onclick="return false;" ng-click="makeChoice('territoire1')">
+                    <img src="images/pres-territoire-template1.jpg" alt="1" title="1"/>
+                    <h3>Choisir<div ng-if="template === 'territoire1'"> &radic;</div></h3>
+                </a>
+            </div>
+            <div class="template-pres-territoire">
+                <a href="#" onclick="return false;" ng-click="makeChoice('territoire2')">
+                    <img src="images/pres-territoire-template2.jpg" alt="2" title="2"/>
+                    <h3>Choisir<div ng-if="template === 'territoire2'"> &radic;</div></h3>
+                </a>
+            </div>
+            <div style="border-right: none;" class="template-pres-territoire">
+                <a href="#" onclick="return false;" ng-click="makeChoice('territoire3')">
+                    <img src="images/pres-territoire-template3.jpg" alt="3" title="3"/>
+                    <h3>Choisir<div ng-if="template === 'territoire3'"> &radic;</div></h3>
+                </a>
+            </div>
         </div>
-        <div class="template-pres-territoire">
-            <a href="#" onclick="return false;" ng-click="makeChoice('territoire3')">
-                <img src="images/pres-territoire-template3.jpg" alt="3" title="3"/>
-                <h3>Choisir<div ng-if="template === 'territoire3'"> &radic;</div></h3>
-            </a>
+        <div class="right-pres-territoire">
+            <div class="help-pres-territoire">
+                <img src="images/pictos/help.png" width="16" height="16" alt="help" title="Aide"/>
+            </div>
+            <div class="link-pres-territoire">
+                <div style="background-color: #00a295;">
+                    <a href="#" onclick="return false;" ng-click="confirmChoiceNext()">
+                        <span>Etape Suivante</span>
+                        <img src="images/pictos/suivant.png" width="32" height="32" alt="Suivant" title="Etape suivante"/>
+                    </a>
+                </div>
+                <div style="background-color: #f0b14e;">
+                    <a href="#" onclick="return false;" ng-click="confirmChoiceReturn()">
+                        <span>Enregistrer et revenir à mon livret</span>
+                        <img src="images/pictos/enregistrer.png" width="32" height="32" alt="Enregitrer" title="Enregistrer"/>
+                    </a>
+                </div>
+                <div style="background-color: #000;">
+                    <a href="#" onclick="return false;" ng-click="gotoBooklets()">
+                        <span>Annuler</span>
+                        <img src="images/pictos/annuler.png" width="32" height="32" alt="Annuler" title="Annuler"/>
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
-    <div style="float: right; padding: 10px;">
-        <a style="color:#fff; text-decoration:none;" href="#" onclick="return false;" ng-click="confirmChoiceNext()">
-            <p style="background-color: #00a295;">Etape Suivante</p>
-        </a>
-        <a style="color:#fff; text-decoration:none;" href="#" onclick="return false;" ng-click="confirmChoiceReturn()">
-            <p style="background-color: #f0b14e;">Enregistrer et revenir à mon livret</p>
-        </a>
-        <a style="color:#fff; text-decoration:none;" href="#" onclick="return false;" ng-click="gotoBooklets()">
-            <p style="background-color: #000;">annuler</p>
-        </a>
     </div>
 </div>

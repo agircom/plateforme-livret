@@ -287,7 +287,7 @@ form {
  }
 fieldset {
  padding:0 20px 20px 20px;
- margin-bottom:10px;
+ margin: 10px;
  border: 1px solid #de7e08;
  }
 legend {
@@ -363,11 +363,26 @@ button {
 	/* display: block; */
 	margin: .5em 0 0 30px;
 }
+
+ /* formlaire contact */
+ #form-contact label {
+	/* display: block; */
+	font-weight: bold;
+        float: left;
+        
+	/* padding-top: 5px; */
+        
+	/* text-align: right; */
+	width: 370px;
+}
+ #form-contact input {
+	/* display: block; */
+	margin: .5em 0 0 30px;
+}
 /* autres */
 p {
     margin-bottom:20px;
-    line-height:1.538em
-}
+    line-height:1.538em}
 address {
     font-style:normal;
     line-height:1.538em;
@@ -411,6 +426,7 @@ h4{
     /* font-weight: bold; */
     font-size: 10px;
     /* line-height: 2em; */
+    padding-bottom:10px;
 }
 
 /* content */
@@ -556,7 +572,7 @@ footer .inside {
 .bloc-bas-pres h4{
     font-size:14px;
     text-transform:uppercase;
-    margin: 5px;
+    padding: 5px;
 }
 
 .bloc-bas-pres a h4{

@@ -8,6 +8,7 @@
     opacity: 0;
     /*display: none !important;*/
     display:inline-block!important;
+    float: left;
 }
 .menubo {
     -webkit-transition:all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
@@ -27,5 +28,5 @@
     overflow: hidden;
 }
 #menu-backoffice.ng-hide {
-    width: 64px;
+    width: 84px;
 }

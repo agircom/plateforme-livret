@@ -61,6 +61,13 @@
             requireLogin: true,
             requireAccess: [1, 2]
         },
+        '/plateforme/booklets/:booklet_focus': {
+            templateUrl: 'partials/backoffice/booklets.html',
+            controller: 'BackofficeCtrl.Booklets',
+            requireMenu: true,
+            requireLogin: true,
+            requireAccess: [1, 2]
+        },
         '/plateforme/booklet/:booklet_id/folio/:folio_id': {
             templateUrl: 'partials/backoffice/folio.html',
             controller: 'BackofficeCtrl.Folio',
@@ -107,6 +114,7 @@
 
     var FeaderApp = angular.module('FeaderApp', [
         'ngRoute',
+        'ngSanitize',
         'FeaderApp.Controllers',
         'FeaderApp.Directives',
         'FeaderApp.Services'

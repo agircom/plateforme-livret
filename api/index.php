@@ -301,6 +301,30 @@ $app->delete('/booklet/:booklet_id', function($booklet_id) use ($app) {
     R::store($user_record);
 });
 
+// REST Api get booklet folio by id
+$app->get('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_id) use ($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
+    // retrieve booklet
+    if (!isset($user_record->xownBookletList[$booklet_id])) {
+        // booklet doesn't exist or is not the owner
+        $app->response()->status(404);
+        return;
+    }
+    // retrieve folio booklet
+    if (!isset($user_record->xownBookletList[$booklet_id]->xownFolioList[$folio_id])) {
+        // folio booklet doesn't exist or is not the owner
+        $app->response()->status(404);
+        return;
+    }
+    $folio_record = $user_record->xownBookletList[$booklet_id]->xownFolioList[$folio_id];
+//    echo json_encode(array('folio' => $folio_record->export()), JSON_NUMERIC_CHECK);
+    echo json_encode(array('folio' => R::exportAll($user_record->xownBookletList[$booklet_id]->xownFolioList[$folio_id])), JSON_NUMERIC_CHECK);
+});
+
 // REST Api create booklet folio
 $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $folio_type) use ($app) {
     // retrieve user
@@ -326,7 +350,7 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
     $template_folio_record = R::findOne('templatefolio', 'type=?', array($folio_type));
     if (is_null($template_folio_record)) {
         // folio type template doesn't exist 
-       $app->response()->status(415);
+        $app->response()->status(415);
         return;
     }
     // create folio
@@ -351,13 +375,21 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
     echo json_encode(array('folio_id' => $folio_id), JSON_NUMERIC_CHECK);
 });
 
-// REST Api get booklet folio by id
-$app->get('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_id) use ($app) {
+// REST Api update booklet folio
+$app->put('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_id) use ($app) {
     // retrieve user
     $user_record = retrieveUserByToken();
     if (!$user_record) {
         return;
     }
+    // get params
+    $data = json_decode($app->request->getBody(), true);
+    if (!key_exists('folio_data', $data) || is_null($data['folio_data'])) {
+        // bad params
+        $app->response()->status(400);
+        return;
+    }
+    $givenFolioData = $data['folio_data'];
     // retrieve booklet
     if (!isset($user_record->xownBookletList[$booklet_id])) {
         // booklet doesn't exist or is not the owner
@@ -371,8 +403,20 @@ $app->get('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_i
         return;
     }
     $folio_record = $user_record->xownBookletList[$booklet_id]->xownFolioList[$folio_id];
-//    echo json_encode(array('folio' => $folio_record->export()), JSON_NUMERIC_CHECK);
-    echo json_encode(array('folio' => R::exportAll($user_record->xownBookletList[$booklet_id]->xownFolioList[$folio_id])), JSON_NUMERIC_CHECK);
+    foreach ($givenFolioData as $page) {
+        if (!isset($folio_record->xownPageList[$page['id']])) {
+            // page doesn't exist or is not the owner
+            $app->response()->status(404);
+            return;
+        }
+        $page_record = $folio_record->xownPageList[$page['id']];
+        $page_record->content = $page['content'];
+        var_dump($page['content']);
+        R::store($page_record);
+    }
+    $date = new DateTime();
+    $folio_record->date_last_update = $date;
+    R::store($folio_record);
 });
 
 

@@ -355,11 +355,14 @@ FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'Too
  * CONTROLLER BACKOFFICE BOOKLETS
  * 
  */
-FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$location', 'BookletSvc',
-    function($scope, $location, BookletSvc) {
+FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routeParams', '$location', 'BookletSvc',
+    function($scope, $routeParams, $location, BookletSvc) {
         $scope.newBookName = '';
         $scope.booklets = [];
         $scope.selectedBooklet = false;
+        if (typeof $routeParams.booklet_focus !== undefined) {
+            $scope.selectedBooklet = parseInt($routeParams.booklet_focus);
+        }
         $scope.error = '';
         $scope.reload = function() {
             BookletSvc.getAll().success(function(data) {
@@ -458,12 +461,16 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$location
         $scope.reload();
     }
 ]);
-FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', 'BookletSvc',
-    function($scope, $routeParams, BookletSvc) {
+FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', '$location', 'BookletSvc',
+    function($scope, $routeParams, $location, BookletSvc) {
         $scope.booklet_id = $routeParams.booklet_id;
+        $scope.booklet = null;
         $scope.folio_id = $routeParams.folio_id;
         $scope.folio = null;
         $scope.selected_page = 0;
+        BookletSvc.get($scope.booklet_id).success(function(data) {
+            $scope.booklet = data.booklet;
+        });
         BookletSvc.getFolio($scope.booklet_id, $scope.folio_id).success(function(data) {
             $scope.folio = data.folio[0];
         });
@@ -472,7 +479,9 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             $scope.selected_page = page_index;
         };
         $scope.save = function() {
-            
+            BookletSvc.updateFolio($scope.booklet.id, $scope.folio.id, $scope.folio.ownPage).success(function(data) {
+                $location.path('/plateforme/booklets/' + $scope.booklet.id);
+            });
         };
     }
 ]);

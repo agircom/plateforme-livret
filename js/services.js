@@ -179,11 +179,16 @@ FeaderAppServices.factory('ApiSvc', ['$http',
             deleteBooklet: function(booklet_id) {
                 return $http.delete(this.apiUrl + '/booklet/' + booklet_id);
             },
+            getFolio: function(booklet_id, folio_id) {
+                return $http.get(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_id);
+            },
             postFolio: function(booklet_id, folio_type_template) {
                 return $http.post(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_type_template);
             },
-            getFolio: function(booklet_id, folio_id) {
-                return $http.get(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_id);
+            putFolio: function(booklet_id, folio_id, folio_data) {
+                return $http.put(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_id, {
+                    folio_data: folio_data
+                });
             }
         };
     }
@@ -211,11 +216,14 @@ FeaderAppServices.factory('BookletSvc', ['ApiSvc',
             delete: function(booklet_id) {
                 return ApiSvc.deleteBooklet(booklet_id);
             },
+            getFolio: function(booklet_id, folio_id) {
+                return ApiSvc.getFolio(booklet_id, folio_id);
+            },
             createFolio: function(booklet_id, folio_type_template) {
                 return ApiSvc.postFolio(booklet_id, folio_type_template);
             },
-            getFolio: function(booklet_id, folio_id) {
-                return ApiSvc.getFolio(booklet_id, folio_id);
+            updateFolio: function(booklet_id, folio_id, folio_data) {
+                return ApiSvc.putFolio(booklet_id, folio_id, folio_data);
             },
             createSheet: function() {
 

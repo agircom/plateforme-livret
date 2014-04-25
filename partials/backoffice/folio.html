@@ -1,3 +1,39 @@
+<div class="fond-folio-pf">
+    <h1>
+        <img style="vertical-align: middle; padding-right:5px;" src="images/titre-folio.png" width="32" height="32" alt="Supprimer" title="Supprimer"/>
+        {{folio.ownPage[selected_page].content}}
+    </h1>
+    <div style="width:100%; display:inline-block;">
+        <div class="cadre-folio-pf">
+            plateforme
+        </div>
+        <div class="right-folio-pf">
+            <div class="help-folio-pf">
+                <img src="images/pictos/help.png" width="16" height="16" alt="help" title="Aide"/>
+            </div>
+            <div id="folio-edit-toolbox">
+                <a href="#" onclick="return false;" ng-click="selectPage(0)">Recto</a>
+                <a href="#" onclick="return false;" ng-click="selectPage(1)">Verso</a>
+            </div>
+            <div class="link-folio-pf">
+                <div style="background-color: #f0b14e;">
+                    <a href="#" onclick="return false;" ng-click="confirmChoiceReturn()">
+                        <span>Enregistrer et revenir à mon livret</span>
+                        <img src="images/pictos/enregistrer.png" width="32" height="32" alt="Enregitrer" title="Enregistrer"/>
+                    </a>
+                </div>
+                <div style="background-color: #000;">
+                    <a href="#" onclick="return false;" ng-click="gotoBooklets()">
+                        <span>Annuler</span>
+                        <img src="images/pictos/annuler.png" width="32" height="32" alt="Annuler" title="Annuler"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div id="folio-edit-content">
     {{folio.ownPage[selected_page].content}}
 </div>

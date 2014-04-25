@@ -246,3 +246,99 @@ h3{
     vertical-align: middle;
     /* width:25%; */
 }
+
+/* syle folio plateforme */
+
+.fond-folio-pf{
+    background-color: #e7e7e9;
+    border: 1px solid #DD6B5C;
+    margin-left: 10px;
+    padding: 15px;
+}
+.fond-folio-pf h1{
+    float:left;
+    color: #DD6B5C;
+    text-transform:uppercase;
+    font-weight:normal;
+    font-size: 12px;
+}
+.fond-folio-pf h2{
+    background-color:#DD6B5C;
+    -webkit-border-radius: 0px 10px 0px 10px;
+    padding: 5px 10px;
+    margin-left: 20px;
+    color: #fff;
+    text-transform:uppercase;
+    /* width:300px; */
+    float: left;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.cadre-folio-pf{
+    margin-top: 20px;
+    margin-right: 20px;
+    border: 1px solid #DD6B5C;
+    width: 75%;
+    float: left;
+    text-align:center;
+    height: 400px;
+}
+
+.template-folio-pf{
+    width:30%;
+    float: left;
+    display: inline-block;
+    border-right: 2px solid #b3b3b3;
+}
+
+.template-folio-pf h3{
+    background-color:#00a295;
+    -webkit-border-radius: 0px 10px 0px 10px;
+    padding: 5px;
+    color: #fff;
+    text-transform:uppercase;
+    width:50%;
+    margin: 0 auto;
+    font-family: Arial;
+    text-align: center;
+}
+
+.right-folio-pf{
+    float: left;
+    /* padding-top: 200px; */
+    width: 20%;
+}
+
+.help-folio-pf{
+    background-color: #fff;
+    width: 100%;
+    height: 120px;
+    margin-bottom:100px;
+    border: 2px solid #999999;
+}
+.help-folio-pf img{
+    padding: 5px;
+}
+
+.link-folio-pf a{
+    color:#fff;
+    text-decoration:none;
+}
+.link-folio-pf div{
+    padding: 10px;
+    margin:10px;
+    height: 32px;
+}
+
+.link-folio-pf div span{
+    float: left;
+    width:75%;
+    font-size: 10px;
+}
+
+.link-folio-pf div img{
+    float: right;
+    vertical-align: middle;
+    /* width:25%; */
+}

@@ -461,8 +461,8 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
         $scope.reload();
     }
 ]);
-FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', '$location', 'BookletSvc',
-    function($scope, $routeParams, $location, BookletSvc) {
+FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', '$location', '$sce', 'BookletSvc',
+    function($scope, $routeParams, $location, $sce, BookletSvc) {
         $scope.booklet_id = $routeParams.booklet_id;
         $scope.booklet = null;
         $scope.folio_id = $routeParams.folio_id;
@@ -477,6 +477,9 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         
         $scope.selectPage = function(page_index) {
             $scope.selected_page = page_index;
+        };
+        $scope.getFolioContent = function() {
+            return $sce.trustAsHtml($scope.folio.ownPage[$scope.selected_page].content);
         };
         $scope.save = function() {
             BookletSvc.updateFolio($scope.booklet.id, $scope.folio.id, $scope.folio.ownPage).success(function(data) {

@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="css/styles_bo.css">
         <link rel="stylesheet" href="css/animate.css">
         <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-sanitize.min.js"></script>
@@ -22,11 +23,11 @@
     </head>
     <body>
         <div id="rrhn-app" ng-app="FeaderApp">
-                <div id="main">
-                    <header ng-include="'partials/common/header.html'"></header>
-                    <div class="menu-bo" ng-if="layout.requireMenu" ng-include="'partials/common/menu.html'"></div>
-                    <div ng-class="{plate:layout.requireMenu}" class="container" ng-view></div>
-                </div>
+            <div id="main">
+                <header ng-include="'partials/common/header.html'"></header>
+                <div class="menu-bo" ng-if="layout.requireMenu" ng-include="'partials/common/menu.html'"></div>
+                <div ng-class="{plate:layout.requireMenu}" class="container" ng-view></div>
+            </div>
             <footer ng-include="'partials/common/footer.html'"></footer>
         </div>
     </body>

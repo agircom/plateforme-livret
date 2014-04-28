@@ -1,10 +1,11 @@
-<div class="fond-folio-pf">
+<div ng-if="folio !== null" class="fond-folio-pf">
     <h1>
         <img style="vertical-align: middle; padding-right:5px;" src="images/titre-folio.png" width="32" height="32" alt="Supprimer" title="Supprimer"/>
         {{folio.type}} - {{booklet.name}}
     </h1>
     <div style="width:100%; display:inline-block;">
-        <div class="cadre-folio-pf" ng-bind-html="folio.ownPage[selected_page].content"></div>
+        <!--<div class="cadre-folio-pf" ng-bind-html="folio.ownPage[selected_page].content"></div>-->
+        <div class="cadre-folio-pf" ng-bind-html="getFolioContent()"></div>
         <div class="right-folio-pf">
             <div class="help-folio-pf">
                 <img src="images/pictos/help.png" width="16" height="16" alt="help" title="Aide"/>

@@ -115,6 +115,7 @@
     var FeaderApp = angular.module('FeaderApp', [
         'ngRoute',
         'ngSanitize',
+        'ui.draggable',
         'FeaderApp.Controllers',
         'FeaderApp.Directives',
         'FeaderApp.Services'

@@ -372,7 +372,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
                         $scope.booklets[booklet].folios = {};
                         if ($scope.booklets[booklet].ownFolio !== undefined) {
                             for (var folio in $scope.booklets[booklet].ownFolio) {
-                                if ($scope.booklets[booklet].ownFolio[folio].type in {'territoire1':null, 'territoire2':null, 'territoire3':null}) {
+                                if ($scope.booklets[booklet].ownFolio[folio].type in {'territoire1': null, 'territoire2': null, 'territoire3': null}) {
                                     $scope.booklets[booklet].folios['territoire'] = $scope.booklets[booklet].ownFolio[folio].id;
                                 } else {
                                     $scope.booklets[booklet].folios[$scope.booklets[booklet].ownFolio[folio].type] = $scope.booklets[booklet].ownFolio[folio].id;
@@ -474,7 +474,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         BookletSvc.getFolio($scope.booklet_id, $scope.folio_id).success(function(data) {
             $scope.folio = data.folio[0];
         });
-        
+
         $scope.selectPage = function(page_index) {
             $scope.selected_page = page_index;
         };

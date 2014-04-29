@@ -474,7 +474,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         BookletSvc.getFolio($scope.booklet_id, $scope.folio_id).success(function(data) {
             $scope.folio = data.folio[0];
         });
-
         $scope.selectPage = function(page_index) {
             $scope.selected_page = page_index;
         };
@@ -484,6 +483,8 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         $scope.save = function() {
             BookletSvc.updateFolio($scope.booklet.id, $scope.folio.id, $scope.folio.ownPage).success(function(data) {
                 $location.path('/plateforme/booklets/' + $scope.booklet.id);
+            }).error(function(data, status) {
+                alert('Erreur de sauvegarde ('+status+')');
             });
         };
     }

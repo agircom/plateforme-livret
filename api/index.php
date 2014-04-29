@@ -27,8 +27,8 @@ $app->post('/contact', function() use ($app) {
         return;
     }
     $mail_data = array();
-    $mail_data['mail'] = 'thomas.beauvallet@gmail.com';
-    $mail_data['name'] = 'Thomas Beauvallet';
+    $mail_data['mail'] = 'contact@livret-accueil-haute-normandie.fr';
+    $mail_data['name'] = 'Contact Plateforme Livret Accueil Haute Normandie';
     sendContactEmail($mail_data, $givenContactInfos);
 });
 
@@ -301,6 +301,12 @@ $app->delete('/booklet/:booklet_id', function($booklet_id) use ($app) {
     R::store($user_record);
 });
 
+/*
+ * 
+ * API FOLIOS
+ * 
+ */
+
 // REST Api get booklet folio by id
 $app->get('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_id) use ($app) {
     // retrieve user
@@ -411,7 +417,6 @@ $app->put('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_i
         }
         $page_record = $folio_record->xownPageList[$page['id']];
         $page_record->content = $page['content'];
-        var_dump($page['content']);
         R::store($page_record);
     }
     $date = new DateTime();

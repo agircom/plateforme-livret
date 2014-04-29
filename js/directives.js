@@ -33,10 +33,7 @@ FeaderAppDirectives.directive('ngDraggable', [function() {
                     drag: null,
                     start: null,
                     stop: function() {
-//                        var content = element.parent().clone();
-                        element.draggable('destroy');
-                        element.children('.ng-draggable-handler').remove();
-                        scope.updateModel(element.parent().clone());
+                        scope.updateModel();
                     }
                 });
             }
@@ -59,9 +56,10 @@ FeaderAppDirectives.directive('ngEditable', [function() {
         return {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
-                element.addClass('ng-editable');
                 element.attr('contenteditable', true);
-                
+                element.on('blur', function() {
+                    scope.updateModel();
+                });
             }
         };
     }

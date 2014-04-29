@@ -480,15 +480,19 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         $scope.getFolioContent = function() {
             return $sce.trustAsHtml($scope.folio.ownPage[$scope.selected_page].content);
         };
-        $scope.updateModel = function(content) {
-            
+        $scope.updateModel = function() {
+            var content = $('#drawboard');
+            content.children('.ng-draggable').draggable('destroy');
+            content.children('.ng-draggable').children('.ng-draggable-handler').remove();
+            content.children('.ng-locked').children('.ng-locked-handler').remove();
             $scope.folio.ownPage[$scope.selected_page].content = content.html();
         };
         $scope.save = function() {
+            $scope.updateModel();
             BookletSvc.updateFolio($scope.booklet.id, $scope.folio.id, $scope.folio.ownPage).success(function(data) {
                 $location.path('/plateforme/booklets/' + $scope.booklet.id);
             }).error(function(data, status) {
-                alert('Erreur de sauvegarde ('+status+')');
+                alert('Erreur de sauvegarde (' + status + ')');
             });
         };
     }

@@ -1,10 +1,23 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
 /* 
-    Created on : 18 févr. 2014, 00:11:28
+    Created on : 18 févr. 2014; 00:11:28
     Author     : Thomas Beauvallet <thomas.beauvallet@gmail.com>
 */
 
+.ng-draggable-handler {
+    margin: 0;
+    padding: 0;
+    background-image: url('../images/pictos/fermer.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    display: block;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}

@@ -159,14 +159,14 @@ h3{
     margin-left: 10px;
     padding: 15px;
 }
-.fond-pres-territoire h1{
+h1.titre1fond-pres-territoire{
     float:left;
     color: #DD6B5C;
     text-transform:uppercase;
     font-weight:normal;
     font-size: 12px;
 }
-.fond-pres-territoire h2{
+h2.titre2fond-pres-territoire{
     background-color:#DD6B5C;
     -webkit-border-radius: 0px 10px 0px 10px;
     padding: 5px 10px;
@@ -255,25 +255,24 @@ h3{
     margin-left: 10px;
     padding: 15px;
 }
-.fond-folio-pf h1{
+h1.titre1fond-folio-pf{
     float:left;
     color: #DD6B5C;
     text-transform:uppercase;
     font-weight:normal;
     font-size: 12px;
 }
-.fond-folio-pf h2{
+/*.fond-folio-pf h2{
     background-color:#DD6B5C;
     -webkit-border-radius: 0px 10px 0px 10px;
     padding: 5px 10px;
     margin-left: 20px;
     color: #fff;
     text-transform:uppercase;
-    /* width:300px; */
     float: left;
     font-family: Arial;
     font-size: 12px;
-}
+}*/
 
 .cadre-folio-pf{
     margin-top: 20px;
@@ -282,7 +281,7 @@ h3{
     width: 75%;
     float: left;
     text-align:center;
-    height: 400px;
+    /* height: 400px; */
 }
 
 .template-folio-pf{

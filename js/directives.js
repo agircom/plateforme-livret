@@ -2,15 +2,6 @@
 
 var FeaderAppDirectives = angular.module('FeaderApp.Directives', []);
 
-FeaderAppDirectives.directive('ngEditable', function() {
-    return {
-        require: 'ngModel',
-        link: function(scope, elem, attrs, ngModel) {
-
-        }
-    };
-});
-
 FeaderAppDirectives.directive('compile', ['$compile', function($compile) {
         return function(scope, element, attrs) {
             scope.$watch(
@@ -23,65 +14,54 @@ FeaderAppDirectives.directive('compile', ['$compile', function($compile) {
                     }
             );
         };
-    }]);
+    }
+]);
 
-FeaderAppDirectives.directive('ngDraggable', ['$log',
-    function($log) {
+FeaderAppDirectives.directive('ngDraggable', [function() {
         return {
-            require: '?ngModel',
-            link: function(scope, element, attrs, ngModel) {
-
-                function combineCallbacks(first, second) {
-                    if (second && (typeof second === "function")) {
-                        return function(e, ui) {
-                            first(e, ui);
-                            second(e, ui);
-                        };
-                    }
-                    return first;
-                }
-
-                var opts = {
+            restrict: 'AEC',
+            link: function(scope, element, attrs) {
+                element.draggable({
                     scroll: true,
                     cursor: 'move',
                     handle: '.ng-draggable-handler',
-                    containment: "parent"
-                };
-                var callbacks = {
-                    create: null,
-                    drag: null,
-                    start: null,
-                    stop: null
-                };
-
-                if (ngModel) {
-                    callbacks.create = function(e, ui) {
+                    containment: "parent",
+                    create: function() {
                         $(document.createElement('div')).addClass('ng-draggable-handler').appendTo(element);
                         $(".ng-draggable-handler").disableSelection();
-                    };
-                    callbacks.stop = function(e, ui) {
-                        scope.$apply(function() {
-                            ngModel.$modelValue.content = element.parent().html();
-                        });
-                    };
-                    scope.$watch(attrs.ngDraggable, function(newVal) {
-                        angular.forEach(newVal, function(value, key) {
-                            if (callbacks[key]) {
-                                value = combineCallbacks(callbacks[key], value);
-                            }
-                            element.draggable('option', key, value);
-                        });
-                    }, true);
-
-                } else {
-                    $log.info('ngDraggable: ngModel not provided!', element);
-                }
-
-                angular.forEach(callbacks, function(value, key) {
-                    opts[key] = combineCallbacks(value, opts[key]);
+                    },
+                    drag: null,
+                    start: null,
+                    stop: function() {
+//                        var content = element.parent().clone();
+                        element.draggable('destroy');
+                        element.children('.ng-draggable-handler').remove();
+                        scope.updateModel(element.parent().clone());
+                    }
                 });
-                // create draggable element
-                element.draggable(opts);
+            }
+        };
+    }
+]);
+
+FeaderAppDirectives.directive('ngLocked', [function() {
+        return {
+            restrict: 'AEC',
+            link: function(scope, element) {
+                $(document.createElement('div')).addClass('ng-locked-handler').appendTo(element);
+                $(".ng-locked-handler").disableSelection();
+            }
+        };
+    }
+]);
+
+FeaderAppDirectives.directive('ngEditable', [function() {
+        return {
+            restrict: 'AEC',
+            link: function(scope, element, attrs) {
+                element.addClass('ng-editable');
+                element.attr('contenteditable', true);
+                
             }
         };
     }

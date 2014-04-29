@@ -480,6 +480,10 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         $scope.getFolioContent = function() {
             return $sce.trustAsHtml($scope.folio.ownPage[$scope.selected_page].content);
         };
+        $scope.updateModel = function(content) {
+            
+            $scope.folio.ownPage[$scope.selected_page].content = content.html();
+        };
         $scope.save = function() {
             BookletSvc.updateFolio($scope.booklet.id, $scope.folio.id, $scope.folio.ownPage).success(function(data) {
                 $location.path('/plateforme/booklets/' + $scope.booklet.id);

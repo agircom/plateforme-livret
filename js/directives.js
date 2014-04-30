@@ -57,8 +57,24 @@ FeaderAppDirectives.directive('ngEditable', [function() {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
                 element.attr('contenteditable', true);
+                element.addClass('ng-editable-marker');
                 element.on('blur', function() {
                     scope.updateModel();
+                });
+            }
+        };
+    }
+]);
+
+FeaderAppDirectives.directive('ngMarkerToggle', [function() {
+        return {
+            restrict: 'AEC',
+            link: function(scope, element, attrs) {
+                element.on('click', function() {
+                    var content = $('#drawboard');
+                    content.find('.ng-draggable').children('.ng-draggable-handler').toggle();
+                    content.find('.ng-locked').children('.ng-locked-handler').toggle();
+                    content.find('.ng-editable').toggleClass('ng-editable-marker');
                 });
             }
         };

@@ -43,3 +43,7 @@
 .ng-editable {
     cursor: pointer;
 }
+
+.ng-editable-marker {
+    border: 2px dashed lightseagreen;
+}

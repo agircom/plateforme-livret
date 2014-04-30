@@ -486,6 +486,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             content.find('.ng-draggable').removeClass('ui-draggable-dragging');
             content.find('.ng-draggable').children('.ng-draggable-handler').remove();
             content.find('.ng-editable').removeAttr('contenteditable');
+            content.find('.ng-editable').removeClass('ng-editable-marker');
             content.find('.ng-locked').children('.ng-locked-handler').remove();
             $scope.folio.ownPage[$scope.selected_page].content = content.html();
         };

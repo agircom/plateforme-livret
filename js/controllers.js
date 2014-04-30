@@ -481,10 +481,12 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             return $sce.trustAsHtml($scope.folio.ownPage[$scope.selected_page].content);
         };
         $scope.updateModel = function() {
-            var content = $('#drawboard');
-            content.children('.ng-draggable').draggable('destroy');
-            content.children('.ng-draggable').children('.ng-draggable-handler').remove();
-            content.children('.ng-locked').children('.ng-locked-handler').remove();
+            var content = $('#drawboard').clone();
+            content.find('.ng-draggable').removeClass('ui-draggable');
+            content.find('.ng-draggable').removeClass('ui-draggable-dragging');
+            content.find('.ng-draggable').children('.ng-draggable-handler').remove();
+            content.find('.ng-editable').removeAttr('contenteditable');
+            content.find('.ng-locked').children('.ng-locked-handler').remove();
             $scope.folio.ownPage[$scope.selected_page].content = content.html();
         };
         $scope.save = function() {

@@ -130,6 +130,7 @@ $app->post('/user', function() use($app) {
     $user_record->session_token = null;
     $user_record->last_timestamp = null;
     $user_record->xownBookletList = array();
+    $user_record->xownLibraryList = array();
     $user_record->setMeta("cast.phone", "string");
     $user_record->setMeta("cast.cp", "string");
     R::store($user_record);
@@ -422,6 +423,72 @@ $app->put('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_i
     $date = new DateTime();
     $folio_record->date_last_update = $date;
     R::store($folio_record);
+});
+
+
+/*
+ * 
+ * API Library
+ * 
+ */
+
+// REST Api get images library by user
+$app->get('/library', function() use($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
+    // export user library
+    $data = array('library' => R::exportAll($user_record->xownLibraryList));
+    echo json_encode($data, JSON_NUMERIC_CHECK);
+});
+
+// REST Api upload image into user library        
+$app->post('/library', function() use ($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
+    $postData = $app->request->post();
+    if (!key_exists('name', $postData) || is_null($postData['name']) || !key_exists('description', $postData) || is_null($postData['description']) || !key_exists('image', $_FILES)) {
+        // bad params
+        $app->response()->status(400);
+        return;
+    }
+    $givenName = $postData['name'];
+    $givenDescription = $postData['description'];
+    $givenImage = $_FILES['image'];
+    if ($givenImage['error'] !== 0) {
+        // image error
+        $app->response()->status(406);
+        echo json_encode(array('error' => 'Erreur lors de l\'envoi du fichier (code ' . $givenImage['error'] . ').'));
+        return;
+    }
+    if ($givenImage['size'] > 5000000) {
+        // image error
+        $app->response()->status(406);
+        echo json_encode(array('error' => 'Le fichier est trop volumineux.'));
+        return;
+    }
+    if (!getimagesize($givenImage['tmp_name'])) {
+        // image error
+        $app->response()->status(406);
+        echo json_encode(array('error' => 'Le fichier n\'est pas une image.'));
+        return;
+    }
+    $ext = pathinfo($givenImage['name'], PATHINFO_EXTENSION);
+    $filename = $user_record->id . '_' . md5(uniqid(mt_rand(), true)) . '.' . $ext;
+    $date = new DateTime();
+    move_uploaded_file($givenImage['tmp_name'], '..' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'uploaded' . DIRECTORY_SEPARATOR . $filename);
+    $library_record = R::dispense('library');
+    $library_record->name = $givenName;
+    $library_record->description = $givenDescription;
+    $library_record->filename = $filename;
+    $library_record->date_create = $date;
+    $user_record->xownLibraryList[] = $library_record;
+    R::store($user_record);
 });
 
 

@@ -189,6 +189,15 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                 return $http.put(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_id, {
                     folio_data: folio_data
                 });
+            },
+            getLibrary: function() {
+                return $http.get(this.apiUrl + '/library');
+            },
+            postLibrary: function(image_infos) {
+                return $http.post(this.apiUrl + '/library', image_infos, {
+                    headers: {'Content-Type': undefined},
+                    transformRequest: function(data) { return data; }
+                });
             }
         };
     }
@@ -232,6 +241,21 @@ FeaderAppServices.factory('BookletSvc', ['ApiSvc',
     }
 ]);
 
+FeaderAppServices.factory('LibrarySvc', ['ApiSvc',
+    function(ApiSvc) {
+        return {
+            getImages: function() {
+                return ApiSvc.getLibrary();
+            },
+            addImage: function(image_infos) {
+                return ApiSvc.postLibrary(image_infos);
+            },
+            deleteImage: function(image_id) {
+
+            }
+        };
+    }
+]);
 
 FeaderAppServices.factory('ToolSvc', [
     function() {

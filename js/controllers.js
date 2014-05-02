@@ -539,9 +539,48 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$rout
  * CONTROLLER BACKOFFICE LIBRARY
  * 
  */
-FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope',
-    function($scope) {
-
+FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc',
+    function($scope, LibrarySvc) {
+        $scope.name = '';
+        $scope.description = '';
+        $scope.image = '';
+        $scope.library = null;
+        $scope.refreshLibrary = function() {
+            LibrarySvc.getImages().success(function(data) {
+                $scope.library = data.library;
+            });
+        };
+        $scope.setFile = function(element) {
+            if (element.files[0].size > 5000000) {
+                alert('Le fichier est trop volumineux.');
+                angular.element('#library-form-add-image').val(null);
+            } else {
+                $scope.image = element.files[0];
+            }
+        };
+        $scope.startUpload = function() {
+            if ($scope.name === '' || $scope.description === '' || $scope.image === '') {
+                alert('Vous devez renseigner les informations de la photo.');
+                return;
+            }
+            var form = new FormData();
+            form.append('name', $scope.name);
+            form.append('description', $scope.description);
+            form.append('image', $scope.image);
+            LibrarySvc.addImage(form).success(function(data, status) {
+                $scope.name = '';
+                $scope.description = '';
+                $scope.image = '';
+                angular.element('#library-form-add-image').val(null);
+                $scope.refreshLibrary();
+            }).error(function(data, status) {
+                alert('image upload error : ' + data.error);
+            });
+        };
+        $scope.deleteImage = function(image_id) {
+            // TODO delete user pictures when delete user
+        };
+        $scope.refreshLibrary();
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Help', ['$scope',

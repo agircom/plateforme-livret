@@ -1,1 +1,30 @@
-library
+<div id="library-manager">
+    <div id="library-form-add">
+        <p>
+            <label for="library-form-add-name">Nom :</label>
+            <input type="text" name="name" ng-model="name" id="library-form-add-name">
+        </p>
+        <p>
+            <label for="library-form-add-description">Description :</label>
+            <input type="text" name="description" ng-model="description" id="library-form-add-description">
+        </p>
+        <p>
+            <label for="library-form-add-image">Votre image :</label>
+            <input type="file" accept="image/*" name="image" id="library-form-add-image" onchange="angular.element(this).scope().setFile(this)">
+        </p>
+        <p>
+            <button ng-click="startUpload()">Ajouter</button>
+        </p>
+    </div>
+    <div>
+        <ul id="library-list">
+            <li ng-repeat="image in library">
+                <img ng-src="images/uploaded/{{image.filename}}" style="width: 50px; height: 50px;">
+                <br>
+                Nom : {{image.name}}
+                <br>
+                Description : {{image.description}}
+            </li>
+        </ul>
+    </div>
+</div>

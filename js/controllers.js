@@ -463,6 +463,8 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', '$location', '$sce', 'BookletSvc',
     function($scope, $routeParams, $location, $sce, BookletSvc) {
+        $scope.showPictureSelector = false;
+        $scope.imageSelected = null;
         $scope.booklet_id = $routeParams.booklet_id;
         $scope.booklet = null;
         $scope.folio_id = $routeParams.folio_id;
@@ -497,6 +499,13 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             }).error(function(data, status) {
                 alert('Erreur de sauvegarde (' + status + ')');
             });
+        };
+        $scope.togglePictureSelect = function() {
+            $scope.showPictureSelector = !$scope.showPictureSelector;
+        };
+        $scope.selectImage = function(filename) {
+            $scope.imageSelected = 'images/uploaded/' + filename;
+            $scope.showPictureSelector = false;
         };
     }
 ]);
@@ -583,6 +592,19 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
         $scope.refreshLibrary();
     }
 ]);
+
+FeaderAppControllers.controller('BackofficeCtrl.PictureSelector', ['$scope', 'LibrarySvc',
+    function($scope, LibrarySvc) {
+        $scope.library = null;
+        $scope.refreshLibrary = function() {
+            LibrarySvc.getImages().success(function(data) {
+                $scope.library = data.library;
+            });
+        };
+        $scope.refreshLibrary();
+    }
+]);
+
 FeaderAppControllers.controller('BackofficeCtrl.Help', ['$scope',
     function($scope) {
 

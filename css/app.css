@@ -1,5 +1,5 @@
 /* 
-    Created on : 18 févr. 2014; 00:11:28
+    Created on : 18 fevr. 2014; 00:11:28
     Author     : Thomas Beauvallet <thomas.beauvallet@gmail.com>
 */
 
@@ -46,4 +46,31 @@
 
 .ng-editable-marker {
     border: 2px dashed lightseagreen;
+}
+
+.ng-picture-select {
+    cursor: pointer;
+}
+#picture-select {
+    background: #000;
+    position: fixed; left: 0; top: 0;
+    width: 100%; height: 100%;
+    opacity: .95;
+    z-index: 9999;
+}
+#picture-selector {
+    position: fixed;
+    top: 25%;
+    bottom: 25%;
+    left: 25%;
+    right: 25%;
+    opacity: 1;
+    background: #fff;
+    padding: 20px;
+    border: 20px solid #ddd;
+    float: left;
+    z-index: 99999;
+}
+#picture-selector > ul > li {
+    cursor: pointer;
 }

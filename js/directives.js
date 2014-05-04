@@ -80,3 +80,30 @@ FeaderAppDirectives.directive('ngMarkerToggle', [function() {
         };
     }
 ]);
+
+FeaderAppDirectives.directive('ngPictureSelect', ['LibrarySvc', function(LibrarySvc) {
+        return {
+            restrict: 'AEC',
+            link: function(scope, element, attrs) {
+                if (!element.is('img')) {
+                    console.log('ngPictureSelect error: element type should be <img>');
+                    return;
+                }
+                element.on('click', function() {
+                    scope.$apply(function() {
+                        scope.togglePictureSelect();
+                    });
+                    var unregister = scope.$watch(function() {
+                        return scope.imageSelected;
+                    }, function(newVal) {
+                        if (newVal !== null) {
+                            element.attr('src', newVal);
+                            scope.updateModel();
+                            unregister();
+                        }
+                    });
+                });
+            }
+        };
+    }
+]);

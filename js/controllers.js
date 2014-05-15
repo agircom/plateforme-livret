@@ -461,10 +461,11 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
         $scope.reload();
     }
 ]);
-FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', '$location', '$sce', 'BookletSvc',
-    function($scope, $routeParams, $location, $sce, BookletSvc) {
+FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', '$location', '$sce', 'BookletSvc', 'ToolSvc',
+    function($scope, $routeParams, $location, $sce, BookletSvc, ToolSvc) {
         $scope.showPictureSelector = false;
         $scope.imageSelected = null;
+        $scope.showNgEditableToolbox = false;
         $scope.booklet_id = $routeParams.booklet_id;
         $scope.booklet = null;
         $scope.folio_id = $routeParams.folio_id;
@@ -506,6 +507,9 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         $scope.selectImage = function(filename) {
             $scope.imageSelected = 'images/uploaded/' + filename;
             $scope.showPictureSelector = false;
+        };
+        $scope.toggleNgEditableToolbox = function(val) {
+            $scope.showNgEditableToolbox = val;
         };
     }
 ]);

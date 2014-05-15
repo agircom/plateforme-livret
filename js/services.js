@@ -196,7 +196,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
             postLibrary: function(image_infos) {
                 return $http.post(this.apiUrl + '/library', image_infos, {
                     headers: {'Content-Type': undefined},
-                    transformRequest: function(data) { return data; }
+                    transformRequest: function(data) {
+                        return data;
+                    }
                 });
             }
         };
@@ -263,6 +265,17 @@ FeaderAppServices.factory('ToolSvc', [
             isValidEmail: function(email) {
                 var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 return re.test(email);
+            },
+            getSelected: function() {
+                var t = '';
+                if (window.getSelection) {
+                    t = window.getSelection();
+                } else if (document.getSelection) {
+                    t = document.getSelection();
+                } else if (document.selection) {
+                    t = document.selection.createRange().text;
+                }
+                return t;
             }
         };
     }

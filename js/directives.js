@@ -58,7 +58,19 @@ FeaderAppDirectives.directive('ngEditable', [function() {
             link: function(scope, element, attrs) {
                 element.attr('contenteditable', true);
                 element.addClass('ng-editable-marker');
+                element.on('focus', function(e, ui) {
+                    $('#ng-editable-toolbox').css({
+                        left: element.offset().left,
+                        top: element.offset().top - 35
+                    });
+                    scope.$apply(function() {
+                        scope.toggleNgEditableToolbox(true);
+                    });
+                });
                 element.on('blur', function() {
+                    scope.$apply(function() {
+                        scope.toggleNgEditableToolbox(false);
+                    });
                     scope.updateModel();
                 });
             }

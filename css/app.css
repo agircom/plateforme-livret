@@ -48,6 +48,26 @@
     border: 2px dashed lightseagreen;
 }
 
+#ng-editable-toolbox {
+    position: absolute;
+    width: 100px;
+    height: 30px;
+    border: 1px solid #000;
+    background-color: #fff;
+}
+#ng-editable-toolbox>.textSize {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 5px 0 5px 5px;
+}
+#ng-editable-toolbox>.textColor {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 5px 0 5px 5px;
+}
+
 .ng-picture-select {
     cursor: pointer;
 }

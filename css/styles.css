@@ -343,7 +343,7 @@ input[type=submit]:active, input[type=reset]:active {
 }
 
 button {
- width:100px;
+ /* width:100px; */
  margin-left:5px;
  box-shadow:1px 1px 1px #D83F3D;
  cursor:pointer;
@@ -562,6 +562,11 @@ footer .inside {
     color:#fff;
     font-size: 10px;
 }
+
+.bas-presentation-livret a{
+    color:#fff;
+    text-decoration: none;
+}
 .bloc-bas-pres{
     display:inline-block;
     float:left;
@@ -576,7 +581,7 @@ footer .inside {
     padding: 5px;
 }
 
-.bloc-bas-pres a h4{
+.voir-tuto-pres a h4{
     color: #818284;
 }
 .etape1 {

@@ -1,6 +1,6 @@
 <div id="booklet-create">
     <div class="titre-creer-livret">
-        <h2>Creer mon livret maintenant<img src="images/mes-livrets.png" alt="mes-livrets" title="Mes livrets" width="48" height="48"/></h2>        
+        <h2>Creer mon livret maintenant<img src="images/mes-livrets.png" alt="mes-livrets" title="Mes livrets"/></h2>        
     </div>
     <div class="form-creer-livret">
         <div ng-if="error !== ''" ng-bind="error" style="color: red"></div>
@@ -15,13 +15,11 @@
             <a style="font-size:18px; padding-right:400px" href="#" onclick="return false;" ng-click="selectBooklet(booklet.id)">
                 {{booklet.name}}
             </a>
-            <a style="font-size:12px; float:right;" href="#" onclick="return false;" ng-click="deleteBooklet(booklet.id)">
-                <img src="images/supprimer.png" width="32" height="32" alt="Supprimer" title="Supprimer"/>
-                Supprimer
+            <a style="font-size:12px; float:right; text-decoration: underline; text-transform: none;" href="#" onclick="return false;" ng-click="deleteBooklet(booklet.id)">
+                Supprimer<img src="images/supprimer.png" style="margin-left:5px;" width="32" height="32" alt="Supprimer" title="Supprimer"/>               
             </a>
-            <a style="font-size:12px; float:right;" href="#" onclick="return false;" ng-click="duplicateBooklet(booklet.id)">
-                <img src="images/dupliquer.png" width="32" height="32" alt="dupliquer" title="Dupliquer"/>
-                Dupliquer
+            <a style="font-size:12px; float:right; margin-right:10px; text-decoration: underline; text-transform: none;" href="#" onclick="return false;" ng-click="duplicateBooklet(booklet.id)">
+                Dupliquer<img src="images/dupliquer.png" style="margin-left:5px;" width="32" height="32" alt="dupliquer" title="Dupliquer"/>                
             </a>
         </div>
         <div class="booklet-list-body" ng-show="booklet.id === selectedBooklet">
@@ -30,44 +28,54 @@
                 <h3> > La Pochette</h3>
                 <img src="images/pochette2.png" alt="phototheque" title="Photothèque" width="186" height="126"/>
                 <button ng-if="booklet.folios.pochette === undefined" ng-click="createFolio(booklet.id, 'pochette')">Commencer maintenant</button>
-                <button ng-if="booklet.folios.pochette !== undefined" ng-click="editFolio(booklet.id, booklet.folios.pochette)">Modifier</button>
+                <button style="background-color: #e47d0a" ng-if="booklet.folios.pochette !== undefined" ng-click="editFolio(booklet.id, booklet.folios.pochette)">Modifier</button>
                 <br>
-                <span>Pochette Format A3 (recto/verso)</span>
+                <span>Pochette Format A3<br>
+                    (recto/verso)</span>
             </div>
             <div class="folio">
                 <h3> > La présentation du territoire</h3>
                 <img src="images/folio2.png" alt="phototheque" title="Photothèque"/>
                 <button ng-if="booklet.folios.territoire === undefined" ng-click="createFolio(booklet.id, 'territoire')">Commencer maintenant</button>
-                <button ng-if="booklet.folios.territoire !== undefined" ng-click="editFolio(booklet.id, booklet.folios.territoire)">Modifier</button>
+                <button style="background-color: #e47d0a" ng-if="booklet.folios.territoire !== undefined" ng-click="editFolio(booklet.id, booklet.folios.territoire)">Modifier</button>
                 <br>
-                <span>1 Feuillet Format A4 (recto/verso)</span>
+                <span>1 Feuillet Format A4<br>
+                    (recto/verso)</span>
             </div>
             <div class="folio">
                 <h3> > L'Offre locale</h3>
                 <img src="images/folio2.png" alt="phototheque" title="Photothèque"/>
                 <button ng-if="booklet.folios.locale === undefined" ng-click="createFolio(booklet.id, 'locale')">Commencer maintenant</button>
-                <button ng-if="booklet.folios.locale !== undefined" ng-click="editFolio(booklet.id, booklet.folios.locale)">Modifier</button>
+                <button style="background-color: #e47d0a" ng-if="booklet.folios.locale !== undefined" ng-click="editFolio(booklet.id, booklet.folios.locale)">Modifier</button>
                 <br>
-                <span>Feuillet Format A4 (recto/verso)</span>
-                <span>Quantité: suivant contenu</span>
+                <span>Feuillet Format A4<br>
+                    (recto/verso)<br>
+                    Quantité: suivant contenu</span>
             </div>
             <div class="folio">
                 <h3> > Les règles pour bien vivre ensemble</h3>
                 <img src="images/folio2.png" alt="phototheque" title="Photothèque"/>
                 <button ng-if="booklet.folios.ensemble === undefined" ng-click="createFolio(booklet.id, 'ensemble')">Commencer maintenant</button>
-                <button ng-if="booklet.folios.ensemble !== undefined" ng-click="editFolio(booklet.id, booklet.folios.ensemble)">Modifier</button>
+                <button style="background-color: #e47d0a" ng-if="booklet.folios.ensemble !== undefined" ng-click="editFolio(booklet.id, booklet.folios.ensemble)">Modifier</button>
                 <br>
-                <span>1 Feuillet Format A4 (recto/verso)</span>
+                <span>1 Feuillet Format A4<br>
+                    (recto/verso)</span>
             </div>
             <div class="folio">
                 <h3> > L'agenda</h3>
                 <img src="images/folio2.png" alt="phototheque" title="Photothèque"/>
                 <button ng-if="booklet.folios.agenda === undefined" ng-click="createFolio(booklet.id, 'agenda')">Commencer maintenant</button>
-                <button ng-if="booklet.folios.agenda !== undefined" ng-click="editFolio(booklet.id, booklet.folios.agenda)">Modifier</button>
+                <button style="background-color: #e47d0a" ng-if="booklet.folios.agenda !== undefined" ng-click="editFolio(booklet.id, booklet.folios.agenda)">Modifier</button>
                 <br>
-                <span>1 Feuillet Format A4 (recto/verso)</span>
+                <span>1 Feuillet Format A4<br>
+                    (recto/verso)</span>
             </div>
             </div>
         </div>
     </li>
 </ul>
+<div style="display: block; width: 100%; height: 100px; padding-top: 20px; text-align: right;">
+    <img src="images/region-haute-normandie.png" alt="logo" title="Logo"/>
+    <img src="images/prefet-haute-normandie.jpg" alt="logo" title="Logo"/>
+    <img src="images/europe-feader.png" alt="logo" title="Logo"/>
+</div> 

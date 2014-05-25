@@ -15,11 +15,13 @@ and open the template in the editor.
 #menu-backoffice{
     height: auto;
     width: 100%;
-    background: #d3d3d4;
+    background: #d8d9da;
     margin-left: 0px; 
     padding-left: 0px; 
 }
-
+.titre-menu-bo{
+    float: left;
+}
 .titre-menu-bo h2{
     font-weight: bold;
     text-transform:uppercase;
@@ -33,6 +35,8 @@ margin:0;
 
 #menu-backoffice li{
     list-style-type: none;
+    border: 2px solid #b3b3b3;
+    margin: 5px;
 }
 
 #menu-backoffice li a{
@@ -114,7 +118,7 @@ margin:0;
 h3{
     font-family: Arial;
     /* width: 300px; */
-    color: #DD6B5C;
+    color: #666666;
     font-size: 14px;
     text-transform:uppercase;
     margin-bottom: 0;
@@ -277,7 +281,7 @@ h1.titre1fond-folio-pf{
 .cadre-folio-pf{
     margin-top: 20px;
     margin-right: 20px;
-    border: 1px solid #DD6B5C;
+    border: 1px solid #bbbbbb;
     width: 75%;
     float: left;
     text-align:center;

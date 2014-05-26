@@ -78,6 +78,7 @@ FeaderAppDirectives.directive('ngEditable', [function() {
                     $('#ng-editable-toolbox-color').val(element.css('color'));
                     $('#ng-editable-toolbox-color').on('change', function() {
                         element.css('color', $(this).val());
+                        $('#ng-editable-toolbox-color').css('background-color', $(this).val());
                         scope.updateModel();
                     });
                     

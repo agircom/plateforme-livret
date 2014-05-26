@@ -119,3 +119,17 @@ FeaderAppDirectives.directive('ngPictureSelect', ['LibrarySvc', function(Library
         };
     }
 ]);
+
+FeaderAppDirectives.directive('ngDeletable', [function() {
+        return {
+            restrict: 'AEC',
+            link: function(scope, element, attrs) {
+                $(document.createElement('div')).addClass('ng-deletable-handler').appendTo(element);
+                element.find('.ng-deletable-handler').on('click', function(e, ui) {
+                    element.remove();
+                    scope.updateModel();
+                });
+            }
+        };
+    }
+]);

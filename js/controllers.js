@@ -92,7 +92,6 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
             $scope.message.show = false;
             $scope.contactInProgress = true;
             $scope.prepareFormLoggedUser();
-            console.log($scope.contactInfos);
             if ($scope.contactInfos.name === '' ||
                     $scope.contactInfos.last_name === '' ||
                     $scope.contactInfos.first_name === '' ||

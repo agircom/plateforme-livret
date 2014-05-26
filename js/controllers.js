@@ -95,9 +95,7 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
             if ($scope.contactInfos.name === '' ||
                     $scope.contactInfos.last_name === '' ||
                     $scope.contactInfos.first_name === '' ||
-                    $scope.contactInfos.address === '' ||
                     $scope.contactInfos.email === '' ||
-                    $scope.contactInfos.cp === '' ||
                     $scope.contactInfos.question === '') {
                 $scope.showError('Les champs marqués d’un * doivent être complétés');
                 return;

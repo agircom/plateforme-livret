@@ -54,8 +54,8 @@ FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'User
         };
     }
 ]);
-FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'ApiSvc',
-    function($scope, ToolSvc, ApiSvc) {
+FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'ApiSvc', 'UserSvc',
+    function($scope, ToolSvc, ApiSvc, UserSvc) {
         $scope.contactInfos = {
             name: '',
             last_name: '',
@@ -74,9 +74,25 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
             text: '',
             show: false
         };
+        $scope.prepareFormLoggedUser = function() {
+            if (UserSvc.isLogged()) {
+                $scope.contactInfos.email = UserSvc.getInfos().username;
+                $scope.email2 = UserSvc.getInfos().username;
+                $scope.contactInfos.last_name = UserSvc.getInfos().last_name;
+                $scope.contactInfos.first_name = UserSvc.getInfos().first_name;
+                $scope.contactInfos.fonction = UserSvc.getInfos().fonction;
+                $scope.contactInfos.name = UserSvc.getInfos().name;
+                $scope.contactInfos.fonction = UserSvc.getInfos().fonction;
+                $scope.contactInfos.phone = UserSvc.getInfos().phone;
+                $scope.contactInfos.address = UserSvc.getInfos().address;
+                $scope.contactInfos.cp= UserSvc.getInfos().cp;
+            }
+        };
         $scope.contact = function() {
             $scope.message.show = false;
             $scope.contactInProgress = true;
+            $scope.prepareFormLoggedUser();
+            console.log($scope.contactInfos);
             if ($scope.contactInfos.name === '' ||
                     $scope.contactInfos.last_name === '' ||
                     $scope.contactInfos.first_name === '' ||

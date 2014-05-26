@@ -1,56 +1,64 @@
 <div class="wrapper">
     <section id="content">
-            <h2>Contact</h2>
-            <h4>
-                Pour nous contacter, remplissez ce formulaire. Nous vous apporterons une réponse dans les meilleurs délais.
+        <h2>Contact</h2>
+        <h4>
+            Pour nous contacter, remplissez ce formulaire. Nous vous apporterons une réponse dans les meilleurs délais.
+            <br>
+            Les champs obligatoires sont indiqués par un *
+        </h4>
+        <div ng-if="message.show" 
+             ng-bind="message.text" 
+             ng-class="{message_success: message.type === 'success', message_error: message.type === 'error'}">
+        </div>
+        <div ng-show="contactInProgress">
+            Envoi du formulaire de contact...
+            <br>
+            <img src="images/loading.gif">
+        </div>
+        <div ng-hide="(message.show && message.type === 'success') || contactInProgress" id="form-contact">
+            <fieldset>
+                <legend>Formulaire de contact</legend>
+                <label for="form-contact-name-compagny">Nom de votre structure* : </label>
+                <input type="text" ng-model="contactInfos.name" ng-hide="User.isLogged()" id="form-contact-name-compagny">
+                <b ng-show="User.isLogged()">{{User.getInfos().name}}</b>
                 <br>
-                Les champs obligatoires sont indiqués par un *
-            </h4>
-            <div ng-if="message.show" 
-                 ng-bind="message.text" 
-                 ng-class="{message_success: message.type === 'success', message_error: message.type === 'error'}">
-            </div>
-            <div ng-show="contactInProgress">
-                Envoi du formulaire de contact...
+                <label for="form-contact-lastname">Nom* :</label>
+                <input type="text" ng-model="contactInfos.last_name" ng-hide="User.isLogged()" id="form-contact-lastname">
+                <b ng-show="User.isLogged()">{{User.getInfos().last_name}}</b>
                 <br>
-                <img src="images/loading.gif">
-            </div>
-            <div ng-hide="(message.show && message.type === 'success') || contactInProgress" id="form-contact">
-                <fieldset>
-                    <legend>Formulaire de contact</legend>
-                    <label for="form-contact-name-compagny">Nom de votre structure* : </label>
-                    <input type="text" ng-model="contactInfos.name" id="form-contact-name-compagny">
-                    <br>
-                    <label for="form-contact-lastname">Nom* :</label>
-                    <input type="text" ng-model="contactInfos.last_name" id="form-contact-lastname">
-                    <br>
-                    <label for="form-contact-firstname">Pr&eacute;nom* :</label>
-                    <input type="text" ng-model="contactInfos.first_name" id="form-contact-firstname">
-                    <br>
-                    <label for="form-contact-fonction">Fonction : </label>
-                    <input type="text" ng-model="contactInfos.fonction" id="form-contact-fonction">
-                    <br>
-                    <label for="form-contact-email">Adresse mail* :</label>
-                    <input type="text" ng-model="contactInfos.email" id="form-contact-email">
-                    <br>
-                    <label for="form-contact-email2">Confirmez votre adresse mail* :</label>
-                    <input type="text" ng-model="email2" id="form-contact-email2">
-                    <br>
-                    <label for="form-contact-phone">Téléphone :</label>
-                    <input type="text" ng-model="contactInfos.phone" id="form-contact-phone">
-                    <br>
-                    <label for="form-contact-adress">Adresse :</label>
-                    <input type="text" ng-model="contactInfos.address" id="form-contact-address">
-                    <br>
-                    <label for="form-contact-cp">Code Postal :</label>
-                    <input type="text" ng-model="contactInfos.cp" id="form-contact-cp">
-                    <br>
-                    <label for="form-contact-question">Votre question* :</label>
-                    <textarea id="form-contact-question" ng-model="contactInfos.question"></textarea>
-                    <br>
-                    <button ng-click="contact()">Valider</button>
-                </fieldset>
-            </div>
+                <label for="form-contact-firstname">Pr&eacute;nom* :</label>
+                <input type="text" ng-model="contactInfos.first_name" ng-hide="User.isLogged()" id="form-contact-firstname">
+                <b ng-show="User.isLogged()">{{User.getInfos().first_name}}</b>
+                <br>
+                <label for="form-contact-fonction">Fonction : </label>
+                <input type="text" ng-model="contactInfos.fonction" ng-hide="User.isLogged()" id="form-contact-fonction">
+                <b ng-show="User.isLogged()">{{User.getInfos().fonction}}</b>
+                <br>
+                <label for="form-contact-email">Adresse mail* :</label>
+                <input type="text" ng-model="contactInfos.email" ng-hide="User.isLogged()" id="form-contact-email">
+                <b ng-show="User.isLogged()">{{User.getInfos().username}}</b>
+                <br ng-hide="User.isLogged()">
+                <label for="form-contact-email2" ng-hide="User.isLogged()">Confirmez votre adresse mail* :</label>
+                <input type="text" ng-model="email2" ng-hide="User.isLogged()" id="form-contact-email2">
+                <br>
+                <label for="form-contact-phone">Téléphone :</label>
+                <input type="text" ng-model="contactInfos.phone" ng-hide="User.isLogged()" id="form-contact-phone">
+                <b ng-show="User.isLogged()">{{User.getInfos().phone}}</b>
+                <br>
+                <label for="form-contact-adress">Adresse :</label>
+                <input type="text" ng-model="contactInfos.address" ng-hide="User.isLogged()" id="form-contact-address">
+                <b ng-show="User.isLogged()">{{User.getInfos().address}}</b>
+                <br>
+                <label for="form-contact-cp">Code Postal :</label>
+                <input type="text" ng-model="contactInfos.cp" ng-hide="User.isLogged()" id="form-contact-cp">
+                <b ng-show="User.isLogged()">{{User.getInfos().cp}}</b>
+                <br>
+                <label for="form-contact-question">Votre question* :</label>
+                <textarea id="form-contact-question" ng-model="contactInfos.question"></textarea>
+                <br>
+                <button ng-click="contact()">Valider</button>
+            </fieldset>
+        </div>
     </section>
-    <aside ng-include="'partials/home/right.html'"></aside>
+    <aside ng-if="!layout.requireMenu" ng-include="'partials/home/right.html'"></aside>
 </div>

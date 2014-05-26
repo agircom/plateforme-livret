@@ -104,8 +104,8 @@
             requireAccess: [1, 2]
         },
         '/plateforme/contact': {
-            templateUrl: 'partials/backoffice/contact.html',
-            controller: 'BackofficeCtrl.Contact',
+            templateUrl: 'partials/common/contact.html',
+            controller: 'CommonCtrl.Contact',
             requireMenu: true,
             requireLogin: true,
             requireAccess: [1, 2]

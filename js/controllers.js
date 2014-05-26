@@ -85,7 +85,7 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
                 $scope.contactInfos.fonction = UserSvc.getInfos().fonction;
                 $scope.contactInfos.phone = UserSvc.getInfos().phone;
                 $scope.contactInfos.address = UserSvc.getInfos().address;
-                $scope.contactInfos.cp= UserSvc.getInfos().cp;
+                $scope.contactInfos.cp = UserSvc.getInfos().cp;
             }
         };
         $scope.contact = function() {
@@ -314,7 +314,16 @@ FeaderAppControllers.controller('AccountCtrl.ResetPasswd', ['$scope', 'UserSvc',
 FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'ToolSvc',
     function($scope, UserSvc, ToolSvc) {
         $scope.saveInProgress = false;
-        $scope.passwd = '';
+        $scope.userInfos = {
+            name: UserSvc.getInfos().name,
+            last_name: UserSvc.getInfos().last_name,
+            first_name: UserSvc.getInfos().first_name,
+            fonction: UserSvc.getInfos().fonction,
+            phone: UserSvc.getInfos().phone,
+            address: UserSvc.getInfos().address,
+            cp: UserSvc.getInfos().cp,
+            passwd: ''
+        };
         $scope.passwd2 = '';
         $scope.message = {
             type: null,
@@ -323,28 +332,23 @@ FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'Too
         };
         $scope.save = function() {
             $scope.saveInProgress = true;
-            if ($scope.passwd !== $scope.passwd2) {
-                $scope.passwd = '';
-                $scope.passwd2 = '';
-                $scope.saveInProgress = false;
-                $scope.showError('Veuillez saisir les meme mot de passe');
-                return;
-            }
-            if ($scope.passwd === '') {
-                $scope.saveInProgress = false;
+            if ($scope.userInfos.name === '' ||
+                    $scope.userInfos.last_name === '' ||
+                    $scope.userInfos.first_name === '' ||
+                    $scope.userInfos.address === '' ||
+                    $scope.userInfos.cp === '') {
                 $scope.showError('Les champs marqués d’un * doivent être complétés');
                 return;
             }
-            var userInfos = {
-                passwd: $scope.passwd
-            };
-            $scope.passwd = '';
-            $scope.passwd2 = '';
-            UserSvc.ProfilUpdate(userInfos).success(function(data) {
-                $scope.saveInProgress = false;
+            if ($scope.userInfos.passwd !== '') {
+                if ($scope.userInfos.passwd !== $scope.passwd2) {
+                    $scope.showError('Veuillez saisir les meme mot de passe');
+                    return;
+                }
+            }
+            UserSvc.ProfilUpdate($scope.userInfos).success(function(data) {
                 $scope.showSuccess('Les modifications ont bien ete effectuees.');
             }).error(function(data, status) {
-                $scope.saveInProgress = false;
                 $scope.showError('Impossible de sauvegarder vos nouvelles informations');
             });
         };
@@ -352,13 +356,26 @@ FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'Too
             $scope.message.type = 'error';
             $scope.message.text = message;
             $scope.message.show = true;
-            $scope.createInProgress = false;
+            $scope.saveInProgress = false;
+            $scope.userInfos = {
+                name: UserSvc.getInfos().name,
+                last_name: UserSvc.getInfos().last_name,
+                first_name: UserSvc.getInfos().first_name,
+                fonction: UserSvc.getInfos().fonction,
+                phone: UserSvc.getInfos().phone,
+                address: UserSvc.getInfos().address,
+                cp: UserSvc.getInfos().cp,
+                passwd: ''
+            };
+            $scope.passwd2 = '';
         };
         $scope.showSuccess = function(message) {
             $scope.message.type = 'success';
             $scope.message.text = message;
             $scope.message.show = true;
-            $scope.createInProgress = false;
+            $scope.saveInProgress = false;
+            $scope.userInfos.passwd = '';
+            $scope.passwd2 = '';
         };
     }
 ]);

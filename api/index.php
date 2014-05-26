@@ -151,10 +151,20 @@ $app->put('/user', function() use ($app) {
     // get parameters
     $data = json_decode($app->request->getBody(), true);
     $givenUserInfos = $data['userInfos'];
-    foreach ($givenUserInfos as $key => $value) {
-        if (isset($user_record->$key)) {
-            $user_record->$key = $value;
-        }
+    if (is_null($givenUserInfos) || !checkUserInfosUpdatePattern($givenUserInfos)) {
+        // missing params
+        $app->response()->status(400);
+        return;
+    }
+    $user_record->name = $givenUserInfos['name'];
+    $user_record->first_name = $givenUserInfos['first_name'];
+    $user_record->last_name = $givenUserInfos['last_name'];
+    $user_record->fonction = (isset($givenUserInfos['fonction'])) ? $givenUserInfos['fonction'] : null;
+    $user_record->phone = (isset($givenUserInfos['phone'])) ? $givenUserInfos['phone'] : null;
+    $user_record->address = $givenUserInfos['address'];
+    $user_record->cp = $givenUserInfos['cp'];
+    if (isset($givenUserInfos['passwd'])) {
+        $user_record->passwd = $givenUserInfos['passwd'];
     }
     R::store($user_record);
 });

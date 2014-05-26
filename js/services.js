@@ -33,8 +33,10 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', 'ApiSvc',
                 return ApiSvc.postUserResetPasswd(username);
             },
             ProfilUpdate: function(userInfos) {
-                if (typeof userInfos.passwd !== undefined) {
+                if (userInfos.passwd !== '') {
                     userInfos.passwd = CryptoJS.SHA1(CryptoJS.SHA1(userInfos.passwd) + this.salt).toString();
+                } else {
+                    delete userInfos.passwd;
                 }
                 return ApiSvc.putUser(userInfos);
             },

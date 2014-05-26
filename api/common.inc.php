@@ -52,6 +52,28 @@ function checkUserInfosCreatePattern($givenUserInfos) {
     return true;
 }
 
+function checkUserInfosUpdatePattern($givenUserInfos) {
+    $patternUserInfos = array(
+        'name',
+        'last_name',
+        'first_name',
+        'address',
+        'cp'
+    );
+    if (count(array_diff($patternUserInfos, array_keys($givenUserInfos))) > 0) {
+        return false;
+    }
+    foreach ($patternUserInfos as $infoKey) {
+        if (is_null($givenUserInfos[$infoKey])) {
+            return false;
+        }
+    }
+    if (isset($givenUserInfos['passwd']) && is_null($givenUserInfos['passwd'])) {
+        return false;
+    }
+    return true;
+}
+
 function retrieveUserByToken() {
     global $app;
     $user_record = null;
@@ -115,7 +137,7 @@ function sendMail($dest, $subject, $body) {
 function sendContactEmail($dest, $contactinfos) {
     $subject = 'Contact';
     $body = 'Formulaire de contact, <br>';
-    foreach($contactinfos as $key=>$value) {
+    foreach ($contactinfos as $key => $value) {
         $body .= "$key : $value<br>";
     }
     return sendMail($dest, $subject, $body);

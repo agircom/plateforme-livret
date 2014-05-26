@@ -12,30 +12,39 @@
         <div ng-hide="saveInProgress" id="form-subscribe">
             <fieldset>
                 <legend>Vos informations de compte</legend>
-                <label>Nom de votre structure : {{User.getInfos().name}}</label>
-                <label style="width: 390px;">Nom r&eacute;f&eacute;rent (responsable de la saisie du livret) : {{User.getInfos().last_name}}</label>
-                <label>Pr&eacute;nom r&eacute;f&eacute;rent : {{User.getInfos().first_name}}</label>
-                <label>Fonction : {{User.getInfos().fonction}}</label>
+                <label for="form-subscribe-name-compagny">Nom de votre structure* : </label>
+                <input type="text" ng-model="userInfos.name" id="form-subscribe-name-compagny">
+                <br>
+                <label for="form-subscribe-lastname">Nom r&eacute;f&eacute;rent (responsable de la saisie du livret)* :</label>
+                <input type="text" ng-model="userInfos.last_name" id="form-subscribe-lastname">
+                <br>
+                <label for="form-subscribe-firstname">Pr&eacute;nom r&eacute;f&eacute;rent* :</label>
+                <input type="text" ng-model="userInfos.first_name" id="form-subscribe-firstname">
+                <br>
+                <label for="form-subscribe-fonction">Fonction : </label>
+                <input type="text" ng-model="userInfos.fonction" id="form-subscribe-fonction">
+                <br>
                 <label>Adresse mail : {{User.getInfos().username}}</label>
-                <label>Téléphone : {{User.getInfos().phone}}</label>
-                <label>Adresse : {{User.getInfos().address}}</label>
-                <label>Code Postal : {{User.getInfos().cp}}</label>
-                <div style="clear: both;"></div>
-                <div>
-                <label for="form-profil-passwd">Mot de passe choisi* :</label>
-                <input type="password" ng-model="passwd" id="form-profil-passwd">
-                </div>
-                <div>
-                <label for="form-profil-passwd2">Confirmez le mot de passe choisi* :</label>
-                <input type="password" ng-model="passwd2" id="form-profil-passwd2">
-                </div>
+                <br>
+                <label for="form-subscribe-phone">Téléphone :</label>
+                <input type="text" ng-model="userInfos.phone" id="form-subscribe-phone">
+                <br>
+                <label for="form-subscribe-adress">Adresse* :</label>
+                <input type="text" ng-model="userInfos.address" id="form-subscribe-adress">
+                <br>
+                <label for="form-subscribe-cp">Code Postal* :</label>
+                <input type="text" ng-model="userInfos.cp" id="form-subscribe-cp">
+                <br>
+                <label for="form-subscribe-passwd">Mot de passe choisi* :</label>
+                <input type="password" ng-model="userInfos.passwd" id="form-subscribe-passwd">
+                <br>   
+                <label for="form-subscribe-passwd">Confirmez le mot de passe choisi* :</label>
+                <input type="password" ng-model="passwd2" id="form-subscribe-passwd">
                 <div style="clear: both;"></div>
                 <br>
                 <button ng-click="save()">Enregistrer</button>
 
             </fieldset>
         </div>
-        <div ng-init="showCGU = false" ng-if="showCGU" ng-include="'partials/common/cgu.html'" onload="parent = $parent"></div>
     </section>
-    <aside ng-include="'partials/home/right.html'"></aside>
 </div>

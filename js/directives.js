@@ -133,3 +133,13 @@ FeaderAppDirectives.directive('ngDeletable', [function() {
         };
     }
 ]);
+
+FeaderAppDirectives.directive('link', [function() {
+        return {
+            restrict: 'AEC',
+            link: function(scope, element, attrs) {
+                element.attr('onclick', 'return false;');
+            }
+        };
+    }
+]);

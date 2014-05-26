@@ -135,7 +135,8 @@ function sendAccountResetPasswdEmail($dest, $newPasswd) {
     $subject = 'Reinitialisation de votre mot de passe';
     $body = 'Cher (chère) ' . $dest['name'] . ', <br>';
     $body .= 'Vous avez souhaité réinitialiser votre mot de passe.<br>';
-    $body .= 'Voici votre nouveau mot de passe: <b>' . $newPasswd . '</b><br>';
+    $body .= 'Voici votre nouveau mot de passe: <b>' . $newPasswd . '</b> pour vous connecter.<br>';
+    $body .= 'Vous pourrez ensuite facilement le personnaliser en cliquant sur Mon compte.<br>';
     $body .= 'Cordialement<br>Le Réseau Rural Haut-Normand';
     return sendMail($dest, $subject, $body);
 }

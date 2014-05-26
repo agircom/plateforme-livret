@@ -52,21 +52,23 @@
 
 #ng-editable-toolbox {
     position: absolute;
-    width: 100px;
-    height: 30px;
+    width: 150px;
+    height: 40px;
     border: 1px solid #000;
     background-color: #fff;
 }
-#ng-editable-toolbox>.textSize {
+#ng-editable-toolbox-size  {
+    cursor: pointer;
     float: left;
-    width: 20px;
-    height: 20px;
     margin: 5px 0 5px 5px;
 }
-#ng-editable-toolbox>.textColor {
+#ng-editable-toolbox-color {
+    cursor: pointer;
     float: left;
-    width: 20px;
-    height: 20px;
+    margin: 5px 0 5px 5px;
+}
+#ng-editable-toolbox-cancel {
+    float: left;
     margin: 5px 0 5px 5px;
 }
 

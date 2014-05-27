@@ -1,10 +1,12 @@
 <div class="wrapper">
     <section id="content">
         <h2>Création de compte</h2>
-        <h4>Vous souhaitez créer un livret d’accueil personnalisé pour les habitants de votre territoire. Créez maintenant votre compte pour accéder à la plate-forme.  
+        <h4 ng-hide="message.show && message.type === 'success'">
+            Vous souhaitez créer un livret d’accueil personnalisé pour les habitants de votre territoire. Créez maintenant votre compte pour accéder à la plate-forme.  
             Ce compte est l’unique accès à votre livret. Ce livret n’est modifiable qu’après la saisie de vos identifiants. Si vous souhaitez que d’autres personnes contribuent, pensez à leur communiquer votre login et votre mot de passe. 
             <br>
-            Les champs obligatoires sont indiqués par un *</h4>
+            Les champs obligatoires sont indiqués par un *
+        </h4>
         <div ng-if="message.show" 
              ng-bind="message.text" 
              ng-class="{message_success: message.type === 'success', message_error: message.type === 'error'}">
@@ -54,10 +56,10 @@
                 <div style="clear: both;"></div>
                 <br>
                 <button ng-click="create()">Valider</button>
-                
+
             </fieldset>
         </div>
-        <div ng-init="showCGU = false" ng-if="showCGU" ng-include="'partials/common/cgu.html'" onload="parent=$parent"></div>
+        <div ng-init="showCGU = false" ng-if="showCGU" ng-include="'partials/common/cgu.html'" onload="parent = $parent"></div>
     </section>
     <aside ng-include="'partials/home/right.html'"></aside>
 </div>

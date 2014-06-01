@@ -95,16 +95,18 @@ html,body {
 /* Global Structure */
 #rrhn-app {min-height: 100%}
 #main {
-    /* margin:0 auto; */
-    /* width: 90%; */
+    margin:0 auto;
+    width: 1024px;
     font-size: .814em;
     overflow:auto;
-    padding-bottom: 10px;}
+    padding-bottom: 95px;
+    height: auto;
+}
 /* Header */
 header {
     height: 170px;
     margin:0 auto; 
-    width: 1000px;
+    width: 1024px;
     overflow:hidden;
     position:relative
 }
@@ -238,8 +240,8 @@ footer {
     font-size:0.814em;
     line-height:1.538em;
     border-top:3px solid #666666;
-    margin-top:20px;
-    margin-bottom:20px;}
+    margin-top: 66px;
+    margin-bottom: 32px;}
 footer a {
     color:#808080;
     text-decoration: none;
@@ -266,7 +268,7 @@ footer a {
 }
 .wrapper {
     margin:0 auto;
-    width: 1024px;
+    /* width: 1024px; */
     overflow:hidden
 }
 

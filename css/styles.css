@@ -124,20 +124,20 @@ header {
 }
 #slogan img {
     position:absolute;
-    right: -7px;
+    right: -20px;
     bottom:0px;
 }
 
 #slogan h1 {
-    font-family: 'EurostileRomanDTCRegular',Arial;
-    font-weight: bolder;
-    font-size: 16px;
+    font-family: 'Lato','Jura','EurostileRomanDTCRegular',Arial;
+    font-weight: 300;
+    font-size: 19px;
     margin: 2px;
-    letter-spacing: 1px;
+    /* letter-spacing: 1px; */
 }
 
 #slogan h2 {
-    font-family: 'EurostileRomanDTCRegular', Arial;
+    font-family: 'Jura','EurostileRomanDTCRegular', Arial;
     font-weight: normal;
     font-size: 14px;
     color: #808080;
@@ -412,9 +412,9 @@ h1 {
     font-size: 18px 
 }
 h2 {
-    font-family: 'EurostileRomanDTCRegular',Arial;
+    font-family: 'Lato','Jura','EurostileRomanDTCRegular',Arial;
     color: #000;
-    font-weight: bolder;
+    font-weight: 300;
     font-size:18px;
     line-height:1.2em;
     margin-bottom:20px}
@@ -452,8 +452,9 @@ aside .inside {
 }
 aside h2 {
     /* letter-spacing:-1px; */
-    font-weight: bolder;
-    font-size:18px;
+    font-family: 'Lato','Jura','EurostileRomanDTCRegular',Arial;
+    font-weight: 300;
+    font-size: 18px;
     line-height:1.2em;
     margin-bottom:10px
 }
@@ -538,10 +539,10 @@ footer .inside {
 }
 
 .presentation-livret h1 {
-    font-family: 'EurostileRomanDTCRegular',Arial;
-    font-weight: bolder;
+    font-family: 'Lato','Jura','EurostileRomanDTCRegular',Arial;
+    font-weight: 300;
     padding: 20px 0 10px 20px;
-    font-size:16px;
+    font-size: 18px;
     text-transform:uppercase;
 }
 

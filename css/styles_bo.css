@@ -10,11 +10,13 @@ and open the template in the editor.
 
 
 .menu-bo{
-    width: 20%;
-    float: left;}
+    /*width: 20%;*/
+    float: left;
+}
 #menu-backoffice{
+    clear: both;
     height: auto;
-    width: 100%;
+    width: 160px;
     background: #d8d9da;
     margin-left: 0px; 
     padding-left: 0px; 
@@ -31,7 +33,7 @@ and open the template in the editor.
 }
 
 #menu-backoffice ul{
-margin:0;
+    margin:0;
 }
 
 #menu-backoffice li{
@@ -64,7 +66,7 @@ margin:0;
 }
 
 .titre-creer-livret {
-   
+
 }
 .titre-creer-livret h2 {
     font-family: 'Jura','EurostileRomanDTCRegular', Arial;
@@ -76,7 +78,7 @@ margin:0;
 }
 
 .titre-creer-livret img {
-  vertical-align: middle; 
+    vertical-align: middle; 
 }
 
 #booklets-list {

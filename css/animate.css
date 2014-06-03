@@ -13,8 +13,8 @@
     overflow: hidden;
 }
 #menu-backoffice.ng-hide,.titre-menu-bo.ng-hide {
-    width: 84px;
+    width: 70px;
 }
 .titre-menu-bo.ng-hide {
-    width: 1px;
+    width: 0px;
 }

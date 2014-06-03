@@ -1,4 +1,4 @@
-<div class="titre-menu-bo"><h2> > Trousse à outils</h2></div>
+<div class="titre-menu-bo" ng-hide="!menuShow"><h2> > Trousse à outils</h2></div>
 <div style="float: left;" ng-init="menuShow = true;
         btnContent = '<'">
     <button ng-click="menuShow = !menuShow">{{(menuShow) ? '<' : '>'}}</button>

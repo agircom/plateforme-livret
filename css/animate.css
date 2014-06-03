@@ -3,22 +3,7 @@
     Author     : Thomas BEAUVALLET
 */
 
-.menubo.ng-hide {
-    margin-left: -135%;
-    opacity: 0;
-    /*display: none !important;*/
-    display:inline-block!important;
-    float: left;
-}
-.menubo {
-    -webkit-transition:all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
-    -moz-transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
-    -ms-transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
-    -o-transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
-    transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
-    display:inline-block!important;
-}
-#menu-backoffice {
+#menu-backoffice, .titre-menu-bo {
     -webkit-transition:all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
     -moz-transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
     -ms-transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
@@ -27,6 +12,9 @@
     display:block!important;
     overflow: hidden;
 }
-#menu-backoffice.ng-hide {
+#menu-backoffice.ng-hide,.titre-menu-bo.ng-hide {
     width: 84px;
+}
+.titre-menu-bo.ng-hide {
+    width: 1px;
 }

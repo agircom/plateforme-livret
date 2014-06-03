@@ -506,7 +506,8 @@ aside h2 {
     text-align: center;
     display:inline-block;
     float:left;
-    width: 31%;
+    width: 60px;
+    margin: 5px;
 }
 
 .temoignage-sidebar a span{

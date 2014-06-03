@@ -45,8 +45,8 @@ FeaderAppDirectives.directive('ngLocked', [function() {
         return {
             restrict: 'AEC',
             link: function(scope, element) {
-                $(document.createElement('div')).addClass('ng-locked-handler').appendTo(element);
-                $(".ng-locked-handler").disableSelection();
+//                $(document.createElement('div')).addClass('ng-locked-handler').appendTo(element);
+//                $(".ng-locked-handler").disableSelection();
             }
         };
     }

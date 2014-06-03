@@ -4,17 +4,20 @@
 */
 
 #menu-backoffice, .titre-menu-bo {
-    -webkit-transition:all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
+/*    -webkit-transition:all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
     -moz-transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
     -ms-transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
     -o-transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
-    transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;
+    transition: all cubic-bezier(0.250, 0.100, 0.250, 1.000) 300ms;*/
     display:block!important;
     overflow: hidden;
 }
 #menu-backoffice.ng-hide,.titre-menu-bo.ng-hide {
     width: 70px;
 }
-.titre-menu-bo.ng-hide {
+.titre-menu-bo.ng-hide  {
     width: 0px;
+}
+.titre-menu-bo.ng-hide  h2 {
+    margin-left: -1000px;
 }

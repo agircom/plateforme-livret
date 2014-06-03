@@ -10,7 +10,7 @@ and open the template in the editor.
 
 
 .menu-bo{
-    width: 189px;
+    width: 20%;
     float: left;}
 #menu-backoffice{
     height: auto;
@@ -18,6 +18,7 @@ and open the template in the editor.
     background: #d8d9da;
     margin-left: 0px; 
     padding-left: 0px; 
+    float: left;
 }
 .titre-menu-bo{
     float: left;
@@ -51,7 +52,7 @@ margin:0;
 }
 
 .plate{
-    width: 800px;
+    width: 940px;
     float: left;
     /* margin-left: 20px; */
 }
@@ -283,7 +284,7 @@ h1.titre1fond-folio-pf{
     margin-top: 20px;
     margin-right: 20px;
     border: 1px solid #bbbbbb;
-    width: 580px;
+    width: 725px;
     float: left;
     text-align:center;
     /* height: 400px; */

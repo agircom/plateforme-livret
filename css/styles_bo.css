@@ -53,10 +53,14 @@ and open the template in the editor.
     vertical-align: middle;
 }
 
-.plate{
-    width: 940px;
+.plate {
+    width: 765px;
     float: left;
     /* margin-left: 20px; */
+}
+.plate-menu-hide {
+    width: 890px;
+    float: left;
 }
 
 /* mes livrets */

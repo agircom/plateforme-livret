@@ -1,41 +1,40 @@
-<div class="titre-menu-bo" ng-hide="!menuShow"><h2> > Trousse à outils</h2></div>
-<div style="float: left;" ng-init="menuShow = true;
-        btnContent = '<'">
-    <button ng-click="menuShow = !menuShow">{{(menuShow) ? '<' : '>'}}</button>
+<div class="titre-menu-bo" ng-hide="!$parent.menuShow"><h2> > Trousse à outils</h2></div>
+<div style="float: left;">
+    <button ng-click="$parent.menuShow = !$parent.menuShow">{{($parent.menuShow) ? '<' : '>'}}</button>
 </div>
-<ul id="menu-backoffice" ng-hide="!menuShow">
+<ul id="menu-backoffice" ng-hide="!$parent.menuShow">
     <li>
         <a href="#/plateforme/booklets">
             <img src="images/pictos/mes-livrets.png" alt="mes-livrets" title="Mes livrets"/>
-            <span ng-hide="!menuShow" class="menubo">MES LIVRETS</span>
+            <span ng-hide="!$parent.menuShow" class="menubo">MES LIVRETS</span>
             <img src="images/pictos/menu-liste.png" alt="liste" title="Mes livrets"/>
         </a>
     </li>
     <li>
         <a href="#/plateforme/account">
             <img src="images/pictos/mon-compte.png" alt="mon-compte" title="Mon Compte"/>
-            <span ng-hide="!menuShow" class="menubo">MON COMPTE</span>
+            <span ng-hide="!$parent.menuShow" class="menubo">MON COMPTE</span>
             <img src="images/pictos/menu-liste.png" alt="liste" title="Mon Compte"/>
         </a>
     </li>
     <li>
         <a href="#/plateforme/library">
             <img src="images/pictos/phototheque.png" alt="phototheque" title="Photothèque"/>
-            <span ng-hide="!menuShow" class="menubo">PHOTOTHEQUE</span>
+            <span ng-hide="!$parent.menuShow" class="menubo">PHOTOTHEQUE</span>
             <img src="images/pictos/menu-liste.png" alt="liste" title="Photothèque"/>
         </a>
     </li>
     <li>
         <a href="#/plateforme/help">
             <img src="images/pictos/aide-faq.png" alt="aide-faq" title="Aide et FAQ"/>
-            <span ng-hide="!menuShow" class="menubo">AIDE ET FAQ</span>
+            <span ng-hide="!$parent.menuShow" class="menubo">AIDE ET FAQ</span>
             <img src="images/pictos/menu-liste.png" alt="liste" title="Aide et FAQ"/>
         </a>
     </li>
     <li>
         <a href="#/plateforme/contact">
             <img src="images/pictos/contact.png" alt="contact" title="Contact"/>
-            <span ng-hide="!menuShow" class="menubo">CONTACT</span>
+            <span ng-hide="!$parent.menuShow" class="menubo">CONTACT</span>
             <img src="images/pictos/menu-liste.png" alt="liste" title="Contact"/>
         </a>
     </li>

@@ -20,10 +20,11 @@
         <ul id="library-list">
             <li ng-repeat="image in library">
                 <img ng-src="images/uploaded/{{image.filename}}" style="width: 50px; height: 50px;">
-                <br>
-                Nom : {{image.name}}
-                <br>
-                Description : {{image.description}}
+                <p>Nom : {{image.name}}</p>
+                <p>Description : {{image.description}}</p>
+                <button ng-click="deleteImage(image.id)">
+                    <img src="images/supprimer.png" style="width: 25px; height: 25px;">
+                </button>
             </li>
         </ul>
     </div>

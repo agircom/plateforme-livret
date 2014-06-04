@@ -501,6 +501,26 @@ $app->post('/library', function() use ($app) {
     R::store($user_record);
 });
 
+// REST Api delete user library image
+$app->delete('/library/:image_id', function($image_id) use ($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
+    // retrieve library item
+    if (!isset($user_record->xownLibraryList[$image_id])) {
+        // library item doesn't exist or is not the owner
+        $app->response()->status(404);
+        return;
+    }
+    // remove file
+    @unlink('..' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'uploaded' . DIRECTORY_SEPARATOR . $user_record->xownLibraryList[$image_id]->filename);
+    // delete the library item
+    unset($user_record->xownLibraryList[$image_id]);
+    R::store($user_record);
+});
+
 
 /*
  * 

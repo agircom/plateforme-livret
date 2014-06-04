@@ -542,6 +542,9 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         $scope.toggleNgEditableToolbox = function(val) {
             $scope.showNgEditableToolbox = val;
         };
+        $scope.toggleFullScreen = function() {
+            
+        };
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$routeParams', '$location', 'BookletSvc',
@@ -622,7 +625,9 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
             });
         };
         $scope.deleteImage = function(image_id) {
-            // TODO delete user pictures when delete user
+            LibrarySvc.deleteImage(image_id).success(function() {
+                $scope.refreshLibrary();
+            });
         };
         $scope.refreshLibrary();
     }

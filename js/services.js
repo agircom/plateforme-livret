@@ -205,6 +205,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
             },
             deleteLibrary: function(image_id) {
                 return $http.delete(this.apiUrl + '/library/' + image_id);
+            },
+            getPDF: function() {
+                return $http.get(this.apiUrl + '/pdf');
             }
         };
     }
@@ -264,8 +267,8 @@ FeaderAppServices.factory('LibrarySvc', ['ApiSvc',
     }
 ]);
 
-FeaderAppServices.factory('ToolSvc', [
-    function() {
+FeaderAppServices.factory('ToolSvc', ['ApiSvc', 
+    function(ApiSvc) {
         return {
             isValidEmail: function(email) {
                 var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -281,6 +284,9 @@ FeaderAppServices.factory('ToolSvc', [
                     t = document.selection.createRange().text;
                 }
                 return t;
+            },
+            getPDF: function() {
+                return ApiSvc.getPDF();
             }
         };
     }

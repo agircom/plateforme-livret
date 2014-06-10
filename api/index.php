@@ -435,6 +435,14 @@ $app->put('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_i
     R::store($folio_record);
 });
 
+// REST Api generate PDF from folio content
+$app->get('/pdf', function() use ($app) {
+    require_once './mPDF/mpdf.php';
+    $mpdf = new mPDF();
+    $mpdf->WriteHTML('<p>Plop</p>');
+    $mpdf->Output();
+    exit;
+});
 
 /*
  * 

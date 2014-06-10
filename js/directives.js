@@ -158,7 +158,22 @@ FeaderAppDirectives.directive('ngTooltip', [function() {
         return {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
-                element.tooltipster();
+                element.tooltipster({
+                    delay: 100,
+                    position: 'bottom-right',
+                    functionInit: function() {
+                        scope.$watch(function() {
+                            return scope.layout.showTooltips;
+                        }, function(newVal, oldVal) {
+                            console.log('new val:', newVal);
+                            if (newVal === true) {
+                                element.tooltipster('show');
+                            } else {
+                                element.tooltipster('hide');
+                            }
+                        });
+                    }
+                });
             }
         };
     }

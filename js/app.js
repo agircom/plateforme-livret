@@ -136,7 +136,8 @@
         function($rootScope, $location, UserSvc) {
 
             $rootScope.layout = {
-                requireMenu: false
+                requireMenu: false,
+                showTooltips: false
             };
 
             UserSvc.restoreSession();

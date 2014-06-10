@@ -543,7 +543,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             $scope.showNgEditableToolbox = val;
         };
         $scope.toggleFullScreen = function() {
-            $scope.toggleTooltips();
+            
         };
         $scope.toggleTooltips = function() {
             $rootScope.layout.showTooltips = !$rootScope.layout.showTooltips;

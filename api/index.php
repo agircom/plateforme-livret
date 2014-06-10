@@ -491,7 +491,10 @@ $app->post('/library', function() use ($app) {
     $ext = pathinfo($givenImage['name'], PATHINFO_EXTENSION);
     $filename = $user_record->id . '_' . md5(uniqid(mt_rand(), true)) . '.' . $ext;
     $date = new DateTime();
-    move_uploaded_file($givenImage['tmp_name'], '..' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'uploaded' . DIRECTORY_SEPARATOR . $filename);
+    $path = '..' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'uploaded' . DIRECTORY_SEPARATOR;
+    if (is_dir($path) || mkdir($path)) {
+        @move_uploaded_file($givenImage['tmp_name'], $path . $filename);
+    }
     $library_record = R::dispense('library');
     $library_record->name = $givenName;
     $library_record->description = $givenDescription;

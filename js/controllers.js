@@ -494,6 +494,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
 FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', '$rootScope', '$location', '$sce', 'BookletSvc', 'ToolSvc',
     function($scope, $routeParams, $rootScope, $location, $sce, BookletSvc, ToolSvc) {
         $scope.showPictureSelector = false;
+        $scope.showFullscreen = false;
         $scope.imageSelected = null;
         $scope.showNgEditableToolbox = false;
         $scope.booklet_id = $routeParams.booklet_id;
@@ -543,7 +544,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             $scope.showNgEditableToolbox = val;
         };
         $scope.toggleFullScreen = function() {
-            
+            $scope.showFullscreen = !$scope.showFullscreen;
         };
         $scope.toggleTooltips = function() {
             $rootScope.layout.showTooltips = !$rootScope.layout.showTooltips;

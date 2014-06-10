@@ -160,12 +160,11 @@ FeaderAppDirectives.directive('ngTooltip', [function() {
             link: function(scope, element, attrs) {
                 element.tooltipster({
                     delay: 100,
-                    position: 'bottom-right',
+                    position: 'bottom-left',
                     functionInit: function() {
                         scope.$watch(function() {
                             return scope.layout.showTooltips;
                         }, function(newVal, oldVal) {
-                            console.log('new val:', newVal);
                             if (newVal === true) {
                                 element.tooltipster('show');
                             } else {

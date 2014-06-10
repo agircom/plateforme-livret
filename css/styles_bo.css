@@ -54,12 +54,12 @@ and open the template in the editor.
 }
 
 .plate {
-    width: 765px;
+    width: 864px;
     float: left;
     /* margin-left: 20px; */
 }
 .plate-menu-hide {
-    width: 890px;
+    width: 954px;
     float: left;
 }
 
@@ -290,7 +290,7 @@ h1.titre1fond-folio-pf{
     margin-top: 20px;
     margin-right: 20px;
     border: 1px solid #bbbbbb;
-    width: 725px;
+    width: 665px;
     float: left;
     text-align:center;
     /* height: 400px; */
@@ -318,7 +318,7 @@ h1.titre1fond-folio-pf{
 .right-folio-pf{
     float: left;
     /* padding-top: 200px; */
-    width: 150px;
+    width: 135px;
 }
 
 .help-folio-pf{

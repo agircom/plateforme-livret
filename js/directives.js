@@ -62,18 +62,18 @@ FeaderAppDirectives.directive('ngEditable', [function() {
 //                    $('#ng-editable-toolbox').detach().appendTo(element);
                     $('#ng-editable-toolbox-size').off('change');
                     $('#ng-editable-toolbox-color').off('change');
-                    
+
                     $('#ng-editable-toolbox').css({
                         left: element.offset().left,
                         top: element.offset().top - 45
                     });
-                    
+
                     $('#ng-editable-toolbox-size').val(element.css('font-size'));
                     $('#ng-editable-toolbox-size').on('change', function() {
                         element.css('font-size', $(this).val());
                         scope.updateModel();
                     });
-                    
+
                     $('#ng-editable-toolbox-color').css('background-color', element.css('color'));
                     $('#ng-editable-toolbox-color').val(element.css('color'));
                     $('#ng-editable-toolbox-color').on('change', function() {
@@ -81,13 +81,13 @@ FeaderAppDirectives.directive('ngEditable', [function() {
                         $('#ng-editable-toolbox-color').css('background-color', $(this).val());
                         scope.updateModel();
                     });
-                    
+
                     $('#ng-editable-toolbox-cancel').on('click', function() {
                         scope.$apply(function() {
                             scope.toggleNgEditableToolbox(false);
                         });
                     });
-                    
+
                     scope.$apply(function() {
                         scope.toggleNgEditableToolbox(true);
                     });
@@ -106,7 +106,7 @@ FeaderAppDirectives.directive('ngMarkerToggle', [function() {
                     content.find('.ng-draggable').children('.ng-draggable-handler').toggle();
                     content.find('.ng-locked').children('.ng-locked-handler').toggle();
                     content.find('.ng-editable').toggleClass('ng-editable-marker');
-                    content.find('.ng-deletable').children('.ng-deletable-handler').toggle() ;
+                    content.find('.ng-deletable').children('.ng-deletable-handler').toggle();
                 });
             }
         };
@@ -149,6 +149,16 @@ FeaderAppDirectives.directive('ngDeletable', [function() {
                     element.remove();
                     scope.updateModel();
                 });
+            }
+        };
+    }
+]);
+
+FeaderAppDirectives.directive('ngTooltip', [function() {
+        return {
+            restrict: 'AEC',
+            link: function(scope, element, attrs) {
+                element.tooltipster();
             }
         };
     }

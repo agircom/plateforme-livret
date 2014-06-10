@@ -295,7 +295,7 @@ h1.titre1fond-folio-pf{
     margin-top: 20px;
     margin-right: 20px;
     border: 1px solid #bbbbbb;
-    width: 665px;
+    width: 75%;
     float: left;
     text-align:center;
     /* height: 400px; */
@@ -323,7 +323,7 @@ h1.titre1fond-folio-pf{
 .right-folio-pf{
     float: left;
     /* padding-top: 200px; */
-    width: 135px;
+    width: 20%;
 }
 
 .help-folio-pf{
@@ -357,4 +357,14 @@ h1.titre1fond-folio-pf{
     float: right;
     vertical-align: middle;
     /* width:25%; */
+}
+
+/* fullscreen */
+.fullscreen {
+    width: 100%;
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    margin: 0;
 }

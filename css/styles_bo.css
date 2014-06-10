@@ -59,7 +59,7 @@ and open the template in the editor.
     /* margin-left: 20px; */
 }
 .plate-menu-hide {
-    width: 954px;
+    width: 924px;
     float: left;
 }
 
@@ -89,6 +89,11 @@ and open the template in the editor.
     margin-left: 10px;
 }
 
+#booklets-list ul {
+    margin-left: 10px;
+    width: 100%;
+}
+
 .form-creer-livret{
     margin: 0 0 10px 0;    
 }
@@ -104,7 +109,7 @@ and open the template in the editor.
     color: #fff;
     text-transform: uppercase;
     overflow:auto;
-    width: 100%;
+    /* width: 96%; */
     margin-bottom: 20px;
 }
 

@@ -93,7 +93,7 @@ html,body {
 }
 
 /* Global Structure */
-#rrhn-app {min-height: 100%;width: 1024px;}
+#rrhn-app {min-height: 100%;/* width: 1024px; */}
 #main {
     margin:0 auto;
     width: 1024px;

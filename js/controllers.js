@@ -550,11 +550,17 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             $rootScope.layout.showTooltips = !$rootScope.layout.showTooltips;
         };
         $scope.exportPDF = function() {
-            ToolSvc.getPDF().success(function(data) {
-                var blob = new Blob(data, {type: 'application/pdf'});
-                $scope.url = (window.URL || window.webkitURL).createObjectURL(blob);
-                $window.open(data, '_blank');
-            });
+//            BookletSvc.exportPDF($scope.booklet_id, $scope.folio_id).success(function(data) {              
+//                var blob = new Blob([data], {type: 'application/pdf'});
+//                $scope.url = (window.URL || window.webkitURL).createObjectURL(blob);
+//                $window.open($scope.url);
+//                var element = angular.element('<a/>');
+//                element.attr({
+//                    href: 'data:application/pdf;charset=utf-8,' + encodeURI(data),
+//                    href: $sce.trustAsResourceUrl($scope.url),
+//                    download: 'livret.pdf'
+//                })[0].click();
+//            });
         };
     }
 ]);

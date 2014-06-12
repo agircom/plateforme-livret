@@ -436,11 +436,28 @@ $app->put('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_i
 });
 
 // REST Api generate PDF from folio content
-$app->get('/pdf', function() use ($app) {
+$app->get('/booklet/:booklet_id/folio/:folio_id/export', function($booklet_id, $folio_id) use ($app) {
+    // retrieve booklet
+    $booklet_record = R::findOne('booklet', 'id=?', array($booklet_id));
+    if (is_null($booklet_record)) {
+        // booklet doesn't exist or is not the owner
+        $app->response()->status(404);
+        return;
+    }
+    // retrieve folio booklet
+    if (!isset($booklet_record->xownFolioList[$folio_id])) {
+        // folio booklet doesn't exist or is not the owner
+        $app->response()->status(404);
+        return;
+    }
+    $folio_record = $booklet_record->xownFolioList[$folio_id];
+
     require_once './mPDF/mpdf.php';
     $mpdf = new mPDF();
-    $mpdf->WriteHTML('<p>Plop</p>');
-    $mpdf->Output();
+//    $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_bo.css');
+//    $mpdf->WriteHTML($stylesheet,1);
+    $mpdf->WriteHTML(array_shift($folio_record->xownPageList)->content);
+    $mpdf->Output('livret.pdf', 'D');
     exit;
 });
 

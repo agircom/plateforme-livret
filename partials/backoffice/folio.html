@@ -46,8 +46,7 @@
                 </div>
                 <p>Vous avez terminé votre document.<br>
                 Exporter le sur votre ordinateur au format pdf</p>
-                <button ng-click="exportPDF()">Exporter</button><br>
-                <a class="ng-tooltip" title="Exporter PDF" target="_blank" ng-href="api/pdf">
+                <a class="ng-tooltip" title="Exporter PDF" ng-href="api/booklet/{{booklet_id}}/folio/{{folio_id}}/export">
                     <img style="vertical-align: middle;" src="images/pictos/exporter.png" alt="Exporter" title="Exporter"/>
                     <span>Exporter</span>
                 </a> 

@@ -456,7 +456,13 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export', function($booklet_id, $
     $mpdf = new mPDF();
 //    $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_bo.css');
 //    $mpdf->WriteHTML($stylesheet,1);
-    $mpdf->WriteHTML(array_shift($folio_record->xownPageList)->content);
+    foreach ($folio_record->xownPageList as $page) {
+        $mpdf->WriteHTML($page->content);
+        if ($page->id !== end($folio_record->xownPageList)->id) {
+            $mpdf->AddPage();
+        }
+    }
+
     $mpdf->Output('livret.pdf', 'D');
     exit;
 });

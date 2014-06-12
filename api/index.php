@@ -453,16 +453,19 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export', function($booklet_id, $
     $folio_record = $booklet_record->xownFolioList[$folio_id];
 
     require_once './mPDF/mpdf.php';
-    $mpdf = new mPDF();
+    $format = getFormatPDF($folio_record->type);
+    $mpdf = new mPDF('utf-8', $format);
 //    $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_bo.css');
 //    $mpdf->WriteHTML($stylesheet,1);
     foreach ($folio_record->xownPageList as $page) {
-        $mpdf->WriteHTML($page->content);
+        $content = preg_replace('/<img src\=\"([^\"]*)\"/', "<img src=\"../$1\"", $page->content);
+        $mpdf->WriteHTML($content);
         if ($page->id !== end($folio_record->xownPageList)->id) {
             $mpdf->AddPage();
         }
     }
-
+    $mpdf->debug = true;
+    $mpdf->showImageErrors = true;
     $mpdf->Output('livret.pdf', 'D');
     exit;
 });

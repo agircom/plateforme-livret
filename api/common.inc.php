@@ -162,3 +162,19 @@ function sendAccountResetPasswdEmail($dest, $newPasswd) {
     $body .= 'Cordialement<br>Le Réseau Rural Haut-Normand';
     return sendMail($dest, $subject, $body);
 }
+
+function getFormatPDF($folio_type) {
+    $format = '';
+    switch ($folio_type) {
+        case 'pochette':
+            $format = 'A3-L';
+            break;
+        case 'agenda':
+            $format = 'A4-L';
+            break;
+        default:
+            $format = 'A4';
+            break;
+    }
+    return $format;
+}

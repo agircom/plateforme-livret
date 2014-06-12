@@ -232,15 +232,15 @@ aside {float:right;
        width: 260px;}
 /* Footer */
 footer {
-    /* position: relative; */
-    /* bottom: 0px; */
+    position: relative;
+    bottom: 0px;
     text-align:center;
     width: 100%;
     height: 50px;
     font-size:0.814em;
     line-height:1.538em;
     border-top:3px solid #666666;
-    margin-top: 66px;
+    margin-top: 30px;
     margin-bottom: 32px;}
 footer a {
     color:#808080;

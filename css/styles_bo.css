@@ -322,21 +322,69 @@ h1.titre1fond-folio-pf{
 
 .right-folio-pf{
     float: right;
+    z-index: 100;
     /* padding-top: 200px; */
-    width: 135px;
+    width: 140px;
+}
+
+.right-folio-pf p{
+    font-size: 10px;
+}
+.right-folio-pf a{
+    color: #808080;
+}
+.right-folio-pf img{
+    margin: 5px 0;
+}
+#folio-edit-toolbox{
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+
+.select-folio{
+    width: 50%;
+    float: left;
+}
+
+.select-folio span{
+    font-size: 10px;
 }
 
 .help-folio-pf{
     background-color: #fff;
     width: 100%;
     height: 120px;
-    margin-bottom:100px;
+    margin-bottom: 40px;
     border: 2px solid #999999;
 }
 .help-folio-pf img{
     padding: 5px;
 }
 
+.cadre-toolbox{
+    background-color: #fff;
+    border: 1px solid #DD6B5C;
+    margin-bottom: 20px;
+    padding: 5px;
+}
+
+.cadre-toolbox h3{
+    font-size: 10px;
+    background-color: #00b3ff;
+    color: #fff;
+    padding: 2px;
+}
+
+.link-img-doc-toolbox{
+    width: 48%;
+    float: left;
+    background-color: #d8d9da;
+    font-size: 8px;
+    margin: 1px;
+    text-align: center;
+    height: 32px;
+}
 .link-folio-pf a{
     color:#fff;
     text-decoration:none;
@@ -345,11 +393,13 @@ h1.titre1fond-folio-pf{
     padding: 2px;
     margin: 5px 0;
     height: 32px;
+    width: 100%;
+    display: inline-block;
 }
 
 .link-folio-pf div span{
     float: left;
-    width:75%;
+    width: 74%;
     font-size: 10px;
 }
 
@@ -357,6 +407,7 @@ h1.titre1fond-folio-pf{
     float: right;
     vertical-align: middle;
     /* width:25%; */
+    margin: 0;
 }
 
 /* fullscreen */
@@ -375,5 +426,18 @@ h1.titre1fond-folio-pf{
     left: 30px;
     top: 65px;
     margin: 0;
-    width: 90%;
+    width: 86%;
+}
+
+.rfpffullscreen{
+    width: 10%;
+}
+
+@media screen and (max-width: 1440px) {
+  .rfpffullscreen {
+    width: 13%;
+  }
+  .cfpffullscreen {
+    width: 80%;
+  }
 }

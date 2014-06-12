@@ -550,7 +550,11 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             $rootScope.layout.showTooltips = !$rootScope.layout.showTooltips;
         };
         $scope.exportPDF = function() {
-            
+            ToolSvc.getPDF().success(function(data) {
+                var blob = new Blob(data, {type: 'application/pdf'});
+                $scope.url = (window.URL || window.webkitURL).createObjectURL(blob);
+                $window.open(data, '_blank');
+            });
         };
     }
 ]);

@@ -5,28 +5,58 @@
     </h1>
     <div style="width:100%; display:inline-block;">
         <div class="cadre-folio-pf" id="drawboard" compile="folio.ownPage[selected_page].content" ng-class="{cfpffullscreen: showFullscreen}"></div>
-        <div class="right-folio-pf">
+        <div class="right-folio-pf" ng-class="{rfpffullscreen: showFullscreen}">
             <div class="help-folio-pf">
                 <img src="images/pictos/help.png" width="16" height="16" alt="help" title="Aide"/>
             </div>
-            <button class="ng-tooltip" ng-click="toggleFullScreen()" title="Passer en edition plein ecran">
-                Fullscreen
-            </button>
-            <button class="ng-tooltip" ng-click="toggleTooltips()">
-                Afficher les aides
-            </button>
-            <button ng-click="exportPDF()">PDF</button>
-            <a class="ng-tooltip" title="Exporter PDF" target="_blank" ng-href="api/pdf">PDF</a>
-            <div ng-if="folio.ownPage.length === 2" id="folio-edit-toolbox">
-                <a href="#" onclick="return false;" ng-click="selectPage(0)">Recto</a>
-                <br>
-                <a href="#" onclick="return false;" ng-click="selectPage(1)">Verso</a>
-                <br>
-                <a href="#" onclick="return false;" class="ng-marker-toggle ng-tooltip" title="Masque les reperes de l'edition">Masquer les reperes</a>
-            </div>
-            <div ng-if="folio.ownPage.length > 2" id="folio-edit-toolbox">
-                <a ng-repeat="page in folio.ownPage" href="#" onclick="return false;" ng-click="selectPage($index)">Page {{$index + 1}}<br></a>
-                <a href="#" onclick="return false;" class="ng-marker-toggle">Masquer les reperes</a>
+            <div class="cadre-toolbox">
+                <button class="ng-tooltip" ng-click="toggleFullScreen()" title="Passer en edition plein ecran">
+                    Fullscreen
+                </button>
+                <button class="ng-tooltip" ng-click="toggleTooltips()">
+                    Afficher les aides
+                </button>  
+                <div ng-if="folio.ownPage.length === 2" id="folio-edit-toolbox">
+                    <div class="select-folio">
+                        <a href="#" onclick="return false;" ng-click="selectPage(0)">
+                            <span>> Recto</span>
+                            <img src="images/pictos/pochette-petit.png" alt="recto" title="recto"/>
+                        </a>
+                        <a>
+                            <span>Enregistrer</span>
+                            <img src="images/pictos/enregistrer.png" width="32" height="32" alt="Enregistrer" title="Enregistrer"/>
+                        </a>
+                    </div>
+                    <div class="select-folio">
+                        <a href="#" onclick="return false;" ng-click="selectPage(1)">
+                            <span>> Verso</span>
+                            <img src="images/pictos/pochette-petit.png" alt="Verso" title="Verso"/>
+                        </a>
+                        <a>
+                            <span>Enregistrer</span>
+                            <img src="images/pictos/enregistrer.png" width="32" height="32" alt="Enregistrer" title="Enregistrer"/>
+                        </a>
+                    </div>
+                    <a href="#" onclick="return false;" class="ng-marker-toggle ng-tooltip" title="Masque les reperes de l'edition">Masquer les reperes</a>
+                </div>
+                <div ng-if="folio.ownPage.length > 2" id="folio-edit-toolbox">
+                    <a ng-repeat="page in folio.ownPage" href="#" onclick="return false;" ng-click="selectPage($index)">Page {{$index + 1}}<br></a>
+                    <a href="#" onclick="return false;" class="ng-marker-toggle">Masquer les reperes</a>
+                </div>
+                <p>Vous avez terminé votre document.<br>
+                Exporter le sur votre ordinateur au format pdf</p>
+                <button ng-click="exportPDF()">Exporter</button><br>
+                <a class="ng-tooltip" title="Exporter PDF" target="_blank" ng-href="api/pdf">
+                    <img style="vertical-align: middle;" src="images/pictos/exporter.png" alt="Exporter" title="Exporter"/>
+                    <span>Exporter</span>
+                </a> 
+                <div class="img-doc-toolbox">
+                    <h2>Images du document</h2>
+                    <div style="display: inline-block; width: 100%">
+                        <div class="link-img-doc-toolbox"><a>Importer une image</a></div>
+                        <div class="link-img-doc-toolbox"><a>Photothèque</a></div>
+                    </div>
+                </div>
             </div>
             <div class="link-folio-pf">
                 <div style="background-color: #f0b14e;">

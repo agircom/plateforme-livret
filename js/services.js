@@ -206,8 +206,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
             deleteLibrary: function(image_id) {
                 return $http.delete(this.apiUrl + '/library/' + image_id);
             },
-            getPDF: function() {
-                return $http.get(this.apiUrl + '/pdf');
+            getPDF: function(booklet_id, folio_id) {
+//                return $http.get(this.apiUrl + '/pdf', {}, {responseType: "arraybuffer"});
+                return $http.get(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_id + '/export');
             }
         };
     }
@@ -246,6 +247,9 @@ FeaderAppServices.factory('BookletSvc', ['ApiSvc',
             },
             createSheet: function() {
 
+            },
+            exportPDF: function(booklet_id, folio_id) {
+                return ApiSvc.getPDF(booklet_id, folio_id);
             }
         };
     }

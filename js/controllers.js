@@ -17,7 +17,7 @@ FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'User
             }
         };
         $scope.isAtHome = function() {
-            return ($location.path().split('/')[1] === 'plateforme' || $location.path().split('/')[1] === 'admin') ? false : true;
+            return ($location.path().split('/')[1] === 'plateforme' || $location.path().split('/')[1] === 'admin' || $location.path().split('/')[1] === 'denied') ? false : true;
         };
         $scope.login = function() {
             $scope.loginInProgress = true;

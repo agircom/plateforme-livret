@@ -3,6 +3,12 @@
 (function() {
 
     var appRoutes = {
+        '/denied': {
+            templateUrl: 'partials/common/denied.html',
+            controller: 'HomeCtrl.Home',
+            requireMenu: false,
+            requireLogin: false
+        },
         '/mentionslegales': {
             templateUrl: 'partials/common/mentionslegales.html',
             controller: 'HomeCtrl.Home',
@@ -37,7 +43,8 @@
             templateUrl: 'partials/account/create.html',
             controller: 'AccountCtrl.Create',
             requireMenu: false,
-            requireLogin: false
+            requireLogin: false,
+            requireAccess: 0
         },
         '/account/resetpasswd': {
             templateUrl: 'partials/account/reset-passwd.html',
@@ -59,56 +66,66 @@
             controller: 'BackofficeCtrl.Booklets',
             requireMenu: true,
             requireLogin: true,
-            requireAccess: [1, 2]
+            requireAccess: 1
         },
         '/plateforme/booklets/:booklet_focus': {
             templateUrl: 'partials/backoffice/booklets.html',
             controller: 'BackofficeCtrl.Booklets',
             requireMenu: true,
             requireLogin: true,
-            requireAccess: [1, 2]
+            requireAccess: 1
         },
         '/plateforme/booklet/:booklet_id/folio/:folio_id': {
             templateUrl: 'partials/backoffice/folio.html',
             controller: 'BackofficeCtrl.Folio',
             requireMenu: true,
             requireLogin: true,
-            requireAccess: [1, 2]
+            requireAccess: 1
         },
         '/plateforme/booklet/:booklet_id/folio2choice': {
             templateUrl: 'partials/backoffice/folio2choice.html',
             controller: 'BackofficeCtrl.Folio2Choice',
             requireMenu: true,
             requireLogin: true,
-            requireAccess: [1, 2]
+            requireAccess: 1
         },
         '/plateforme/account': {
             templateUrl: 'partials/account/profil.html',
             controller: 'AccountCtrl.Profil',
             requireMenu: true,
             requireLogin: true,
-            requireAccess: [1, 2]
+            requireAccess: 1
         },
         '/plateforme/library': {
             templateUrl: 'partials/backoffice/library.html',
             controller: 'BackofficeCtrl.Library',
             requireMenu: true,
             requireLogin: true,
-            requireAccess: [1, 2]
+            requireAccess: 1
         },
         '/plateforme/help': {
             templateUrl: 'partials/backoffice/help.html',
             controller: 'BackofficeCtrl.Help',
             requireMenu: true,
             requireLogin: true,
-            requireAccess: [1, 2]
+            requireAccess: 1
         },
         '/plateforme/contact': {
             templateUrl: 'partials/common/contact.html',
             controller: 'CommonCtrl.Contact',
             requireMenu: true,
             requireLogin: true,
-            requireAccess: [1, 2]
+            requireAccess: 1
+        },
+        '/admin' : {
+            redirectTo: '/admin/stats'
+        },
+        '/admin/stats' : {
+            templateUrl: 'partials/admin/stats.html',
+            controller: 'CommonCtrl.Contact',
+            requireMenu: true,
+            requireLogin: true,
+            requireAccess: 2
         }
     };
 
@@ -147,6 +164,9 @@
                 if (next.requireLogin && !UserSvc.isLogged()) {
                     $rootScope.layout.requireMenu = false;
                     $location.path('/home');
+                } else if (typeof next.requireAccess !== 'undefined' && next.requireAccess !== UserSvc.getPermissions()) {
+                    $rootScope.layout.requireMenu = false;
+                    $location.path('/denied').replace();
                 } else {
                     if (next.requireMenu) {
                         $rootScope.layout.requireMenu = true;

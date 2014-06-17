@@ -6,16 +6,17 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', 'ApiSvc',
     function($rootScope, $location, ApiSvc) {
         return {
             logged: false,
-            permissions: 0,
             salt: '!P10p&42!',
-            infos: {},
+            infos: {
+                permissions: 0
+            },
             id: null,
             session_token: null,
             isLogged: function() {
                 return this.logged;
             },
             getPermissions: function() {
-                return this.permissions;
+                return parseInt(this.infos.permissions);
             },
             Subscribe: function(userInfos, cbSuccess, cbError) {
                 userInfos.passwd = CryptoJS.SHA1(CryptoJS.SHA1(userInfos.passwd) + this.salt).toString();
@@ -65,10 +66,12 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', 'ApiSvc',
                         });
             },
             Logout: function(callback) {
-                this.permissions = 0;
                 this.logged = false;
                 this.id = null;
                 this.session_token = null;
+                this.infos = {
+                    permissions: 0
+                };
                 localStorage.clear();
                 ApiSvc.setHeaders(false);
                 if (typeof callback === 'function') {
@@ -271,7 +274,7 @@ FeaderAppServices.factory('LibrarySvc', ['ApiSvc',
     }
 ]);
 
-FeaderAppServices.factory('ToolSvc', ['ApiSvc', 
+FeaderAppServices.factory('ToolSvc', ['ApiSvc',
     function(ApiSvc) {
         return {
             isValidEmail: function(email) {

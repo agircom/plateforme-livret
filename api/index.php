@@ -121,6 +121,7 @@ $app->post('/user', function() use($app) {
     $user_record->phone = (isset($givenUserInfos['phone'])) ? $givenUserInfos['phone'] : null;
     $user_record->address = $givenUserInfos['address'];
     $user_record->cp = $givenUserInfos['cp'];
+    $user_record->permissions = 1;
     $user_record->cgu_accepted = $givenUserInfos['contract_accepted'];
     $user_record->confirmed = false;
     $user_record->confirm_date = null;

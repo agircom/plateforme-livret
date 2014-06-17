@@ -27,7 +27,8 @@
         <div id="rrhn-app" ng-app="FeaderApp">
             <div id="main" ng-init="menuShow = true; btnContent = '<'">
                 <header ng-include="'partials/common/header.html'"></header>
-                <div class="menu-bo" ng-show="layout.requireMenu" ng-include="'partials/common/menu.html'"></div>
+                <div class="menu-bo" ng-if="layout.requireMenu && User.getPermissions() === 1" ng-include="'partials/common/menu.html'"></div>
+                <div class="menu-bo" ng-if="layout.requireMenu && User.getPermissions() === 2" ng-include="'partials/common/menu-admin.html'"></div>
                 <div ng-class="{'plate':layout.requireMenu, 'plate-menu-hide': menuShow === false}" class="container" ng-view></div>
             </div>
             <footer ng-include="'partials/common/footer.html'"></footer>

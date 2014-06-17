@@ -117,12 +117,12 @@
             requireLogin: true,
             requireAccess: 1
         },
-        '/admin' : {
+        '/admin': {
             redirectTo: '/admin/stats'
         },
-        '/admin/stats' : {
+        '/admin/stats': {
             templateUrl: 'partials/admin/stats.html',
-            controller: 'CommonCtrl.Contact',
+            controller: 'AdminCtrl.Stats',
             requireMenu: true,
             requireLogin: true,
             requireAccess: 2
@@ -165,7 +165,6 @@
                     $rootScope.layout.requireMenu = false;
                     $location.path('/home');
                 } else if (typeof next.requireAccess !== 'undefined' && next.requireAccess !== UserSvc.getPermissions()) {
-                    $rootScope.layout.requireMenu = false;
                     $location.path('/denied').replace();
                 } else {
                     if (next.requireMenu) {

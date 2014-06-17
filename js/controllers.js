@@ -17,7 +17,7 @@ FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'User
             }
         };
         $scope.isAtHome = function() {
-            return ($location.path().split('/')[1] === 'plateforme') ? false : true;
+            return ($location.path().split('/')[1] === 'plateforme' || $location.path().split('/')[1] === 'admin') ? false : true;
         };
         $scope.login = function() {
             $scope.loginInProgress = true;
@@ -672,3 +672,11 @@ FeaderAppControllers.controller('BackofficeCtrl.Contact', ['$scope',
 
     }
 ]);
+
+
+FeaderAppControllers.controller('AdminCtrl.Stats', ['$scope',
+    function($scope) {
+
+    }
+]);
+

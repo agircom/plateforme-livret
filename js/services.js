@@ -55,7 +55,6 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', 'ApiSvc',
                                 localStorage.setItem('App-User', data.user);
                                 localStorage.setItem('App-Token', data.session_token);
                             }
-//                            _self.permissions = ;
                             ApiSvc.setHeaders(data.user, data.session_token);
                             _self.logged = true;
                             _self.updateInfos(cbSuccess, cbError);
@@ -81,9 +80,11 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', 'ApiSvc',
             restoreSession: function() {
                 var user = localStorage.getItem('App-User');
                 var session_token = localStorage.getItem('App-Token');
+                var access = localStorage.getItem('App-Permissions');
                 if (user !== null && session_token !== null) {
                     this.id = user;
                     this.session_token = session_token;
+                    this.infos.permissions = access;
                     ApiSvc.setHeaders(user, session_token);
                     this.logged = true;
                     this.updateInfos();
@@ -97,6 +98,7 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', 'ApiSvc',
                 ApiSvc.getUser()
                         .success(function(data, status) {
                             _self.infos = data;
+                            localStorage.setItem('App-Permissions', data.permissions);
                             if (typeof cbSuccess === 'function')
                                 cbSuccess(data, status);
                         })

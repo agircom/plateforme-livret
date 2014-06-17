@@ -1,6 +1,6 @@
 <div id="booklet-create">
     <div class="titre-creer-livret">
-        <h2>Creer mon livret maintenant<img src="images/pictos/mes-livrets.png" alt="mes-livrets" title="Mes livrets"/></h2>        
+        <h2>Creer mon livret maintenant<img src="images/pictos/mes-livrets.png" style="padding-left: 5px;" alt="mes-livrets" title="Mes livrets"/></h2>        
     </div>
     <div class="form-creer-livret">
         <div ng-if="error !== ''" ng-bind="error" style="color: red"></div>
@@ -10,9 +10,9 @@
     </div>
 </div>
 <ul id="booklets-list">
-    <li ng-repeat="booklet in booklets| orderBy:'name'">
+    <li style="overflow-x: auto; padding-bottom: 10px; border-bottom: 3px solid #b3b3b3; margin-bottom: 10px;" ng-repeat="booklet in booklets| orderBy:'name'">
         <div class="booklet-list-header">
-            <a style="font-size:18px; padding-right:400px" href="#" onclick="return false;" ng-click="selectBooklet(booklet.id)">
+            <a style="font-size:18px;" href="#" onclick="return false;" ng-click="selectBooklet(booklet.id)">
                 {{booklet.name}}
             </a>
             <a style="font-size:12px; float:right; text-decoration: underline; text-transform: none;" href="#" onclick="return false;" ng-click="deleteBooklet(booklet.id)">
@@ -74,8 +74,3 @@
         </div>
     </li>
 </ul>
-<div style="display: block; width: 100%; height: 100px; padding-top: 20px; text-align: right;">
-    <img src="images/region-haute-normandie.png" alt="logo" title="Logo"/>
-    <img src="images/prefet-haute-normandie.jpg" alt="logo" title="Logo"/>
-    <img src="images/europe-feader.png" alt="logo" title="Logo"/>
-</div> 

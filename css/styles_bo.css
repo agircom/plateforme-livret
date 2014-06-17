@@ -11,19 +11,25 @@ and open the template in the editor.
 
 .menu-bo{
     /*width: 20%;*/
+    border-right: 2px solid #b3b3b3;
+    padding-right: 5px;
     float: left;
+    height: auto;
+    overflow: visible;
 }
 #menu-backoffice{
     clear: both;
-    height: auto;
+    min-height: 600px;
     width: 160px;
-    background: #d8d9da;
+    background: url(../images/bg-menu-bo.png) repeat-x;
+    overflow: visible;
     margin-left: 0px; 
     padding-left: 0px; 
     float: left;
 }
 .titre-menu-bo{
     float: left;
+    height: 15px;
 }
 .titre-menu-bo h2{
     font-weight: bold;
@@ -39,7 +45,7 @@ and open the template in the editor.
 #menu-backoffice li{
     list-style-type: none;
     border: 2px solid #b3b3b3;
-    margin: 5px;
+    margin: 4px;
 }
 
 #menu-backoffice li a{
@@ -51,12 +57,15 @@ and open the template in the editor.
 
 #menu-backoffice img{
     vertical-align: middle;
+    margin: 1px;
 }
 
 .plate {
-    width: 864px;
+    width: 81%;
     float: left;
-    /* margin-left: 20px; */
+    border: 2px solid #b3b3b3;
+    padding: 5px;
+    margin-left: 5px;
 }
 .plate-menu-hide {
     width: 924px;
@@ -293,12 +302,13 @@ h1.titre1fond-folio-pf{
 
 .cadre-folio-pf{
     margin-top: 20px;
-    margin-right: 20px;
+    /* margin-right: 20px; */
     border: 1px solid #bbbbbb;
     width: 80%;
     float: left;
     text-align:center;
-    /* height: 400px; */
+    height: 100%;
+    overflow: hidden;
 }
 
 .template-folio-pf{

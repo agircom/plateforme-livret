@@ -65,6 +65,7 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
             phone: '',
             address: '',
             cp: '',
+            city: '',
             question: ''
         };
         $scope.email2 = '';
@@ -86,6 +87,7 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
                 $scope.contactInfos.phone = UserSvc.getInfos().phone;
                 $scope.contactInfos.address = UserSvc.getInfos().address;
                 $scope.contactInfos.cp = UserSvc.getInfos().cp;
+                $scope.contactInfos.city = UserSvc.getInfos().city;
             }
         };
         $scope.contact = function() {
@@ -119,6 +121,7 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
                     phone: '',
                     address: '',
                     cp: '',
+                    city: '',
                     question: ''
                 };
             }).error(function(data, status) {
@@ -160,6 +163,7 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'Too
             phone: '',
             address: '',
             cp: '',
+            city: '',
             passwd: '',
             contract_accepted: false
         };
@@ -198,6 +202,7 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'Too
                     $scope.userInfos.address === '' ||
                     $scope.userInfos.username === '' ||
                     $scope.userInfos.cp === '' ||
+                    $scope.userInfos.city === '' ||
                     $scope.userInfos.passwd === '') {
                 $scope.userInfos.passwd = '';
                 $scope.passwd2 = '';
@@ -231,6 +236,7 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'Too
                             phone: '',
                             address: '',
                             cp: '',
+                            city: '',
                             passwd: '',
                             contract_accepted: false
                         };
@@ -322,6 +328,7 @@ FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'Too
             phone: UserSvc.getInfos().phone,
             address: UserSvc.getInfos().address,
             cp: UserSvc.getInfos().cp,
+            city: UserSvc.getInfos().city,
             passwd: ''
         };
         $scope.passwd2 = '';
@@ -336,6 +343,7 @@ FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'Too
                     $scope.userInfos.last_name === '' ||
                     $scope.userInfos.first_name === '' ||
                     $scope.userInfos.address === '' ||
+                    $scope.userInfos.city === '' ||
                     $scope.userInfos.cp === '') {
                 $scope.showError('Les champs marqués d’un * doivent être complétés');
                 return;

@@ -8,6 +8,7 @@ function checkContactInfosPattern($givenContactInfos) {
         'email',
         'address',
         'cp',
+        'city',
         'question'
     );
     if (count(array_diff($patternContactInfos, array_keys($givenContactInfos))) > 0) {
@@ -32,6 +33,7 @@ function checkUserInfosCreatePattern($givenUserInfos) {
         'username',
         'address',
         'cp',
+        'city',
         'passwd',
         'contract_accepted'
     );
@@ -58,7 +60,8 @@ function checkUserInfosUpdatePattern($givenUserInfos) {
         'last_name',
         'first_name',
         'address',
-        'cp'
+        'cp',
+        'city'
     );
     if (count(array_diff($patternUserInfos, array_keys($givenUserInfos))) > 0) {
         return false;

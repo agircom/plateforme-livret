@@ -53,6 +53,10 @@
                 <input type="text" ng-model="contactInfos.cp" ng-hide="User.isLogged()" id="form-contact-cp">
                 <b ng-show="User.isLogged()">{{User.getInfos().cp}}</b>
                 <br>
+                <label for="form-contact-city">Ville :</label>
+                <input type="text" ng-model="contactInfos.city" ng-hide="User.isLogged()" id="form-contact-city">
+                <b ng-show="User.isLogged()">{{User.getInfos().city}}</b>
+                <br>
                 <label for="form-contact-question">Votre question* :</label>
                 <textarea id="form-contact-question" ng-model="contactInfos.question"></textarea>
                 <br>

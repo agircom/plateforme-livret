@@ -605,6 +605,11 @@ $app->delete('/admin/user/:user_id', function($user_id) use ($app) {
         $app->response()->status(404);
         return;
     }
+    // delete library
+    foreach ($user->xownLibraryList as $image) {
+        // remove file
+        unlink('..' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'uploaded' . DIRECTORY_SEPARATOR . $image->filename);
+    }
     R::trash($user);
 });
 

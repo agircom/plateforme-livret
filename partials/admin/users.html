@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="user in Users | filter: userFilter | orderBy: userOrderBy" ng-class="{notconfirmed: (user.confirmed === false)}">
+            <tr ng-repeat="user in Users | filter: userFilter | orderBy: userOrderBy" ng-class="{notconfirmed: (user.confirmed == 0)}">
                 <td>{{user.last_name}}</td>
                 <td>{{user.first_name}}</td>
                 <td>{{user.username}}</td>

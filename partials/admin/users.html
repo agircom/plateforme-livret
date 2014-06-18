@@ -12,6 +12,7 @@
                 <th ng-click="changeOrder('date_create');">Inscription</th>
                 <th ng-click="changeOrder('date_last_connect');">Derni&egrave;re connexion</th>
                 <th class="no-order">Fiche</th>
+                <th class="no-order">Suppression</th>
             </tr>
         </thead>
         <tbody>
@@ -22,12 +23,13 @@
                 <td>{{user.nb_booklets}}</td>
                 <td>{{user.date_create}}</td>
                 <td>{{user.date_last_connect}}</td>
-                <td><button ng-click="showUserSheet($index)">i</button></td>
+                <td><button ng-click="showUserSheet(user)">i</button></td>
+                <td><button ng-click="deleteUser(user)">x</button></td>
             </tr>
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="7" align="center">Total: {{Users.length}}</td>
+                <td colspan="8" align="center">Total: {{Users.length}}</td>
             </tr>
         </tfoot>
     </table>

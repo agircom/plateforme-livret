@@ -145,6 +145,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                     params: {timestamp: currentTime}
                 });
             },
+            getUsers: function() {
+                return $http.get(this.apiUrl + '/admin/users');
+            },
             postUser: function(userInfos) {
                 return $http.post(this.apiUrl + '/user', {
                     userInfos: userInfos
@@ -162,6 +165,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                 return $http.post(this.apiUrl + '/user/resetpasswd', {
                     username: username
                 });
+            },
+            deleteUser: function(user_id) {
+                return $http.delete(this.apiUrl + '/admin/user/' + user_id);
             },
             getBooklet: function(booklet_id) {
                 if (booklet_id !== undefined) {
@@ -212,11 +218,7 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                 return $http.delete(this.apiUrl + '/library/' + image_id);
             },
             getPDF: function(booklet_id, folio_id) {
-//                return $http.get(this.apiUrl + '/pdf', {}, {responseType: "arraybuffer"});
                 return $http.get(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_id + '/export');
-            },
-            getAdminUsers: function() {
-                return $http.get(this.apiUrl + '/admin/users');
             }
         };
     }
@@ -299,6 +301,19 @@ FeaderAppServices.factory('ToolSvc', ['ApiSvc',
             },
             getPDF: function() {
                 return ApiSvc.getPDF();
+            }
+        };
+    }
+]);
+
+FeaderAppServices.factory('AdminSvc', ['ApiSvc',
+    function(ApiSvc) {
+        return {
+            getUserList: function() {
+                return ApiSvc.getUsers();
+            },
+            deleteUser: function(user_id) {
+                return ApiSvc.deleteUser(user_id);
             }
         };
     }

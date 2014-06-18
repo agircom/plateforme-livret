@@ -580,13 +580,31 @@ $app->get('/admin/users', function() use ($app) {
         unset($user_list[$key]['confirm_date']);
         unset($user_list[$key]['last_timestamp']);
         unset($user_list[$key]['session_token']);
-        $user_list[$key]['nb_booklets'] = count($user_list[$key]['ownBooklet']);
-        unset($user_list[$key]['ownBooklet']);
-        unset($user_list[$key]['ownLibrary']);
+        if (isset($user_list[$key]['ownBooklet'])) {
+            $user_list[$key]['nb_booklets'] = count($user_list[$key]['ownBooklet']);
+            unset($user_list[$key]['ownBooklet']);
+        } else {
+            $user_list[$key]['nb_booklets'] = 0;
+        }
+        if (isset($user_list[$key]['ownLibrary'])) {
+            unset($user_list[$key]['ownLibrary']);
+        }
     }
     echo json_encode($user_list);
 });
-
+$app->delete('/admin/user/:user_id', function($user_id) use ($app) {
+    // retrieve user
+    $user_record = retrieveAdminByToken();
+    if (!$user_record) {
+        return;
+    }
+    $user = R::findOne('user', 'id=?', array($user_id));
+    if (is_null($user)) {
+        $app->response()->status(404);
+        return;
+    }
+    R::trash($user);
+});
 
 /*
  * 

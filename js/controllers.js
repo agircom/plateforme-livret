@@ -679,8 +679,8 @@ FeaderAppControllers.controller('AdminCtrl.Stats', ['$scope',
 
     }
 ]);
-FeaderAppControllers.controller('AdminCtrl.Users', ['$scope', 'ApiSvc',
-    function($scope, ApiSvc) {
+FeaderAppControllers.controller('AdminCtrl.Users', ['$scope', 'AdminSvc',
+    function($scope, AdminSvc) {
         $scope.Users = [];
         $scope.userOrderBy = 'last_name';
         $scope.userFilter = '';
@@ -698,12 +698,21 @@ FeaderAppControllers.controller('AdminCtrl.Users', ['$scope', 'ApiSvc',
         $scope.toggleSheet = function() {
             $scope.showSheet = !$scope.showSheet;
         };
-        $scope.showUserSheet = function(index) {
-            $scope.selectedUser = index;
+        $scope.showUserSheet = function(user) {
+            $scope.selectedUser = $scope.Users.indexOf(user);
             $scope.toggleSheet();
         };
+        $scope.deleteUser = function(user) {
+            if (confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) {
+                AdminSvc.deleteUser(user.id).success(function(data) {
+                    $scope.Users.splice($scope.Users.indexOf(user), 1);
+                }).error(function(data, status) {
+                    
+                });
+            }
+        };
         $scope.reload = function() {
-            ApiSvc.getAdminUsers()
+            AdminSvc.getUserList()
                     .success(function(data) {
                         $scope.Users = data;
                     })

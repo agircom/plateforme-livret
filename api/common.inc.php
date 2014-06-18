@@ -96,6 +96,31 @@ function retrieveUserByToken() {
     return false;
 }
 
+function retrieveAdminByToken() {
+    global $app;
+    $user_record = null;
+    // get session headers params
+    $givenUser = $app->request->headers->get('App-User');
+    $givenToken = $app->request->headers->get('App-Token');
+    if (is_null($givenUser) || is_null($givenToken)) {
+        // bad request parameters
+        $app->response()->status(400);
+    } else {
+        // retrieve user by couple user_id/session_token
+        $user_record = R::findOne('user', 'id=? AND session_token=?', array($givenUser, $givenToken));
+        if (is_null($user_record)) {
+            // bad session token
+            $app->response()->status(401);
+        } elseif (intval($user_record->permissions) !== 2) {
+            // ressource forbidden
+            $app->response()->status(403);
+        } else {
+            return $user_record;
+        }
+    }
+    return false;
+}
+
 function isValidEmail($email) {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }

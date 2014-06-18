@@ -1,1 +1,35 @@
-users
+<label for="admin-user-filter">Rechercher</label><input type="text" id="admin-users-filter" ng-model="userFilter">
+<br>
+<button ng-click="reload()">Recharger la liste</button>
+<div id="admin-user-list">
+    <table>
+        <thead>
+            <tr>
+                <th ng-click="changeOrder('last_name');">Nom</th>
+                <th ng-click="changeOrder('first_name');">Pr&eacute;nom</th>
+                <th ng-click="changeOrder('username');">Email</th>
+                <th ng-click="changeOrder('nb_booklets');">Livrets</th>
+                <th ng-click="changeOrder('date_create');">Inscription</th>
+                <th ng-click="changeOrder('date_last_connect');">Derni&egrave;re connexion</th>
+                <th class="no-order">Fiche</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in Users | filter: userFilter | orderBy: userOrderBy" ng-class="{notconfirmed: (user.confirmed === false)}">
+                <td>{{user.last_name}}</td>
+                <td>{{user.first_name}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.nb_booklets}}</td>
+                <td>{{user.date_create}}</td>
+                <td>{{user.date_last_connect}}</td>
+                <td><button ng-click="showUserSheet($index)">i</button></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7" align="center">Total: {{Users.length}}</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div id="admin-user-sheet" ng-if="showSheet" ng-include="'partials/admin/user-sheet.html'"></div>

@@ -214,6 +214,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
             getPDF: function(booklet_id, folio_id) {
 //                return $http.get(this.apiUrl + '/pdf', {}, {responseType: "arraybuffer"});
                 return $http.get(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_id + '/export');
+            },
+            getAdminUsers: function() {
+                return $http.get(this.apiUrl + '/admin/users');
             }
         };
     }

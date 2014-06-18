@@ -679,9 +679,39 @@ FeaderAppControllers.controller('AdminCtrl.Stats', ['$scope',
 
     }
 ]);
-FeaderAppControllers.controller('AdminCtrl.Users', ['$scope',
-    function($scope) {
+FeaderAppControllers.controller('AdminCtrl.Users', ['$scope', 'ApiSvc',
+    function($scope, ApiSvc) {
+        $scope.Users = [];
+        $scope.userOrderBy = 'last_name';
+        $scope.userFilter = '';
+        $scope.showSheet = false;
+        $scope.selectedUser = -1;
+        $scope.changeOrder = function(field) {
+            if ($scope.userOrderBy === field) {
+                $scope.userOrderBy = '-' + field;
+            } else if ($scope.userOrderBy === ('-' + field)) {
+                $scope.userOrderBy = field;
+            } else {
+                $scope.userOrderBy = field;
+            }
+        };
+        $scope.toggleSheet = function() {
+            $scope.showSheet = !$scope.showSheet;
+        };
+        $scope.showUserSheet = function(index) {
+            $scope.selectedUser = index;
+            $scope.toggleSheet();
+        };
+        $scope.reload = function() {
+            ApiSvc.getAdminUsers()
+                    .success(function(data) {
+                        $scope.Users = data;
+                    })
+                    .error(function(data, status) {
 
+                    });
+        };
+        $scope.reload();
     }
 ]);
 FeaderAppControllers.controller('AdminCtrl.Library', ['$scope',

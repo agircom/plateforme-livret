@@ -560,6 +560,34 @@ $app->delete('/library/:image_id', function($image_id) use ($app) {
 });
 
 
+
+/*
+ * 
+ * API Admin
+ * 
+ */
+$app->get('/admin/users', function() use ($app) {
+    // retrieve user
+    $user_record = retrieveAdminByToken();
+    if (!$user_record) {
+        return;
+    }
+    $user_list_record = R::findAll('user');
+    $user_list = R::exportAll($user_list_record);
+    foreach (array_keys($user_list) as $key) {
+        unset($user_list[$key]['passwd']);
+        unset($user_list[$key]['confirm_key']);
+        unset($user_list[$key]['confirm_date']);
+        unset($user_list[$key]['last_timestamp']);
+        unset($user_list[$key]['session_token']);
+        $user_list[$key]['nb_booklets'] = count($user_list[$key]['ownBooklet']);
+        unset($user_list[$key]['ownBooklet']);
+        unset($user_list[$key]['ownLibrary']);
+    }
+    echo json_encode($user_list);
+});
+
+
 /*
  * 
  * INIT APP (TEMPLATES)

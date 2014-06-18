@@ -1,6 +1,10 @@
-<div class="sheet-fade"></div>
+<div class="sheet-fade" ng-click="$parent.toggleSheet()"></div>
 <div class="sheet-content">
-    Users {{$parent.Users[$parent.selectedUser]}}
+    <ul>
+        <li ng-repeat="(info, value) in $parent.Users[$parent.selectedUser]">
+            <b>{{info}} : </b>{{value}}
+        </li>
+    </ul>
     <br>
     <button ng-click="$parent.toggleSheet()">Fermer</button>
 </div>

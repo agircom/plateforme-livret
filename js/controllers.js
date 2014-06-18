@@ -679,4 +679,29 @@ FeaderAppControllers.controller('AdminCtrl.Stats', ['$scope',
 
     }
 ]);
+FeaderAppControllers.controller('AdminCtrl.Users', ['$scope',
+    function($scope) {
+
+    }
+]);
+FeaderAppControllers.controller('AdminCtrl.Library', ['$scope',
+    function($scope) {
+
+    }
+]);
+FeaderAppControllers.controller('AdminCtrl.ModHome', ['$scope',
+    function($scope) {
+
+    }
+]);
+FeaderAppControllers.controller('AdminCtrl.ModEditor', ['$scope',
+    function($scope) {
+
+    }
+]);
+FeaderAppControllers.controller('AdminCtrl.ModHelp', ['$scope',
+    function($scope) {
+
+    }
+]);
 

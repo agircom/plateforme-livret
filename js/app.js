@@ -126,6 +126,41 @@
             requireMenu: true,
             requireLogin: true,
             requireAccess: 2
+        },
+        '/admin/users': {
+            templateUrl: 'partials/admin/users.html',
+            controller: 'AdminCtrl.Users',
+            requireMenu: true,
+            requireLogin: true,
+            requireAccess: 2
+        },
+        '/admin/library': {
+            templateUrl: 'partials/admin/library.html',
+            controller: 'AdminCtrl.Library',
+            requireMenu: true,
+            requireLogin: true,
+            requireAccess: 2
+        },
+        '/admin/mod_home': {
+            templateUrl: 'partials/admin/mod-home.html',
+            controller: 'AdminCtrl.ModHome',
+            requireMenu: true,
+            requireLogin: true,
+            requireAccess: 2
+        },
+        '/admin/mod_editor': {
+            templateUrl: 'partials/admin/mod-editor.html',
+            controller: 'AdminCtrl.ModEditor',
+            requireMenu: true,
+            requireLogin: true,
+            requireAccess: 2
+        },
+        '/admin/mod_help': {
+            templateUrl: 'partials/admin/mod-help.html',
+            controller: 'AdminCtrl.ModHelp',
+            requireMenu: true,
+            requireLogin: true,
+            requireAccess: 2
         }
     };
 

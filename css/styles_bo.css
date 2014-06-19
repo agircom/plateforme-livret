@@ -301,32 +301,31 @@ h1.titre1fond-folio-pf{
     font-size: 12px;
 }*/
 .menu-folio{
-    width: 100%;
+    width: 1024px;
     height: 50px;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    background: url(../images/bg-menu-folio.png) repeat-x;
 }
 .menu-folio ul {
  padding:0;
  margin:0;
  list-style-type:none;
  float: right;
- }
+}
 .menu-folio li {
- float:left; /*pour IE*/
+ float:left;
  border-left:1px solid black;
  }
 .menu-folio ul li a {
  display:block;
  float:left;   
- width:100px;
- line-height:50px; /*hauteur de l'image de fond*/
- background: url(../images/bg-menu-bo.png) repeat-x;
+ width: 130px;
+ line-height: 32px; 
  color:#000;
  text-decoration:none;
  text-align:center;
- }
-.menu-folio ul li a:hover {
- background: url(../images/bg-menu-bo.png) repeat-x;
- color:white;
  }   
 
 

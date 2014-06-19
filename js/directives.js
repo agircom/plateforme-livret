@@ -189,51 +189,83 @@ FeaderAppDirectives.directive('ngCloneCat', [function() {
                 element.find('.ng-clone-cat-handler').on('click', function(e, ui) {
                     // clone processing
                     element.clone().insertAfter(element);
+
                     // backup header and footer
+                    var container_attrs = element.parent().prop('attributes');
                     var header = element.prev('.page-header').clone();
                     var footer = element.next('.page-footer').clone();
+                    var full_content = $('<div/>');
+
                     // concat all html pages
-                    var content = $('<div/>');
                     for (var i = 0; i < scope.folio.ownPage.length; ++i) {
                         if (i === scope.selected_page) {
                             // current page editing (not saved in model)
-                            content.append(element.parent().clone());
+                            full_content.append(element.parent().clone());
                         } else {
                             // others pages (saved in model)
-                            content.append(scope.folio.ownPage[i].content);
+                            full_content.append(scope.folio.ownPage[i].content);
                         }
                     }
-                    content.find('.ng-draggable').removeClass('ui-draggable');
-                    content.find('.ng-draggable').removeClass('ui-draggable-dragging');
-                    content.find('.ng-draggable').children('.ng-draggable-handler').remove();
-                    content.find('.ng-editable').removeAttr('contenteditable');
-                    content.find('.ng-editable').removeClass('ng-editable-marker');
-                    content.find('.ng-locked').children('.ng-locked-handler').remove();
-                    content.find('.ng-deletable').children('.ng-deletable-handler').remove();
-                    content.find('.ng-clone-cat').children('.ng-clone-cat-handler').remove();
-                    content.find('.ng-orga-cat').children('.ng-clone-orga-handler').remove();
+
+                    // remove plugin content
+                    full_content.find('.ng-draggable').removeClass('ui-draggable');
+                    full_content.find('.ng-draggable').removeClass('ui-draggable-dragging');
+                    full_content.find('.ng-draggable').children('.ng-draggable-handler').remove();
+                    full_content.find('.ng-editable').removeAttr('contenteditable');
+                    full_content.find('.ng-editable').removeClass('ng-editable-marker');
+                    full_content.find('.ng-locked').children('.ng-locked-handler').remove();
+                    full_content.find('.ng-deletable').children('.ng-deletable-handler').remove();
+                    full_content.find('.ng-clone-cat').children('.ng-clone-cat-handler').remove();
+                    full_content.find('.ng-orga-cat').children('.ng-clone-orga-handler').remove();
+
+                    // build folio pages
                     var order = 1;
                     var pages = [{
                             folio_id: scope.folio_id,
                             order: 1,
                             content: ''
                         }];
-                    var entry_count = 1;
+                    var entry_count = 0;
+
+                    // backup container attributes
+                    var content = $('<div/>');
+                    $.each(container_attrs, function() {
+                        content.attr(this.name, this.value);
+                    });
                     // parse all cats in content
-                    content.find('.ng-clone-cat').each(function(index) {
-                        if (entry_count < 6) {
-                            pages[pages.length - 1].content += $(this).html();
-                            entry_count++;
-                        } else {
+                    full_content.find('.ng-clone-cat').each(function(index) {
+                        // check if there is a place
+                        if (entry_count === 0) {
+                            // first element => add header
+                            header.appendTo(content);
+                        }
+                        // there is a place
+                        $(this).appendTo(content);
+                        entry_count++;
+
+                        if (entry_count === 6) {
+                            // page is full => add footer => add new page
+                            footer.appendTo(content);
+                            pages[pages.length - 1].content = content.prop('outerHTML');
+                            content.remove();
+                            // backup container attributes
+                            content = $('<div/>');
+                            $.each(container_attrs, function() {
+                                content.attr(this.name, this.value);
+                            });
+                            order++;
+                            entry_count = 0;
                             pages.push({
                                 folio_id: scope.folio_id,
                                 order: order,
-                                content: $(this).html()
+                                content: ''
                             });
-                            order++;
-                            entry_count = 1;
                         }
                     });
+
+
+
+                    console.log(scope.folio.ownPage);
                     console.log(pages);
                     scope.folio.ownPage = pages;
 //                    scope.updateModel();

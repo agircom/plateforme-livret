@@ -197,7 +197,7 @@ FeaderAppDirectives.directive('ngCloneCat', [function() {
                     for (var i = 0; i < scope.folio.ownPage.length; ++i) {
                         if (i === scope.selected_page) {
                             // current page editing (not saved in model)
-                            content.append(element.parent());
+                            content.append(element.parent().clone());
                         } else {
                             // others pages (saved in model)
                             content.append(scope.folio.ownPage[i].content);

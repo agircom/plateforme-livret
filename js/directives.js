@@ -178,16 +178,65 @@ FeaderAppDirectives.directive('ngTooltip', [function() {
     }
 ]);
 
-FeaderAppDirectives.directive('ngCloneEntry', [function() {
+FeaderAppDirectives.directive('ngCloneCat', [function() {
         return {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
-                $(document.createElement('div')).addClass('ng-clone-entry-handler')
+                // create handler
+                $(document.createElement('div')).addClass('ng-clone-cat-handler')
                         .css('top', element.offset().top + element.height())
                         .css('width', element.width() + 'px')
                         .appendTo(element);
-                element.find('.ng-clone-entry-handler').on('click', function(e, ui) {
+                
+                // onclick
+                element.find('.ng-clone-cat-handler').on('click', function(e, ui) {
+                    // clone processing
                     element.clone().insertAfter(element);
+                    // backup header and footer
+                    var header = element.prev('.page-header');
+                    var footer = element.next('.page-footer');
+                    // concat all html pages
+                    var content = $('<div/>');
+                    for (var i = 0; i < scope.folio.ownPage.length; ++i) {
+                        if (i === scope.selected_page) {
+                            // current page editing (not saved in model)
+                            content.append(element.parent());
+                        } else {
+                            // others pages (saved in model)
+                            content.append(scope.folio.ownPage[i].content);
+                        }
+                    }
+                    console.log(element);
+                    // parse all contents
+                    console.log(content);
+                    
+//                    scope.updateModel();
+                });
+            }
+        };
+    }
+]);
+
+FeaderAppDirectives.directive('ngCloneOrga', [function() {
+        return {
+            restrict: 'AEC',
+            link: function(scope, element, attrs) {
+                // create handler
+                $(document.createElement('div')).addClass('ng-clone-orga-handler')
+                        .css('top', element.offset().top + element.height())
+                        .css('width', element.width() + 'px')
+                        .appendTo(element);
+                
+                // onclick
+                element.find('.ng-clone-orga-handler').on('click', function(e, ui) {
+                    // clone processing
+                    element.clone().insertAfter(element);
+                    var header = element.prev('.page-header');
+                    var content = $('<div/>');
+                    var footer = element.next('.page-footer');
+                    console.log(header, footer);
+                    console.log('scope', scope.folio);
+//                    folio.ownPage[selected_page].content
 //                    scope.updateModel();
                 });
             }

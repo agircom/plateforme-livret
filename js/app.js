@@ -80,7 +80,8 @@
             controller: 'BackofficeCtrl.Folio',
             requireMenu: true,
             requireLogin: true,
-            requireAccess: 1
+            requireAccess: 1,
+            requireToolbar: true
         },
         '/plateforme/booklet/:booklet_id/folio2choice': {
             templateUrl: 'partials/backoffice/folio2choice.html',
@@ -189,7 +190,8 @@
 
             $rootScope.layout = {
                 requireMenu: false,
-                showTooltips: false
+                showTooltips: false,
+                needFolioToolbar: false
             };
 
             UserSvc.restoreSession();
@@ -206,6 +208,11 @@
                         $rootScope.layout.requireMenu = true;
                     } else {
                         $rootScope.layout.requireMenu = false;
+                    }
+                    if (next.requireToolbar) {
+                        $rootScope.layout.needFolioToolbar = true;
+                    } else {
+                        $rootScope.layout.needFolioToolbar = false;
                     }
                 }
             });

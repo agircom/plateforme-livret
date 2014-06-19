@@ -183,10 +183,7 @@ FeaderAppDirectives.directive('ngCloneCat', [function() {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
                 // create handler
-                $(document.createElement('div')).addClass('ng-clone-cat-handler')
-                        .css('top', element.offset().top + element.height())
-                        .css('width', element.width() + 'px')
-                        .appendTo(element);
+                $(document.createElement('div')).addClass('ng-clone-cat-handler').appendTo(element);
                 
                 // onclick
                 element.find('.ng-clone-cat-handler').on('click', function(e, ui) {
@@ -222,10 +219,7 @@ FeaderAppDirectives.directive('ngCloneOrga', [function() {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
                 // create handler
-                $(document.createElement('div')).addClass('ng-clone-orga-handler')
-                        .css('top', element.offset().top + element.height())
-                        .css('width', element.width() + 'px')
-                        .appendTo(element);
+                $(document.createElement('div')).addClass('ng-clone-orga-handler').appendTo(element);
                 
                 // onclick
                 element.find('.ng-clone-orga-handler').on('click', function(e, ui) {

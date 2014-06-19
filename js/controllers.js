@@ -531,6 +531,8 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             content.find('.ng-editable').removeClass('ng-editable-marker');
             content.find('.ng-locked').children('.ng-locked-handler').remove();
             content.find('.ng-deletable').children('.ng-deletable-handler').remove();
+            content.find('.ng-clone-cat').children('.ng-clone-cat-handler').remove();
+            content.find('.ng-orga-cat').children('.ng-clone-orga-handler').remove();
             $scope.folio.ownPage[$scope.selected_page].content = content.html();
         };
         $scope.save = function() {

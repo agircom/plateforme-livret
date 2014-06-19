@@ -184,7 +184,7 @@ FeaderAppDirectives.directive('ngCloneCat', [function() {
             link: function(scope, element, attrs) {
                 // create handler
                 $(document.createElement('div')).addClass('ng-clone-cat-handler').appendTo(element);
-                
+
                 // onclick
                 element.find('.ng-clone-cat-handler').on('click', function(e, ui) {
                     // clone processing
@@ -203,10 +203,39 @@ FeaderAppDirectives.directive('ngCloneCat', [function() {
                             content.append(scope.folio.ownPage[i].content);
                         }
                     }
-                    // parse all contents
+                    content.find('.ng-draggable').removeClass('ui-draggable');
+                    content.find('.ng-draggable').removeClass('ui-draggable-dragging');
+                    content.find('.ng-draggable').children('.ng-draggable-handler').remove();
+                    content.find('.ng-editable').removeAttr('contenteditable');
+                    content.find('.ng-editable').removeClass('ng-editable-marker');
+                    content.find('.ng-locked').children('.ng-locked-handler').remove();
+                    content.find('.ng-deletable').children('.ng-deletable-handler').remove();
+                    content.find('.ng-clone-cat').children('.ng-clone-cat-handler').remove();
+                    content.find('.ng-orga-cat').children('.ng-clone-orga-handler').remove();
+                    var order = 1;
+                    var pages = [{
+                            folio_id: scope.folio_id,
+                            order: 1,
+                            content: ''
+                        }];
+                    var entry_count = 1;
+                    // parse all cats in content
                     content.find('.ng-clone-cat').each(function(index) {
-                        console.log(index);
+                        if (entry_count < 6) {
+                            pages[pages.length - 1].content += $(this).html();
+                            entry_count++;
+                        } else {
+                            pages.push({
+                                folio_id: scope.folio_id,
+                                order: order,
+                                content: $(this).html()
+                            });
+                            order++;
+                            entry_count = 1;
+                        }
                     });
+                    console.log(pages);
+                    scope.folio.ownPage = pages;
 //                    scope.updateModel();
                 });
             }
@@ -220,7 +249,7 @@ FeaderAppDirectives.directive('ngCloneOrga', [function() {
             link: function(scope, element, attrs) {
                 // create handler
                 $(document.createElement('div')).addClass('ng-clone-orga-handler').appendTo(element);
-                
+
                 // onclick
                 element.find('.ng-clone-orga-handler').on('click', function(e, ui) {
                     // clone processing

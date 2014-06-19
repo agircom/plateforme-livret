@@ -1,13 +1,23 @@
     <div class="menu-folio">
          <img src="images/logo-menu-folio.png" alt="logo" title="Retour à l'accueil"/>
         <ul>
-         <li><a href="#">Masquer les repères</a></li>
-         <li><a href="#">?</a></li>
-         <li><a href="#">Fullscreen</a></li>
-         <li><a href="#">Enregistrer</a></li>
-         <li><a href="#">Exporter</a></li>
-         <li><a href="#">Aide</a></li>
-         <li><a href="#">USER</a></li>
+         <li><a href="#" onclick="return false;" class="ng-marker-toggle ng-tooltip" title="Masque les reperes de l'edition"><img src="images/pictos/reperes.png" alt="reperes" title="Masquer les repères"/></a></li>
+         <li><a href="#"><img src="images/pictos/aperçu.png" alt="aperçu" title="Aperçu"/></a></li>
+         <li><a class="ng-tooltip" ng-click="toggleFullScreen()" title="Passer en edition plein ecran"><img src="images/pictos/fullscreen.png" alt="fullscreen" title="Afficher en plein écran"/></a></li>
+         <li><a href="#" onclick="return false;" ng-click="save()"><img src="images/pictos/enregistrer.png" alt="Enregistrer" title="Enregistrer"/></a></li>
+         <li><a class="ng-tooltip" title="Exporter PDF" ng-href="api/booklet/{{booklet_id}}/folio/{{folio_id}}/export"><img src="images/pictos/exporter.png" alt="Exporter" title="Exporter"/></a></li>
+         <li><a class="ng-tooltip" ng-click="toggleTooltips()"><img src="images/pictos/aide-faq.png" alt="Aide" title="Aide"/></a></li>
+         <li>
+             <div ng-if="User.isLogged()" id="userPannel"> 
+                <div class="namePannel" style="float: left;">
+                    <img src="images/pictos/login.png" alt="login" title="Login" style="margin: 2px 10px;" />
+                    <h3>{{User.getCompleteName()}}</h3>
+                </div>
+                <div class="menuPannel" style="float: left;">
+                    <span><a href="#" onclick="return false;" ng-click="logout()"><img src="images/pictos/se-deconnecter.png" alt="se-deconnecter" title="Se déconnecter" style="vertical-align: middle"/></a></span>
+                </div>
+            </div>
+         </li>
         </ul>
     </div>
 <div ng-if="folio !== null" class="fond-folio-pf" ng-class="{fullscreen: showFullscreen}">

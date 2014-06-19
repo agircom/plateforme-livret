@@ -183,8 +183,8 @@ FeaderAppDirectives.directive('ngCloneEntry', [function() {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
                 $(document.createElement('div')).addClass('ng-clone-entry-handler')
-                        .css('top', element.position().bottom)
-                        .css('width', element.width())
+                        .css('top', element.offset().top + element.height())
+                        .css('width', element.width() + 'px')
                         .appendTo(element);
                 element.find('.ng-clone-entry-handler').on('click', function(e, ui) {
                     element.clone().insertAfter(element);

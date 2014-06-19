@@ -342,7 +342,7 @@ h1.titre1fond-folio-pf{
     width: 632px;
     float: left;
     text-align:center;
-    height: 1613px;
+    height: auto;
     overflow: hidden;
     font-size: 12px;
 }

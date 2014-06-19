@@ -190,8 +190,8 @@ FeaderAppDirectives.directive('ngCloneCat', [function() {
                     // clone processing
                     element.clone().insertAfter(element);
                     // backup header and footer
-                    var header = element.prev('.page-header');
-                    var footer = element.next('.page-footer');
+                    var header = element.prev('.page-header').clone();
+                    var footer = element.next('.page-footer').clone();
                     // concat all html pages
                     var content = $('<div/>');
                     for (var i = 0; i < scope.folio.ownPage.length; ++i) {
@@ -203,10 +203,10 @@ FeaderAppDirectives.directive('ngCloneCat', [function() {
                             content.append(scope.folio.ownPage[i].content);
                         }
                     }
-                    console.log(element);
                     // parse all contents
-                    console.log(content);
-                    
+                    content.find('.ng-clone-cat').each(function(index) {
+                        console.log(index);
+                    });
 //                    scope.updateModel();
                 });
             }

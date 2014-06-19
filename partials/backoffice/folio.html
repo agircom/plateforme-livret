@@ -15,6 +15,7 @@
         <img style="vertical-align: middle; padding-right:5px;" src="images/titre-folio.png" width="32" height="32" alt="Supprimer" title="Supprimer"/>
         {{folio.type}} - {{booklet.name}}
     </h1>
+        <div style="width:100%; display:inline-block;">
         <div class="cadre-folio-pf" id="drawboard" compile="folio.ownPage[selected_page].content" ng-class="{cfpffullscreen: showFullscreen}"></div>
         <div class="right-folio-pf" ng-class="{rfpffullscreen: showFullscreen}">
             <div class="help-folio-pf">

@@ -463,7 +463,7 @@ h1.titre1fond-folio-pf{
     position: absolute;
     z-index: 10;
     left: 0;
-    top: 0;
+    top: 40px;
     margin: 0;
 }
 .cfpffullscreen {

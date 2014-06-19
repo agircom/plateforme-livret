@@ -178,6 +178,23 @@ FeaderAppDirectives.directive('ngTooltip', [function() {
     }
 ]);
 
+FeaderAppDirectives.directive('ngCloneEntry', [function() {
+        return {
+            restrict: 'AEC',
+            link: function(scope, element, attrs) {
+                $(document.createElement('div')).addClass('ng-clone-entry-handler')
+                        .css('top', element.position().bottom)
+                        .css('width', element.width())
+                        .appendTo(element);
+                element.find('.ng-clone-entry-handler').on('click', function(e, ui) {
+                    element.clone().insertAfter(element);
+//                    scope.updateModel();
+                });
+            }
+        };
+    }
+]);
+
 FeaderAppDirectives.directive('link', [function() {
         return {
             restrict: 'AEC',

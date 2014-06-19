@@ -47,7 +47,7 @@
 }
 
 .ng-editable-marker {
-    border: 2px dashed lightseagreen;
+    border: 1px dashed lightseagreen;
 }
 
 #ng-editable-toolbox {
@@ -117,4 +117,30 @@
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+}
+
+.ng-clone-entry-handler {
+    margin: 0;
+    padding: 0;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    background-image: url('../images/dupliquer.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    -moz-opacity: 0.20;
+    -webkit-opacity: 0.20;
+    -khtml-opacity: 0.20;
+    opacity: 0.20;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter:alpha(opacity=20);
+}
+.ng-clone-entry-handler:hover {
+    -moz-opacity: 0.80;
+    -webkit-opacity: 0.80;
+    -khtml-opacity: 0.80;
+    opacity: 0.80;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+    filter:alpha(opacity=80);
 }

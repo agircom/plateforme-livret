@@ -1,6 +1,6 @@
 <div class="titre-menu-bo" ng-hide="!$parent.menuShow"><h2><img src="images/pictos/menu-liste.png" style="vertical-align: middle;" ng-hide="!$parent.menuShow"/> Trousse à outils</h2></div>
 <div style="float: left;">
-    <button ng-click="$parent.menuShow = !$parent.menuShow">{{($parent.menuShow) ? '<' : '>'}}</button>
+    <img ng-src="images/pictos/{{$parent.menuShow === true && 'menu-fermer.png' || 'menu-ouvrir.png'}}" ng-click="$parent.menuShow = !$parent.menuShow">
 </div>
 <ul id="menu-backoffice" ng-hide="!$parent.menuShow">
     <li>

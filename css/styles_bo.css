@@ -61,7 +61,7 @@ and open the template in the editor.
 }
 
 .plate {
-    width: 81%;
+    width: 80%;
     min-height: 600px;
     float: left;
     border: 2px solid #b3b3b3;
@@ -69,7 +69,7 @@ and open the template in the editor.
     margin-left: 5px;
 }
 .plate-menu-hide {
-    width: 924px;
+    width: 92%;
     float: left;
 }
 
@@ -488,4 +488,9 @@ h1.titre1fond-folio-pf{
   .cfpffullscreen {
     width: 80%;
   }
+}
+
+.menuShown{
+    width: 750px;
+    height: auto;
 }

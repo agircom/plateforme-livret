@@ -226,6 +226,7 @@ FeaderAppDirectives.directive('ngCloneCat', [function() {
                             content: ''
                         }];
                     var entry_count = 0;
+                    var max_cat_index = full_content.find('.ng-clone-cat').length - 1;
 
                     // backup container attributes
                     var content = $('<div/>');
@@ -243,31 +244,26 @@ FeaderAppDirectives.directive('ngCloneCat', [function() {
                         $(this).appendTo(content);
                         entry_count++;
 
-                        if (entry_count === 6) {
+                        if (entry_count === 6 || index === max_cat_index) {
                             // page is full => add footer => add new page
                             footer.appendTo(content);
                             pages[pages.length - 1].content = content.prop('outerHTML');
-                            content.remove();
-                            // backup container attributes
-                            content = $('<div/>');
-                            $.each(container_attrs, function() {
-                                content.attr(this.name, this.value);
-                            });
+                            content.html('');
                             order++;
                             entry_count = 0;
-                            pages.push({
-                                folio_id: scope.folio_id,
-                                order: order,
-                                content: ''
-                            });
+                            if (index < max_cat_index) {
+                                pages.push({
+                                    folio_id: scope.folio_id,
+                                    order: order,
+                                    content: ''
+                                });
+                            }
                         }
                     });
-
-
-
-                    console.log(scope.folio.ownPage);
-                    console.log(pages);
-                    scope.folio.ownPage = pages;
+                    scope.$apply(function() {
+                        scope.folio.ownPage = pages;
+                    });
+                    
 //                    scope.updateModel();
                 });
             }

@@ -188,10 +188,11 @@ FeaderAppDirectives.directive('ngCloneCat', [function() {
                 // onclick
                 element.find('.ng-clone-cat-handler').on('click', function(e, ui) {
                     // clone processing
+                    var parent = element.parent();
                     element.clone().insertAfter(element);
-                    
+
                     // build folio pages
-                    scope.buildFolio(element.parent());
+                    scope.buildFolio(parent);
                 });
             }
         };
@@ -207,14 +208,14 @@ FeaderAppDirectives.directive('ngRemoveCat', [function() {
                 // onclick
                 element.find('.ng-remove-cat-handler').on('click', function(e, ui) {
                     var parent = element.parent();
-                    var backup_parent = parent.clone(true);
-                    // remove processing
-                    element.remove();
+                    if (scope.folio.ownPage.length === 1 && parent.find('.ng-remove-cat').length === 1) {
+                        alert('Vous devez avoir au minimum une categorie');
+                    } else {
+                        // remove processing
+                        element.remove();
 
-                    // build folio pages
-                    if (!scope.buildFolio(parent)) {
-                        parent.replaceWith(backup_parent);
-                        scope.updateModel();
+                        // build folio pages
+                        scope.buildFolio(parent);
                     }
                 });
             }
@@ -254,7 +255,7 @@ FeaderAppDirectives.directive('ngRemoveOrga', [function() {
 
                 // onclick
                 element.find('.ng-remove-orga-handler').on('click', function(e, ui) {
-                    
+
                 });
             }
         };

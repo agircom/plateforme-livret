@@ -546,20 +546,18 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             var container_attrs = container.prop('attributes');
             var header = container.find('.page-header').clone();
             var footer = container.find('.page-footer').clone();
-            var backup_current_page = $scope.folio.ownPage[$scope.selected_page].content;
             var full_content = $('<div/>');
 
             // concat all html pages
             for (var i = 0; i < $scope.folio.ownPage.length; ++i) {
                 if (i === $scope.selected_page) {
                     // current page editing (not saved in model)
-                    full_content.append(container.clone());
+                    full_content.append(container.clone(true));
                 } else {
                     // others pages (saved in model)
                     full_content.append($scope.folio.ownPage[i].content);
                 }
             }
-            console.log(full_content.find('.ng-clone-cat').length);
             if (full_content.find('.ng-clone-cat').length === 0) {
                 alert('Vous devez avoir au minimum une categorie');
                 $scope.$apply();
@@ -580,6 +578,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
 
             // backup container attributes
             var content = $('<div/>');
+//            console.log(container_attrs);
             $.each(container_attrs, function() {
                 content.attr(this.name, this.value);
             });

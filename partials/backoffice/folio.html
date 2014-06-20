@@ -39,7 +39,7 @@
                 <button class="ng-tooltip" ng-click="toggleTooltips()">
                     Afficher les aides
                 </button> --> 
-                <div ng-if="folio.ownPage.length === 2" id="folio-edit-toolbox">
+                <div ng-if="folio.ownPage.length === 2 && folio.type !== 'locale'" id="folio-edit-toolbox">
                     <div class="select-folio">
                         <a href="#" onclick="return false;" ng-click="selectPage(0)">
                             <span>> Recto</span>
@@ -62,7 +62,7 @@
                     </div>
                     <!--<a href="#" onclick="return false;" class="ng-marker-toggle ng-tooltip" title="Masque les reperes de l'edition">Masquer les reperes</a>-->
                 </div>
-                <div ng-if="folio.ownPage.length > 2" id="folio-edit-toolbox">
+                <div ng-if="folio.ownPage.length > 2 || folio.type === 'locale'" id="folio-edit-toolbox">
                     <h3>Page</h3>
                     <div ng-repeat="page in folio.ownPage" class="select-folio" style="width: 30%; float: left; height: auto; margin: 0 2px;">
                         <a href="#" onclick="return false;" ng-click="selectPage($index)">

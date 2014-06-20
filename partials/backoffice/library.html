@@ -1,4 +1,25 @@
 <div id="library-manager">
+    <div class="haut-library">
+        <div class="titre-library"><h2>La photothèque</h2></div>
+        <div class="menu-library"><span>Vue par :</span></div> 
+        <div class="menu-library"><span>Liste</span><img src="images/pictos/liste.png"></div>  
+        <div class="menu-library"><span>Miniature</span><img src="images/pictos/miniature.png""></div>   
+        <div class="menu-library"><span>Aide</span><img src="images/pictos/help.png"></div>   
+    </div>  
+    <div class="block-select-library">
+        <div class="onglet-library"><h3>Mes images</h3></div>
+        <div class="onglet-library"><h3>Sélectionner une catégorie</h3></div>   
+        <div class="recherche-library"><input type="text" id="recherche-image" placeholder="Recherche par mots clés"><img src="images/pictos/ok.png"></div>   
+    </div> 
+    <div style="overflow: auto;">
+        <ul id="library-list">
+            <li ng-repeat="image in library">
+                <div><img ng-src="images/uploaded/{{image.filename}}" style="width: 100%;"></div>
+                <img src="images/pictos/check-gris.png" style="width: 15px; height: 15px; margin-right: 10px;"><span>{{image.name}}</span><a style="float: right; cursor: pointer;" ng-click="deleteImage(image.id)"><img src="images/pictos/fermer.png" style="width: 15px; height: 15px;"></a>
+                <!--<p>Description : {{image.description}}</p>-->                
+            </li>
+        </ul>
+    </div>
     <div id="library-form-add">
         <p>
             <label for="library-form-add-name">Nom :</label>
@@ -15,17 +36,5 @@
         <p>
             <button ng-click="startUpload()">Ajouter</button>
         </p>
-    </div>
-    <div>
-        <ul id="library-list">
-            <li ng-repeat="image in library">
-                <img ng-src="images/uploaded/{{image.filename}}" style="width: 50px; height: 50px;">
-                <p>Nom : {{image.name}}</p>
-                <p>Description : {{image.description}}</p>
-                <button ng-click="deleteImage(image.id)">
-                    <img src="images/supprimer.png" style="width: 25px; height: 25px;">
-                </button>
-            </li>
-        </ul>
-    </div>
+</div>
 </div>

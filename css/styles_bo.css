@@ -509,3 +509,80 @@ h1.titre1fond-folio-pf{
     width: 86%;
     height: auto;
 }
+
+/* library */
+#library-list li{
+    width: 18%;
+    float: left;
+    margin: 0 10px 10px 0;
+}
+#library-list li div{
+    height: 130px;
+}
+
+
+.haut-library{
+    width: 100%;
+    overflow: auto;
+}
+
+.titre-library{
+    width: 50%;
+    float: left;
+}
+
+.titre-library h2{
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #808080;
+    font-size: 14px;
+}
+
+.menu-library{
+    width: 12%;
+    float: left;
+}
+
+.menu-library img{
+    vertical-align: baseline;
+    width: 15px;
+    height: 15px;
+    margin-left: 10px;
+}
+
+.block-select-library{
+    width: 100%;
+    margin-bottom: 30px;
+    overflow: auto;
+}
+
+.onglet-library{
+    width: 20%;
+    float: left;
+}
+
+.onglet-library h3{
+    background-color: #00a295;
+    width: 90%;
+    color: #fff;
+    font-size: 10px;
+    text-align: center;
+    text-transform: none;
+    -webkit-border-radius: 0px 20px 0px 20px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.recherche-library{
+    width: 50%;
+    float: left;
+}
+
+.recherche-library img{
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+.recherche-library input{
+    width: 90%;
+}

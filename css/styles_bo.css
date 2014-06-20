@@ -504,3 +504,8 @@ h1.titre1fond-folio-pf{
     width: 750px;
     height: auto;
 }
+
+.pochetteshow[class~="cfpffullscreen"] {
+    width: 86%;
+    height: auto;
+}

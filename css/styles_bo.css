@@ -490,7 +490,17 @@ h1.titre1fond-folio-pf{
   }
 }
 
-.menuShown{
+.menuHidden{
+    width: 750px;
+    height: auto;
+}
+
+.pochetteshow{
+    width: 632px;
+    height: auto;
+}
+
+.pochetteshow[class~="menuHidden"] {
     width: 750px;
     height: auto;
 }

@@ -522,8 +522,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         $scope.getFolioContent = function() {
             return $sce.trustAsHtml($scope.folio.ownPage[$scope.selected_page].content);
         };
-        $scope.updateModel = function() {
-            var content = $('#drawboard').clone();
+        $scope.clearPlugins = function(content) {
             content.find('.ng-draggable').removeClass('ui-draggable');
             content.find('.ng-draggable').removeClass('ui-draggable-dragging');
             content.find('.ng-draggable').children('.ng-draggable-handler').remove();
@@ -532,8 +531,89 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             content.find('.ng-locked').children('.ng-locked-handler').remove();
             content.find('.ng-deletable').children('.ng-deletable-handler').remove();
             content.find('.ng-clone-cat').children('.ng-clone-cat-handler').remove();
-            content.find('.ng-orga-cat').children('.ng-clone-orga-handler').remove();
+            content.find('.ng-remove-cat').children('.ng-remove-cat-handler').remove();
+            content.find('.ng-clone-orga').children('.ng-clone-orga-handler').remove();
+            content.find('.ng-remove-orga').children('.ng-remove-orga-handler').remove();
+            return content;
+        };
+        $scope.updateModel = function() {
+            var content = $('#drawboard').clone();
+            content = $scope.clearPlugins(content);
             $scope.folio.ownPage[$scope.selected_page].content = content.html();
+        };
+        $scope.buildFolio = function(container) {
+            // backup header and footer
+            var container_attrs = container.prop('attributes');
+            var header = container.find('.page-header').clone();
+            var footer = container.find('.page-footer').clone();
+            var backup_current_page = $scope.folio.ownPage[$scope.selected_page].content;
+            var full_content = $('<div/>');
+
+            // concat all html pages
+            for (var i = 0; i < $scope.folio.ownPage.length; ++i) {
+                if (i === $scope.selected_page) {
+                    // current page editing (not saved in model)
+                    full_content.append(container.clone());
+                } else {
+                    // others pages (saved in model)
+                    full_content.append($scope.folio.ownPage[i].content);
+                }
+            }
+            console.log(full_content.find('.ng-clone-cat').length);
+            if (full_content.find('.ng-clone-cat').length === 0) {
+                alert('Vous devez avoir au minimum une categorie');
+                $scope.$apply();
+                return false;
+            }
+
+            // remove plugin content
+            full_content = $scope.clearPlugins(full_content);
+
+            var order = 1;
+            var pages = [{
+                    folio_id: $scope.folio_id,
+                    order: 1,
+                    content: ''
+                }];
+            var entry_count = 0;
+            var max_cat_index = full_content.find('.ng-clone-cat').length - 1;
+
+            // backup container attributes
+            var content = $('<div/>');
+            $.each(container_attrs, function() {
+                content.attr(this.name, this.value);
+            });
+            // parse all cats in content
+            full_content.find('.ng-clone-cat').each(function(index) {
+                // check if there is a place
+                if (entry_count === 0) {
+                    // first element => add header
+                    header.appendTo(content);
+                }
+                // there is a place
+                $(this).appendTo(content);
+                entry_count++;
+
+                if (entry_count === 6 || index === max_cat_index) {
+                    // page is full => add footer => add new page
+                    footer.appendTo(content);
+                    pages[pages.length - 1].content = content.prop('outerHTML');
+                    content.html('');
+                    order++;
+                    entry_count = 0;
+                    if (index < max_cat_index) {
+                        pages.push({
+                            folio_id: $scope.folio_id,
+                            order: order,
+                            content: ''
+                        });
+                    }
+                }
+            });
+            $scope.$apply(function() {
+                $scope.folio.ownPage = pages;
+            });
+
         };
         $scope.save = function() {
             $scope.updateModel();
@@ -717,7 +797,7 @@ FeaderAppControllers.controller('AdminCtrl.Users', ['$scope', 'AdminSvc',
                 AdminSvc.deleteUser(user.id).success(function(data) {
                     $scope.Users.splice($scope.Users.indexOf(user), 1);
                 }).error(function(data, status) {
-                    
+
                 });
             }
         };

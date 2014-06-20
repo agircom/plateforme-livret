@@ -26,7 +26,7 @@
         {{folio.type}} - {{booklet.name}}
     </h1>
         <div style="width:100%; display:inline-block;">
-        <div class="cadre-folio-pf" id="drawboard" compile="folio.ownPage[selected_page].content" ng-class="{cfpffullscreen: showFullscreen, menuShown: (layout.menuShow === false)}"></div>
+        <div class="cadre-folio-pf" id="drawboard" compile="folio.ownPage[selected_page].content" ng-class="{cfpffullscreen: showFullscreen, menuShown: (layout.menuShow === false), pochette: (folio.type === 'pochette'}"></div>
         <div class="right-folio-pf" ng-class="{rfpffullscreen: showFullscreen}">
             <div class="help-folio-pf">
                 <img src="images/pictos/help.png" width="16" height="16" alt="help" title="Aide"/>

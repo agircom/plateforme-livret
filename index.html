@@ -26,11 +26,11 @@
     </head>
     <body>
         <div id="rrhn-app" ng-app="FeaderApp">
-            <div id="main" ng-init="menuShow = true; btnContent = '<'" ng-class="{foliotoolbar: (layout.needFolioToolbar === true)}">
+            <div id="main" ng-class="{foliotoolbar: (layout.needFolioToolbar === true)}">
                 <header ng-hide="layout.needFolioToolbar === true" ng-include="'partials/common/header.html'"></header>
                 <div class="menu-bo" ng-if="layout.requireMenu && User.getPermissions() === 1" ng-include="'partials/common/menu.html'"></div>
                 <div class="menu-bo" ng-if="layout.requireMenu && User.getPermissions() === 2" ng-include="'partials/common/menu-admin.html'"></div>
-                <div ng-class="{'plate':layout.requireMenu, 'plate-menu-hide': menuShow === false}" class="container" ng-view></div>
+                <div ng-class="{'plate':layout.requireMenu, 'plate-menu-hide': (layout.menuShow === false)}" class="container" ng-view></div>
             </div>
             <footer ng-include="'partials/common/footer.html'"></footer>
         </div>

@@ -191,11 +191,16 @@
             $rootScope.layout = {
                 requireMenu: false,
                 showTooltips: false,
-                needFolioToolbar: false
+                needFolioToolbar: false,
+                menuShow: true
             };
 
             UserSvc.restoreSession();
             $rootScope.User = UserSvc;
+            
+            $rootScope.toggleShowMenu = function() {
+                $rootScope.layout.menuShow = !$rootScope.layout.menuShow;
+            };
 
             $rootScope.$on('$routeChangeStart', function(event, next, current) {
                 if (next.requireLogin && !UserSvc.isLogged()) {

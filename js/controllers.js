@@ -532,8 +532,8 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             content.find('.ng-deletable').children('.ng-deletable-handler').remove();
             content.find('.ng-clone-cat').children('.ng-clone-cat-handler').remove();
             content.find('.ng-remove-cat').children('.ng-remove-cat-handler').remove();
-            content.find('.ng-orga-cat').children('.ng-clone-orga-handler').remove();
-            content.find('.ng-remove-cat').children('.ng-clone-orga-handler').remove();
+            content.find('.ng-clone-orga').children('.ng-clone-orga-handler').remove();
+            content.find('.ng-remove-orga').children('.ng-remove-orga-handler').remove();
             return content;
         };
         $scope.updateModel = function() {
@@ -546,6 +546,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             var container_attrs = container.prop('attributes');
             var header = container.find('.page-header').clone();
             var footer = container.find('.page-footer').clone();
+            var backup_current_page = $scope.folio.ownPage[$scope.selected_page].content;
             var full_content = $('<div/>');
 
             // concat all html pages
@@ -557,6 +558,12 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                     // others pages (saved in model)
                     full_content.append($scope.folio.ownPage[i].content);
                 }
+            }
+            console.log(full_content.find('.ng-clone-cat').length);
+            if (full_content.find('.ng-clone-cat').length === 0) {
+                alert('Vous devez avoir au minimum une categorie');
+                $scope.$apply();
+                return false;
             }
 
             // remove plugin content

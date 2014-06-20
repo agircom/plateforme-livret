@@ -207,11 +207,15 @@ FeaderAppDirectives.directive('ngRemoveCat', [function() {
                 // onclick
                 element.find('.ng-remove-cat-handler').on('click', function(e, ui) {
                     var parent = element.parent();
+                    var backup_parent = parent.clone(true);
                     // remove processing
                     element.remove();
 
                     // build folio pages
-                    scope.buildFolio(parent);
+                    if (!scope.buildFolio(parent)) {
+                        parent.replaceWith(backup_parent);
+                        scope.updateModel();
+                    }
                 });
             }
         };

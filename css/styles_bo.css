@@ -223,16 +223,27 @@ h2.titre2fond-pres-territoire{
     border-right: 2px solid #b3b3b3;
 }
 
+.template-pres-territoire a{
+    text-decoration: none;
+}
+
 .template-pres-territoire h3{
     background-color:#00a295;
     -webkit-border-radius: 0px 10px 0px 10px;
     padding: 5px;
     color: #fff;
     text-transform:uppercase;
-    width:50%;
+    width: 50%;
     margin: 0 auto;
     font-family: Arial;
+    font-size: 10px;
     text-align: center;
+    height: 15px;
+}
+
+.template-pres-territoire h3 span{
+    float: left;
+    margin-left: 15px;
 }
 
 .right-pres-territoire{
@@ -459,7 +470,7 @@ h1.titre1fond-folio-pf{
 
 /* fullscreen */
 .fullscreen {
-    width: 100%;
+    width: 97%;
     height: 98%;
     position: absolute;
     z-index: 10;
@@ -506,18 +517,96 @@ h1.titre1fond-folio-pf{
 }
 
 .pochetteshow[class~="cfpffullscreen"] {
-    width: 86%;
+    width: 83%;
     height: auto;
 }
 
-/* library */
+/* library liste*/
 #library-list li{
-    width: 18%;
+    width: 100%;
+    margin: 0 10px 10px 0;
+    padding: 5px 0;
+    display: list-item;
+    height: 160px;
+    overflow: auto;
+}
+
+#library-list li.active {
+    background-color: #ebebeb;
+}
+
+#library-list li:hover {
+    background-color: #ebebeb;
+}
+
+#library-list li .check-image{
+    width: 5%;
+    float: left;
+    padding-left: 10px;
+    margin: 65px 0;
+}
+
+#library-list li .miniature-image{
+    width: 25%;
+    float: left;
+}
+#library-list li .miniature-image img{
+    border:1px solid #c5c5c5;
+    width: 100%;
+}
+
+#library-list li .infos-image{
+    width: 65%;
+    float: left;
+    padding-left: 10px;
+    overflow: hidden;
+}
+
+#library-list li .infos-image h3{
+    color: #808080;
+    text-transform: none;
+    width: 50%;
+    float: left;
+}
+
+#library-list li .infos-image p{
+    color: #585858;
+    height: 100px;
+    margin-top: 20px;
+}
+
+#library-list li .actions-image{
+    width: 100%;
+    float: left;
+    /* padding-left: 10px; */
+}
+#library-list li .actions-image a span{
+    color: #808080;
+    text-decoration: underline;
+}
+
+/* library miniature*/
+#library-miniature li{
+    width: 15%;
     float: left;
     margin: 0 10px 10px 0;
+    padding: 15px;
+    display: inline-block;
 }
-#library-list li div{
-    height: 130px;
+
+#library-miniature li.active {
+    background-color: #ebebeb;
+}
+
+#library-miniature li:hover {
+    background-color: #ebebeb;
+}
+
+#library-miniature li div{
+    height: 120px;
+}
+#library-miniature li div img{
+    border:1px solid #c5c5c5;
 }
 
 
@@ -569,6 +658,8 @@ h1.titre1fond-folio-pf{
     text-align: center;
     text-transform: none;
     -webkit-border-radius: 0px 20px 0px 20px;
+    -moz-border-radius: 0px 20px 0px 20px;
+    border-radius: 0px 20px 0px 20px;
     padding: 5px;
     margin-bottom: 10px;
 }

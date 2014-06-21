@@ -362,7 +362,7 @@ h1.titre1fond-folio-pf{
     width: 632px;
     float: left;
     text-align:center;
-    height: auto;
+    height: 894px;
     overflow: hidden;
     font-size: 12px;
 }
@@ -509,12 +509,18 @@ h1.titre1fond-folio-pf{
   }
   .cfpffullscreen {
     width: 80%;
-  }
+  
+    height: 100%;
+}
 }
 
 .menuHidden{
     width: 750px;
-    height: auto;
+    height: 1061px;
+}
+.menuHidden[class~="cfpffullscreen"]{
+    width: 83%;
+    /* height: 100%; */
 }
 
 .pochetteshow{
@@ -524,7 +530,7 @@ h1.titre1fond-folio-pf{
 
 .pochetteshow[class~="menuHidden"] {
     width: 750px;
-    height: auto;
+    height: 530px;
 }
 
 .pochetteshow[class~="cfpffullscreen"] {

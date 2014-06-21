@@ -113,9 +113,11 @@ and open the template in the editor.
 }
 
 .booklet-list-header {
-    padding: 15px;
+    padding: 10px;
     background-color: #DD6B5C;
     -webkit-border-radius: 0px 20px 0px 20px;
+    -moz-border-radius: 0px 20px 0px 20px;
+    border-radius: 0px 20px 0px 20px;
     color: #fff;
     text-transform: uppercase;
     overflow:auto;
@@ -173,8 +175,11 @@ h3{
     background-color: #00a295;
     width: 80%;
     color:#fff;
+    font-size: 8px;
     text-transform: uppercase;
-    -webkit-border-radius: 0px 20px 0px 20px;
+    -webkit-border-radius: 0px 15px 0px 15px;
+    -moz-border-radius: 0px 15px 0px 15px;
+    border-radius: 0px 15px 0px 15px;
     padding:5px;
     margin-bottom: 10px;
 }
@@ -196,6 +201,8 @@ h1.titre1fond-pres-territoire{
 h2.titre2fond-pres-territoire{
     background-color:#DD6B5C;
     -webkit-border-radius: 0px 10px 0px 10px;
+    -moz-border-radius: 0px 10px 0px 10px;
+    border-radius: 0px 10px 0px 10px;    
     padding: 5px 10px;
     margin-left: 20px;
     color: #fff;
@@ -230,6 +237,8 @@ h2.titre2fond-pres-territoire{
 .template-pres-territoire h3{
     background-color:#00a295;
     -webkit-border-radius: 0px 10px 0px 10px;
+    -moz-border-radius: 0px 10px 0px 10px;
+    border-radius: 0px 11px 0px 10px;
     padding: 5px;
     color: #fff;
     text-transform:uppercase;
@@ -368,6 +377,8 @@ h1.titre1fond-folio-pf{
 .template-folio-pf h3{
     background-color:#00a295;
     -webkit-border-radius: 0px 10px 0px 10px;
+    -moz-border-radius: 0px 10px 0px 10px;
+    border-radius: 0px 10px 0px 10px;
     padding: 5px;
     color: #fff;
     text-transform:uppercase;
@@ -508,7 +519,7 @@ h1.titre1fond-folio-pf{
 
 .pochetteshow{
     width: 632px;
-    height: auto;
+    height: 447px;
 }
 
 .pochetteshow[class~="menuHidden"] {
@@ -518,7 +529,7 @@ h1.titre1fond-folio-pf{
 
 .pochetteshow[class~="cfpffullscreen"] {
     width: 83%;
-    height: auto;
+    height: 100%;
 }
 
 /* library liste*/

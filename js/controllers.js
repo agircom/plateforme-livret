@@ -584,9 +584,29 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                     // first element => add header
                     header.appendTo(content);
                 }
-                // check place
+                // check place => there is a place
                 if (entry_count < 6) {
-                    // there is a place
+                    // backups cat
+                    var cat_header = $(this).clone();
+                    // empty orga in this cat
+                    cat_header.find('.ng-clone-orga').remove();
+                    // count orga in this cat
+                    var max_orga_index = $(this).find('.ng-clone-orga').length - 1;
+                    
+                    // parse all orga in this cat
+                    var cat_content = $('<div/>');
+                    $(this).find('.ng-clone-orga').each(function(index) {
+                        if (entry_count < 6) {
+                            cat_content.append($(this));
+                            entry_count++;
+                        }
+                        // check page is full
+                        if (entry_count === 6 || index === max_orga_index) {
+                            // store orgas in cloned cat header
+                            cat_header.find('div:first-child').find('div:eq(1)').append(cat_content.clone());
+                        }
+                        
+                    });
                     $(this).appendTo(content);
                     entry_count++;
                 }

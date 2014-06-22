@@ -178,7 +178,7 @@ FeaderAppDirectives.directive('ngTooltip', [function() {
     }
 ]);
 
-FeaderAppDirectives.directive('ngCloneCat', [function() {
+FeaderAppDirectives.directive('ngCloneCat', ['$compile', function($compile) {
         return {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
@@ -187,18 +187,25 @@ FeaderAppDirectives.directive('ngCloneCat', [function() {
 
                 // onclick
                 element.find('.ng-clone-cat-handler').on('click', function(e, ui) {
-                    // clone processing
-                    var parent = element.parent();
-                    element.clone().insertAfter(element);
+                    if (scope.folioBuilding === false) {
+                        scope.folioBuilding = true;
+                        // clone processing
+                        var parent = element.parent();
+                        element.clone().insertAfter(element);
 
-                    // build folio pages
-                    scope.buildFolio(parent);
+                        // build folio pages
+                        scope.buildFolio(parent);
+                        var el = angular.element(scope.folio.ownPage[scope.selected_page].content);
+                        var compiled = $compile(el)(scope);
+                        $('#drawboard').html(compiled);
+                        scope.folioBuilding = false;
+                    }
                 });
             }
         };
     }
 ]);
-FeaderAppDirectives.directive('ngRemoveCat', [function() {
+FeaderAppDirectives.directive('ngRemoveCat', ['$compile', function($compile) {
         return {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
@@ -207,15 +214,23 @@ FeaderAppDirectives.directive('ngRemoveCat', [function() {
 
                 // onclick
                 element.find('.ng-remove-cat-handler').on('click', function(e, ui) {
-                    var parent = element.parent();
-                    if (scope.folio.ownPage.length === 1 && parent.find('.ng-remove-cat').length === 1) {
-                        alert('Vous devez avoir au minimum une categorie');
-                    } else {
-                        // remove processing
-                        element.remove();
+                    if (scope.folioBuilding === false) {
+                        // clone processing
+                        var parent = element.parent();
+                        if (scope.folio.ownPage.length === 1 && parent.find('.ng-remove-cat').length === 1) {
+                            alert('Vous devez avoir au minimum une categorie');
+                        } else {
+                            scope.folioBuilding = true;
+                            // remove processing
+                            element.remove();
 
-                        // build folio pages
-                        scope.buildFolio(parent);
+                            // build folio pages
+                            scope.buildFolio(parent);
+                            var el = angular.element(scope.folio.ownPage[scope.selected_page].content);
+                            var compiled = $compile(el)(scope);
+                            $('#drawboard').html(compiled);
+                            scope.folioBuilding = false;
+                        }
                     }
                 });
             }

@@ -499,8 +499,8 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
         $scope.reload();
     }
 ]);
-FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', '$rootScope', '$location', '$sce', 'BookletSvc', 'ToolSvc', '$window',
-    function($scope, $routeParams, $rootScope, $location, $sce, BookletSvc, ToolSvc, $window) {
+FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', '$rootScope', '$location', '$sce', 'BookletSvc', 'ToolSvc', '$compile',
+    function($scope, $routeParams, $rootScope, $location, $sce, BookletSvc, ToolSvc, $compile) {
         $scope.showPictureSelector = false;
         $scope.showFullscreen = false;
         $scope.imageSelected = null;
@@ -510,6 +510,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         $scope.folio_id = $routeParams.folio_id;
         $scope.folio = null;
         $scope.selected_page = 0;
+        $scope.folioBuilding = false;
         BookletSvc.get($scope.booklet_id).success(function(data) {
             $scope.booklet = data.booklet;
         });
@@ -558,11 +559,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                     full_content.append($scope.folio.ownPage[i].content);
                 }
             }
-            if (full_content.find('.ng-clone-cat').length === 0) {
-                alert('Vous devez avoir au minimum une categorie');
-                $scope.$apply();
-                return false;
-            }
 
             // remove plugin content
             full_content = $scope.clearPlugins(full_content);
@@ -578,35 +574,41 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
 
             // backup container attributes
             var content = $('<div/>');
-//            console.log(container_attrs);
             $.each(container_attrs, function() {
                 content.attr(this.name, this.value);
             });
             // parse all cats in content
             full_content.find('.ng-clone-cat').each(function(index) {
-                // check if there is a place
+                // check header
                 if (entry_count === 0) {
                     // first element => add header
                     header.appendTo(content);
                 }
-                // there is a place
-                $(this).appendTo(content);
-                entry_count++;
+                // check place
+                if (entry_count < 6) {
+                    // there is a place
+                    $(this).appendTo(content);
+                    entry_count++;
+                }
 
+                // check footer
                 if (entry_count === 6 || index === max_cat_index) {
-                    // page is full => add footer => add new page
-                    footer.appendTo(content);
-                    pages[pages.length - 1].content = content.prop('outerHTML');
+                    // save current page
+                    pages[pages.length - 1].content = content.clone().prop('outerHTML');
                     content.html('');
+                    // page is full or last element => add footer
+                    footer.appendTo(content);
+                }
+
+                // check new page
+                if (entry_count === 6 && index < max_cat_index) {
                     order++;
+                    pages.push({
+                        folio_id: $scope.folio_id,
+                        order: order,
+                        content: ''
+                    });
                     entry_count = 0;
-                    if (index < max_cat_index) {
-                        pages.push({
-                            folio_id: $scope.folio_id,
-                            order: order,
-                            content: ''
-                        });
-                    }
                 }
             });
             $scope.$apply(function() {

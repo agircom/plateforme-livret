@@ -531,10 +531,10 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             content.find('.ng-editable').removeClass('ng-editable-marker');
             content.find('.ng-locked').children('.ng-locked-handler').remove();
             content.find('.ng-deletable').children('.ng-deletable-handler').remove();
-            content.find('.ng-clone-cat').children('.ng-clone-cat-handler').remove();
-            content.find('.ng-remove-cat').children('.ng-remove-cat-handler').remove();
-            content.find('.ng-clone-orga').children('.ng-clone-orga-handler').remove();
-            content.find('.ng-remove-orga').children('.ng-remove-orga-handler').remove();
+            content.find('.ng-clone-cat').find('h4').children('.ng-clone-cat-handler').remove();
+            content.find('.ng-remove-cat').find('h4').children('.ng-remove-cat-handler').remove();
+            content.find('.ng-clone-orga').find('h5').children('.ng-clone-orga-handler').remove();
+            content.find('.ng-remove-orga').find('h5').children('.ng-remove-orga-handler').remove();
             return content;
         };
         $scope.updateModel = function() {
@@ -614,6 +614,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             $scope.$apply(function() {
                 $scope.folio.ownPage = pages;
                 if ($scope.selected_page >= $scope.folio.ownPage.length) {
+                    // last page deletion
                     $scope.selected_page = $scope.folio.ownPage.length - 1;
                 }
             });

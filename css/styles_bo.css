@@ -538,6 +538,20 @@ h1.titre1fond-folio-pf{
     height: 100%;
 }
 
+.agendashow{
+    width: 632px;
+    height: 447px;
+}
+
+.agendashow[class~="menuHidden"] {
+    width: 750px;
+    height: 530px;
+}
+
+.agendashow[class~="cfpffullscreen"] {
+    width: 83%;
+    height: 100%;
+}
 /* library liste*/
 #library-list li{
     width: 100%;

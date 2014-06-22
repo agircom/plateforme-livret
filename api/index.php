@@ -423,15 +423,26 @@ $app->put('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_i
         return;
     }
     $folio_record = $user_record->xownBookletList[$booklet_id]->xownFolioList[$folio_id];
-    foreach ($givenFolioData as $page) {
-        if (!isset($folio_record->xownPageList[$page['id']])) {
-            // page doesn't exist or is not the owner
-            $app->response()->status(404);
-            return;
+    if ($folio_record->type === 'locale') {
+        $folio_record->xownPageList = array();
+        foreach ($givenFolioData as $page) {
+            $page_record = R::dispense('page');
+            $page_record->order = $page['order'];
+            $page_record->content = $page['content'];
+            $folio_record->xownPageList[] = $page_record;
         }
-        $page_record = $folio_record->xownPageList[$page['id']];
-        $page_record->content = $page['content'];
-        R::store($page_record);
+        R::store($folio_record);
+    } else {
+        foreach ($givenFolioData as $page) {
+            if (!isset($folio_record->xownPageList[$page['id']])) {
+                // page doesn't exist or is not the owner
+                $app->response()->status(404);
+                return;
+            }
+            $page_record = $folio_record->xownPageList[$page['id']];
+            $page_record->content = $page['content'];
+            R::store($page_record);
+        }
     }
     $date = new DateTime();
     $folio_record->date_last_update = $date;

@@ -559,11 +559,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                     full_content.append($scope.folio.ownPage[i].content);
                 }
             }
-            if (full_content.find('.ng-clone-cat').length === 0) {
-                alert('Vous devez avoir au minimum une categorie');
-                $scope.$apply();
-                return false;
-            }
 
             // remove plugin content
             full_content = $scope.clearPlugins(full_content);

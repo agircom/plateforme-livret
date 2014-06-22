@@ -613,6 +613,9 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             });
             $scope.$apply(function() {
                 $scope.folio.ownPage = pages;
+                if ($scope.selected_page >= $scope.folio.ownPage.length) {
+                    $scope.selected_page = $scope.folio.ownPage.length - 1;
+                }
             });
 
         };

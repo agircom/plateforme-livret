@@ -183,14 +183,14 @@ FeaderAppDirectives.directive('ngCloneCat', ['$compile', function($compile) {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
                 // create handler
-                $(document.createElement('div')).addClass('ng-clone-cat-handler').attr('title', 'Ajouter une categorie').appendTo(element);
+                $(document.createElement('div')).addClass('ng-clone-cat-handler').attr('title', 'Ajouter une categorie').appendTo(element.find('h4'));
 
                 // onclick
                 element.find('.ng-clone-cat-handler').on('click', function(e, ui) {
                     if (scope.folioBuilding === false) {
                         scope.folioBuilding = true;
                         // clone processing
-                        var parent = element.parent();
+                        var parent = $('#drawboard > div').first();
                         element.clone().insertAfter(element);
 
                         // build folio pages
@@ -210,13 +210,13 @@ FeaderAppDirectives.directive('ngRemoveCat', ['$compile', function($compile) {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
                 // create handler
-                $(document.createElement('div')).addClass('ng-remove-cat-handler').attr('title', 'Supprimer la categorie').appendTo(element);
+                $(document.createElement('div')).addClass('ng-remove-cat-handler').attr('title', 'Supprimer la categorie').appendTo(element.find('h4'));
 
                 // onclick
                 element.find('.ng-remove-cat-handler').on('click', function(e, ui) {
                     if (scope.folioBuilding === false) {
                         // clone processing
-                        var parent = element.parent();
+                        var parent = $('#drawboard > div').first();
                         if (scope.folio.ownPage.length === 1 && parent.find('.ng-remove-cat').length === 1) {
                             alert('Vous devez avoir au minimum une categorie');
                         } else {
@@ -238,39 +238,60 @@ FeaderAppDirectives.directive('ngRemoveCat', ['$compile', function($compile) {
     }
 ]);
 
-FeaderAppDirectives.directive('ngCloneOrga', [function() {
+FeaderAppDirectives.directive('ngCloneOrga', ['$compile', function($compile) {
         return {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
                 // create handler
-                $(document.createElement('div')).addClass('ng-clone-orga-handler').attr('title', 'Ajouter un organisme').appendTo(element);
+                $(document.createElement('div')).addClass('ng-clone-orga-handler').attr('title', 'Ajouter un organisme').appendTo(element.find('h5'));
 
                 // onclick
                 element.find('.ng-clone-orga-handler').on('click', function(e, ui) {
-                    // clone processing
-                    element.clone().insertAfter(element);
-                    var header = element.prev('.page-header');
-                    var content = $('<div/>');
-                    var footer = element.next('.page-footer');
-                    console.log(header, footer);
-                    console.log('scope', scope.folio);
-//                    folio.ownPage[selected_page].content
-//                    scope.updateModel();
+                    if (scope.folioBuilding === false) {
+                        scope.folioBuilding = true;
+                        // clone processing
+                        var parent = $('#drawboard > div').first();
+                        element.clone().insertAfter(element);
+
+                        // build folio pages
+                        scope.buildFolio(parent);
+                        var el = angular.element(scope.folio.ownPage[scope.selected_page].content);
+                        var compiled = $compile(el)(scope);
+                        $('#drawboard').html(compiled);
+                        scope.folioBuilding = false;
+                    }
                 });
             }
         };
     }
 ]);
-FeaderAppDirectives.directive('ngRemoveOrga', [function() {
+FeaderAppDirectives.directive('ngRemoveOrga', ['$compile', function($compile) {
         return {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
                 // create handler
-                $(document.createElement('div')).addClass('ng-remove-orga-handler').attr('title', 'Ajouter un organisme').appendTo(element);
+                $(document.createElement('div')).addClass('ng-remove-orga-handler').attr('title', 'Ajouter un organisme').appendTo(element.find('h5'));
 
                 // onclick
                 element.find('.ng-remove-orga-handler').on('click', function(e, ui) {
+                    if (scope.folioBuilding === false) {
+                        // clone processing
+                        if (element.siblings('.ng-remove-orga').length === 0) {
+                            alert('Vous devez avoir au minimum un organisme par categorie');
+                        } else {
+                            scope.folioBuilding = true;
+                            var parent = $('#drawboard > div').first();
+                            // remove processing
+                            element.remove();
 
+                            // build folio pages
+                            scope.buildFolio(parent);
+                            var el = angular.element(scope.folio.ownPage[scope.selected_page].content);
+                            var compiled = $compile(el)(scope);
+                            $('#drawboard').html(compiled);
+                            scope.folioBuilding = false;
+                        }
+                    }
                 });
             }
         };

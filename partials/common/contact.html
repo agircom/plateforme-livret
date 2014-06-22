@@ -20,42 +20,42 @@
                 <legend>Formulaire de contact</legend>
                 <label for="form-contact-name-compagny">Nom de votre structure* : </label>
                 <input type="text" ng-model="contactInfos.name" ng-hide="User.isLogged()" id="form-contact-name-compagny">
-                <b ng-show="User.isLogged()">{{User.getInfos().name}}</b>
+                <span ng-show="User.isLogged()">{{User.getInfos().name}}</span>
                 <br>
                 <label for="form-contact-lastname">Nom* :</label>
                 <input type="text" ng-model="contactInfos.last_name" ng-hide="User.isLogged()" id="form-contact-lastname">
-                <b ng-show="User.isLogged()">{{User.getInfos().last_name}}</b>
+                <span ng-show="User.isLogged()">{{User.getInfos().last_name}}</span>
                 <br>
                 <label for="form-contact-firstname">Pr&eacute;nom* :</label>
                 <input type="text" ng-model="contactInfos.first_name" ng-hide="User.isLogged()" id="form-contact-firstname">
-                <b ng-show="User.isLogged()">{{User.getInfos().first_name}}</b>
+                <span ng-show="User.isLogged()">{{User.getInfos().first_name}}</span>
                 <br>
                 <label for="form-contact-fonction">Fonction : </label>
                 <input type="text" ng-model="contactInfos.fonction" ng-hide="User.isLogged()" id="form-contact-fonction">
-                <b ng-show="User.isLogged()">{{User.getInfos().fonction}}</b>
+                <span ng-show="User.isLogged()">{{User.getInfos().fonction}}</span>
                 <br>
                 <label for="form-contact-email">Adresse mail* :</label>
                 <input type="text" ng-model="contactInfos.email" ng-hide="User.isLogged()" id="form-contact-email">
-                <b ng-show="User.isLogged()">{{User.getInfos().username}}</b>
+                <span ng-show="User.isLogged()">{{User.getInfos().username}}</span>
                 <br ng-hide="User.isLogged()">
                 <label for="form-contact-email2" ng-hide="User.isLogged()">Confirmez votre adresse mail* :</label>
                 <input type="text" ng-model="email2" ng-hide="User.isLogged()" id="form-contact-email2">
                 <br>
                 <label for="form-contact-phone">Téléphone :</label>
                 <input type="text" ng-model="contactInfos.phone" ng-hide="User.isLogged()" id="form-contact-phone">
-                <b ng-show="User.isLogged()">{{User.getInfos().phone}}</b>
+                <span ng-show="User.isLogged()">{{User.getInfos().phone}}</span>
                 <br>
                 <label for="form-contact-adress">Adresse :</label>
                 <input type="text" ng-model="contactInfos.address" ng-hide="User.isLogged()" id="form-contact-address">
-                <b ng-show="User.isLogged()">{{User.getInfos().address}}</b>
+                <span ng-show="User.isLogged()">{{User.getInfos().address}}</span>
                 <br>
                 <label for="form-contact-cp">Code Postal :</label>
                 <input type="text" ng-model="contactInfos.cp" ng-hide="User.isLogged()" id="form-contact-cp">
-                <b ng-show="User.isLogged()">{{User.getInfos().cp}}</b>
+                <span ng-show="User.isLogged()">{{User.getInfos().cp}}</span>
                 <br>
                 <label for="form-contact-city">Ville :</label>
                 <input type="text" ng-model="contactInfos.city" ng-hide="User.isLogged()" id="form-contact-city">
-                <b ng-show="User.isLogged()">{{User.getInfos().city}}</b>
+                <span ng-show="User.isLogged()">{{User.getInfos().city}}</span>
                 <br>
                 <label for="form-contact-question">Votre question* :</label>
                 <textarea id="form-contact-question" ng-model="contactInfos.question"></textarea>

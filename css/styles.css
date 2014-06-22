@@ -387,6 +387,10 @@ button {
 	/* display: block; */
 	margin: .5em 0 0 30px;
 }
+
+ #form-contact span {
+	line-height: 40px;
+}
 /* autres */
 p {
     margin-bottom:20px;

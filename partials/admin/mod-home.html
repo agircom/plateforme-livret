@@ -1,1 +1,22 @@
-home
+<p>Bouton "Nous contacter"</p>
+<input type="radio" name="home_contact" ng-model="home.contact_button" ng-value="true"> Actif <input type="radio" name="home_contact" ng-model="home.contact_button" ng-value="false"> Inactif
+<br><br>
+<p>T&eacute;moignage utilisateur</p>
+<textarea ng-trim="true" ng-model="home.feedback"></textarea>
+<br><br>
+<p>Logo de la r&eacute;gion</p>
+<img ng-src="{{home.logo_region}}">
+<br><br>
+<p>Logo du pr&eacute;fet de la r&eacute;gion</p>
+<img ng-src="{{home.logo_prefet}}">
+<br><br>
+<p>Logo de l'europe</p>
+<img ng-src="{{home.logo_europe}}">
+<br><br>
+<p>Texte d'accueil</p>
+<textarea ng-trim="true" ng-model="home.home_text"></textarea>
+<br><br>
+<p>Image d'accueil</p>
+<img ng-src="{{home.home_picture}}" width="300" height="230">
+<br><br>
+<button ng-click="save()">Sauvegarder les changements</button>

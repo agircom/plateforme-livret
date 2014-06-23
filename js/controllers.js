@@ -897,7 +897,18 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope',
 ]);
 FeaderAppControllers.controller('AdminCtrl.ModHome', ['$scope',
     function($scope) {
-
+        $scope.home = {
+            contact_button: true,
+            feedback: 'plop',
+            logo_region: 'images/region-haute-normandie.png',
+            logo_prefet: 'images/prefet-haute-normandie.jpg',
+            logo_europe: 'images/europe-feader.png',
+            home_text: 'test',
+            home_picture: 'images/demarche-reseau-rural-normand.jpg'
+        };
+        $scope.save = function() {
+            alert('TODO: save');
+        };
     }
 ]);
 FeaderAppControllers.controller('AdminCtrl.ModEditor', ['$scope',

@@ -768,8 +768,10 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
     function($scope, LibrarySvc) {
         $scope.name = '';
         $scope.description = '';
+        $scope.credits = '';
         $scope.image = '';
         $scope.library = null;
+        $scope.source = 'own';
         $scope.refreshLibrary = function() {
             LibrarySvc.getImages().success(function(data) {
                 $scope.library = data.library;
@@ -791,10 +793,12 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
             var form = new FormData();
             form.append('name', $scope.name);
             form.append('description', $scope.description);
+            form.append('credits', $scope.credits);
             form.append('image', $scope.image);
             LibrarySvc.addImage(form).success(function(data, status) {
                 $scope.name = '';
                 $scope.description = '';
+                $scope.credits = '';
                 $scope.image = '';
                 angular.element('#library-form-add-image').val(null);
                 $scope.refreshLibrary();
@@ -807,6 +811,9 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
                 $scope.refreshLibrary();
             });
         };
+        $scope.$watch('source', function(newval, oldval) {
+            $scope.refreshLibrary();
+        });
         $scope.refreshLibrary();
     }
 ]);

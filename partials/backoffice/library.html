@@ -12,8 +12,8 @@
         <div class="menu-library menu-library-link"><span>Aide</span><img src="images/pictos/help.png"></div>   
     </div>  
     <div class="block-select-library">
-        <div class="onglet-library"><h3>Mes images</h3></div>
-        <div class="onglet-library"><h3>Sélectionner une catégorie</h3></div>   
+        <div class="onglet-library"><h3 ng-class="{selected:(source === 'own')}" ng-click="source = 'own'">Mes images</h3></div>
+        <div class="onglet-library"><h3 ng-class="{selected:(source === 'cat')}" ng-click="source = 'cat'">Sélectionner une catégorie</h3></div>   
         <div class="recherche-library"><input type="text" id="recherche-image" placeholder="Recherche par mots clés" ng-model="libraryFilter"><img src="images/pictos/ok.png"></div>   
     </div> 
     <div style="overflow: auto;">
@@ -29,7 +29,7 @@
                 <div class="check-image"><img src="images/pictos/check-gris.png" style="width: 15px; height: 15px; margin-right: 10px;"></div>
                 <div class="miniature-image"><img ng-src="images/uploaded/{{image.filename}}"></div>
                 <div class="infos-image">
-                    <h3>{{image.name}}</h3><h3 style="float: right; text-align: right;">Crédit photo</h3>
+                    <h3>{{image.name}}</h3><h3 style="float: right; text-align: right;">{{image.credits}}</h3>
                     <p>{{image.description}}</p>
                     <div class="actions-image">
                         <a style="float: left; cursor: pointer;" ng-click=""><span>Modifier</span></a>
@@ -48,6 +48,10 @@
         <p>
             <label for="library-form-add-description">Description :</label>
             <input type="text" name="description" ng-model="description" id="library-form-add-description">
+        </p>
+        <p>
+            <label for="library-form-add-credits">Cr&eacute;dits :</label>
+            <input type="text" name="credits" ng-model="credits" id="library-form-add-credits">
         </p>
         <p>
             <label for="library-form-add-image">Votre image :</label>

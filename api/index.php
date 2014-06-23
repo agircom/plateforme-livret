@@ -520,6 +520,7 @@ $app->post('/library', function() use ($app) {
     }
     $givenName = $postData['name'];
     $givenDescription = $postData['description'];
+    $givenCredits = (key_exists('credits', $postData)) ? $postData['credits'] : '';
     $givenImage = $_FILES['image'];
     if ($givenImage['error'] !== 0) {
         // image error
@@ -549,6 +550,7 @@ $app->post('/library', function() use ($app) {
     $library_record = R::dispense('library');
     $library_record->name = $givenName;
     $library_record->description = $givenDescription;
+    $library_record->credits = $givenCredits;
     $library_record->filename = $filename;
     $library_record->date_create = $date;
     $user_record->xownLibraryList[] = $library_record;

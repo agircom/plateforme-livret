@@ -697,6 +697,10 @@ h1.titre1fond-folio-pf{
     border-radius: 0px 20px 0px 20px;
     padding: 5px;
     margin-bottom: 10px;
+    cursor: pointer;
+}
+.onglet-library h3.selected {
+    background-color: #e47d0a;
 }
 
 .recherche-library{

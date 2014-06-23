@@ -586,8 +586,8 @@ $app->get('/admin/stats', function() use ($app) {
         return;
     }
     $stats = array();
-    $stats['users_confirmed'] = R::count('user', 'confirmed=?', [1]);
-    $stats['users_not_confirmed'] = R::count('user', 'confirmed=?', [0]);
+    $stats['users_confirmed'] = R::count('user', 'confirmed=?', array(1));
+    $stats['users_not_confirmed'] = R::count('user', 'confirmed=?', array(0));
     $stats['booklets'] = R::count('booklet');
     $stats['pictures'] = R::count('library');
     echo json_encode($stats);

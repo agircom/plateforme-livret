@@ -70,3 +70,17 @@
     width: 65%;
     float:left;
 }
+
+/* stats */
+
+.page-stats{
+    width: 100%;
+    height: auto;
+    display: inline-block;
+}
+
+.page-stats .bloc-stats{
+    width: 25%;
+    height: auto;
+    float: left;
+}

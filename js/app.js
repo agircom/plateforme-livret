@@ -170,7 +170,8 @@
         'ngSanitize',
         'FeaderApp.Controllers',
         'FeaderApp.Directives',
-        'FeaderApp.Services'
+        'FeaderApp.Services',
+        'FeaderApp.Filters'
     ]);
 
 

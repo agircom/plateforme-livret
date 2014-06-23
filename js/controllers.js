@@ -603,7 +603,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                     // page is not full and no more orga exists
                     if (entry_count < 6 && index_orga === max_orga_index) {
                         // store orgas in cloned cat header
-                        cat_header.find('div:first-child').find('div:eq(1)').append(cat_content.children().clone());
+                        cat_header.find('div:eq(1)').append(cat_content.children().clone());
                         cat_content.html('');
                         // store cat in content
                         content.append(cat_header.clone());
@@ -619,7 +619,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                     // page is full and more orga exists
                     if (entry_count === 6 && index_orga < max_orga_index) {
                         // store orgas in cloned cat header
-                        cat_header.find('div:first-child').find('div:eq(1)').append(cat_content.children().clone());
+                        cat_header.find('div:eq(1)').append(cat_content.children().clone());
                         cat_content.html('');
                         // store cat in content
                         content.append(cat_header.clone());
@@ -641,7 +641,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                     // page is full and no more orga exists
                     if (entry_count === 6 && index_orga === max_orga_index) {
                         // store orgas in cloned cat header
-                        cat_header.find('div:first-child').find('div:eq(1)').append(cat_content.children().clone());
+                        cat_header.find('div:eq(1)').append(cat_content.children().clone());
                         cat_content.html('');
                         // store cat in content
                         content.append(cat_header.clone());

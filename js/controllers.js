@@ -499,8 +499,13 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
         $scope.reload();
     }
 ]);
-FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', '$rootScope', '$location', '$sce', 'BookletSvc', 'ToolSvc', '$compile',
-    function($scope, $routeParams, $rootScope, $location, $sce, BookletSvc, ToolSvc, $compile) {
+FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', '$rootScope', '$location', '$sce', 'BookletSvc', 'ToolSvc', '$compile', 'UserSvc',
+    function($scope, $routeParams, $rootScope, $location, $sce, BookletSvc, ToolSvc, $compile, UserSvc) {
+        $scope.logout = function() {
+            UserSvc.Logout(function() {
+                $location.path('/home');
+            });
+        };
         $scope.showPictureSelector = false;
         $scope.showFullscreen = false;
         $scope.imageSelected = null;
@@ -822,9 +827,23 @@ FeaderAppControllers.controller('BackofficeCtrl.Contact', ['$scope',
 ]);
 
 
-FeaderAppControllers.controller('AdminCtrl.Stats', ['$scope',
-    function($scope) {
-
+FeaderAppControllers.controller('AdminCtrl.Stats', ['$scope', 'AdminSvc',
+    function($scope, AdminSvc) {
+        $scope.stats = {
+            user_confirmed: 0,
+            user_not_confirmed: 0,
+            folio: 0,
+            pictures: 0
+        };
+        $scope.reload = function() {
+            AdminSvc.getStats().success(function(data) {
+                $scope.stats.user_confirmed = data.user_confirmed;
+                $scope.stats.user_not_confirmed = data.user_not_confirmed;
+                $scope.stats.folio = data.folio;
+                $scope.stats.pictures = data.pictures;
+            });
+        };
+        $scope.reload();
     }
 ]);
 FeaderAppControllers.controller('AdminCtrl.Users', ['$scope', 'AdminSvc',

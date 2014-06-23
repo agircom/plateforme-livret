@@ -579,6 +579,19 @@ $app->delete('/library/:image_id', function($image_id) use ($app) {
  * API Admin
  * 
  */
+$app->get('/admin/stats', function() use ($app) {
+    // retrieve user
+    $user_record = retrieveAdminByToken();
+    if (!$user_record) {
+        return;
+    }
+    $stats = array();
+    $stats['users_confirmed'] = R::count('user', 'confirmed=1');
+    $stats['users_not_confirmed'] = R::count('user', 'confirmed=0');
+    $stats['folio'] = R::count('folio');
+    $stats['pictures'] = R::count('library');
+    echo json_encode($stats);
+});
 $app->get('/admin/users', function() use ($app) {
     // retrieve user
     $user_record = retrieveAdminByToken();

@@ -219,6 +219,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
             },
             getPDF: function(booklet_id, folio_id) {
                 return $http.get(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_id + '/export');
+            },
+            getStats: function() {
+                return $http.get(this.apiUrl + '/admin/stats');
             }
         };
     }
@@ -309,6 +312,9 @@ FeaderAppServices.factory('ToolSvc', ['ApiSvc',
 FeaderAppServices.factory('AdminSvc', ['ApiSvc',
     function(ApiSvc) {
         return {
+            getStats: function() {
+                return ApiSvc.getStats();
+            },
             getUserList: function() {
                 return ApiSvc.getUsers();
             },

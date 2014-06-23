@@ -469,8 +469,8 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export', function($booklet_id, $
     require_once './mPDF/mpdf.php';
     $format = getFormatPDF($folio_record->type);
     $mpdf = new mPDF('utf-8', $format);
-//    $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_bo.css');
-//    $mpdf->WriteHTML($stylesheet,1);
+    $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_pdf.css');
+    $mpdf->WriteHTML($stylesheet,1);
     foreach ($folio_record->xownPageList as $page) {
         $content = preg_replace('/<img src\=\"([^\"]*)\"/', "<img src=\"../$1\"", $page->content);
         $mpdf->WriteHTML($content);

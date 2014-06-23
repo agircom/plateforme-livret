@@ -772,6 +772,10 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
         $scope.image = '';
         $scope.library = null;
         $scope.source = 'own';
+        $scope.showPopupAdd = false;
+        $scope.togglePopupAdd = function() {
+            $scope.showPopupAdd = !$scope.showPopupAdd;
+        };
         $scope.refreshLibrary = function() {
             LibrarySvc.getImages().success(function(data) {
                 $scope.library = data.library;
@@ -801,7 +805,12 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
                 $scope.credits = '';
                 $scope.image = '';
                 angular.element('#library-form-add-image').val(null);
-                $scope.refreshLibrary();
+                if ($scope.source === 'own') {
+                    $scope.refreshLibrary();
+                } else {
+                    $scope.source = 'own';
+                }
+                $scope.togglePopupAdd();
             }).error(function(data, status) {
                 alert('image upload error : ' + data.error);
             });
@@ -814,7 +823,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
         $scope.$watch('source', function(newval, oldval) {
             $scope.refreshLibrary();
         });
-        $scope.refreshLibrary();
     }
 ]);
 

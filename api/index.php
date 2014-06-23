@@ -676,7 +676,38 @@ $app->get('/templates/init', function() use ($app) {
     }
     closedir($handle);
 });
-
+// REST Api library categories init
+$app->get('/library/init', function() use ($app) {
+    $categories = array(
+        'Accompagnement social',
+        'Accueillir',
+        'Agir',
+        'Commerces',
+        'Culture',
+        'Culture tourisme',
+        'Déchets',
+        'Découvrir',
+        'Etablissements scolaires - Formation',
+        'Périscolaire',
+        'Petite enfance',
+        'Santé',
+        'Scolarité',
+        'Services administratifs',
+        'Services marchands',
+        'Sport',
+        'Structures d’accueil périscolaire',
+        'Tourisme',
+        'Transport',
+        'Vivre ensemble'
+    );
+    R::wipe('book');
+    foreach ($categories as $cat) {
+        $library_category_record = R::dispense('librarycategory');
+        $library_category_record->name = $cat;
+        $library_category_record->ownLibraryList = array();
+        R::store($library_category_record);
+    }
+});
 
 
 // run REST Api

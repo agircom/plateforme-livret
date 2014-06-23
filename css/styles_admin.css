@@ -80,9 +80,11 @@
 }
 
 .page-stats .bloc-stats{
-    width: 25%;
+    width: 20%;
     height: auto;
     float: left;
+    padding: 5px;
+    margin: 2px 5px;
     background-color: #00a295;
     -webkit-border-radius: 0px 10px 0px 10px;
     -moz-border-radius: 0px 10px 0px 10px;

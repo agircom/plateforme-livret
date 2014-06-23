@@ -83,4 +83,14 @@
     width: 25%;
     height: auto;
     float: left;
+    background-color: #00a295;
+    -webkit-border-radius: 0px 10px 0px 10px;
+    -moz-border-radius: 0px 10px 0px 10px;
+    border-radius: 0px 10px 0px 10px;
+}
+
+.page-stats .bloc-stats h3{
+    width: 100%;
+    height: auto;
+    color: #fff;
 }

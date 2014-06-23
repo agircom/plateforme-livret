@@ -28,6 +28,9 @@ FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'User
                         $scope.identifiant = '';
                         $scope.passwd = '';
                         $scope.loginInProgress = false;
+                        if (UserSvc.getPermissions() === 2) {
+                            $location.path('/admin');
+                        }
                     },
                     function(data, status) {
                         var msg = '';

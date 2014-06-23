@@ -830,20 +830,20 @@ FeaderAppControllers.controller('BackofficeCtrl.Contact', ['$scope',
 FeaderAppControllers.controller('AdminCtrl.Stats', ['$scope', 'AdminSvc',
     function($scope, AdminSvc) {
         $scope.stats = {
-            user_confirmed: 0,
-            user_not_confirmed: 0,
-            folio: 0,
+            users_confirmed: 0,
+            users_not_confirmed: 0,
+            booklets: 0,
             pictures: 0
         };
-        $scope.reload = function() {
+        $scope.reloadStats = function() {
             AdminSvc.getStats().success(function(data) {
-                $scope.stats.user_confirmed = data.user_confirmed;
-                $scope.stats.user_not_confirmed = data.user_not_confirmed;
-                $scope.stats.folio = data.folio;
+                $scope.stats.users_confirmed = data.users_confirmed;
+                $scope.stats.users_not_confirmed = data.users_not_confirmed;
+                $scope.stats.booklets = data.booklets;
                 $scope.stats.pictures = data.pictures;
             });
         };
-        $scope.reload();
+        $scope.reloadStats();
     }
 ]);
 FeaderAppControllers.controller('AdminCtrl.Users', ['$scope', 'AdminSvc',

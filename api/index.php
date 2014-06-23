@@ -471,6 +471,7 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export', function($booklet_id, $
     $mpdf = new mPDF('utf-8', $format);
     $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_pdf.css');
     $mpdf->WriteHTML($stylesheet,1);
+    $mpdf->WriteHTML('<div class="cadre-folio-pf">', 2, true, false);
     foreach ($folio_record->xownPageList as $page) {
         $content = preg_replace('/<img src\=\"([^\"]*)\"/', "<img src=\"../$1\"", $page->content);
         $mpdf->WriteHTML($content);
@@ -478,6 +479,8 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export', function($booklet_id, $
             $mpdf->AddPage();
         }
     }
+    $mpdf->WriteHTML('</div>', 2, false, true);
+//    $mpdf->SetDisplayMode(90);
     $mpdf->debug = true;
     $mpdf->showImageErrors = true;
     $mpdf->Output('livret.pdf', 'D');

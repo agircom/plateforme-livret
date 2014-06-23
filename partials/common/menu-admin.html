@@ -1,48 +1,48 @@
-<div class="titre-menu-bo" ng-hide="!layout.menuShow"><h2> > Console</h2></div>
-<div style="float: left;">
+<div class="titre-menu-bo" ng-hide="!layout.menuShow"><h2><img src="images/pictos/menu-liste.png" style="vertical-align: middle;" ng-hide="!layout.menuShow"/>Console</h2></div>
+<div style="float: right;">
     <img ng-src="images/pictos/{{layout.menuShow === true && 'menu-fermer.png' || 'menu-ouvrir.png'}}" ng-click="toggleShowMenu()">
 </div>
 <ul id="menu-backoffice" ng-hide="!layout.menuShow">
     <li>
         <a href="#/admin/stats">
-            <img src="images/pictos/mes-livrets.png" alt="mes-livrets" title="Mes livrets"/>
+            <img src="images/pictos/edition.png" alt="mes-livrets" title="Mes livrets"/>
             <span ng-hide="!layout.menuShow" class="menubo">STATISTIQUES</span>
-            <img src="images/pictos/menu-liste.png" alt="liste" title="Mes livrets"/>
+            <img src="images/pictos/menu-liste.png" ng-hide="!layout.menuShow" alt="liste" title="Mes livrets"/>
         </a>
     </li>
     <li>
         <a href="#/admin/users">
-            <img src="images/pictos/mon-compte.png" alt="mon-compte" title="Mon Compte"/>
+            <img src="images/pictos/login.png" alt="mon-compte" title="Mon Compte"/>
             <span ng-hide="!layout.menuShow" class="menubo">UTILISATEURS</span>
-            <img src="images/pictos/menu-liste.png" alt="liste" title="Mon Compte"/>
+            <img src="images/pictos/menu-liste.png" ng-hide="!layout.menuShow" alt="liste" title="Mon Compte"/>
         </a>
     </li>
     <li>
         <a href="#/admin/library">
             <img src="images/pictos/phototheque.png" alt="phototheque" title="Photothèque"/>
             <span ng-hide="!layout.menuShow" class="menubo">PHOTOTHEQUE</span>
-            <img src="images/pictos/menu-liste.png" alt="liste" title="Photothèque"/>
+            <img src="images/pictos/menu-liste.png" ng-hide="!layout.menuShow" alt="liste" title="Photothèque"/>
         </a>
     </li>
     <li>
         <a href="#/admin/mod_home">
-            <img src="images/pictos/aide-faq.png" alt="aide-faq" title="Aide et FAQ"/>
+            <img src="images/pictos/a4.png" alt="aide-faq" title="Aide et FAQ"/>
             <span ng-hide="!layout.menuShow" class="menubo">ACCUEIL</span>
-            <img src="images/pictos/menu-liste.png" alt="liste" title="Aide et FAQ"/>
+            <img src="images/pictos/menu-liste.png" ng-hide="!layout.menuShow" alt="liste" title="Aide et FAQ"/>
         </a>
     </li>
     <li>
         <a href="#/admin/mod_editor">
-            <img src="images/pictos/contact.png" alt="contact" title="Contact"/>
+            <img src="images/pictos/a3.png" alt="contact" title="Contact"/>
             <span ng-hide="!layout.menuShow" class="menubo">EDITION</span>
-            <img src="images/pictos/menu-liste.png" alt="liste" title="Contact"/>
+            <img src="images/pictos/menu-liste.png" ng-hide="!layout.menuShow" alt="liste" title="Contact"/>
         </a>
     </li>
     <li>
         <a href="#/admin/mod_help">
-            <img src="images/pictos/contact.png" alt="contact" title="Contact"/>
+            <img src="images/pictos/aide-faq.png" alt="contact" title="Contact"/>
             <span ng-hide="!layout.menuShow" class="menubo">AIDE</span>
-            <img src="images/pictos/menu-liste.png" alt="liste" title="Contact"/>
+            <img src="images/pictos/menu-liste.png" ng-hide="!layout.menuShow" alt="liste" title="Contact"/>
         </a>
     </li>
 </ul>

@@ -1,1 +1,62 @@
-library
+<div id="library-manager">
+    <div class="haut-library">
+        <div class="titre-library">
+            <h2>
+                <img style="vertical-align: middle; padding-right:5px;" src="images/pictos/phototheque.png" width="32" height="32" alt="photothèque" title="photothèque">
+                La photothèque
+            </h2>
+        </div>
+        <div class="menu-library"><span>Vue par :</span></div> 
+        <div class="menu-library"><span>Liste</span><img src="images/pictos/liste.png"></div>  
+        <div class="menu-library"><span>Miniature</span><img src="images/pictos/miniature.png"></div>   
+        <div class="menu-library"><span>Aide</span><img src="images/pictos/help.png"></div>   
+    </div>  
+    <div class="block-select-library">
+        <div class="onglet-library"><h3>Mes images</h3></div>
+        <div class="onglet-library"><h3>Sélectionner une catégorie</h3></div>   
+        <div class="recherche-library"><input type="text" id="recherche-image" placeholder="Recherche par mots clés"><img src="images/pictos/ok.png"></div>   
+    </div> 
+    <div style="overflow: auto;">
+        <ul id="library-miniature">
+            <li ng-repeat="image in library">
+                <div><img ng-src="images/uploaded/{{image.filename}}" style="width: 100%;"></div>
+                <img src="images/pictos/check-gris.png" style="width: 15px; height: 15px; margin-right: 10px;"><span>{{image.name}}</span><a style="float: right; cursor: pointer;" ng-click="deleteImage(image.id)"><img src="images/pictos/fermer.png" style="width: 15px; height: 15px;"></a>
+                <!--<p>Description : {{image.description}}</p>-->                
+            </li>
+        </ul>       
+    </div>
+    <div style="overflow: auto;">
+         <ul id="library-list">
+            <li ng-repeat="image in library">
+                <div class="check-image"><img src="images/pictos/check-gris.png" style="width: 15px; height: 15px; margin-right: 10px;"></div>
+                <div class="miniature-image"><img ng-src="images/uploaded/{{image.filename}}"></div>
+                <div class="infos-image">
+                    <h3>{{image.name}}</h3><h3 style="float: right; text-align: right;">Crédit photo</h3>
+                    <p>{{image.description}}</p>
+                    <div class="actions-image">
+                        <a style="float: left; cursor: pointer;" ng-click=""><span>Modifier</span></a>
+                        <a style="float: left; cursor: pointer; margin-left: 20px;" ng-click="deleteImage(image.id)"><span>Supprimer</span></a>              
+                        <a style="float: right; cursor: pointer;" ng-click=""><span>Sélectionner</span></a>              
+                    </div>
+                </div>                
+            </li>
+        </ul>
+    </div>
+    <div id="library-form-add">
+        <p>
+            <label for="library-form-add-name">Nom :</label>
+            <input type="text" name="name" ng-model="name" id="library-form-add-name">
+        </p>
+        <p>
+            <label for="library-form-add-description">Description :</label>
+            <input type="text" name="description" ng-model="description" id="library-form-add-description">
+        </p>
+        <p>
+            <label for="library-form-add-image">Votre image :</label>
+            <input type="file" accept="image/*" name="image" id="library-form-add-image" onchange="angular.element(this).scope().setFile(this)">
+        </p>
+        <p>
+            <button ng-click="startUpload()">Ajouter</button>
+        </p>
+</div>
+</div>

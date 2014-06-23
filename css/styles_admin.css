@@ -48,3 +48,25 @@
     background-color: #ffffff;
     z-index: 100;
 }
+
+/* table users */
+
+.table-users-admin {border-collapse:collapse;border-spacing:0;border-color:#999;}
+.table-users-admin td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;}
+.table-users-admin th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;}
+.table-users-admin .table-users-admin-colonnedif{background-color:#D2E4FC}
+
+/* fiche user */
+.sheet-content h2 {border-bottom: 1px solid #999; margin-bottom: 10px;}
+
+.sheet-content li {list-style-type: none; /* border-bottom: 1px solid #999; */}
+
+.sheet-content li h3 {
+    width: 30%;
+    float:left;
+}
+
+.sheet-content li span {
+    width: 65%;
+    float:left;
+}

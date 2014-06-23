@@ -2,7 +2,7 @@
 <br>
 <button ng-click="reload()">Recharger la liste</button>
 <div id="admin-user-list">
-    <table>
+    <table class="table-users-admin">
         <thead>
             <tr>
                 <th ng-click="changeOrder('last_name');">Nom</th>
@@ -18,13 +18,13 @@
         <tbody>
             <tr ng-repeat="user in Users | filter: userFilter | orderBy: userOrderBy" ng-class="{notconfirmed: (user.confirmed == 0)}">
                 <td>{{user.last_name}}</td>
-                <td>{{user.first_name}}</td>
+                <td class="table-users-admin-colonnedif">{{user.first_name}}</td>
                 <td>{{user.username}}</td>
-                <td>{{user.nb_booklets}}</td>
+                <td class="table-users-admin-colonnedif">{{user.nb_booklets}}</td>
                 <td>{{user.date_create}}</td>
-                <td>{{user.date_last_connect}}</td>
+                <td class="table-users-admin-colonnedif">{{user.date_last_connect}}</td>
                 <td><button ng-click="showUserSheet(user)">i</button></td>
-                <td><button ng-click="deleteUser(user)">x</button></td>
+                <td class="table-users-admin-colonnedif"><button ng-click="deleteUser(user)">x</button></td>
             </tr>
         </tbody>
         <tfoot>

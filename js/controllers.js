@@ -787,10 +787,19 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
         $scope.description = '';
         $scope.credits = '';
         $scope.image = '';
-        $scope.library = null;
+        $scope.library = [];
+        $scope.library_title = 'Mes images';
         $scope.source = 'own';
         $scope.selected_cat = -1;
         $scope.showPopupAdd = false;
+        $scope.currentPage = 0;
+        $scope.pageSize = 20;
+        $scope.numberOfPages = function() {
+            if ($scope.library === null || $scope.library.length === 0) {
+                return 0;
+            }
+            return Math.ceil($scope.library.length / $scope.pageSize);
+        };
         $scope.togglePopupAdd = function() {
             $scope.showPopupAdd = !$scope.showPopupAdd;
         };
@@ -802,9 +811,18 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
             }
         };
         $scope.refreshLibrary = function() {
-            LibrarySvc.getImages().success(function(data) {
-                $scope.library = data.library;
-            });
+            $scope.library = [];
+            if ($scope.source === 'own') {
+                LibrarySvc.getImages().success(function(data) {
+                    $scope.library = data.library;
+                });
+            } else if ($scope.source === 'cat' && $scope.selected_cat > -1) {
+                LibrarySvc.getImagesByCat($scope.selected_cat).success(function(data) {
+                    $scope.library_title = data.name;
+                    $scope.library = data.library;
+                });
+            }
+
         };
         $scope.setFile = function(element) {
             if (element.files[0].size > 5000000) {
@@ -847,17 +865,23 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
         };
         $scope.$watch('source', function(newval, oldval) {
             if (newval === 'own') {
+                $scope.selected_cat = -1;
+                $scope.library_title = 'Mes images';
                 $scope.refreshLibrary();
+            } else {
+                $scope.library_title = 'Selectionner une categorie';
             }
         });
         $scope.$watch('selected_cat', function(newval, oldval) {
             if ($scope.source === 'cat' && newval > -1) {
+                $scope.library_title = '';
                 $scope.refreshLibrary();
+            } else if ($scope.source === 'cat' && newval === -1) {
+                $scope.library_title = 'Selectionner une categorie';
             }
         });
     }
 ]);
-
 FeaderAppControllers.controller('BackofficeCtrl.PictureSelector', ['$scope', 'LibrarySvc',
     function($scope, LibrarySvc) {
         $scope.library = null;

@@ -505,6 +505,26 @@ $app->get('/library', function() use($app) {
     echo json_encode($data, JSON_NUMERIC_CHECK);
 });
 
+// REST Api get images by category
+$app->get('/library/cat/:cat_id', function($cat_id) use ($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
+    $library_category_record = R::findOne('librarycategory', 'id=?', array($cat_id));
+    if (is_null($library_category_record)) {
+        $app->response()->status(404);
+        return;
+    }
+    $data = array(
+        'name' => $library_category_record->name,
+        'library' => R::exportAll($library_category_record->ownLibraryList)
+    );
+    echo json_encode($data);
+    
+});
+
 // REST Api upload image into user library        
 $app->post('/library', function() use ($app) {
     // retrieve user
@@ -577,7 +597,6 @@ $app->delete('/library/:image_id', function($image_id) use ($app) {
     R::store($user_record);
 });
 
-
 // REST Api get library categories
 $app->get('/library/cats', function() use ($app) {
     // retrieve user
@@ -586,7 +605,7 @@ $app->get('/library/cats', function() use ($app) {
         return;
     }
     // export library categories
-    $data = array('categories' => R::exportAll(R::findAll('librarycategory'), true));
+    $data = array('categories' => R::exportAll(R::findAll('librarycategory')));
     echo json_encode($data);
 });
 
@@ -712,13 +731,14 @@ $app->get('/library/init', function() use ($app) {
         'Transport',
         'Vivre ensemble'
     );
-    R::wipe('librarycategory');
+    R::trashAll(R::findAll('librarycategory'));
     foreach ($categories as $cat) {
         $library_category_record = R::dispense('librarycategory');
         $library_category_record->name = $cat;
         $library_category_record->ownLibraryList = array();
         R::store($library_category_record);
     }
+    
 });
 
 

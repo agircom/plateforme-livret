@@ -789,7 +789,9 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
         $scope.name = '';
         $scope.description = '';
         $scope.credits = '';
+        $scope.category = -1;
         $scope.image = '';
+        $scope.categories = [];
         $scope.library = [];
         $scope.library_title = 'Mes images';
         $scope.source = 'own';
@@ -815,6 +817,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
         };
         $scope.refreshLibrary = function() {
             $scope.library = [];
+            $scope.refreshLibraryCategories();
             if ($scope.source === 'own') {
                 LibrarySvc.getImages().success(function(data) {
                     $scope.library = data.library;
@@ -826,6 +829,12 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
                 });
             }
 
+        };
+        $scope.refreshLibraryCategories = function() {
+            $scope.categories = [];
+            LibrarySvc.getCats().success(function(data) {
+                $scope.categories = data.categories;
+            });
         };
         $scope.setFile = function(element) {
             if (element.files[0].size > 5000000) {
@@ -873,6 +882,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
                 $scope.refreshLibrary();
             } else {
                 $scope.library_title = 'Selectionner une categorie';
+                $scope.library = [];
             }
         });
         $scope.$watch('selected_cat', function(newval, oldval) {
@@ -881,6 +891,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
                 $scope.refreshLibrary();
             } else if ($scope.source === 'cat' && newval === -1) {
                 $scope.library_title = 'Selectionner une categorie';
+                $scope.library = [];
             }
         });
     }
@@ -972,9 +983,114 @@ FeaderAppControllers.controller('AdminCtrl.Users', ['$scope', 'AdminSvc',
         $scope.reload();
     }
 ]);
-FeaderAppControllers.controller('AdminCtrl.Library', ['$scope',
-    function($scope) {
-
+FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
+    function($scope, LibrarySvc) {
+        $scope.name = '';
+        $scope.description = '';
+        $scope.credits = '';
+        $scope.image = '';
+        $scope.categories = [];
+        $scope.library = [];
+        $scope.library_title = 'Images des utilisateurs';
+        $scope.source = 'own';
+        $scope.selected_cat = -1;
+        $scope.showPopupAdd = false;
+        $scope.currentPage = 0;
+        $scope.pageSize = 20;
+        $scope.numberOfPages = function() {
+            if ($scope.library === null || $scope.library.length === 0) {
+                return 0;
+            }
+            return Math.ceil($scope.library.length / $scope.pageSize);
+        };
+        $scope.togglePopupAdd = function() {
+            $scope.showPopupAdd = !$scope.showPopupAdd;
+        };
+        $scope.selectCat = function(cat_id) {
+            if (typeof cat_id === 'undefined') {
+                $scope.selected_cat = -1;
+            } else {
+                $scope.selected_cat = cat_id;
+            }
+        };
+        $scope.refreshLibrary = function() {
+            $scope.library = [];
+            $scope.refreshLibraryCategories();
+            if ($scope.source === 'own') {
+                LibrarySvc.getAllImages().success(function(data) {
+                    $scope.library = data.library;
+                });
+            } else if ($scope.source === 'cat' && $scope.selected_cat > -1) {
+                LibrarySvc.getImagesByCat($scope.selected_cat).success(function(data) {
+                    $scope.library_title = data.name;
+                    $scope.library = data.library;
+                });
+            }
+        };
+        $scope.refreshLibraryCategories = function() {
+            $scope.categories = [];
+            LibrarySvc.getCats().success(function(data) {
+                $scope.categories = data.categories;
+            });
+        };
+        $scope.setFile = function(element) {
+            if (element.files[0].size > 5000000) {
+                alert('Le fichier est trop volumineux.');
+                angular.element('#library-form-add-image').val(null);
+            } else {
+                $scope.image = element.files[0];
+            }
+        };
+        $scope.startUpload = function() {
+            if ($scope.name === '' || $scope.description === '' || $scope.image === '') {
+                alert('Vous devez renseigner les informations de la photo.');
+                return;
+            }
+            var form = new FormData();
+            form.append('name', $scope.name);
+            form.append('description', $scope.description);
+            form.append('credits', $scope.credits);
+            form.append('image', $scope.image);
+            LibrarySvc.addImage(form).success(function(data, status) {
+                $scope.name = '';
+                $scope.description = '';
+                $scope.credits = '';
+                $scope.image = '';
+                angular.element('#library-form-add-image').val(null);
+                if ($scope.source === 'own') {
+                    $scope.refreshLibrary();
+                } else {
+                    $scope.source = 'own';
+                }
+                $scope.togglePopupAdd();
+            }).error(function(data, status) {
+                alert('image upload error : ' + data.error);
+            });
+        };
+        $scope.deleteImage = function(image_id) {
+            LibrarySvc.deleteImage(image_id).success(function() {
+                $scope.refreshLibrary();
+            });
+        };
+        $scope.$watch('source', function(newval, oldval) {
+            if (newval === 'own') {
+                $scope.selected_cat = -1;
+                $scope.library_title = 'Images des utilisateurs';
+                $scope.refreshLibrary();
+            } else {
+                $scope.library_title = 'Selectionner une categorie';
+                $scope.library = [];
+            }
+        });
+        $scope.$watch('selected_cat', function(newval, oldval) {
+            if ($scope.source === 'cat' && newval > -1) {
+                $scope.library_title = '';
+                $scope.refreshLibrary();
+            } else if ($scope.source === 'cat' && newval === -1) {
+                $scope.library_title = 'Selectionner une categorie';
+                $scope.library = [];
+            }
+        });
     }
 ]);
 FeaderAppControllers.controller('AdminCtrl.ModHome', ['$scope',

@@ -502,7 +502,20 @@ $app->get('/library', function() use($app) {
     }
     // export user library
     $data = array('library' => R::exportAll($user_record->xownLibraryList));
-    echo json_encode($data, JSON_NUMERIC_CHECK);
+    echo json_encode($data);
+});
+
+// REST Api get all user images library
+$app->get('/library/all', function() use($app) {
+    // retrieve user
+    $user_record = retrieveAdminByToken();
+    if (!$user_record) {
+        return;
+    }
+    // export all users library
+    $pictures = R::findAll('library', 'librarycategory_id IS NULL ORDER BY date_create DESC');
+    $data = array('library' => R::exportAll($pictures));
+    echo json_encode($data);
 });
 
 // REST Api get images by category

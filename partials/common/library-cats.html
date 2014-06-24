@@ -1,8 +1,0 @@
-<div ng-if="error !== ''">
-    {{error}}
-</div>
-<ul id="library-cats">
-    <li ng-repeat="cat in cats | orderBy:'name'" ng-click="$parent.selectCat(cat.id)">
-        <p>{{cat.name}}</p>
-    </li>
-</ul>

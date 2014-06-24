@@ -995,6 +995,7 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
         $scope.source = 'own';
         $scope.selected_cat = -1;
         $scope.showPopupAdd = false;
+        $scope.showPopupEdit = false;
         $scope.currentPage = 0;
         $scope.pageSize = 20;
         $scope.numberOfPages = function() {
@@ -1005,6 +1006,9 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
         };
         $scope.togglePopupAdd = function() {
             $scope.showPopupAdd = !$scope.showPopupAdd;
+        };
+        $scope.togglePopupEdit = function() {
+            $scope.showPopupEdit = !$scope.showPopupEdit;
         };
         $scope.selectCat = function(cat_id) {
             if (typeof cat_id === 'undefined') {

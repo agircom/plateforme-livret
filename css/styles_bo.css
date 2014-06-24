@@ -666,6 +666,9 @@ h1.titre1fond-folio-pf{
 .menu-library-link {
     cursor: pointer;
 }
+.menu-library-link.selected {
+    border: 1px solid #e47d0a;
+}
 
 .menu-library img{
     vertical-align: baseline;

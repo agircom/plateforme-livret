@@ -7,8 +7,8 @@
             </h2>
         </div>
         <div class="menu-library"><span>Vue par :</span></div> 
-        <div class="menu-library menu-library-link" ng-click="view = 'list'" ng-class="{selected: (view === 'list')}"><span>Liste</span><img src="images/pictos/liste.png"></div>  
-        <div class="menu-library menu-library-link" ng-click="view = 'thumb'" ng-class="{selected: (view === 'thumb')}"><span>Miniature</span><img src="images/pictos/miniature.png"></div>   
+        <div class="menu-library menu-library-link" ng-click="view = 'list'"><span>Liste</span><img src="images/pictos/liste.png"></div>  
+        <div class="menu-library menu-library-link" ng-click="view = 'thumb'"><span>Miniature</span><img src="images/pictos/miniature.png"></div>   
         <div class="menu-library menu-library-link"><span>Aide</span><img src="images/pictos/help.png"></div>   
     </div>  
     <div class="block-select-library">
@@ -29,14 +29,14 @@
     </div>
     <div ng-hide="source === 'cat' && selected_cat === -1" style="overflow: auto;">
         <ul ng-if="view === 'thumb'" id="library-miniature">
-            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage*pageSize | limitTo:pageSize">
+            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage * pageSize | limitTo:pageSize">
                 <div><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}" style="width: 100%;"></div>
                 <img src="images/pictos/check-gris.png" style="width: 15px; height: 15px; margin-right: 10px;"><span>{{image.name}}</span><a style="float: right; cursor: pointer;" ng-click="deleteImage(image.id)"><img src="images/pictos/fermer.png" style="width: 15px; height: 15px;"></a>
                 <!--<p>Description : {{image.description}}</p>-->                
             </li>
         </ul>       
         <ul ng-if="view === 'list'" id="library-list">
-            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage*pageSize | limitTo:pageSize">
+            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage * pageSize | limitTo:pageSize">
                 <div class="check-image"><img src="images/pictos/check-gris.png" style="width: 15px; height: 15px; margin-right: 10px;"></div>
                 <div class="miniature-image"><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}"></div>
                 <div class="infos-image">

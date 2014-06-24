@@ -150,6 +150,23 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
         };
     }
 ]);
+FeaderAppControllers.controller('CommonCtrl.LibraryCats', ['$scope', 'LibrarySvc',
+    function($scope, LibrarySvc) {
+        $scope.error = '';
+        $scope.cats = [];
+        $scope.init = function() {
+            $scope.cats = [];
+            LibrarySvc.getCats().success(function(data) {
+                $scope.cats = data.categories;
+            }).error(function(data, status) {
+                $scope.showError();
+            });
+        };
+        $scope.showError = function() {
+            $scope.error = 'Impossible de charger la liste des categories';
+        };
+    }
+]);
 FeaderAppControllers.controller('HomeCtrl.Home', ['$scope',
     function($scope) {
     }
@@ -772,9 +789,17 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
         $scope.image = '';
         $scope.library = null;
         $scope.source = 'own';
+        $scope.selected_cat = -1;
         $scope.showPopupAdd = false;
         $scope.togglePopupAdd = function() {
             $scope.showPopupAdd = !$scope.showPopupAdd;
+        };
+        $scope.selectCat = function(cat_id) {
+            if (typeof cat_id === 'undefined') {
+                $scope.selected_cat = -1;
+            } else {
+                $scope.selected_cat = cat_id;
+            }
         };
         $scope.refreshLibrary = function() {
             LibrarySvc.getImages().success(function(data) {
@@ -821,7 +846,14 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
             });
         };
         $scope.$watch('source', function(newval, oldval) {
-            $scope.refreshLibrary();
+            if (newval === 'own') {
+                $scope.refreshLibrary();
+            }
+        });
+        $scope.$watch('selected_cat', function(newval, oldval) {
+            if ($scope.source === 'cat' && newval > -1) {
+                $scope.refreshLibrary();
+            }
         });
     }
 ]);

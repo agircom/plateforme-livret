@@ -206,6 +206,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
             getLibrary: function() {
                 return $http.get(this.apiUrl + '/library');
             },
+            getLibraryCategories: function() {
+                return $http.get(this.apiUrl + '/library/cats');
+            },
             postLibrary: function(image_infos) {
                 return $http.post(this.apiUrl + '/library', image_infos, {
                     headers: {'Content-Type': undefined},
@@ -279,6 +282,9 @@ FeaderAppServices.factory('LibrarySvc', ['ApiSvc',
             },
             deleteImage: function(image_id) {
                 return ApiSvc.deleteLibrary(image_id);
+            },
+            getCats: function() {
+                return ApiSvc.getLibraryCategories();
             }
         };
     }

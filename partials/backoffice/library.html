@@ -18,16 +18,19 @@
         </div>
         <div class="onglet-library"><h3 ng-class="{selected:(source === 'cat')}" ng-click="source = 'cat'">Sélectionner une catégorie</h3></div>   
         <div class="recherche-library"><input type="text" id="recherche-image" placeholder="Recherche par mots clés" ng-model="libraryFilter"><img src="images/pictos/ok.png"></div>   
-    </div> 
-    <div style="overflow: auto;">
-        <ul id="library-miniature" ng-if="view === 'thumb'">
+    </div>
+    <div class="library-title"></div>
+    <div ng-show="source === 'cat' && selected_cat === -1" ng-include="'partials/common/library-cats.html'" ng-controller="CommonCtrl.LibraryCats" ng-init="init()"></div>
+    <button ng-show="source === 'cat' && selected_cat > -1" ng-click="selectCat()">retour a la liste des categories</button>
+    <div ng-hide="source === 'cat' && selected_cat === -1" style="overflow: auto;">
+        <ul ng-if="view === 'thumb'" id="library-miniature">
             <li ng-repeat="image in library| filterLibrary:libraryFilter">
                 <div><img ng-src="images/uploaded/{{image.filename}}" style="width: 100%;"></div>
                 <img src="images/pictos/check-gris.png" style="width: 15px; height: 15px; margin-right: 10px;"><span>{{image.name}}</span><a style="float: right; cursor: pointer;" ng-click="deleteImage(image.id)"><img src="images/pictos/fermer.png" style="width: 15px; height: 15px;"></a>
                 <!--<p>Description : {{image.description}}</p>-->                
             </li>
         </ul>       
-        <ul id="library-list" ng-if="view === 'list'">
+        <ul ng-if="view === 'list'" id="library-list">
             <li ng-repeat="image in library| filterLibrary:libraryFilter">
                 <div class="check-image"><img src="images/pictos/check-gris.png" style="width: 15px; height: 15px; margin-right: 10px;"></div>
                 <div class="miniature-image"><img ng-src="images/uploaded/{{image.filename}}"></div>

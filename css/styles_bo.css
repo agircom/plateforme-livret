@@ -751,3 +751,6 @@ h1.titre1fond-folio-pf{
     background-color: #ffffff;
     z-index: 100;
 }
+#library-cats {
+    cursor: pointer;
+}

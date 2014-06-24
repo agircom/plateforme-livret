@@ -578,6 +578,18 @@ $app->delete('/library/:image_id', function($image_id) use ($app) {
 });
 
 
+// REST Api get library categories
+$app->get('/library/cats', function() use ($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
+    // export library categories
+    $data = array('categories' => R::exportAll(R::findAll('librarycategory'), true));
+    echo json_encode($data);
+});
+
 
 /*
  * 
@@ -700,7 +712,7 @@ $app->get('/library/init', function() use ($app) {
         'Transport',
         'Vivre ensemble'
     );
-    R::wipe('book');
+    R::wipe('librarycategory');
     foreach ($categories as $cat) {
         $library_category_record = R::dispense('librarycategory');
         $library_category_record->name = $cat;

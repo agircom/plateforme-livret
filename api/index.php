@@ -590,6 +590,65 @@ $app->post('/library', function() use ($app) {
     R::store($user_record);
 });
 
+// REST Api upload image into category
+$app->post('/library/cat/:cat_id', function($cat_id) use ($app) {
+    // retrieve user
+    $user_record = retrieveAdminByToken();
+    if (!$user_record) {
+        return;
+    }
+    $postData = $app->request->post();
+    if (!key_exists('name', $postData) || is_null($postData['name']) || !key_exists('description', $postData) || is_null($postData['description']) || !key_exists('image', $_FILES)) {
+        // bad params
+        $app->response()->status(400);
+        return;
+    }
+    $library_category_record = R::findOne('librarycategory', 'id=?', array($cat_id));
+    if (is_null($library_category_record)) {
+        $app->response()->status(404);
+        return;
+    }
+    $givenName = $postData['name'];
+    $givenDescription = $postData['description'];
+    $givenCredits = (key_exists('credits', $postData)) ? $postData['credits'] : '';
+    $givenImage = $_FILES['image'];
+    if ($givenImage['error'] !== 0) {
+        // image error
+        $app->response()->status(406);
+        echo json_encode(array('error' => 'Erreur lors de l\'envoi du fichier (code ' . $givenImage['error'] . ').'));
+        return;
+    }
+    if ($givenImage['size'] > 5000000) {
+        // image error
+        $app->response()->status(406);
+        echo json_encode(array('error' => 'Le fichier est trop volumineux.'));
+        return;
+    }
+    if (!getimagesize($givenImage['tmp_name'])) {
+        // image error
+        $app->response()->status(406);
+        echo json_encode(array('error' => 'Le fichier n\'est pas une image.'));
+        return;
+    }
+    $ext = pathinfo($givenImage['name'], PATHINFO_EXTENSION);
+    $filename = $user_record->id . '_' . md5(uniqid(mt_rand(), true)) . '.' . $ext;
+    $date = new DateTime();
+    $path = '..' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'library' . DIRECTORY_SEPARATOR;
+    if (is_dir($path) || mkdir($path)) {
+        @move_uploaded_file($givenImage['tmp_name'], $path . $filename);
+    }
+    $library_record = R::dispense('library');
+    $library_record->name = $givenName;
+    $library_record->description = $givenDescription;
+    $library_record->credits = $givenCredits;
+    $library_record->filename = $filename;
+    $library_record->date_create = $date;
+    $user_record->xownLibraryList[] = $library_record;
+    R::store($user_record);
+    $library_category_record->ownLibraryList[] = $library_record;
+    R::store($library_category_record);
+});
+
 // REST Api delete user library image
 $app->delete('/library/:image_id', function($image_id) use ($app) {
     // retrieve user
@@ -618,8 +677,15 @@ $app->get('/library/cats', function() use ($app) {
         return;
     }
     // export library categories
-    $data = array('categories' => R::exportAll(R::findAll('librarycategory')));
-    echo json_encode($data);
+    $data = R::exportAll(R::findAll('librarycategory'));
+    foreach ($data as $key => $value) {
+        if (isset($value['ownLibrary'])) {
+            $data[$key]['ownLibrary'] = count($value['ownLibrary']);
+        } else {
+            $data[$key]['ownLibrary'] = 0;
+        }
+    }
+    echo json_encode(array('categories' => $data));
 });
 
 

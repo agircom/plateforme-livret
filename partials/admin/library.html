@@ -23,7 +23,7 @@
     <div ng-show="source === 'cat' && selected_cat === -1">
         <ul id="library-cats">
             <li ng-repeat="cat in categories| orderBy:'name'" ng-click="selectCat(cat.id)">
-                <p>{{cat.name}}</p>
+                <p>{{cat.name}} ({{cat.ownLibrary}} images)</p>
             </li>
         </ul>
     </div>

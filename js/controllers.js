@@ -789,7 +789,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
         $scope.name = '';
         $scope.description = '';
         $scope.credits = '';
-        $scope.category = -1;
         $scope.image = '';
         $scope.categories = [];
         $scope.library = [];
@@ -988,6 +987,7 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
         $scope.name = '';
         $scope.description = '';
         $scope.credits = '';
+        $scope.category = -1;
         $scope.image = '';
         $scope.categories = [];
         $scope.library = [];
@@ -1042,7 +1042,7 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
             }
         };
         $scope.startUpload = function() {
-            if ($scope.name === '' || $scope.description === '' || $scope.image === '') {
+            if ($scope.name === '' || $scope.description === '' || $scope.image === '' || $scope.category === -1) {
                 alert('Vous devez renseigner les informations de la photo.');
                 return;
             }
@@ -1051,17 +1051,21 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
             form.append('description', $scope.description);
             form.append('credits', $scope.credits);
             form.append('image', $scope.image);
-            LibrarySvc.addImage(form).success(function(data, status) {
+            LibrarySvc.addImageCat($scope.category, form).success(function(data, status) {
                 $scope.name = '';
                 $scope.description = '';
                 $scope.credits = '';
                 $scope.image = '';
                 angular.element('#library-form-add-image').val(null);
                 if ($scope.source === 'own') {
-                    $scope.refreshLibrary();
+                    $scope.source = 'cat';
+                    $scope.selected_cat = $scope.category;
+                } else if ($scope.source === 'cat' && $scope.selected_cat !== $scope.category) {
+                    $scope.selected_cat = $scope.category;
                 } else {
-                    $scope.source = 'own';
+                    $scope.refreshLibrary();
                 }
+                $scope.category = -1;
                 $scope.togglePopupAdd();
             }).error(function(data, status) {
                 alert('image upload error : ' + data.error);

@@ -5,7 +5,7 @@
     <div class="form-creer-livret">
         <div ng-if="error !== ''" ng-bind="error" style="color: red"></div>
         <label for="booklet-create-name">Nom de mon livret</label>
-        <input type="text" id="booklet-create-name" ng-model="newBookName" ng-trim="true" placeholder="Entrez le nom de votre livret" ng-keypress="($event.keyCode === 13) ? createBooklet() : null">
+        <input type="text" id="booklet-create-name" ng-model="newBookName" ng-trim="true" placeholder="Entrez le nom de votre livret">
         <a href="#" link ng-click="createBooklet()">OK</a>
     </div>
 </div>
@@ -24,9 +24,10 @@
         </div>
         <div class="booklet-list-body" ng-show="booklet.id === selectedBooklet">
             <div style="background-color: #fff; width:100%;">
+                <h2 style="text-align: center;">Télécharger vos images depuis la photothèque avant de commencer votre livret</h2>
             <div class="pochette folio">
                 <h3> > La Pochette</h3>
-                <img src="images/pochette2.png" alt="phototheque" title="Photothèque" width="143" height="126"/>
+                <img src="images/pochette2.png" alt="phototheque" title="Photothèque"/>
                 <button ng-if="booklet.folios.pochette === undefined" ng-click="createFolio(booklet.id, 'pochette')">Commencer maintenant</button>
                 <button style="background-color: #e47d0a" ng-if="booklet.folios.pochette !== undefined" ng-click="editFolio(booklet.id, booklet.folios.pochette)">Modifier</button>
                 <br>

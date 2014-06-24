@@ -20,8 +20,11 @@ FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'User
             return ($location.path().split('/')[1] === 'plateforme' || $location.path().split('/')[1] === 'admin' || $location.path().split('/')[1] === 'denied') ? false : true;
         };
         $scope.login = function() {
-            $scope.loginInProgress = true;
             $scope.error = '';
+            if ($scope.identifiant === '' || $scope.passwd === '') {
+                return;
+            }
+            $scope.loginInProgress = true;
             var store = ($scope.rememberMe === 'on') ? true : false;
             UserSvc.Login($scope.identifiant, $scope.passwd, store,
                     function(data, status) {

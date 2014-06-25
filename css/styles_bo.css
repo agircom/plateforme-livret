@@ -669,7 +669,8 @@ h1.titre1fond-folio-pf{
     cursor: pointer;
 }
 .menu-library-link.selected {
-    border: 1px solid #e47d0a;
+    /* border: 1px solid #e47d0a; */
+    font-weight: 700;
 }
 
 .menu-library img{
@@ -817,8 +818,8 @@ h1.titre1fond-folio-pf{
     position: absolute;
     left: 20%;
     right: 20%;
-    top: 20%;
-    bottom: 20%;
+    top: 10%;
+    bottom: 10%;
     padding: 25px; 
     border: 2px solid black;
     background-color: #ffffff;
@@ -833,4 +834,20 @@ h1.titre1fond-folio-pf{
     margin: 0 10px 10px 0;
     padding: 15px;
     display: inline-block;
+}
+
+#library-cats li.active {
+    background-color: #ebebeb;
+}
+
+#library-cats li:hover {
+    background-color: #ebebeb;
+}
+
+#library-cats li div{
+    height: 120px;
+    text-align: center;
+}
+#library-cats li div img{
+    border:1px solid #c5c5c5;
 }

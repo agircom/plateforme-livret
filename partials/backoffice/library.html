@@ -32,8 +32,8 @@
             <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage*pageSize | limitTo:pageSize">
                 <div><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}" style="max-width: 95%; max-height: 95%"></div>
                 <span>{{image.name}}</span>
-                <a href="#" class="link" ng-if="source === 'own'" style="float: right; cursor: pointer;" ng-click="deleteImage(image.id)"><img src="images/pictos/fermer.png" style="width: 15px; height: 15px;"></a>
-                <a href="#" class="link" ng-if="source === 'own'" style="float: right; cursor: pointer;" ng-click="togglePopupEdit(image)"><span>Modifier</span></a>
+                <a href="#" class="link" ng-if="source === 'own'" style="float: right; cursor: pointer;" ng-click="deleteImage(image.id)"><img src="images/pictos/fermer.png" alt="Supprimer" title="Supprimer" style="width: 15px; height: 15px;"></a>
+                <a href="#" class="link" ng-if="source === 'own'" style="float: right; cursor: pointer;" ng-click="togglePopupEdit(image)"><img src="images/pictos/modifier.png" alt="Modifier" title="Modifier" style="width: 15px; height: 15px; margin-right: 5px;"></a>
                 <!--<p>Description : {{image.description}}</p>-->                
             </li>
         </ul>       

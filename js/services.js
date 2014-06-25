@@ -231,6 +231,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                     }
                 });
             },
+            postLibraryImport: function(cat_id, image_infos) {
+                return $http.post(this.apiUrl + '/library/import/' + cat_id, image_infos);
+            },
             putLibrary: function(image_id, image_infos) {
                 return $http.put(this.apiUrl + '/library/' + image_id, image_infos);
             },
@@ -309,6 +312,14 @@ FeaderAppServices.factory('LibrarySvc', ['ApiSvc',
                     description: image.description,
                     credits: image.credits,
                     librarycategory_id: image.librarycategory_id
+                });
+            },
+            importImage: function(image) {
+                return ApiSvc.postLibraryImport(image.librarycategory_id, {
+                    name: image.name,
+                    description: image.description,
+                    credits: image.credits,
+                    filename: image.filename
                 });
             },
             deleteImage: function(image_id) {

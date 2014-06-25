@@ -1135,6 +1135,18 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
                 $scope.togglePopupEdit();
             });
         };
+        $scope.importImage = function() {
+            if ($scope.tmpImage.name === '' || $scope.tmpImage.description === '' || $scope.tmpImage.librarycategory_id === null) {
+                alert('Vous devez renseigner les informations de la photo.');
+                return;
+            }
+            LibrarySvc.importImage($scope.tmpImage).success(function() {
+                $scope.source = 'cat';
+                $scope.selected_cat = $scope.tmpImage.librarycategory_id;
+                $scope.tmpImage = {};
+                $scope.togglePopupImport();
+            });
+        };
         $scope.deleteImage = function(image_id) {
             if (confirm("Voulez-vous vraiment supprimer cette photo ?")) {
                 LibrarySvc.deleteImage(image_id).success(function() {

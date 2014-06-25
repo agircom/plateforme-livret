@@ -648,6 +648,43 @@ $app->post('/library/cat/:cat_id', function($cat_id) use ($app) {
     R::store($library_category_record);
 });
 
+// REST Api import image from user library to category library
+$app->post('/library/import/:cat_id', function($cat_id) use ($app) {
+    // retrieve user
+    $user_record = retrieveAdminByToken();
+    if (!$user_record) {
+        return;
+    }
+    $postData = json_decode($app->request->getBody(), true);
+    if (!key_exists('name', $postData) || is_null($postData['name']) || !key_exists('description', $postData) || is_null($postData['description']) || !key_exists('filename', $postData) || is_null($postData['filename'])) {
+        // bad params
+        $app->response()->status(400);
+        return;
+    }
+    $librarycategory_record = R::load('librarycategory', $cat_id);
+    if (is_null($librarycategory_record)) {
+        // unkown librarycategory
+        $app->response()->status(404);
+        return;
+    }
+    $date = new DateTime();
+    $ext = pathinfo($postData['filename'], PATHINFO_EXTENSION);
+    $filename = $user_record->id . '_' . md5(uniqid(mt_rand(), true)) . '.' . $ext;
+    $library_record = R::dispense('library');
+    $library_record->name = $postData['name'];
+    $library_record->description = $postData['description'];
+    $library_record->filename = $filename;
+    $library_record->credits = (key_exists('credits', $postData)) ? $postData['credits'] : '';
+    $library_record->date_create = $date;
+    $user_record->xownLibraryList[] = $library_record;
+    R::store($user_record);
+    $librarycategory_record->ownLibraryList[] = $library_record;
+    R::store($librarycategory_record);
+    $pathSrc = '..' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'uploaded' . DIRECTORY_SEPARATOR;
+    $pathDst= '..' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'library' . DIRECTORY_SEPARATOR;
+    @copy($pathSrc . $postData['filename'], $pathDst . $filename);
+});
+
 // REST Api update image
 $app->put('/library/:image_id', function($image_id) use ($app) {
     $putData = json_decode($app->request->getBody(), true);

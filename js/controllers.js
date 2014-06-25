@@ -895,9 +895,11 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
             });
         };
         $scope.deleteImage = function(image_id) {
-            LibrarySvc.deleteImage(image_id).success(function() {
-                $scope.refreshLibrary();
-            });
+            if (confirm("Voulez-vous vraiment supprimer cette photo ?")) {
+                LibrarySvc.deleteImage(image_id).success(function() {
+                    $scope.refreshLibrary();
+                });
+            }
         };
         $scope.$watch('source', function(newval, oldval) {
             if (newval === 'own') {
@@ -1125,9 +1127,11 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
             });
         };
         $scope.deleteImage = function(image_id) {
-            LibrarySvc.deleteImage(image_id).success(function() {
-                $scope.refreshLibrary();
-            });
+            if (confirm("Voulez-vous vraiment supprimer cette photo ?")) {
+                LibrarySvc.deleteImage(image_id).success(function() {
+                    $scope.refreshLibrary();
+                });
+            }
         };
         $scope.$watch('source', function(newval, oldval) {
             if (newval === 'own') {

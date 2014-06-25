@@ -671,7 +671,7 @@ $app->put('/library/:image_id', function($image_id) use ($app) {
         $library_record->name = $putData['name'];
         $library_record->description = $putData['description'];
         if (key_exists('credits', $putData) && !is_null($putData['credits'])) {
-            $library_record->credits= $putData['credits'];
+            $library_record->credits = $putData['credits'];
         }
         R::store($library_record);
     } else {
@@ -688,7 +688,7 @@ $app->put('/library/:image_id', function($image_id) use ($app) {
         $library_record->name = $putData['name'];
         $library_record->description = $putData['description'];
         if (key_exists('credits', $putData) && !is_null($putData['credits'])) {
-            $library_record->credits= $putData['credits'];
+            $library_record->credits = $putData['credits'];
         }
         if (intval($putData['librarycategory_id']) !== $library_record->librarycategory_id) {
             $librarycategory_record1 = R::load('librarycategory', $library_record->librarycategory_id);
@@ -708,17 +708,38 @@ $app->delete('/library/:image_id', function($image_id) use ($app) {
     if (!$user_record) {
         return;
     }
-    // retrieve library item
-    if (!isset($user_record->xownLibraryList[$image_id])) {
-        // library item doesn't exist or is not the owner
-        $app->response()->status(404);
+    // retrieve image
+    $library_record = R::load('library', $image_id);
+    if (is_null($library_record)) {
+        $app->reponse()->status(404);
         return;
     }
-    // remove file
-    @unlink('..' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'uploaded' . DIRECTORY_SEPARATOR . $user_record->xownLibraryList[$image_id]->filename);
-    // delete the library item
-    unset($user_record->xownLibraryList[$image_id]);
-    R::store($user_record);
+    if (!is_null($library_record->librarycategory_id) || !isset($user_record->xownLibraryList[$image_id])) {
+        $user_record = retrieveAdminByToken();
+        if (!$user_record) {
+            return;
+        }
+        if (!is_null($library_record->librarycategory_id)) {
+            // remove file
+            @unlink('..' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'library' . DIRECTORY_SEPARATOR . $library_record->filename);
+        } else {
+            @unlink('..' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'uploaded' . DIRECTORY_SEPARATOR . $library_record->filename);
+        }
+        // delete the library item
+        $user_owner = R::load('user', $library_record->user_id);
+        unset($user_owner->xownLibraryList[$image_id]);
+        R::store($user_owner);
+    } elseif (isset($user_record->xownLibraryList[$image_id])) {
+        // remove file
+        @unlink('..' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'uploaded' . DIRECTORY_SEPARATOR . $user_record->xownLibraryList[$image_id]->filename);
+        // delete the library item
+        unset($user_record->xownLibraryList[$image_id]);
+        R::store($user_record);
+    } else {
+        // library item doesn't exist or is not the owner
+        $app->response()->status(403);
+        return;
+    }
 });
 
 // REST Api get library categories

@@ -14,7 +14,15 @@
     height: 95%;
 }
 
-h1, h2, h3, h4, h5{
-    line-height: 8px;
-    padding-bottom: 1px;
+h4 {
+    padding: 0;
+    margin:0;
+}
+h5 {
+    padding: 0;
+    margin:0;
+}
+p {
+    padding: 0;
+    margin:0;
 }

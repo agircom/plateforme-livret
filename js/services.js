@@ -231,6 +231,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
                     }
                 });
             },
+            putLibrary: function(image_id, image_infos) {
+                return $http.put(this.apiUrl + '/library/' + image_id, image_infos);
+            },
             deleteLibrary: function(image_id) {
                 return $http.delete(this.apiUrl + '/library/' + image_id);
             },
@@ -299,6 +302,14 @@ FeaderAppServices.factory('LibrarySvc', ['ApiSvc',
             },
             addImageCat: function(cat_id, image_infos) {
                 return ApiSvc.postLibraryCat(cat_id, image_infos);
+            },
+            updateImage: function(image) {
+                return ApiSvc.putLibrary(image.id, {
+                    name: image.name,
+                    description: image.description,
+                    credits: image.credits,
+                    librarycategory_id: image.librarycategory_id
+                });
             },
             deleteImage: function(image_id) {
                 return ApiSvc.deleteLibrary(image_id);

@@ -754,6 +754,40 @@ h1.titre1fond-folio-pf{
     background-color: #ffffff;
     z-index: 100;
 }
+#library-edit-popup {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+#library-edit-popup > .sheet-fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: black;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+    filter: alpha(opacity=70);
+    -moz-opacity: 0.7;
+    -khtml-opacity: 0.7;
+    opacity: 0.7;
+    z-index: 90;
+    cursor: pointer;
+}
+
+#library-edit-popup > .sheet-content {
+    position: absolute;
+    left: 20%;
+    right: 20%;
+    top: 20%;
+    bottom: 20%;
+    padding: 25px; 
+    border: 2px solid black;
+    background-color: #ffffff;
+    z-index: 100;
+}
 #library-cats {
     cursor: pointer;
 }

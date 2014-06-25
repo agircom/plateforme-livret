@@ -795,7 +795,9 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
         $scope.library_title = 'Mes images';
         $scope.source = 'own';
         $scope.selected_cat = -1;
+        $scope.tmpImage = {};
         $scope.showPopupAdd = false;
+        $scope.showPopupEdit = false;
         $scope.currentPage = 0;
         $scope.pageSize = 20;
         $scope.numberOfPages = function() {
@@ -806,6 +808,14 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
         };
         $scope.togglePopupAdd = function() {
             $scope.showPopupAdd = !$scope.showPopupAdd;
+        };
+        $scope.togglePopupEdit = function(image) {
+            if (typeof image !== 'undefined') {
+                $scope.tmpImage = image;
+            } else {
+                $scope.tmpImage = {};
+            }
+            $scope.showPopupEdit = !$scope.showPopupEdit;
         };
         $scope.selectCat = function(cat_id) {
             if (typeof cat_id === 'undefined') {
@@ -867,6 +877,21 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
                 $scope.togglePopupAdd();
             }).error(function(data, status) {
                 alert('image upload error : ' + data.error);
+            });
+        };
+        $scope.updateImage = function() {
+            if ($scope.tmpImage.name === '' || $scope.tmpImage.description === '') {
+                alert('Vous devez renseigner les informations de la photo.');
+                return;
+            }
+            LibrarySvc.updateImage($scope.tmpImage).success(function() {
+                if ($scope.source === 'own') {
+                    $scope.refreshLibrary();
+                } else {
+                    $scope.source = 'own';
+                }
+                $scope.tmpImage = {};
+                $scope.togglePopupEdit();
             });
         };
         $scope.deleteImage = function(image_id) {
@@ -994,6 +1019,7 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
         $scope.library_title = 'Images des utilisateurs';
         $scope.source = 'own';
         $scope.selected_cat = -1;
+        $scope.tmpImage = {};
         $scope.showPopupAdd = false;
         $scope.showPopupEdit = false;
         $scope.currentPage = 0;
@@ -1007,7 +1033,12 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
         $scope.togglePopupAdd = function() {
             $scope.showPopupAdd = !$scope.showPopupAdd;
         };
-        $scope.togglePopupEdit = function() {
+        $scope.togglePopupEdit = function(image) {
+            if (typeof image !== 'undefined') {
+                $scope.tmpImage = image;
+            } else {
+                $scope.tmpImage = {};
+            }
             $scope.showPopupEdit = !$scope.showPopupEdit;
         };
         $scope.selectCat = function(cat_id) {
@@ -1073,6 +1104,24 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
                 $scope.togglePopupAdd();
             }).error(function(data, status) {
                 alert('image upload error : ' + data.error);
+            });
+        };
+        $scope.updateImage = function() {
+            if ($scope.tmpImage.name === '' || $scope.tmpImage.description === '' || $scope.tmpImage.librarycategory_id === -1) {
+                alert('Vous devez renseigner les informations de la photo.');
+                return;
+            }
+            LibrarySvc.updateImage($scope.tmpImage).success(function() {
+                if ($scope.source === 'own') {
+                    $scope.source = 'cat';
+                    $scope.selected_cat = $scope.tmpImage.librarycategory_id;
+                } else if ($scope.source === 'cat' && $scope.selected_cat !== $scope.tmpImage.librarycategory_id) {
+                    $scope.selected_cat = $scope.tmpImage.librarycategory_id;
+                } else {
+                    $scope.refreshLibrary();
+                }
+                $scope.tmpImage = {};
+                $scope.togglePopupEdit();
             });
         };
         $scope.deleteImage = function(image_id) {

@@ -470,7 +470,7 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export', function($booklet_id, $
     $format = getFormatPDF($folio_record->type);
     $mpdf = new mPDF('utf-8', $format);
     $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_pdf.css');
-    $mpdf->WriteHTML($stylesheet,1);
+    $mpdf->WriteHTML($stylesheet, 1);
     $mpdf->WriteHTML('<div class="cadre-folio-pf">', 2, true, false);
     foreach ($folio_record->xownPageList as $page) {
         $content = preg_replace('/<img src\=\"([^\"]*)\"/', "<img src=\"../$1\"", $page->content);
@@ -535,7 +535,6 @@ $app->get('/library/cat/:cat_id', function($cat_id) use ($app) {
         'library' => R::exportAll($library_category_record->ownLibraryList)
     );
     echo json_encode($data);
-    
 });
 
 // REST Api upload image into user library        
@@ -647,6 +646,59 @@ $app->post('/library/cat/:cat_id', function($cat_id) use ($app) {
     R::store($user_record);
     $library_category_record->ownLibraryList[] = $library_record;
     R::store($library_category_record);
+});
+
+// REST Api update image
+$app->put('/library/:image_id', function($image_id) use ($app) {
+    $putData = json_decode($app->request->getBody(), true);
+    $library_record = R::findOne('library', 'id=?', array($image_id));
+    if (is_null($library_record)) {
+        $app->reponse()->status(404);
+        return;
+    }
+    if (!key_exists('name', $putData) || is_null($putData['name']) || !key_exists('description', $putData) || is_null($putData['description'])) {
+        // bad params
+        $app->response()->status(400);
+        return;
+    }
+    $user_record = null;
+    if (is_null($library_record->librarycategory_id)) {
+        // user picture
+        $user_record = retrieveUserByToken();
+        if (!$user_record) {
+            return;
+        }
+        $library_record->name = $putData['name'];
+        $library_record->description = $putData['description'];
+        if (key_exists('credits', $putData) && !is_null($putData['credits'])) {
+            $library_record->credits= $putData['credits'];
+        }
+        R::store($library_record);
+    } else {
+        // category picture
+        if (!key_exists('librarycategory_id', $putData) || is_null($putData['librarycategory_id'])) {
+            // bad params
+            $app->response()->status(400);
+            return;
+        }
+        $user_record = retrieveAdminByToken();
+        if (!$user_record) {
+            return;
+        }
+        $library_record->name = $putData['name'];
+        $library_record->description = $putData['description'];
+        if (key_exists('credits', $putData) && !is_null($putData['credits'])) {
+            $library_record->credits= $putData['credits'];
+        }
+        if (intval($putData['librarycategory_id']) !== $library_record->librarycategory_id) {
+            $librarycategory_record1 = R::load('librarycategory', $library_record->librarycategory_id);
+            unset($librarycategory_record1->ownLibraryList[$library_record->id]);
+            R::store($librarycategory_record1);
+            $librarycategory_record2 = R::load('librarycategory', intval($putData['librarycategory_id']));
+            $librarycategory_record2->ownLibraryList[] = $library_record;
+            R::store($librarycategory_record2);
+        }
+    }
 });
 
 // REST Api delete user library image
@@ -817,7 +869,6 @@ $app->get('/library/init', function() use ($app) {
         $library_category_record->ownLibraryList = array();
         R::store($library_category_record);
     }
-    
 });
 
 

@@ -1,4 +1,4 @@
-<div ng-controller="CommonCtrl.User">
+    <div ng-controller="CommonCtrl.User">
     <div ng-show="loginInProgress">
         Connexion en cours...
         <br>
@@ -8,9 +8,9 @@
         <div ng-if="!User.isLogged()" id="formlogin">
             <h4> > Se Connecter à la plate-forme</h4>
             <div ng-if="error !== ''" ng-bind="error" class="message_error"><br></div>
-            <img src="images/pictos/login.png" alt="Email" title="Email" /><input placeholder="EMAIL" type="text" ng-model="$parent.identifiant">
+            <img src="images/pictos/login.png" alt="Email" title="Email" /><input placeholder="EMAIL" type="text" ng-model="$parent.identifiant" ng-trim="true" ng-keypress="($event.keyCode === 13) ? login() : null">
             <br>            
-            <img src="images/pictos/motdepasse.png" alt="mdp" title="Mot de passe" /><input placeholder="MOT DE PASSE" type="password" ng-model="$parent.passwd">
+            <img src="images/pictos/motdepasse.png" alt="mdp" title="Mot de passe" /><input placeholder="MOT DE PASSE" type="password" ng-model="$parent.passwd" ng-trim="true" ng-keypress="($event.keyCode === 13) ? login() : null">
             <br>
             <input style="width:16px; height:16px; margin: 5px 0 5px 0px; float: left" type="image" src="images/pictos/connexion.png" name="image" id="connexion" alt="Connexion" ng-click="login()">
             <div style="display:block; width: 85%; float: right; margin: 5px 0 0 0;">

@@ -895,9 +895,11 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
             });
         };
         $scope.deleteImage = function(image_id) {
-            LibrarySvc.deleteImage(image_id).success(function() {
-                $scope.refreshLibrary();
-            });
+            if (confirm("Voulez-vous vraiment supprimer cette photo ?")) {
+                LibrarySvc.deleteImage(image_id).success(function() {
+                    $scope.refreshLibrary();
+                });
+            }
         };
         $scope.$watch('source', function(newval, oldval) {
             if (newval === 'own') {
@@ -1022,6 +1024,7 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
         $scope.tmpImage = {};
         $scope.showPopupAdd = false;
         $scope.showPopupEdit = false;
+        $scope.showPopupImport = false;
         $scope.currentPage = 0;
         $scope.pageSize = 20;
         $scope.numberOfPages = function() {
@@ -1040,6 +1043,14 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
                 $scope.tmpImage = {};
             }
             $scope.showPopupEdit = !$scope.showPopupEdit;
+        };
+        $scope.togglePopupImport = function(image) {
+            if (typeof image !== 'undefined') {
+                $scope.tmpImage = image;
+            } else {
+                $scope.tmpImage = {};
+            }
+            $scope.showPopupImport = !$scope.showPopupImport;
         };
         $scope.selectCat = function(cat_id) {
             if (typeof cat_id === 'undefined') {
@@ -1125,9 +1136,11 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
             });
         };
         $scope.deleteImage = function(image_id) {
-            LibrarySvc.deleteImage(image_id).success(function() {
-                $scope.refreshLibrary();
-            });
+            if (confirm("Voulez-vous vraiment supprimer cette photo ?")) {
+                LibrarySvc.deleteImage(image_id).success(function() {
+                    $scope.refreshLibrary();
+                });
+            }
         };
         $scope.$watch('source', function(newval, oldval) {
             if (newval === 'own') {

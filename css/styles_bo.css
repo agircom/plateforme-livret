@@ -827,3 +827,10 @@ h1.titre1fond-folio-pf{
 #library-cats {
     cursor: pointer;
 }
+#library-cats li{
+    width: 15%;
+    float: left;
+    margin: 0 10px 10px 0;
+    padding: 15px;
+    display: inline-block;
+}

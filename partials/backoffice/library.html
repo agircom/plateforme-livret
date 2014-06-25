@@ -30,7 +30,7 @@
     <div ng-hide="source === 'cat' && selected_cat === -1" style="overflow: auto;">
         <ul ng-if="view === 'thumb'" id="library-miniature">
             <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage*pageSize | limitTo:pageSize">
-                <div><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}" style="width: 100%;"></div>
+                <div><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}" style="max-width: 95%; max-height: 95%"></div>
                 <span>{{image.name}}</span>
                 <a href="#" class="link" ng-if="source === 'own'" style="float: right; cursor: pointer;" ng-click="deleteImage(image.id)"><img src="images/pictos/fermer.png" style="width: 15px; height: 15px;"></a>
                 <a href="#" class="link" ng-if="source === 'own'" style="float: right; cursor: pointer;" ng-click="togglePopupEdit(image)"><span>Modifier</span></a>
@@ -107,7 +107,7 @@
                 </p>
                 <p>
                     <label for="library-form-edit-image">Votre image :</label>
-                    <img ng-if="tmpImage.filename" ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{tmpImage.filename}}" id="library-form-edit-image" style="width: 100%;">
+                    <img ng-if="tmpImage.filename" ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{tmpImage.filename}}" id="library-form-edit-image" style="max-width: 185px; max-height: 250px;">
                 </p>
                 <p>
                     <button ng-click="updateImage()">Sauvegarder</button>

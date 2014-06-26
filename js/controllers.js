@@ -170,8 +170,11 @@ FeaderAppControllers.controller('CommonCtrl.LibraryCats', ['$scope', 'LibrarySvc
         };
     }
 ]);
-FeaderAppControllers.controller('HomeCtrl.Home', ['$scope',
-    function($scope) {
+FeaderAppControllers.controller('HomeCtrl.Home', ['$scope', '$location',
+    function($scope, $location) {
+        $scope.goto = function(target) {
+            $location.path('/plateforme/' + target);
+        };
     }
 ]);
 

@@ -10,25 +10,25 @@
         <div class="ligne-sidebar"></div>
         <div class="trousse-outils-sidebar">
             <h2> > TROUSSE A OUTILS</h2>
-            <div class="bloc-trousse-outils-sidebar">
+            <div class="bloc-trousse-outils-sidebar" ng-click="!User.isLogged() || User.getPermissions() === 2 || goto('booklets')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
                 <span>Mes livrets</span>
-                <img src="images/pictos/mes-livrets.png" alt="mes-livrets" title="Mes livrets"/>
+                <img ng-src="images/pictos/mes-livrets{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="mes-livrets" title="Mes livrets"/>
             </div>
-            <div class="bloc-trousse-outils-sidebar">
+            <div class="bloc-trousse-outils-sidebar" ng-click="!User.isLogged() || User.getPermissions() === 2 || goto('library')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
                 <span>Photothèque</span>
-                <img src="images/pictos/phototheque.png" alt="phototheque" title="Photothèque"/>
+                <img ng-src="images/pictos/phototheque{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="phototheque" title="Photothèque"/>
             </div>
-            <div class="bloc-trousse-outils-sidebar">
+            <div class="bloc-trousse-outils-sidebar" ng-click="!User.isLogged() || User.getPermissions() === 2 || goto('account')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
                 <span>Mon compte</span>
-                <img src="images/pictos/mon-compte.png" alt="mon-compte" title="Mon Compte"/>
+                <img ng-src="images/pictos/mon-compte{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="mon-compte" title="Mon Compte"/>
             </div>
-            <div class="bloc-trousse-outils-sidebar">
+            <div class="bloc-trousse-outils-sidebar" ng-click="!User.isLogged() || User.getPermissions() === 2 || goto('help')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
                 <span>Aide et FAQ</span>
-                <img src="images/pictos/aide-faq.png" alt="aide-faq" title="Aide et FAQ"/>
+                <img ng-src="images/pictos/aide-faq{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="aide-faq" title="Aide et FAQ"/>
             </div>
-            <div class="bloc-trousse-outils-sidebar">
+            <div class="bloc-trousse-outils-sidebar" ng-click="!User.isLogged() || User.getPermissions() === 2 || goto('contact')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
                 <span>Contact</span>
-                <img src="images/pictos/contact.png" alt="contact" title="Contact"/>
+                <img ng-src="images/pictos/contact{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="contact" title="Contact"/>
             </div>
         </div> 
         <div class="temoignage-sidebar">

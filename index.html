@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="FeaderApp">
     <head>
         <title>RRHN</title>
         <meta charset="UTF-8">
@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="css/styles_admin.css">
         <link rel="stylesheet" href="css/animate.css">
         <link rel="stylesheet" href="js/lib/tooltipster/tooltipster.css">
+        <link rel="stylesheet" ng-href="css/cross_{{layout.crossBrowser}}.css">
         <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
@@ -26,7 +27,7 @@
         <script src="js/filters.js"></script>
     </head>
     <body>
-        <div id="rrhn-app" ng-app="FeaderApp">
+        <div id="rrhn-app">
             <div id="main" ng-class="{foliotoolbar: (layout.needFolioToolbar === true)}">
                 <header ng-hide="layout.needFolioToolbar === true" ng-include="'partials/common/header.html'"></header>
                 <div class="menu-bo" ng-if="layout.requireMenu && User.getPermissions() === 1" ng-include="'partials/common/menu.html'"></div>

@@ -725,6 +725,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             $scope.showPictureSelector = false;
         };
         $scope.toggleFullScreen = function() {
+            angular.element('.ng-editable-toolbox:not(#ng-editable-toolbox)').remove();
             $scope.showFullscreen = !$scope.showFullscreen;
         };
         $scope.toggleTooltips = function() {

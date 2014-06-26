@@ -59,10 +59,9 @@ FeaderAppDirectives.directive('ngEditable', [function() {
                 element.attr('contenteditable', true);
                 element.addClass('ng-editable-marker');
                 element.on('focus', function(e, ui) {
-                    $('#ng-editable-toolbox-size').off('change');
-                    $('#ng-editable-toolbox-color').off('change');
                     $('.ng-editable-toolbox:not(#ng-editable-toolbox)').remove();
                     // copy template toolbox and move next to element
+                    var maxLength = attrs.maxLength;
                     var toolbox = $('#ng-editable-toolbox').clone().removeAttr('id');
                     toolbox.insertAfter(element);
 
@@ -72,23 +71,24 @@ FeaderAppDirectives.directive('ngEditable', [function() {
                         top: element.offset().top + element.height,
                         'margin-top': '-' + (element.css('margin-bottom'))
                     });
-                    // show it
-                    toolbox.show();
+
+                    element.on('focusout', function() {
+                        scope.updateModel();
+                    });
 
                     // event close
                     toolbox.find('.ng-editable-toolbox-cancel').on('click', function() {
                         toolbox.remove();
                     });
-                    element.on('focusout', function(e, ui) {
-//                        toolbox.remove();
-                    });
 
+                    // tool size
                     toolbox.find('.ng-editable-toolbox-size').val(element.css('font-size'));
                     toolbox.find('.ng-editable-toolbox-size').on('change', function(e) {
                         element.css('font-size', $(this).val());
                         scope.updateModel();
                     });
-//
+
+                    // tool color
                     toolbox.find('.ng-editable-toolbox-color').css('background-color', element.css('color'));
                     toolbox.find('.ng-editable-toolbox-color').val(element.css('color'));
                     toolbox.find('.ng-editable-toolbox-color').on('change', function() {
@@ -96,10 +96,46 @@ FeaderAppDirectives.directive('ngEditable', [function() {
                         toolbox.find('.ng-editable-toolbox-color').css('background-color', $(this).val());
                         scope.updateModel();
                     });
-//
-                    scope.$apply(function() {
-                        scope.toggleNgEditableToolbox(true);
+
+                    // tool chars
+                    element.bind("cut copy paste", function(e) {
+                        e.preventDefault();
                     });
+                    toolbox.find('.ng-editable-toolbox-chars').find('input').val(maxLength - element.text().length);
+                    var calcChars = function(e) {
+                        if (e.which !== 8 && element.text().length > maxLength) {
+                            e.preventDefault();
+                        } else {
+                            toolbox.find('.ng-editable-toolbox-chars').find('input').val(maxLength - element.text().length);
+                        }
+                    };
+                    element.keyup(function(e) {
+                        calcChars(e);
+                    });
+                    element.keydown(function(e) {
+                        calcChars(e);
+                    });
+                    element.keypress(function(e) {
+                        calcChars(e);
+                    });
+
+//                    element.on('keypress', function(e) {
+//                        if (element.html().length > maxLength) {
+//                            e.preventDefault();
+//                        } else {
+//                            toolbox.find('.ng-editable-toolbox-chars').find('input').val(maxLength - element.html().length);
+//                        }
+//                    });
+//                    element.on('DOMNodeInserted DOMNodeRemoved', function(e) {
+//                        if (element.html().length > maxLength) {
+//                            e.preventDefault();
+//                        } else {
+//                            toolbox.find('.ng-editable-toolbox-chars').find('input').val(maxLength - element.html().length);
+//                        }
+//                    });
+
+                    // show it
+                    toolbox.show();
                 });
             }
         };

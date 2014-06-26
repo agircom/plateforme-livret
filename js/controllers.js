@@ -540,7 +540,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         $scope.showPictureSelector = false;
         $scope.showFullscreen = false;
         $scope.imageSelected = null;
-        $scope.showNgEditableToolbox = false;
         $scope.booklet_id = $routeParams.booklet_id;
         $scope.booklet = null;
         $scope.folio_id = $routeParams.folio_id;
@@ -565,6 +564,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             content.find('.ng-draggable').children('.ng-draggable-handler').remove();
             content.find('.ng-editable').removeAttr('contenteditable');
             content.find('.ng-editable').removeClass('ng-editable-marker');
+            content.find('.ng-editable-toolbox').remove();
             content.find('.ng-locked').children('.ng-locked-handler').remove();
             content.find('.ng-deletable').children('.ng-deletable-handler').remove();
             content.find('.ng-clone-cat').find('h4').children('.ng-clone-cat-handler').remove();
@@ -723,9 +723,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         $scope.selectImage = function(filename) {
             $scope.imageSelected = 'images/uploaded/' + filename;
             $scope.showPictureSelector = false;
-        };
-        $scope.toggleNgEditableToolbox = function(val) {
-            $scope.showNgEditableToolbox = val;
         };
         $scope.toggleFullScreen = function() {
             $scope.showFullscreen = !$scope.showFullscreen;

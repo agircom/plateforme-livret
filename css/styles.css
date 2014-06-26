@@ -519,6 +519,9 @@ aside h2 {
     width: 60px;
     margin: 5px;
 }
+.bloc-trousse-outils-sidebar.enabled {
+    cursor: pointer;
+}
 
 .temoignage-sidebar a span{
     text-transform:uppercase;

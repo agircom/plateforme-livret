@@ -718,7 +718,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             });
         };
         $scope.togglePictureSelect = function() {
-            console.log(42);
             $scope.showPictureSelector = !$scope.showPictureSelector;
         };
         $scope.selectImage = function(filename) {

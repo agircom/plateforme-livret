@@ -218,9 +218,7 @@ FeaderAppDirectives.directive('ngPictureSelect', ['LibrarySvc', function(Library
                         return scope.imageSelected;
                     }, function(newVal) {
                         if (newVal !== null) {
-                            console.log(newVal);
                             element.prop('src', newVal);
-                            console.log(element.attr('src'));
                             scope.updateModel();
                             unregister();
                         }

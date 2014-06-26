@@ -3,10 +3,17 @@
     Author     : Thomas Beauvallet
 */
 
+  @import url(styles.css);
+  @import url(styles_bo.css);
+
+
 @page {
     margin: 0px;
+    padding: 0px;
 }
-
+#main {
+    margin: 0;
+}
 .cadre-folio-pf {
     margin: 0;
     padding: 0;

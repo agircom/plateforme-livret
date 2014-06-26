@@ -366,6 +366,7 @@ h1.titre1fond-folio-pf{
     height: 894px;
     overflow: hidden;
     font-size: 12px;
+    line-height: 100%;
 }
 
 .template-folio-pf{

@@ -1,13 +1,21 @@
 <div ng-show="booklets.length === 0" id="booklet-create-first">
-    <div class="titre-creer-first-livret">
-        <h2>Creer mon livret maintenant<img src="images/pictos/mes-livrets.png" style="padding-left: 5px;" alt="mes-livrets" title="Mes livrets"/></h2>        
+    <div style="float: left; width: 60%; margin: 0 30px;">
+            <div class="titre-creer-first-livret">
+            <p>Vous êtes élu ou responsable au sein d’une collectivité : commune, structure intercommunale (communauté de communes, Pays…) et vous souhaitez créer facilement 
+                un livret d’accueil personnalisé pour les habitants de votre territoire.</p>                   
+        </div>
+        <div class="form-creer-first-livret">        
+            <div ng-if="error !== ''" ng-bind="error" style="color: red"></div>
+            <h2>Créer mon livret maintenant</h2> 
+            <label for="booklet-create-first-name">Nom de mon livret</label><br>
+            <input type="text" id="booklet-create-first-name" ng-model="newBookName" ng-trim="true" placeholder="Entrez le nom de votre livret" ng-keypress="($event.keyCode === 13) ? createBooklet() : null">
+            <a href="#" link ng-click="createBooklet()"><img src="images/pictos/ok.png" alt="OK" title="OK" style="width: 32px; height: 32px;"/></a>
+            <img src="images/photos-1livret.jpg" alt="creer-mon-livret" title="Créer mon livret maintenant"/>
+        </div>
     </div>
-    <div class="form-creer-first-livret">
-        <div ng-if="error !== ''" ng-bind="error" style="color: red"></div>
-        <label for="booklet-create-first-name">Nom de mon livret</label>
-        <input type="text" id="booklet-create-first-name" ng-model="newBookName" ng-trim="true" placeholder="Entrez le nom de votre livret" ng-keypress="($event.keyCode === 13) ? createBooklet() : null">
-        <a href="#" link ng-click="createBooklet()">OK</a>
-    </div>
+    <div style="float: left; width: 30%; text-align: center;">
+       <img src="images/visuel-exemple.png" alt="Visuel-exemple" title="Visuel Exemple" style="margin-top: 120px"/>
+    </div>  
 </div>
 <div ng-hide="booklets.length === 0">
     <div id="booklet-create">
@@ -18,7 +26,7 @@
             <div ng-if="error !== ''" ng-bind="error" style="color: red"></div>
             <label for="booklet-create-name">Nom de mon livret</label>
             <input type="text" id="booklet-create-name" ng-model="newBookName" ng-trim="true" placeholder="Entrez le nom de votre livret" ng-keypress="($event.keyCode === 13) ? createBooklet() : null">
-            <a href="#" link ng-click="createBooklet()">OK</a>
+            <a href="#" link ng-click="createBooklet()"><img src="images/pictos/ok.png" alt="OK" title="OK" style="width: 26px; height: 26px; vertical-align: middle;"/></a>
         </div>
     </div>
     <ul id="booklets-list">

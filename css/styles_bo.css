@@ -74,6 +74,36 @@ and open the template in the editor.
 }
 
 /* mes livrets */
+.form-creer-first-livret h2 {
+    font-family: 'Jura','EurostileRomanDTCRegular', Arial;
+    background: url(../images/pictos/bg-titre-1livret.png) no-repeat;
+    width: 344px;
+    height: 51px;
+    color: #fff;
+    font-size: 18px;
+    text-transform:uppercase;
+    margin-bottom: 30px;
+    text-align: center;
+    line-height: 39px;
+}
+
+.form-creer-first-livret img {
+    vertical-align: middle; 
+}
+
+.form-creer-first-livret{
+    margin: 60px 60px;    
+}
+
+.form-creer-first-livret label{
+    text-transform: uppercase;
+}
+
+.form-creer-first-livret input{
+    width: 85%;
+    margin: 24px 0;
+}
+
 #booklet-create {
     margin: 0 0 10px 10px;
     border-bottom: 1px #DD6B5C solid;    
@@ -110,6 +140,10 @@ and open the template in the editor.
 
 .form-creer-livret label{
     font-weight: bold;
+}
+
+.form-creer-livret input{
+    width: 50%;
 }
 
 .booklet-list-header {

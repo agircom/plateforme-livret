@@ -97,6 +97,9 @@
 }
 #picture-selector > ul > li {
     cursor: pointer;
+    float: left;
+    width: 140px;
+    height: 110px;
 }
 
 .ng-deletable-handler {

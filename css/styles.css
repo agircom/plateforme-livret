@@ -105,7 +105,7 @@ html,body {
 /* Header */
 header {
     height: 120px;
-    margin:0 auto; 
+    /* margin:0 auto; */ 
     width: 1024px;
     overflow:hidden;
     position:relative

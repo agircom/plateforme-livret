@@ -21,14 +21,14 @@
     </div>
     <div class="library-title">{{library_title}} <button ng-show="source === 'cat' && selected_cat > -1" ng-click="selectCat()">retour a la liste des categories</button></div>
     <div ng-show="source === 'cat' && selected_cat === -1">
-        <ul id="library-cats">
+        <ul style="overflow: auto;" id="library-cats">
             <li ng-repeat="cat in categories| orderBy:'name'" ng-click="selectCat(cat.id)">
                 <p>{{cat.name}} ({{cat.ownLibrary}} images)</p>
             </li>
         </ul>
     </div>
     <div ng-hide="source === 'cat' && selected_cat === -1" style="overflow: auto;">
-        <ul ng-if="view === 'thumb'" id="library-miniature">
+        <ul style="overflow: auto;" ng-if="view === 'thumb'" id="library-miniature">
             <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage * pageSize | limitTo:pageSize">
                 <div><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}" style="max-width: 95%; max-height: 95%"></div>
                 <span>{{image.name}}</span>

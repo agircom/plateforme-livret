@@ -28,7 +28,7 @@
         </ul>
     </div>
     <div ng-hide="source === 'cat' && selected_cat === -1" style="overflow: auto;">
-        <ul ng-if="view === 'thumb'" id="library-miniature">
+        <ul style="overflow: auto;" ng-if="view === 'thumb'" id="library-miniature">
             <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage*pageSize | limitTo:pageSize">
                 <div><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}" style="max-width: 95%; max-height: 95%"></div>
                 <span>{{image.name}}</span>

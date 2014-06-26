@@ -215,6 +215,7 @@ h2.titre2fond-pres-territoire{
 .left-pres-territoire{
     float: left;
     width: 5%;
+    height: 100%;
 }
 .cadre-pres-territoire{
     padding-left: 20px;
@@ -257,7 +258,7 @@ h2.titre2fond-pres-territoire{
 
 .right-pres-territoire{
     float: left;
-    /* padding-top: 200px; */
+    margin-top: -40px;
     width: 20%;
 }
 
@@ -391,7 +392,7 @@ h1.titre1fond-folio-pf{
 .right-folio-pf{
     float: right;
     z-index: 100;
-    /* padding-top: 200px; */
+    margin-top: -40px;
     width: 140px;
 }
 
@@ -475,7 +476,7 @@ h1.titre1fond-folio-pf{
 .link-folio-pf div img{
     float: right;
     vertical-align: middle;
-    /* width:25%; */
+    width:25%;
     margin: 0;
 }
 
@@ -535,7 +536,7 @@ h1.titre1fond-folio-pf{
 }
 
 .pochetteshow[class~="cfpffullscreen"] {
-    width: 83%;
+    width: 82%;
     height: 100%;
 }
 

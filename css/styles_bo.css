@@ -534,8 +534,31 @@ h1.titre1fond-folio-pf{
     margin: 0;
     /* width: 86%; */
     zoom: 2;
-    /* height: 100%; */
+    -ms-zoom: 2;
+    -webkit-zoom: 2;
+    -moz-transform:  scale(2.2,2.2);
+    -moz-transform-origin: left center;
+    //transform: scale(2,4);
+    -ms-transform: scale(2.2,2.2); /* IE 9 */
+    //-webkit-transform: scale(2.2,2.2); /* Safari and Chrome */
+    //-o-transform: scale(2,4); /* Opera */
+    //-moz-transform: scale(2,4); /* Firefox */
+    /* height: 100%; */    
 }
+
+@-moz-document url-prefix()
+{
+    .cfpffullscreen {
+    top: 340px;
+    left: 80px;
+    }
+}
+<!--[if IE]>
+  .cfpffullscreen {
+    top: 340px;
+    left: 80px;
+    }
+<![endif]-->
 
 .rfpffullscreen{
     /* width: 10%; */

@@ -50,24 +50,25 @@
     border: 1px dashed lightseagreen;
 }
 
-#ng-editable-toolbox {
+.ng-editable-toolbox {
     position: absolute;
     width: 150px;
     height: 40px;
     border: 1px solid #000;
     background-color: #fff;
+    z-index: 150;
 }
-#ng-editable-toolbox-size  {
+.ng-editable-toolbox-size  {
     cursor: pointer;
     float: left;
     margin: 5px 0 5px 5px;
 }
-#ng-editable-toolbox-color {
+.ng-editable-toolbox-color {
     cursor: pointer;
     float: left;
     margin: 5px 0 5px 5px;
 }
-#ng-editable-toolbox-cancel {
+.ng-editable-toolbox-cancel {
     float: left;
     margin: 5px 0 5px 5px;
 }

@@ -537,7 +537,7 @@ h1.titre1fond-folio-pf{
     -ms-zoom: 2;
     -webkit-zoom: 2;
     -moz-transform:  scale(2.2,2.2);
-    -moz-transform-origin: left center;
+    //-moz-transform-origin: left center;
     //transform: scale(2,4);
     -ms-transform: scale(2.2,2.2); /* IE 9 */
     //-webkit-transform: scale(2.2,2.2); /* Safari and Chrome */
@@ -553,12 +553,11 @@ h1.titre1fond-folio-pf{
     left: 80px;
     }
 }
-<!--[if IE]>
-  .cfpffullscreen {
-    top: 340px;
-    left: 80px;
+
+  .cfpffullscreen/**/ {
+    //top: 340px;
+    //left: 530px;
     }
-<![endif]-->
 
 .rfpffullscreen{
     /* width: 10%; */

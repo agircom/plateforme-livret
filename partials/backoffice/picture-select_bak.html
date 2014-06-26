@@ -1,91 +1,65 @@
-<div id="library-manager" ng-init="view = 'thumb'">
-    <div class="haut-library">
-        <div class="titre-library">
-            <h2>
-                <img style="vertical-align: middle; padding-right:5px;" src="images/pictos/phototheque.png" width="32" height="32" alt="photothèque" title="photothèque">
-                La photothèque
-            </h2>
+<div id="picture-selector">
+    <div id="library-manager" ng-init="view = 'thumb'" ng-controller="BackofficeCtrl.Library">
+        <div class="haut-library">
+            <div class="titre-library">
+                <h2>
+                    <img style="vertical-align: middle; padding-right:5px;" src="images/pictos/phototheque.png" width="32" height="32" alt="photothèque" title="photothèque">
+                    La photothèque
+                </h2>
+            </div>
+            <div class="menu-library"><span>Vue par :</span></div> 
+            <div class="menu-library menu-library-link" ng-click="view = 'list'"><span>Liste</span><img src="images/pictos/liste.png"></div>  
+            <div class="menu-library menu-library-link" ng-click="view = 'thumb'"><span>Miniature</span><img src="images/pictos/miniature.png"></div>   
+            <div class="menu-library menu-library-link"><span>Aide</span><img src="images/pictos/help.png"></div>   
+        </div>  
+        <div class="block-select-library">
+            <div class="onglet-library">
+                <h3 ng-class="{selected:(source === 'own')}" ng-click="source = 'own'">Mes images</h3>
+                <h3 ng-click="togglePopupAdd()">+ Ajouter une image</h3>
+            </div>
+            <div class="onglet-library"><h3 ng-class="{selected:(source === 'cat')}" ng-click="source = 'cat'">Sélectionner une catégorie</h3></div>   
+            <div class="recherche-library"><input type="text" id="recherche-image" placeholder="Recherche par mots clés" ng-model="libraryFilter"><img src="images/pictos/ok.png"></div>   
         </div>
-        <div class="menu-library"><span>Vue par :</span></div> 
-        <div class="menu-library menu-library-link" ng-click="view = 'list'"><span>Liste</span><img src="images/pictos/liste.png"></div>  
-        <div class="menu-library menu-library-link" ng-click="view = 'thumb'"><span>Miniature</span><img src="images/pictos/miniature.png"></div>   
-        <div class="menu-library menu-library-link"><span>Aide</span><img src="images/pictos/help.png"></div>   
-    </div>  
-    <div class="block-select-library">
-        <div class="onglet-library">
-            <h3 ng-class="{selected:(source === 'own')}" ng-click="source = 'own'">Mes images</h3>
-            <h3 ng-click="togglePopupAdd()">+ Ajouter une image</h3>
+        <div class="library-title">{{library_title}} <button ng-show="source === 'cat' && selected_cat > -1" ng-click="selectCat()">retour a la liste des categories</button></div>
+        <div ng-show="source === 'cat' && selected_cat === -1">
+            <ul id="library-cats">
+                <li ng-repeat="cat in categories| orderBy:'name'" ng-click="selectCat(cat.id)">
+                    <p>{{cat.name}} ({{cat.ownLibrary}} images)</p>
+                </li>
+            </ul>
         </div>
-        <div class="onglet-library"><h3 ng-class="{selected:(source === 'cat')}" ng-click="source = 'cat'">Sélectionner une catégorie</h3></div>   
-        <div class="recherche-library"><input type="text" id="recherche-image" placeholder="Recherche par mots clés" ng-model="libraryFilter"><img src="images/pictos/ok.png"></div>   
-    </div>
-    <div class="library-title">{{library_title}} <button ng-show="source === 'cat' && selected_cat > -1" ng-click="selectCat()">retour a la liste des categories</button></div>
-    <div ng-show="source === 'cat' && selected_cat === -1">
-        <ul id="library-cats">
-            <li ng-repeat="cat in categories| orderBy:'name'" ng-click="selectCat(cat.id)">
-                <p>{{cat.name}} ({{cat.ownLibrary}} images)</p>
-            </li>
-        </ul>
-    </div>
-    <div ng-hide="source === 'cat' && selected_cat === -1" style="overflow: auto;">
-        <ul ng-if="view === 'thumb'" id="library-miniature">
-            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage * pageSize | limitTo:pageSize">
-                <div><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}" style="width: 100%;"></div>
-                <img src="images/pictos/check-gris.png" style="width: 15px; height: 15px; margin-right: 10px;"><span>{{image.name}}</span><a style="float: right; cursor: pointer;" ng-click="deleteImage(image.id)"><img src="images/pictos/fermer.png" style="width: 15px; height: 15px;"></a>
-                <!--<p>Description : {{image.description}}</p>-->                
-            </li>
-        </ul>       
-        <ul ng-if="view === 'list'" id="library-list">
-            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage * pageSize | limitTo:pageSize">
-                <div class="check-image"><img src="images/pictos/check-gris.png" style="width: 15px; height: 15px; margin-right: 10px;"></div>
-                <div class="miniature-image"><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}"></div>
-                <div class="infos-image">
-                    <h3>{{image.name}}</h3><h3 style="float: right; text-align: right;">{{image.credits}}</h3>
-                    <p>{{image.description}}</p>
-                    <div class="actions-image">
-                        <a style="float: left; cursor: pointer;" ng-click=""><span>Modifier</span></a>
-                        <a style="float: left; cursor: pointer; margin-left: 20px;" ng-click="deleteImage(image.id)"><span>Supprimer</span></a>              
-                        <a style="float: right; cursor: pointer;" ng-click=""><span>Sélectionner</span></a>              
-                    </div>
-                </div>                
-            </li>
-        </ul>
-        <div id="library-paginate">
-            <div ng-show="numberOfPages() > 0">
-                Pages : 
-                <a href="#" class="link" ng-show="currentPage > 0" ng-click="currentPage = (currentPage - 1)"><</a>
-                {{currentPage + 1}}/{{numberOfPages()}}
-                <a href="#" class="link" ng-show="currentPage < (numberOfPages() - 1)" ng-click="currentPage = (currentPage + 1)">></a>
+        <div ng-hide="source === 'cat' && selected_cat === -1" style="overflow: auto;">
+            <ul ng-if="view === 'thumb'" id="library-miniature">
+                <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage * pageSize | limitTo:pageSize">
+                    <div><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}" style="width: 100%;"></div>
+                    <img src="images/pictos/check-gris.png" style="width: 15px; height: 15px; margin-right: 10px;"><span>{{image.name}}</span><a style="float: right; cursor: pointer;" ng-click="deleteImage(image.id)"><img src="images/pictos/fermer.png" style="width: 15px; height: 15px;"></a>
+                    <!--<p>Description : {{image.description}}</p>-->                
+                </li>
+            </ul>       
+            <ul ng-if="view === 'list'" id="library-list">
+                <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage * pageSize | limitTo:pageSize">
+                    <div class="check-image"><img src="images/pictos/check-gris.png" style="width: 15px; height: 15px; margin-right: 10px;"></div>
+                    <div class="miniature-image"><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}"></div>
+                    <div class="infos-image">
+                        <h3>{{image.name}}</h3><h3 style="float: right; text-align: right;">{{image.credits}}</h3>
+                        <p>{{image.description}}</p>
+                        <div class="actions-image">
+                            <a style="float: left; cursor: pointer;" ng-click=""><span>Modifier</span></a>
+                            <a style="float: left; cursor: pointer; margin-left: 20px;" ng-click="deleteImage(image.id)"><span>Supprimer</span></a>              
+                            <a style="float: right; cursor: pointer;" ng-click=""><span>Sélectionner</span></a>              
+                        </div>
+                    </div>                
+                </li>
+            </ul>
+            <div id="library-paginate">
+                <div ng-show="numberOfPages() > 0">
+                    Pages : 
+                    <a href="#" class="link" ng-show="currentPage > 0" ng-click="currentPage = (currentPage - 1)"><</a>
+                    {{currentPage + 1}}/{{numberOfPages()}}
+                    <a href="#" class="link" ng-show="currentPage < (numberOfPages() - 1)" ng-click="currentPage = (currentPage + 1)">></a>
+                </div>
             </div>
         </div>
     </div>
-    <div id="library-add-popup" class="" ng-show="showPopupAdd">
-        <div class="sheet-fade" ng-click="togglePopupAdd()"></div>
-        <div class="sheet-content">
-            <h2>Ajout d'une image</h2>
-            <div id="library-form-add">
-                <p>
-                    <label for="library-form-add-name">Nom :</label>
-                    <input type="text" name="name" ng-model="name" id="library-form-add-name">
-                </p>
-                <p>
-                    <label for="library-form-add-description">Description :</label>
-                    <input type="text" name="description" ng-model="description" id="library-form-add-description">
-                </p>
-                <p>
-                    <label for="library-form-add-credits">Cr&eacute;dits :</label>
-                    <input type="text" name="credits" ng-model="credits" id="library-form-add-credits">
-                </p>
-                <p>
-                    <label for="library-form-add-image">Votre image :</label>
-                    <input type="file" accept="image/*" name="image" id="library-form-add-image" onchange="angular.element(this).scope().setFile(this)">
-                </p>
-                <p>
-                    <button ng-click="startUpload()">Ajouter</button>
-                </p>
-            </div>
-            <br>
-            <button ng-click="togglePopupAdd()">Fermer</button>
-        </div>
-    </div>
+    <button ng-click="togglePictureSelect()">X</button>
 </div>

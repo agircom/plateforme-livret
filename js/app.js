@@ -186,14 +186,15 @@
         }
     ]);
 
-    FeaderApp.run(['$rootScope', '$location', 'UserSvc',
-        function($rootScope, $location, UserSvc) {
+    FeaderApp.run(['$rootScope', '$location', 'UserSvc', 'browser',
+        function($rootScope, $location, UserSvc, browser) {
 
             $rootScope.layout = {
                 requireMenu: false,
                 showTooltips: false,
                 needFolioToolbar: false,
-                menuShow: true
+                menuShow: true,
+                crossBrowser: browser()
             };
 
             UserSvc.restoreSession();
@@ -202,7 +203,7 @@
             $rootScope.toggleShowMenu = function() {
                 $rootScope.layout.menuShow = !$rootScope.layout.menuShow;
             };
-
+            
             $rootScope.$on('$routeChangeStart', function(event, next, current) {
                 if (next.requireLogin && !UserSvc.isLogged()) {
                     $rootScope.layout.requireMenu = false;

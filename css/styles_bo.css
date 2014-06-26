@@ -547,6 +547,11 @@ h1.titre1fond-folio-pf{
     zoom: 2;
 }
 }
+@media screen and (min-width: 1900px) {
+.cfpffullscreen {
+    zoom: 2.5;
+}
+}
 .menuHidden{
     width: 750px;
     height: 1061px;

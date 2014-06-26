@@ -488,34 +488,65 @@ h1.titre1fond-folio-pf{
     z-index: 10;
     left: 0;
     top: 40px;
-    margin: 0;
+    margin: 0;      
 }
 .cfpffullscreen {
     position: absolute;
     z-index: 100;
     left: 30px;
     top: 65px;
-    font-size: 160%;
+    /* font-size: 160%; */
     margin: 0;
-    width: 86%;
-    height: 100%;
+    /* width: 86%; */
+    zoom: 2;
+    /* height: 100%; */
 }
 
 .rfpffullscreen{
-    width: 10%;
+    /* width: 10%; */
+    /* zoom: 1.8; */
 }
 
-@media screen and (max-width: 1440px) {
+/*@media screen and (max-width: 1440px) {
   .rfpffullscreen {
     width: 13%;
   }
   .cfpffullscreen {
-    width: 80%;
+     width: 80%;
   
-    height: 100%;
+     height: 100%; 
+    zoom: 1.2;
+}
+}*/
+@media screen and (min-width: 640px) {
+.cfpffullscreen {
+    zoom: 1;
+}
+@media screen and (min-width: 800px) {
+.cfpffullscreen {
+    zoom: 1.2;
 }
 }
-
+@media screen and (min-width: 1024px) {
+.cfpffullscreen {
+    zoom: 1.4;
+}
+}
+@media screen and (min-width: 1280px) {
+.cfpffullscreen {
+    zoom: 1.6;
+}
+}
+@media screen and (min-width: 1400px) {
+.cfpffullscreen {
+    zoom: 1.8;
+}
+}
+@media screen and (min-width: 1600px) {
+.cfpffullscreen {
+    zoom: 2;
+}
+}
 .menuHidden{
     width: 750px;
     height: 1061px;
@@ -536,8 +567,9 @@ h1.titre1fond-folio-pf{
 }
 
 .pochetteshow[class~="cfpffullscreen"] {
-    width: 82%;
-    height: 100%;
+    /* width: 82%; */
+    /* height: 100%; */
+    /* zoom: 2.4; */
 }
 
 .agendashow{
@@ -551,8 +583,8 @@ h1.titre1fond-folio-pf{
 }
 
 .agendashow[class~="cfpffullscreen"] {
-    width: 83%;
-    height: 100%;
+    /*width: 83%;
+    height: 100%;*/
 }
 /* library liste*/
 #library-list li{

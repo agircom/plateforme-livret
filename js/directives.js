@@ -59,6 +59,59 @@ FeaderAppDirectives.directive('ngEditable', [function() {
                 element.attr('contenteditable', true);
                 element.addClass('ng-editable-marker');
                 element.on('focus', function(e, ui) {
+                    $('#ng-editable-toolbox-size').off('change');
+                    $('#ng-editable-toolbox-color').off('change');
+                    $('.ng-editable-toolbox:not(#ng-editable-toolbox)').remove();
+                    // copy template toolbox and move next to element
+                    var toolbox = $('#ng-editable-toolbox').clone().removeAttr('id');
+                    toolbox.insertAfter(element);
+
+                    // place it
+                    toolbox.css({
+                        left: element.offset().left,
+                        top: element.offset().top + element.height,
+                        'margin-top': '-' + (element.css('margin-bottom'))
+                    });
+                    // show it
+                    toolbox.show();
+
+                    // event close
+                    toolbox.find('.ng-editable-toolbox-cancel').on('click', function() {
+                        toolbox.remove();
+                    });
+                    element.on('focusout', function(e, ui) {
+//                        toolbox.remove();
+                    });
+
+                    toolbox.find('.ng-editable-toolbox-size').val(element.css('font-size'));
+                    toolbox.find('.ng-editable-toolbox-size').on('change', function(e) {
+                        element.css('font-size', $(this).val());
+                        scope.updateModel();
+                    });
+//
+                    toolbox.find('.ng-editable-toolbox-color').css('background-color', element.css('color'));
+                    toolbox.find('.ng-editable-toolbox-color').val(element.css('color'));
+                    toolbox.find('.ng-editable-toolbox-color').on('change', function() {
+                        element.css('color', $(this).val());
+                        toolbox.find('.ng-editable-toolbox-color').css('background-color', $(this).val());
+                        scope.updateModel();
+                    });
+//
+                    scope.$apply(function() {
+                        scope.toggleNgEditableToolbox(true);
+                    });
+                });
+            }
+        };
+    }
+]);
+FeaderAppDirectives.directive('ngEditable.bak', [function() {
+        return {
+            restrict: 'AEC',
+            link: function(scope, element, attrs) {
+                element.attr('contenteditable', true);
+                element.addClass('ng-editable-marker');
+                element.on('focus', function(e, ui) {
 //                    $('#ng-editable-toolbox').detach().appendTo(element);
                     $('#ng-editable-toolbox-size').off('change');
                     $('#ng-editable-toolbox-color').off('change');

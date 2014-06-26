@@ -33,7 +33,7 @@ FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'User
                         $scope.loginInProgress = false;
                         switch (UserSvc.getPermissions()) {
                             case 1:
-                                $location.path('/plateforme');
+//                                $location.path('/plateforme');
                                 break;
                             case 2:
                                 $location.path('/admin');

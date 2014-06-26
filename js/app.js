@@ -168,7 +168,6 @@
     var FeaderApp = angular.module('FeaderApp', [
         'ngRoute',
         'ngSanitize',
-//        'ngFitText',
         'FeaderApp.Controllers',
         'FeaderApp.Directives',
         'FeaderApp.Services',

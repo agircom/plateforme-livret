@@ -1,77 +1,90 @@
-<div id="booklet-create">
-    <div class="titre-creer-livret">
+<div ng-show="booklets.length === 0" id="booklet-create-first">
+    <div class="titre-creer-first-livret">
         <h2>Creer mon livret maintenant<img src="images/pictos/mes-livrets.png" style="padding-left: 5px;" alt="mes-livrets" title="Mes livrets"/></h2>        
     </div>
-    <div class="form-creer-livret">
+    <div class="form-creer-first-livret">
         <div ng-if="error !== ''" ng-bind="error" style="color: red"></div>
-        <label for="booklet-create-name">Nom de mon livret</label>
-        <input type="text" id="booklet-create-name" ng-model="newBookName" ng-trim="true" placeholder="Entrez le nom de votre livret" ng-keypress="($event.keyCode === 13) ? createBooklet() : null">
+        <label for="booklet-create-first-name">Nom de mon livret</label>
+        <input type="text" id="booklet-create-first-name" ng-model="newBookName" ng-trim="true" placeholder="Entrez le nom de votre livret" ng-keypress="($event.keyCode === 13) ? createBooklet() : null">
         <a href="#" link ng-click="createBooklet()">OK</a>
     </div>
 </div>
-<ul id="booklets-list">
-    <li style="overflow-x: auto; padding-bottom: 10px; border-bottom: 3px solid #b3b3b3; margin-bottom: 10px;" ng-repeat="booklet in booklets| orderBy:'name'">
-        <div class="booklet-list-header">
-            <a style="font-size:18px;" href="#" onclick="return false;" ng-click="selectBooklet(booklet.id)">
-                {{booklet.name}}
-            </a>
-            <a style="font-size:12px; float:right; text-decoration: underline; text-transform: none;" href="#" onclick="return false;" ng-click="deleteBooklet(booklet.id)">
-                Supprimer<img src="images/supprimer.png" style="margin-left:5px;" width="32" height="32" alt="Supprimer" title="Supprimer"/>               
-            </a>
-            <a style="font-size:12px; float:right; margin-right:10px; text-decoration: underline; text-transform: none;" href="#" onclick="return false;" ng-click="duplicateBooklet(booklet.id)">
-                Dupliquer<img src="images/dupliquer.png" style="margin-left:5px;" width="32" height="32" alt="dupliquer" title="Dupliquer"/>                
-            </a>
+<div ng-hide="booklets.length === 0">
+    <div id="booklet-create">
+        <div class="titre-creer-livret">
+            <h2>Creer mon livret maintenant<img src="images/pictos/mes-livrets.png" style="padding-left: 5px;" alt="mes-livrets" title="Mes livrets"/></h2>        
         </div>
-        <div class="booklet-list-body" ng-show="booklet.id === selectedBooklet">
-            <div style="background-color: #fff; width:100%;">
-                <h2 style="text-align: center;">Télécharger vos images depuis la photothèque avant de commencer votre livret</h2>
-            <div class="pochette folio">
-                <h3> > La Pochette</h3>
-                <img src="images/pochette2.png" alt="phototheque" title="Photothèque"/>
-                <button ng-if="booklet.folios.pochette === undefined" ng-click="createFolio(booklet.id, 'pochette')">Commencer maintenant</button>
-                <button style="background-color: #e47d0a" ng-if="booklet.folios.pochette !== undefined" ng-click="editFolio(booklet.id, booklet.folios.pochette)">Modifier</button>
-                <br>
-                <span>Pochette Format A3<br>
-                    (recto/verso)</span>
-            </div>
-            <div class="folio">
-                <h3> > La présentation du territoire</h3>
-                <img src="images/folio2.png" alt="phototheque" title="Photothèque"/>
-                <button ng-if="booklet.folios.territoire === undefined" ng-click="createFolio(booklet.id, 'territoire')">Commencer maintenant</button>
-                <button style="background-color: #e47d0a" ng-if="booklet.folios.territoire !== undefined" ng-click="editFolio(booklet.id, booklet.folios.territoire)">Modifier</button>
-                <br>
-                <span>1 Feuillet Format A4<br>
-                    (recto/verso)</span>
-            </div>
-            <div class="folio">
-                <h3> > L'Offre locale</h3>
-                <img src="images/folio2.png" alt="phototheque" title="Photothèque"/>
-                <button ng-if="booklet.folios.locale === undefined" ng-click="createFolio(booklet.id, 'locale')">Commencer maintenant</button>
-                <button style="background-color: #e47d0a" ng-if="booklet.folios.locale !== undefined" ng-click="editFolio(booklet.id, booklet.folios.locale)">Modifier</button>
-                <br>
-                <span>Feuillet Format A4<br>
-                    (recto/verso)<br>
-                    Quantité: suivant contenu</span>
-            </div>
-            <div class="folio">
-                <h3> > Les règles pour bien vivre ensemble</h3>
-                <img src="images/folio2.png" alt="phototheque" title="Photothèque"/>
-                <button ng-if="booklet.folios.ensemble === undefined" ng-click="createFolio(booklet.id, 'ensemble')">Commencer maintenant</button>
-                <button style="background-color: #e47d0a" ng-if="booklet.folios.ensemble !== undefined" ng-click="editFolio(booklet.id, booklet.folios.ensemble)">Modifier</button>
-                <br>
-                <span>1 Feuillet Format A4<br>
-                    (recto/verso)</span>
-            </div>
-            <div class="folio">
-                <h3> > L'agenda</h3>
-                <img src="images/folio2.png" alt="phototheque" title="Photothèque"/>
-                <button ng-if="booklet.folios.agenda === undefined" ng-click="createFolio(booklet.id, 'agenda')">Commencer maintenant</button>
-                <button style="background-color: #e47d0a" ng-if="booklet.folios.agenda !== undefined" ng-click="editFolio(booklet.id, booklet.folios.agenda)">Modifier</button>
-                <br>
-                <span>1 Feuillet Format A4<br>
-                    (recto/verso)</span>
-            </div>
-            </div>
+        <div class="form-creer-livret">
+            <div ng-if="error !== ''" ng-bind="error" style="color: red"></div>
+            <label for="booklet-create-name">Nom de mon livret</label>
+            <input type="text" id="booklet-create-name" ng-model="newBookName" ng-trim="true" placeholder="Entrez le nom de votre livret" ng-keypress="($event.keyCode === 13) ? createBooklet() : null">
+            <a href="#" link ng-click="createBooklet()">OK</a>
         </div>
-    </li>
-</ul>
+    </div>
+    <ul id="booklets-list">
+        <li style="overflow-x: auto; padding-bottom: 10px; border-bottom: 3px solid #b3b3b3; margin-bottom: 10px;" ng-repeat="booklet in booklets| orderBy:'name'">
+            <div class="booklet-list-header">
+                <a style="font-size:18px;" href="#" onclick="return false;" ng-click="selectBooklet(booklet.id)">
+                    {{booklet.name}}
+                </a>
+                <a style="font-size:12px; float:right; text-decoration: underline; text-transform: none;" href="#" onclick="return false;" ng-click="deleteBooklet(booklet.id)">
+                    Supprimer<img src="images/supprimer.png" style="margin-left:5px;" width="32" height="32" alt="Supprimer" title="Supprimer"/>               
+                </a>
+                <a style="font-size:12px; float:right; margin-right:10px; text-decoration: underline; text-transform: none;" href="#" onclick="return false;" ng-click="duplicateBooklet(booklet.id)">
+                    Dupliquer<img src="images/dupliquer.png" style="margin-left:5px;" width="32" height="32" alt="dupliquer" title="Dupliquer"/>                
+                </a>
+            </div>
+            <div class="booklet-list-body" ng-show="booklet.id === selectedBooklet">
+                <div style="background-color: #fff; width:100%;">
+                    <h2 style="text-align: center;">Télécharger vos images depuis la photothèque avant de commencer votre livret</h2>
+                    <div class="pochette folio">
+                        <h3> > La Pochette</h3>
+                        <img src="images/pochette2.png" alt="phototheque" title="Photothèque"/>
+                        <button ng-if="booklet.folios.pochette === undefined" ng-click="createFolio(booklet.id, 'pochette')">Commencer maintenant</button>
+                        <button style="background-color: #e47d0a" ng-if="booklet.folios.pochette !== undefined" ng-click="editFolio(booklet.id, booklet.folios.pochette)">Modifier</button>
+                        <br>
+                        <span>Pochette Format A3<br>
+                            (recto/verso)</span>
+                    </div>
+                    <div class="folio">
+                        <h3> > La présentation du territoire</h3>
+                        <img src="images/folio2.png" alt="phototheque" title="Photothèque"/>
+                        <button ng-if="booklet.folios.territoire === undefined" ng-click="createFolio(booklet.id, 'territoire')">Commencer maintenant</button>
+                        <button style="background-color: #e47d0a" ng-if="booklet.folios.territoire !== undefined" ng-click="editFolio(booklet.id, booklet.folios.territoire)">Modifier</button>
+                        <br>
+                        <span>1 Feuillet Format A4<br>
+                            (recto/verso)</span>
+                    </div>
+                    <div class="folio">
+                        <h3> > L'Offre locale</h3>
+                        <img src="images/folio2.png" alt="phototheque" title="Photothèque"/>
+                        <button ng-if="booklet.folios.locale === undefined" ng-click="createFolio(booklet.id, 'locale')">Commencer maintenant</button>
+                        <button style="background-color: #e47d0a" ng-if="booklet.folios.locale !== undefined" ng-click="editFolio(booklet.id, booklet.folios.locale)">Modifier</button>
+                        <br>
+                        <span>Feuillet Format A4<br>
+                            (recto/verso)<br>
+                            Quantité: suivant contenu</span>
+                    </div>
+                    <div class="folio">
+                        <h3> > Les règles pour bien vivre ensemble</h3>
+                        <img src="images/folio2.png" alt="phototheque" title="Photothèque"/>
+                        <button ng-if="booklet.folios.ensemble === undefined" ng-click="createFolio(booklet.id, 'ensemble')">Commencer maintenant</button>
+                        <button style="background-color: #e47d0a" ng-if="booklet.folios.ensemble !== undefined" ng-click="editFolio(booklet.id, booklet.folios.ensemble)">Modifier</button>
+                        <br>
+                        <span>1 Feuillet Format A4<br>
+                            (recto/verso)</span>
+                    </div>
+                    <div class="folio">
+                        <h3> > L'agenda</h3>
+                        <img src="images/folio2.png" alt="phototheque" title="Photothèque"/>
+                        <button ng-if="booklet.folios.agenda === undefined" ng-click="createFolio(booklet.id, 'agenda')">Commencer maintenant</button>
+                        <button style="background-color: #e47d0a" ng-if="booklet.folios.agenda !== undefined" ng-click="editFolio(booklet.id, booklet.folios.agenda)">Modifier</button>
+                        <br>
+                        <span>1 Feuillet Format A4<br>
+                            (recto/verso)</span>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

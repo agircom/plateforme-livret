@@ -60,8 +60,14 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', 'ApiSvc',
                             _self.updateInfos(cbSuccess, cbError);
                         })
                         .error(function(data, status) {
-                            if (typeof cbError === 'function')
-                                cbError(data, status);
+                            if (status === 401) {
+                                Logout(function() {
+                                    $location.path('/home');
+                                });
+                            } else {
+                                if (typeof cbError === 'function')
+                                    cbError(data, status);
+                            }
                         });
             },
             Logout: function(callback) {
@@ -103,8 +109,14 @@ FeaderAppServices.factory('UserSvc', ['$rootScope', '$location', 'ApiSvc',
                                 cbSuccess(data, status);
                         })
                         .error(function(data, status) {
-                            if (typeof cbError === 'function')
-                                cbError(data, status);
+                            if (status === 401) {
+                                _self.Logout(function() {
+                                    $location.path('/home');
+                                });
+                            } else {
+                                if (typeof cbError === 'function')
+                                    cbError(data, status);
+                            }
                         });
             },
             getCompleteName: function() {

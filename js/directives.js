@@ -210,6 +210,7 @@ FeaderAppDirectives.directive('ngPictureSelect', ['LibrarySvc', function(Library
                     console.log('ngPictureSelect error: element type should be <img>');
                     return;
                 }
+                element.css('cursor','pointer');
                 element.on('dblclick', function() {
                     scope.$apply(function() {
                         scope.togglePictureSelect();

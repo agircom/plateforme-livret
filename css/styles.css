@@ -81,7 +81,7 @@ body {
 html {
     min-width: 1024px;}
 html,body {
-    height:100%;
+    /* height:100%; */
 }
 .message_success {
     color: #8fa11f;

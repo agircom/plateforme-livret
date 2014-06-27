@@ -1,14 +1,14 @@
-    <div class="menu-folio">
-         <img src="images/logo-menu-folio.png" alt="logo" title="Retour à l'accueil"/>
-        <ul>
-         <li><a href="#" onclick="return false;" class="ng-marker-toggle ng-tooltip" title="Masque les reperes de l'edition"><img src="images/pictos/reperes.png" alt="reperes" title="Masquer les repères"/></a></li>
-         <li><a href="#"><img src="images/pictos/aperçu.png" alt="aperçu" title="Aperçu"/></a></li>
-         <li><a class="ng-tooltip" ng-click="toggleFullScreen()" title="Passer en edition plein ecran"><img src="images/pictos/fullscreen.png" alt="fullscreen" title="Afficher en plein écran"/></a></li>
-         <li><a href="#" onclick="return false;" ng-click="save()"><img src="images/pictos/enregistrer.png" alt="Enregistrer" title="Enregistrer"/></a></li>
-         <li><a class="ng-tooltip" title="Exporter PDF" ng-href="api/booklet/{{booklet_id}}/folio/{{folio_id}}/export"><img src="images/pictos/exporter.png" alt="Exporter" title="Exporter"/></a></li>
-         <li><a class="ng-tooltip" ng-click="toggleTooltips()"><img src="images/pictos/aide-faq.png" alt="Aide" title="Aide"/></a></li>
-         <li>
-             <div ng-if="User.isLogged()" id="userPannel"> 
+<div class="menu-folio">
+    <img src="images/logo-menu-folio.png" alt="logo" title="Retour à l'accueil"/>
+    <ul>
+        <li><a href="#" onclick="return false;" class="ng-marker-toggle ng-tooltip" title="Masque les reperes de l'edition"><img src="images/pictos/reperes.png" alt="reperes" title="Masquer les repères"/></a></li>
+        <li><a href="#"><img src="images/pictos/aperçu.png" alt="aperçu" title="Aperçu"/></a></li>
+        <li><a class="ng-tooltip" ng-click="toggleFullScreen()" title="Passer en edition plein ecran"><img src="images/pictos/fullscreen.png" alt="fullscreen" title="Afficher en plein écran"/></a></li>
+        <li><a href="#" onclick="return false;" ng-click="save()"><img src="images/pictos/enregistrer.png" alt="Enregistrer" title="Enregistrer"/></a></li>
+        <li><a class="ng-tooltip" title="Exporter PDF" ng-href="api/booklet/{{booklet_id}}/folio/{{folio_id}}/export"><img src="images/pictos/exporter.png" alt="Exporter" title="Exporter"/></a></li>
+        <li><a class="ng-tooltip" ng-click="toggleTooltips()"><img src="images/pictos/aide-faq.png" alt="Aide" title="Aide"/></a></li>
+        <li>
+            <div ng-if="User.isLogged()" id="userPannel"> 
                 <div class="namePannel" style="float: left;">
                     <img src="images/pictos/login.png" alt="login" title="Login" style="margin: 2px 10px;" />
                     <h3>{{User.getCompleteName()}}</h3>
@@ -17,15 +17,15 @@
                     <span><a href="#" onclick="return false;" ng-click="logout()"><img src="images/pictos/se-deconnecter.png" alt="se-deconnecter" title="Se déconnecter" style="vertical-align: middle"/></a></span>
                 </div>
             </div>
-         </li>
-        </ul>
-    </div>
+        </li>
+    </ul>
+</div>
 <div ng-if="folio !== null" class="fond-folio-pf" ng-class="{fullscreen: showFullscreen}">
     <h1 class="titre1fond-folio-pf">
         <img style="vertical-align: middle; padding-right:5px;" src="images/titre-folio.png" width="32" height="32" alt="Supprimer" title="Supprimer"/>
         {{folio.type}} - {{booklet.name}}
     </h1>
-        <div style="width:100%; display:inline-block;">
+    <div style="width:100%; display:inline-block;">
         <div class="cadre-folio-pf" id="drawboard" compile="folio.ownPage[selected_page].content" ng-class="{cfpffullscreen: showFullscreen, menuHidden: (layout.menuShow === false), pochetteshow: (folio.type === 'pochette'), agendashow: (folio.type === 'agenda')}"></div>
         <div class="right-folio-pf" ng-class="{rfpffullscreen: showFullscreen}">
             <div class="help-folio-pf">
@@ -77,7 +77,7 @@
                     <!--<a href="#" onclick="return false;" class="ng-marker-toggle">Masquer les reperes</a>-->
                 </div>
                 <p style=margin-bottom:5px;">Vous avez terminé votre document.<br>
-                Exporter le sur votre ordinateur au format pdf</p>
+                    Exporter le sur votre ordinateur au format pdf</p>
                 <a class="ng-tooltip" title="Exporter PDF" ng-href="api/booklet/{{booklet_id}}/folio/{{folio_id}}/export">
                     <img style="vertical-align: middle;" src="images/pictos/exporter.png" alt="Exporter" title="Exporter"/>
                     <span>Exporter</span>
@@ -100,9 +100,53 @@
         </div>
     </div>
 </div>
+
 <div ng-show="showPictureSelector" ng-include="'partials/backoffice/picture-select.html'"></div>
+
 <div id="ng-editable-toolbox" class="ng-editable-toolbox" style="display: none;">
-    <select class="ng-editable-toolbox-size">
+    <div class="ng-editable-toolbox-cadre">
+        <div class="ng-editable-toolbox-color-button">
+            <img src="images/toolbox-color-palette.png" title="palette de couleur" alt="palette de couleur">
+        </div>
+        <div class="ng-editable-toolbox-size-button">
+            <img src="images/toolbox-size-majuscule.png" title="palette de texte" alt="palette de texte">
+        </div>
+        <div class="ng-editable-toolbox-chars">
+            <label>Caractères restants</label>
+            <input type="text" disabled>
+        </div>
+    </div>
+    <div class="ng-editable-toolbox-color-submenu">
+        <div class="ng-editable-toolbox-color-carre">
+            <img src="images/toolbox-color-carre-orange.png" title="orange" alt="orange">
+            <input type="hidden" value="#e27d09">
+        </div>
+        <div class="ng-editable-toolbox-color-carre">
+            <img src="images/toolbox-color-carre-violet.png" title="violet" alt="violet">
+            <input type="hidden" value="#7a1b7f">
+        </div>
+        <div class="ng-editable-toolbox-color-carre">
+            <img src="images/toolbox-color-carre-turquoise.png" title="turquoise" alt="turquoise">
+            <input type="hidden" value="#00a194">
+        </div>
+        <div class="ng-editable-toolbox-color-carre">
+            <img src="images/toolbox-color-carre-vert.png" title="vet" alt="vert">
+            <input type="hidden" value="#94a620">
+        </div>
+        <div class="ng-editable-toolbox-color-carre">
+            <img src="images/toolbox-color-carre-marron.png" title="marron" alt="marron">
+            <input type="hidden" value="#824518">
+        </div>
+        <div class="ng-editable-toolbox-color-carre">
+            <img src="images/toolbox-color-carre-gris.png" title="gris" alt="gris">
+            <input type="hidden" value="#666666">
+        </div>
+        <div class="ng-editable-toolbox-color-carre">
+            <img src="images/toolbox-color-carre-noir.png" title="noir" alt="noir">
+            <input type="hidden" value="#19171c">
+        </div>
+    </div>
+<!--    <select class="ng-editable-toolbox-size">
         <option value="8px">8</option>
         <option value="9px">9</option>
         <option value="10px">10</option>
@@ -115,16 +159,14 @@
         <option value="28px">28</option>
         <option value="32px">32</option>
     </select>
+
     <select class="ng-editable-toolbox-color" style="background-color: rgb(0, 0, 0);">
         <option value="rgb(0, 0, 0)" style="background-color: rgb(0, 0, 0)" selected="selected">&nbsp;&nbsp;</option>
         <option value="rgb(229, 126, 12)" style="background-color: rgb(229, 126, 12);">&nbsp;&nbsp;</option>
         <option value="rgb(0, 162, 149)" style="background-color: rgb(0, 162, 149);">&nbsp;&nbsp;</option>
         <option value="rgb(122, 27, 127)" style="background-color: rgb(122, 27, 127);">&nbsp;&nbsp;</option>
         <option value="rgb(149, 167, 31)" style="background-color: rgb(149, 167, 31);">&nbsp;&nbsp;</option>
-    </select>
-    <div class="ng-editable-toolbox-chars">
-        <label>Caractères restants</label>
-        <input type="text" disabled>
-    </div>
-    <button class="ng-editable-toolbox-cancel">&cross;</button>
+    </select>-->
+
+    <!--<button class="ng-editable-toolbox-cancel">&cross;</button>-->
 </div>       

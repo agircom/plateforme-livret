@@ -89,11 +89,13 @@ FeaderAppDirectives.directive('ngEditable', [function() {
                     });
 
                     // tool color
-                    toolbox.find('.ng-editable-toolbox-color').css('background-color', element.css('color'));
-                    toolbox.find('.ng-editable-toolbox-color').val(element.css('color'));
-                    toolbox.find('.ng-editable-toolbox-color').on('change', function() {
-                        element.css('color', $(this).val());
-                        toolbox.find('.ng-editable-toolbox-color').css('background-color', $(this).val());
+                    toolbox.find('.ng-editable-toolbox-color-button').on('click', function() {
+                        toolbox.find('.ng-editable-toolbox-color-submenu').toggle();
+                    });
+                    
+                    toolbox.find('.ng-editable-toolbox-color-carre').on('click', function() {
+                        element.css('color', $(this).find('input').val());
+                        toolbox.find('.ng-editable-toolbox-color-submenu').hide();
                         scope.updateModel();
                     });
 
@@ -210,7 +212,7 @@ FeaderAppDirectives.directive('ngPictureSelect', ['LibrarySvc', function(Library
                     console.log('ngPictureSelect error: element type should be <img>');
                     return;
                 }
-                element.css('cursor','pointer');
+                element.css('cursor', 'pointer');
                 element.on('dblclick', function() {
                     scope.$apply(function() {
                         scope.togglePictureSelect();

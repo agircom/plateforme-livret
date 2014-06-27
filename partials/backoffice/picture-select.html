@@ -32,7 +32,7 @@
     </div>
     <div ng-hide="source === 'cat' && selected_cat === -1" style="overflow: auto;">
         <ul style="overflow: auto;" ng-if="view === 'thumb'" id="library-miniature">
-            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage*pageSize | limitTo:pageSize" ng-dblclick="selectImage(image.filename)">
+            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage*pageSize | limitTo:pageSize" ng-dblclick="selectImage(image.filename, source)">
                 <div><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}" style="max-width: 95%; max-height: 95%"></div>
                 <span>{{image.name}}</span>
                 <a href="#" class="link" ng-if="source === 'own'" style="float: right; cursor: pointer;" ng-click="deleteImage(image.id)"><img src="images/pictos/fermer.png" alt="Supprimer" title="Supprimer" style="width: 15px; height: 15px;"></a>
@@ -41,7 +41,7 @@
             </li>
         </ul>       
         <ul ng-if="view === 'list'" id="library-list">
-            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage*pageSize | limitTo:pageSize"  ng-dblclick="selectImage(image.filename)">
+            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage*pageSize | limitTo:pageSize"  ng-dblclick="selectImage(image.filename, source)">
                 <div class="miniature-image"><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}"></div>
                 <div class="infos-image">
                     <h3>{{image.name}}</h3><h3 style="float: right; text-align: right;">{{image.credits}}</h3>

@@ -720,8 +720,8 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         $scope.togglePictureSelect = function() {
             $scope.showPictureSelector = !$scope.showPictureSelector;
         };
-        $scope.selectImage = function(filename) {
-            $scope.imageSelected = 'images/uploaded/' + filename;
+        $scope.selectImage = function(filename, source) {
+            $scope.imageSelected = (source === 'own') ? 'images/uploaded/' + filename : 'images/library/' + filename;
             $scope.showPictureSelector = false;
         };
         $scope.toggleFullScreen = function() {

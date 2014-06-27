@@ -554,8 +554,8 @@ h1.titre1fond-folio-pf{
 @-moz-document url-prefix()
 {
     .cfpffullscreen {
-    top: 340px;
-    left: 80px;
+    left: 5%;
+    top: 70%;
     }
 }
 

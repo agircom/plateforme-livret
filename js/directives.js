@@ -52,7 +52,7 @@ FeaderAppDirectives.directive('ngLocked', [function() {
     }
 ]);
 
-FeaderAppDirectives.directive('ngEditable', [function() {
+FeaderAppDirectives.directive('ngEditable', ['ToolSvc', function(ToolSvc) {
         return {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
@@ -81,22 +81,45 @@ FeaderAppDirectives.directive('ngEditable', [function() {
                         toolbox.remove();
                     });
 
-                    // tool size
-                    toolbox.find('.ng-editable-toolbox-size').val(element.css('font-size'));
-                    toolbox.find('.ng-editable-toolbox-size').on('change', function(e) {
-                        element.css('font-size', $(this).val());
-                        scope.updateModel();
-                    });
-
                     // tool color
                     toolbox.find('.ng-editable-toolbox-color-button').on('click', function() {
+                        toolbox.find('.ng-editable-toolbox-font-submenu').hide();
                         toolbox.find('.ng-editable-toolbox-color-submenu').toggle();
                     });
-                    
+
                     toolbox.find('.ng-editable-toolbox-color-carre').on('click', function() {
                         element.css('color', $(this).find('input').val());
                         toolbox.find('.ng-editable-toolbox-color-submenu').hide();
                         scope.updateModel();
+                    });
+
+
+                    // tool font
+                    toolbox.find('.ng-editable-toolbox-font-button').on('click', function() {
+                        toolbox.find('.ng-editable-toolbox-color-submenu').hide();
+                        toolbox.find('.ng-editable-toolbox-font-submenu').toggle();
+                    });
+                    toolbox.find('.ng-editable-toolbox-font-normal').on('click', function() {
+                        toolbox.find('.ng-editable-toolbox-font-submenu').toggle();
+                        element.css('font', 'normal');
+                        element.css('text-decoration', 'none');
+                    });
+                    toolbox.find('.ng-editable-toolbox-font-gras').on('click', function() {
+                        toolbox.find('.ng-editable-toolbox-font-submenu').toggle();
+                        element.css('font-weight', 'bold');
+                    });
+                    toolbox.find('.ng-editable-toolbox-font-italique').on('click', function() {
+                        toolbox.find('.ng-editable-toolbox-font-submenu').toggle();
+                        element.css('font-style', 'italic');
+                    });
+                    toolbox.find('.ng-editable-toolbox-font-gras-italique').on('click', function() {
+                        toolbox.find('.ng-editable-toolbox-font-submenu').toggle();
+                        element.css('font-weight', 'bold');
+                        element.css('font-style', 'italic');
+                    });
+                    toolbox.find('.ng-editable-toolbox-font-souligne').on('click', function() {
+                        toolbox.find('.ng-editable-toolbox-font-submenu').toggle();
+                        element.css('text-decoration', 'underline');
                     });
 
                     // tool chars
@@ -120,21 +143,6 @@ FeaderAppDirectives.directive('ngEditable', [function() {
                     element.keypress(function(e) {
                         calcChars(e);
                     });
-
-//                    element.on('keypress', function(e) {
-//                        if (element.html().length > maxLength) {
-//                            e.preventDefault();
-//                        } else {
-//                            toolbox.find('.ng-editable-toolbox-chars').find('input').val(maxLength - element.html().length);
-//                        }
-//                    });
-//                    element.on('DOMNodeInserted DOMNodeRemoved', function(e) {
-//                        if (element.html().length > maxLength) {
-//                            e.preventDefault();
-//                        } else {
-//                            toolbox.find('.ng-editable-toolbox-chars').find('input').val(maxLength - element.html().length);
-//                        }
-//                    });
 
                     // show it
                     toolbox.show();

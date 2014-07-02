@@ -170,10 +170,16 @@ FeaderAppControllers.controller('CommonCtrl.LibraryCats', ['$scope', 'LibrarySvc
         };
     }
 ]);
-FeaderAppControllers.controller('HomeCtrl.Home', ['$scope', '$location',
-    function($scope, $location) {
+FeaderAppControllers.controller('HomeCtrl.Home', ['$scope', '$location', 'UserSvc',
+    function($scope, $location, UserSvc) {
         $scope.goto = function(target) {
-            $location.path('/plateforme/' + target);
+            if (!UserSvc.isLogged()) {
+                alert('Pour accéder à la trousse à outils, merci de vous identifier ou de créer un compte');
+            } else if (UserSvc.getPermissions() === 2) {
+                alert('Pour accéder à la trousse à outils, merci de créer un compte utilisateur');
+            } else {
+                $location.path('/plateforme/' + target);
+            }
         };
     }
 ]);

@@ -434,12 +434,14 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
     function($scope, $routeParams, $location, BookletSvc) {
         $scope.newBookName = '';
         $scope.booklets = null;
+        $scope.loading = false;
         $scope.selectedBooklet = false;
         if (typeof $routeParams.booklet_focus !== undefined) {
             $scope.selectedBooklet = parseInt($routeParams.booklet_focus);
         }
         $scope.error = '';
         $scope.reload = function() {
+            $scope.loading = true;
             BookletSvc.getAll().success(function(data) {
                 if (data.booklets !== false) {
                     $scope.booklets = data.booklets;
@@ -456,6 +458,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
                         }
                     }
                 }
+                $scope.loading = false;
             });
         };
         $scope.createBooklet = function() {

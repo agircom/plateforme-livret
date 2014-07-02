@@ -172,50 +172,6 @@ FeaderAppDirectives.directive('ngEditable', ['ToolSvc', function(ToolSvc) {
         };
     }
 ]);
-FeaderAppDirectives.directive('ngEditable.bak', [function() {
-        return {
-            restrict: 'AEC',
-            link: function(scope, element, attrs) {
-                element.attr('contenteditable', true);
-                element.addClass('ng-editable-marker');
-                element.on('focus', function(e, ui) {
-//                    $('#ng-editable-toolbox').detach().appendTo(element);
-                    $('#ng-editable-toolbox-size').off('change');
-                    $('#ng-editable-toolbox-color').off('change');
-
-                    $('#ng-editable-toolbox').css({
-                        left: element.offset().left,
-                        top: element.offset().top - 45
-                    });
-
-                    $('#ng-editable-toolbox-size').val(element.css('font-size'));
-                    $('#ng-editable-toolbox-size').on('change', function() {
-                        element.css('font-size', $(this).val());
-                        scope.updateModel();
-                    });
-
-                    $('#ng-editable-toolbox-color').css('background-color', element.css('color'));
-                    $('#ng-editable-toolbox-color').val(element.css('color'));
-                    $('#ng-editable-toolbox-color').on('change', function() {
-                        element.css('color', $(this).val());
-                        $('#ng-editable-toolbox-color').css('background-color', $(this).val());
-                        scope.updateModel();
-                    });
-
-                    $('#ng-editable-toolbox-cancel').on('click', function() {
-                        scope.$apply(function() {
-                            scope.toggleNgEditableToolbox(false);
-                        });
-                    });
-
-                    scope.$apply(function() {
-                        scope.toggleNgEditableToolbox(true);
-                    });
-                });
-            }
-        };
-    }
-]);
 
 FeaderAppDirectives.directive('ngMarkerToggle', [function() {
         return {
@@ -242,6 +198,7 @@ FeaderAppDirectives.directive('ngPictureSelect', ['LibrarySvc', function(Library
                     return;
                 }
                 element.css('cursor', 'pointer');
+                element.attr('title', 'Double cliquez pour personnaliser avec votre image');
                 element.on('dblclick', function() {
                     scope.$apply(function() {
                         scope.togglePictureSelect();

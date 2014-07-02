@@ -427,7 +427,7 @@ FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'Too
 FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routeParams', '$location', 'BookletSvc',
     function($scope, $routeParams, $location, BookletSvc) {
         $scope.newBookName = '';
-        $scope.booklets = [];
+        $scope.booklets = null;
         $scope.selectedBooklet = false;
         if (typeof $routeParams.booklet_focus !== undefined) {
             $scope.selectedBooklet = parseInt($routeParams.booklet_focus);

@@ -563,7 +563,7 @@ $app->post('/library', function() use ($app) {
     if ($givenImage['size'] > 5000000) {
         // image error
         $app->response()->status(406);
-        echo json_encode(array('error' => 'Le fichier est trop volumineux.'));
+        echo json_encode(array('error' => 'Le fichier est trop volumineux. Poids accepté : jusqu\'à 5 mégas.'));
         return;
     }
     if (!getimagesize($givenImage['tmp_name'])) {

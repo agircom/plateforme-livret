@@ -62,6 +62,7 @@ FeaderAppDirectives.directive('ngEditable', ['ToolSvc', function(ToolSvc) {
                     $('.ng-editable-toolbox:not(#ng-editable-toolbox)').remove();
                     // copy template toolbox and move next to element
                     var maxLength = attrs.maxLength;
+                    var oneLine = (typeof attrs.oneLine !== 'undefined') ? JSON.parse(attrs.oneLine) : false;
                     var toolbox = $('#ng-editable-toolbox').clone().removeAttr('id');
                     toolbox.insertAfter(element);
 
@@ -122,27 +123,41 @@ FeaderAppDirectives.directive('ngEditable', ['ToolSvc', function(ToolSvc) {
                         element.css('text-decoration', 'underline');
                     });
 
-                    // tool chars
-                    element.bind("cut copy paste", function(e) {
-                        e.preventDefault();
-                    });
-                    toolbox.find('.ng-editable-toolbox-chars').find('input').val(maxLength - element.text().length);
-                    var calcChars = function(e) {
-                        if (e.which !== 8 && element.text().length > maxLength) {
+                    if (typeof maxLength !== 'undefined') {
+                        // tool chars
+                        element.bind("cut copy paste", function(e) {
                             e.preventDefault();
-                        } else {
-                            toolbox.find('.ng-editable-toolbox-chars').find('input').val(maxLength - element.text().length);
-                        }
-                    };
-                    element.keyup(function(e) {
-                        calcChars(e);
-                    });
-                    element.keydown(function(e) {
-                        calcChars(e);
-                    });
-                    element.keypress(function(e) {
-                        calcChars(e);
-                    });
+                        });
+                        toolbox.find('.ng-editable-toolbox-chars').find('input').val(maxLength - element.text().length);
+                        var calcChars = function(e) {
+                            if (e.which !== 8 && element.text().length > maxLength) {
+                                e.preventDefault();
+                            } else {
+                                toolbox.find('.ng-editable-toolbox-chars').find('input').val(maxLength - element.text().length);
+                            }
+                        };
+                        element.keyup(function(e) {
+                            calcChars(e);
+                        });
+                        element.keydown(function(e) {
+                            calcChars(e);
+                        });
+                        element.keypress(function(e) {
+                            calcChars(e);
+                        });
+                    }
+                    
+                    if (oneLine === true) {
+                        element.bind("cut copy paste", function(e) {
+                            e.preventDefault();
+                        });
+                        element.keydown(function(e) {
+                            if (e.keyCode === 13) {
+                                e.preventDefault();
+                                return false;
+                            }
+                        });
+                    }
 
                     // show it
                     toolbox.show();

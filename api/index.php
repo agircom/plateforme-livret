@@ -483,7 +483,7 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export', function($booklet_id, $
 //    $mpdf->SetDisplayMode(90);
     $mpdf->debug = true;
     $mpdf->showImageErrors = true;
-    $mpdf->Output('livret.pdf', 'D');
+    $mpdf->Output($folio_record->type . '.pdf', 'D');
     exit;
 });
 

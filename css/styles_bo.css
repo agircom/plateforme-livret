@@ -726,7 +726,7 @@ h1.titre1fond-folio-pf{
     height: 1061px;
 }
 .menuHidden[class~="cfpffullscreen"]{
-    width: 83%;
+    /* width: 83%; */
     /* height: 100%; */
 }
 

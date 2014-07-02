@@ -128,12 +128,16 @@ FeaderAppDirectives.directive('ngEditable', ['ToolSvc', function(ToolSvc) {
                         element.bind("cut copy paste", function(e) {
                             e.preventDefault();
                         });
-                        toolbox.find('.ng-editable-toolbox-chars').find('input').val(maxLength - element.text().length);
+                        toolbox.find('.ng-editable-toolbox-chars>b').html(maxLength - element.text().length);
+
                         var calcChars = function(e) {
                             if (e.which !== 8 && element.text().length > maxLength) {
                                 e.preventDefault();
+                            } else if((e.which === 8 || e.which === 46) && element.text().length === 0) {
+                                e.preventDefault();
                             } else {
-                                toolbox.find('.ng-editable-toolbox-chars').find('input').val(maxLength - element.text().length);
+                                toolbox.find('.ng-editable-toolbox-chars>b').html(maxLength - element.text().length);
+
                             }
                         };
                         element.keyup(function(e) {
@@ -145,8 +149,10 @@ FeaderAppDirectives.directive('ngEditable', ['ToolSvc', function(ToolSvc) {
                         element.keypress(function(e) {
                             calcChars(e);
                         });
+                    } else {
+                        toolbox.find('.ng-editable-toolbox-chars>b').html('illimité');
                     }
-                    
+
                     if (oneLine === true) {
                         element.bind("cut copy paste", function(e) {
                             e.preventDefault();

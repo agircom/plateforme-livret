@@ -854,7 +854,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
         };
         $scope.setFile = function(element) {
             if (element.files[0].size > 5000000) {
-                alert('Le fichier est trop volumineux.');
+                alert('Le fichier est trop volumineux. Poids accepté : jusqu\'à 5 mégas.');
                 angular.element('#library-form-add-image').val(null);
             } else {
                 $scope.image = element.files[0];

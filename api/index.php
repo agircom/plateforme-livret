@@ -473,8 +473,8 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export', function($booklet_id, $
     $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_pdf.css');
     foreach ($folio_record->xownPageList as $page) {
         $mpdf->WriteHTML($stylesheet, 1);
-        $html = '<style>@page {margin: 5px;padding:0;}</style>';
-        $html .= '<div class="cadre-folio-pf" style="width: auto;height: auto; margin:0;padding:0;">';
+        $html = '<style>@page {margin: 0px;padding:0;}</style>';
+        $html .= '<div class="cadre-folio-pf" style="width: 100%;height: 100%; margin:0;padding:0;">';
         $content = preg_replace('/<img src\=\"([^\"]*)\"/', "<img src=\"../$1\"", $page->content);
         $html .= $content;
         $html .= '</div>';

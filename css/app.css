@@ -110,6 +110,7 @@
 .ng-editable-toolbox-chars > label {
     width: 60px;
     height: 5px;
+    line-height: 12px;
 }
 .ng-editable-toolbox-chars > input {
     width: 60px;

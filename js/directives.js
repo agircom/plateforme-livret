@@ -122,6 +122,19 @@ FeaderAppDirectives.directive('ngEditable', ['ToolSvc', function(ToolSvc) {
                         toolbox.find('.ng-editable-toolbox-font-submenu').toggle();
                         element.css('text-decoration', 'underline');
                     });
+                    toolbox.find('.ng-editable-toolbox-font-titre').on('click', function() {
+                        toolbox.find('.ng-editable-toolbox-font-submenu').toggle();
+                        element.css('font-size', '300%');
+                    });
+                    toolbox.find('.ng-editable-toolbox-font-soustitre').on('click', function() {
+                        toolbox.find('.ng-editable-toolbox-font-submenu').toggle();
+                        element.css('font-size', '250%');
+                    });
+                    toolbox.find('.ng-editable-toolbox-font-texte').on('click', function() {
+                        toolbox.find('.ng-editable-toolbox-font-submenu').toggle();
+                        element.css('font-size', '200%');
+                    });
+                    
 
                     if (typeof maxLength !== 'undefined') {
                         // tool chars

@@ -188,12 +188,12 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-    -moz-opacity: 0.20;
+/*    -moz-opacity: 0.20;
     -webkit-opacity: 0.20;
-    -khtml-opacity: 0.20;
-    opacity: 0.20;
-    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
-    filter:alpha(opacity=20);
+    -khtml-opacity: 0.20;*/
+    /*opacity: 0.20;*/
+    /*filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);*/
+    /*filter:alpha(opacity=20);*/
     -webkit-border-bottom-right-radius: 10px;
     -webkit-border-bottom-left-radius: 10px;
     -moz-border-radius-bottomright: 10px;
@@ -202,12 +202,12 @@
     border-bottom-left-radius: 10px;
 }
 .ng-clone-cat-handler:hover {
-    -moz-opacity: 0.80;
+/*    -moz-opacity: 0.80;
     -webkit-opacity: 0.80;
     -khtml-opacity: 0.80;
-    opacity: 0.80;
-    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
-    filter:alpha(opacity=80);
+    opacity: 0.80;*/
+/*    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+    filter:alpha(opacity=80);*/
 }
 .ng-remove-cat-handler {
     margin: 0;
@@ -224,12 +224,12 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-    -moz-opacity: 0.20;
+/*    -moz-opacity: 0.20;
     -webkit-opacity: 0.20;
     -khtml-opacity: 0.20;
     opacity: 0.20;
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
-    filter:alpha(opacity=20);
+    filter:alpha(opacity=20);*/
     -webkit-border-bottom-right-radius: 10px;
     -webkit-border-bottom-left-radius: 10px;
     -moz-border-radius-bottomright: 10px;
@@ -238,12 +238,12 @@
     border-bottom-left-radius: 10px;
 }
 .ng-remove-cat-handler:hover {
-    -moz-opacity: 0.80;
+/*    -moz-opacity: 0.80;
     -webkit-opacity: 0.80;
     -khtml-opacity: 0.80;
     opacity: 0.80;
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
-    filter:alpha(opacity=80);
+    filter:alpha(opacity=80);*/
 }
 .ng-clone-orga-handler {
     margin: 0;
@@ -261,12 +261,12 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-    -moz-opacity: 0.20;
+/*    -moz-opacity: 0.20;
     -webkit-opacity: 0.20;
     -khtml-opacity: 0.20;
     opacity: 0.20;
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
-    filter:alpha(opacity=20);
+    filter:alpha(opacity=20);*/
     -webkit-border-bottom-right-radius: 10px;
     -webkit-border-bottom-left-radius: 10px;
     -moz-border-radius-bottomright: 10px;
@@ -275,12 +275,12 @@
     border-bottom-left-radius: 10px;
 }
 .ng-clone-orga-handler:hover {
-    -moz-opacity: 0.80;
+/*    -moz-opacity: 0.80;
     -webkit-opacity: 0.80;
     -khtml-opacity: 0.80;
     opacity: 0.80;
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
-    filter:alpha(opacity=80);
+    filter:alpha(opacity=80);*/
 }
 .ng-remove-orga-handler {
     margin: 0;
@@ -298,12 +298,12 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-    -moz-opacity: 0.20;
+/*    -moz-opacity: 0.20;
     -webkit-opacity: 0.20;
     -khtml-opacity: 0.20;
     opacity: 0.20;
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
-    filter:alpha(opacity=20);
+    filter:alpha(opacity=20);*/
     -webkit-border-bottom-right-radius: 10px;
     -webkit-border-bottom-left-radius: 10px;
     -moz-border-radius-bottomright: 10px;
@@ -312,12 +312,12 @@
     border-bottom-left-radius: 10px;
 }
 .ng-remove-orga-handler:hover {
-    -moz-opacity: 0.80;
+/*    -moz-opacity: 0.80;
     -webkit-opacity: 0.80;
     -khtml-opacity: 0.80;
     opacity: 0.80;
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
-    filter:alpha(opacity=80);
+    filter:alpha(opacity=80);*/
 }
 
 #picture-selector {

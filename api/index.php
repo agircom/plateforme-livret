@@ -468,19 +468,21 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export', function($booklet_id, $
 
     require_once './mPDF/mpdf.php';
     $format = getFormatPDF($folio_record->type);
-    $mpdf = new mPDF('utf-8', $format);
+//    $mpdf = new mPDF('utf-8', $format);
+    $mpdf = new mPDF('c', $format, '', '', 0, 0, 0, 0, 0, 0);
     $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_pdf.css');
-    $mpdf->WriteHTML($stylesheet, 1);
-    $mpdf->WriteHTML('<div class="cadre-folio-pf">', 2, true, false);
     foreach ($folio_record->xownPageList as $page) {
+        $mpdf->WriteHTML($stylesheet, 1);
+        $html = '<style>@page {margin: 5px;padding:0;}</style>';
+        $html .= '<div class="cadre-folio-pf" style="width: auto;height: auto; margin:0;padding:0;">';
         $content = preg_replace('/<img src\=\"([^\"]*)\"/', "<img src=\"../$1\"", $page->content);
-        $mpdf->WriteHTML($content);
+        $html .= $content;
+        $html .= '</div>';
+        $mpdf->WriteHTML($html);
         if ($page->id !== end($folio_record->xownPageList)->id) {
-            $mpdf->AddPage();
+            $mpdf->AddPage('c', $format, '', '', 0, 0, 0, 0, 0, 0);
         }
     }
-    $mpdf->WriteHTML('</div>', 2, false, true);
-//    $mpdf->SetDisplayMode(90);
     $mpdf->debug = true;
     $mpdf->showImageErrors = true;
     $mpdf->Output($folio_record->type . '.pdf', 'D');
@@ -681,7 +683,7 @@ $app->post('/library/import/:cat_id', function($cat_id) use ($app) {
     $librarycategory_record->ownLibraryList[] = $library_record;
     R::store($librarycategory_record);
     $pathSrc = '..' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'uploaded' . DIRECTORY_SEPARATOR;
-    $pathDst= '..' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'library' . DIRECTORY_SEPARATOR;
+    $pathDst = '..' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'library' . DIRECTORY_SEPARATOR;
     @copy($pathSrc . $postData['filename'], $pathDst . $filename);
 });
 

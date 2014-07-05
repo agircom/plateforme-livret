@@ -32,8 +32,8 @@
     </div>
     <div ng-hide="source === 'cat' && selected_cat === -1" style="overflow: auto;">
         <ul style="overflow: auto;" ng-if="view === 'thumb'" id="library-miniature">
-            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage*pageSize | limitTo:pageSize" ng-dblclick="selectImage(image.filename, source)">
-                <div><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}" style="max-width: 95%; max-height: 95%"></div>
+            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage*pageSize | limitTo:pageSize">
+                <div><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}" ng-click="selectImage(image.filename, source)" style="max-width: 95%; max-height: 95%"></div>
                 <span>{{image.name}}</span>
                 <a href="#" class="link" ng-if="source === 'own'" style="float: right; cursor: pointer;" ng-click="deleteImage(image.id)"><img src="images/pictos/fermer.png" alt="Supprimer" title="Supprimer" style="width: 15px; height: 15px;"></a>
                 <a href="#" class="link" ng-if="source === 'own'" style="float: right; cursor: pointer;" ng-click="togglePopupEdit(image)"><img src="images/pictos/modifier.png" alt="Modifier" title="Modifier" style="width: 15px; height: 15px; margin-right: 5px;"></a>
@@ -41,8 +41,8 @@
             </li>
         </ul>       
         <ul ng-if="view === 'list'" id="library-list">
-            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage*pageSize | limitTo:pageSize"  ng-dblclick="selectImage(image.filename, source)">
-                <div class="miniature-image"><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}"></div>
+            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage*pageSize | limitTo:pageSize" >
+                <div class="miniature-image"><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}" ng-click="selectImage(image.filename, source)"></div>
                 <div class="infos-image">
                     <h3>{{image.name}}</h3><h3 style="float: right; text-align: right;">{{image.credits}}</h3>
                     <p>{{image.description}}</p>
@@ -66,13 +66,14 @@
         <div class="sheet-fade" ng-click="togglePopupAdd()"></div>
         <div class="sheet-content">
             <h2>Ajout d'une image</h2>
+            <h3>Les champs obligatoires sont indiqués par un *</h3>
             <div id="library-form-add">
                 <p>
-                    <label for="library-form-add-name">Nom :</label>
+                    <label for="library-form-add-name">Nom* :</label>
                     <input type="text" name="name" ng-model="name" id="library-form-add-name">
                 </p>
                 <p>
-                    <label for="library-form-add-description">Description :</label>
+                    <label for="library-form-add-description">Description* :</label>
                     <input type="text" name="description" ng-model="description" id="library-form-add-description">
                 </p>
                 <p>
@@ -80,7 +81,7 @@
                     <input type="text" name="credits" ng-model="credits" id="library-form-add-credits">
                 </p>
                 <p>
-                    <label for="library-form-add-image">Votre image :</label>
+                    <label for="library-form-add-image">Votre image* :</label>
                     <input type="file" accept="image/*" name="image" id="library-form-add-image" onchange="angular.element(this).scope().setFile(this)">
                 </p>
                 <p>
@@ -95,13 +96,14 @@
         <div class="sheet-fade" ng-click="togglePopupEdit()"></div>
         <div class="sheet-content">
             <h2>Modification d'une image</h2>
+            <h3>Les champs obligatoires sont indiqués par un *</h3>
             <div id="library-form-edit">
                 <p>
-                    <label for="library-form-edit-name">Nom :</label>
+                    <label for="library-form-edit-name">Nom* :</label>
                     <input type="text" name="name" ng-model="tmpImage.name" id="library-form-edit-name">
                 </p>
                 <p>
-                    <label for="library-form-edit-description">Description :</label>
+                    <label for="library-form-edit-description">Description* :</label>
                     <input type="text" name="description" ng-model="tmpImage.description" id="library-form-edit-description">
                 </p>
                 <p>
@@ -109,7 +111,7 @@
                     <input type="text" name="credits" ng-model="tmpImage.credits" id="library-form-edit-credits">
                 </p>
                 <p>
-                    <label for="library-form-edit-image">Votre image :</label>
+                    <label for="library-form-edit-image">Votre image* :</label>
                     <img ng-if="tmpImage.filename" ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{tmpImage.filename}}" id="library-form-edit-image" style="max-width: 185px; max-height: 250px;">
                 </p>
                 <p>

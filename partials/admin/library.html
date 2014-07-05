@@ -65,13 +65,14 @@
         <div class="sheet-fade" ng-click="togglePopupAdd()"></div>
         <div class="sheet-content">
             <h2>Ajout d'une image</h2>
+            <h3>Les champs obligatoires sont indiqués par un *</h3>
             <div id="library-form-add">
                 <p>
-                    <label for="library-form-add-name">Nom :</label>
+                    <label for="library-form-add-name">Nom* :</label>
                     <input type="text" name="name" ng-model="name" id="library-form-add-name">
                 </p>
                 <p>
-                    <label for="library-form-add-description">Description :</label>
+                    <label for="library-form-add-description">Description* :</label>
                     <input type="text" name="description" ng-model="description" id="library-form-add-description">
                 </p>
                 <p>
@@ -79,11 +80,11 @@
                     <input type="text" name="credits" ng-model="credits" id="library-form-add-credits">
                 </p>
                 <p>
-                    <label for="library-form-add-category">Cat&eacute;gorie :</label>
+                    <label for="library-form-add-category">Cat&eacute;gorie* :</label>
                     <select name="catgory" ng-model="category" ng-options="cat.id as cat.name for cat in categories" id="library-form-add-category"></select>
                 </p>
                 <p>
-                    <label for="library-form-add-image">Votre image :</label>
+                    <label for="library-form-add-image">Votre image* :</label>
                     <input type="file" accept="image/*" name="image" id="library-form-add-image" onchange="angular.element(this).scope().setFile(this)">
                 </p>
                 <p>
@@ -98,13 +99,14 @@
         <div class="sheet-fade" ng-click="togglePopupEdit()"></div>
         <div class="sheet-content">
             <h2>Modification d'une image</h2>
+            <h3>Les champs obligatoires sont indiqués par un *</h3>
             <div id="library-form-edit">
                 <p>
-                    <label for="library-form-edit-name">Nom :</label>
+                    <label for="library-form-edit-name">Nom* :</label>
                     <input type="text" name="name" ng-model="tmpImage.name" id="library-form-edit-name">
                 </p>
                 <p>
-                    <label for="library-form-edit-description">Description :</label>
+                    <label for="library-form-edit-description">Description* :</label>
                     <input type="text" name="description" ng-model="tmpImage.description" id="library-form-edit-description">
                 </p>
                 <p>
@@ -112,7 +114,7 @@
                     <input type="text" name="credits" ng-model="tmpImage.credits" id="library-form-edit-credits">
                 </p>
                 <p>
-                    <label for="library-form-edit-category">Cat&eacute;gorie :</label>
+                    <label for="library-form-edit-category">Cat&eacute;gorie* :</label>
                     <select name="catgory" ng-model="tmpImage.librarycategory_id" ng-options="cat.id as cat.name for cat in categories" id="library-form-edit-category"></select>
                 </p>
                 <p>
@@ -131,13 +133,14 @@
         <div class="sheet-fade" ng-click="togglePopupImport()"></div>
         <div class="sheet-content">
             <h2>Importer une image</h2>
+            <h3>Les champs obligatoires sont indiqués par un *</h3>
             <div id="library-form-import">
                 <p>
-                    <label for="library-form-import-name">Nom :</label>
+                    <label for="library-form-import-name">Nom* :</label>
                     <input type="text" name="name" ng-model="tmpImage.name" id="library-form-import-name">
                 </p>
                 <p>
-                    <label for="library-form-import-description">Description :</label>
+                    <label for="library-form-import-description">Description* :</label>
                     <input type="text" name="description" ng-model="tmpImage.description" id="library-form-import-description">
                 </p>
                 <p>
@@ -145,7 +148,7 @@
                     <input type="text" name="credits" ng-model="tmpImage.credits" id="library-form-import-credits">
                 </p>
                 <p>
-                    <label for="library-form-import-category">Cat&eacute;gorie :</label>
+                    <label for="library-form-import-category">Cat&eacute;gorie* :</label>
                     <select name="catgory" ng-model="tmpImage.librarycategory_id" ng-options="cat.id as cat.name for cat in categories" id="library-form-import-category"></select>
                 </p>
                 <p>

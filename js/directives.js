@@ -52,12 +52,14 @@ FeaderAppDirectives.directive('ngLocked', [function() {
     }
 ]);
 
-FeaderAppDirectives.directive('ngEditable', ['ToolSvc', function(ToolSvc) {
+FeaderAppDirectives.directive('ngEditable', ['ToolSvc', '$compile', function(ToolSvc, $compile) {
         return {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
                 element.attr('contenteditable', true);
+                element.attr('title', 'Cliquez sur cette zone pour personnaliser le texte');
                 element.addClass('ng-editable-marker');
+//                element.addClass('ng-tooltip');
                 element.on('focus', function(e, ui) {
                     $('.ng-editable-toolbox:not(#ng-editable-toolbox)').remove();
                     // copy template toolbox and move next to element
@@ -181,6 +183,7 @@ FeaderAppDirectives.directive('ngEditable', ['ToolSvc', function(ToolSvc) {
                     // show it
                     toolbox.show();
                 });
+//                $compile(element)(scope);
             }
         };
     }
@@ -211,8 +214,8 @@ FeaderAppDirectives.directive('ngPictureSelect', ['LibrarySvc', function(Library
                     return;
                 }
                 element.css('cursor', 'pointer');
-                element.attr('title', 'Double cliquez pour personnaliser avec votre image');
-                element.on('dblclick', function() {
+                element.attr('title', 'Cliquez pour personnaliser avec votre image');
+                element.on('click', function() {
                     scope.$apply(function() {
                         scope.togglePictureSelect();
                     });
@@ -253,6 +256,7 @@ FeaderAppDirectives.directive('ngTooltip', [function() {
                 element.tooltipster({
                     delay: 100,
                     position: 'bottom-left',
+                    content: (typeof attrs.tooltipTitle !== 'undefined') ? attrs.tooltipTitle : null,
                     functionInit: function() {
                         scope.$watch(function() {
                             return scope.layout.showTooltips;

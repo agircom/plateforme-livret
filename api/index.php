@@ -485,7 +485,28 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export', function($booklet_id, $
     }
     $mpdf->debug = true;
     $mpdf->showImageErrors = true;
-    $mpdf->Output($folio_record->type . '.pdf', 'D');
+    $filename = 'livret';
+    switch ($folio_record->type) {
+        case 'locale':
+            $filename = 'offre-locale';
+            break;
+        case 'territoire1':
+            $filename = 'presentation-territoire';
+            break;
+        case 'territoire2':
+            $filename = 'presentation-territoire';
+            break;
+        case 'territoire3':
+            $filename = 'presentation-territoire';
+            break;
+        case 'ensemble':
+            $filename = 'bien-vivre-ensemble';
+            break;
+        default:
+            $filename = $folio_record->type;
+            break;
+    }
+    $mpdf->Output($filename . '.pdf', 'D');
     exit;
 });
 

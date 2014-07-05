@@ -14,9 +14,15 @@
                     </ul>
                 </div>
                 <div class="bas-presentation-livret">
-                    <div class="bloc-bas-pres etape1">
-                        <a href="#/plateforme" class="ng-scope"><h4> > étape 1</h4>
-                            <span>Je personnalise le livretavec mes informations etmes photos.</span></a>
+                    <a href="#/plateforme" class="ng-scope" ng-if="User.isLogged()">
+                        <div class="bloc-bas-pres etape1">
+                            <h4> > étape 1</h4>
+                            <span>Je personnalise le livret avec mes informations et mes photos.</span>
+                        </div>
+                    </a>
+                    <div class="bloc-bas-pres etape1" ng-if="!User.isLogged()">
+                        <h4> > étape 1</h4>
+                        <span>Je personnalise le livret avec mes informations et mes photos.</span>
                     </div>
                     <div class="bloc-bas-pres etape2">
                         <h4> > étape 2</h4>
@@ -24,8 +30,8 @@
                     </div>
                     <div class="bloc-bas-pres etape3">
                         <h4> > étape 3</h4>
-                        <span>J’obtiens un document imprimable. A tout moment, 
-                            je peux accéder à mes documents pour les modifier.</span>
+                        <span>J'obtiens un document imprimable. A tout moment, 
+                            je peux acc&eacute;der à mes documents pour les modifier.</span>
                     </div>
                     <div class="bloc-bas-pres voir-tuto-pres">
                         <a><h4> > Voir le tutoriel<br />vidéo</h4></a>
@@ -37,14 +43,14 @@
         <div class="article-accueil">
             <img class="fleft img-demarche-accueil" src="images/demarche-reseau-rural-normand.jpg" alt="demarche-reseau-rural-normand" title="Démarche réseau rural normand" width="300" height="230"/>
             <h2>Le Réseau Rural Haut Normand vous aide à créer votre livret</h2>
-            <p>Le sujet de l’accueil en milieu rural est porté par le Réseau Rural Haut-Normand
-depuis sa création en 2008. C’est en effet une préoccupation forte des élus locaux que 
-d’accueillir le mieux possible les nouveaux habitants. Une enquête récemment menée par 
-le réseau rural en Haute-Normandie a par ailleurs identifié le besoin pour ces élus d’être
-conseillés et accompagnés dans cette démarche, notamment grâce à des outils permettant de 
-faciliter l’accueil.</p>
+            <p>Le sujet de l'accueil en milieu rural est porté par le Réseau Rural Haut-Normand
+                depuis sa création en 2008. C’est en effet une préoccupation forte des élus locaux que 
+                d’accueillir le mieux possible les nouveaux habitants. Une enquête récemment menée par 
+                le réseau rural en Haute-Normandie a par ailleurs identifié le besoin pour ces élus d’être
+                conseillés et accompagnés dans cette démarche, notamment grâce à des outils permettant de 
+                faciliter l’accueil.</p>
             <a href="#/home/rrhn"><p> > Lire la suite</p></a>
         </div>
     </section>
     <aside ng-include="'partials/home/right.html'"></aside>
- </div>
+</div>

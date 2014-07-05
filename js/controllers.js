@@ -764,6 +764,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$rout
         };
         $scope.makeChoice = function(template_name) {
             $scope.template = template_name;
+            $scope.confirmChoiceNext();
         };
         $scope.confirmChoiceNext = function() {
             if ($scope.template === null) {

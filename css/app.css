@@ -52,22 +52,21 @@
 
 .ng-editable-toolbox {
     position: absolute;
-    width: 130px;
-    background-color: #fff;
+    /*background-color: #fff;*/
     z-index: 150;
 }
 .ng-editable-toolbox-cadre {
-    height: 35px;
+    height: 30px;
+    width: 120px;
     background-image: url('../images/toolbox-rectangle.png');
-    background-size: 100%;
+    background-size: auto;
     background-repeat: no-repeat;
     background-position: left top;
 }
 .ng-editable-toolbox-color-button {
     cursor: pointer;
     float: left;
-    margin: 5px;
-    margin-right: 0;
+    margin: 3px 0 0 5px;
 }
 .ng-editable-toolbox-color-button > img {
     width: 20px;
@@ -78,11 +77,11 @@
     width: 100%;
     height: 50px;
     background-image: url('../images/toolbox-bulle-petite.png');
-    background-size: 100%;
+    background-size: auto;
     background-repeat: no-repeat;
     background-position: left top;
-    padding: 5px;
-    padding-top: 10px;
+    /*padding: 5px;*/
+    padding-top: 9px;
 }
 .ng-editable-toolbox-color-carre {
     margin-left: 5px;
@@ -96,28 +95,26 @@
 .ng-editable-toolbox-font-button {
     cursor: pointer;
     float: left;
-    margin: 5px;
-    margin-right: 0;
+    margin: 3px 0 0 2px;
 }
 .ng-editable-toolbox-font-button > img {
     width: 20px;
     height: 20px;
 }
 .ng-editable-toolbox-chars {
-    margin: 5px;
-    margin-right: 0;
+    margin: 3px 0 0 2px;
+    float: left;
+    width: 46px;
+    height: 20px;
+    line-height: 10px;
+    font-size: 0.8em;
 }
 .ng-editable-toolbox-chars > label {
-    width: 60px;
-    height: 5px;
-    line-height: 12px;
+    
+    
 }
-.ng-editable-toolbox-chars > input {
-    width: 60px;
-    height: 15px;
-    line-height: 15px;
-    padding: 0;
-    font-size: 1em;
+.ng-editable-toolbox-chars > b {
+    
 }
 .ng-editable-toolbox-font  {
     cursor: pointer;
@@ -126,32 +123,34 @@
 }
 .ng-editable-toolbox-font-submenu {
     display: none;
-    width: 113px;
+    width: 100%;
     height: 79px;
     background-image: url('../images/toolbox-bulle-grande.png');
-    background-size: 100%;
+    background-size: auto;
     background-repeat: no-repeat;
     background-position: left top;
     padding: 5px;
     padding-top: 12px;
 }
 .ng-editable-toolbox-font-style {
-    margin-left: 4px;
+    margin-left: 3px;
     float: left;
     cursor: pointer;
+}
+.ng-editable-toolbox-font-style+.ng-editable-toolbox-font-style {
+    margin-left: 2px;
 }
 .ng-editable-toolbox-font-style > img{
     width: 18px;
     height: 18px;
 }
 .ng-editable-toolbox-font-size {
-    margin-left: 4px;
-    /*margin-top: 1px;*/
+    margin-left: 3px;
     float: left;
     cursor: pointer;
 }
 .ng-editable-toolbox-font-size > img{
-    width: 106px;
+    width: 100px;
     /*height: 12px;*/
 }
 .ng-editable-toolbox-color {
@@ -162,6 +161,15 @@
 .ng-editable-toolbox-cancel {
     float: left;
     margin: 5px 0 5px 5px;
+}
+.ng-editable-toolbox-close {
+    cursor: pointer;
+    float: left;
+    margin: 7px 0 0 2px;
+}
+.ng-editable-toolbox-close > img {
+    width: 12px;
+    height: 12px;
 }
 
 .ng-deletable-handler {

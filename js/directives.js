@@ -80,7 +80,7 @@ FeaderAppDirectives.directive('ngEditable', ['ToolSvc', '$compile', function(Too
                     });
 
                     // event close
-                    toolbox.find('.ng-editable-toolbox-cancel').on('click', function() {
+                    toolbox.find('.ng-editable-toolbox-close').on('click', function() {
                         toolbox.remove();
                     });
 

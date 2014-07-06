@@ -47,6 +47,8 @@ FeaderAppDirectives.directive('ngLocked', [function() {
             link: function(scope, element) {
 //                $(document.createElement('div')).addClass('ng-locked-handler').appendTo(element);
 //                $(".ng-locked-handler").disableSelection();
+                element.disableSelection();
+                element.attr('title', 'Ces informations ne sont pas modifiables');
             }
         };
     }
@@ -57,7 +59,7 @@ FeaderAppDirectives.directive('ngEditable', ['ToolSvc', '$compile', function(Too
             restrict: 'AEC',
             link: function(scope, element, attrs) {
                 element.attr('contenteditable', true);
-                element.attr('title', 'Cliquez sur cette zone pour personnaliser le texte');
+                element.attr('title', 'Saisissez votre texte en respectant le nombre de caractères prévus. Veillez à ne pas sortir du cadre par trop de retours ligne');
                 element.addClass('ng-editable-marker');
 //                element.addClass('ng-tooltip');
                 element.on('focus', function(e, ui) {
@@ -136,7 +138,7 @@ FeaderAppDirectives.directive('ngEditable', ['ToolSvc', '$compile', function(Too
                         toolbox.find('.ng-editable-toolbox-font-submenu').toggle();
                         element.css('font-size', '200%');
                     });
-                    
+
 
                     if (typeof maxLength !== 'undefined') {
                         // tool chars
@@ -148,7 +150,7 @@ FeaderAppDirectives.directive('ngEditable', ['ToolSvc', '$compile', function(Too
                         var calcChars = function(e) {
                             if (e.which !== 8 && element.text().length > maxLength) {
                                 e.preventDefault();
-                            } else if((e.which === 8 || e.which === 46) && element.text().length === 0) {
+                            } else if ((e.which === 8 || e.which === 46) && element.text().length === 0) {
                                 e.preventDefault();
                             } else {
                                 toolbox.find('.ng-editable-toolbox-chars>b').html(maxLength - element.text().length);
@@ -239,7 +241,7 @@ FeaderAppDirectives.directive('ngDeletable', [function() {
         return {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
-                $(document.createElement('div')).addClass('ng-deletable-handler').appendTo(element);
+                $(document.createElement('div')).addClass('ng-deletable-handler').attr('title', 'Cliquez ici pour supprimer l\'element').appendTo(element);
                 element.find('.ng-deletable-handler').on('click', function(e, ui) {
                     element.remove();
                     scope.updateModel();
@@ -366,7 +368,7 @@ FeaderAppDirectives.directive('ngRemoveOrga', ['$compile', function($compile) {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
                 // create handler
-                $(document.createElement('div')).addClass('ng-remove-orga-handler').attr('title', 'Ajouter un organisme').appendTo(element.find('h5'));
+                $(document.createElement('div')).addClass('ng-remove-orga-handler').attr('title', 'supprimer un organisme').appendTo(element.find('h5'));
 
                 // onclick
                 element.find('.ng-remove-orga-handler').on('click', function(e, ui) {

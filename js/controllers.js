@@ -548,7 +548,9 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         };
         $scope.showPictureSelector = false;
         $scope.showFullscreen = false;
+        $scope.showHelp = false;
         $scope.imageSelected = null;
+        $scope.templates = [];
         $scope.booklet_id = $routeParams.booklet_id;
         $scope.booklet = null;
         $scope.folio_id = $routeParams.folio_id;
@@ -560,6 +562,9 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         });
         BookletSvc.getFolio($scope.booklet_id, $scope.folio_id).success(function(data) {
             $scope.folio = data.folio[0];
+        });
+        BookletSvc.getTemplates().success(function(data) {
+            $scope.templates = data;
         });
         $scope.selectPage = function(page_index) {
             $scope.selected_page = page_index;
@@ -732,6 +737,9 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         $scope.selectImage = function(filename, source) {
             $scope.imageSelected = (source === 'own') ? 'images/uploaded/' + filename : 'images/library/' + filename;
             $scope.showPictureSelector = false;
+        };
+        $scope.toggleHelp = function() {
+            $scope.showHelp = !$scope.showHelp;
         };
         $scope.toggleFullScreen = function() {
             angular.element('.ng-editable-toolbox:not(#ng-editable-toolbox)').remove();

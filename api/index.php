@@ -902,15 +902,47 @@ $app->get('/templates/init', function() use ($app) {
                 $handle_folio = opendir($templates_path . $folio);
                 $template_folio_record = R::dispense('templatefolio');
                 $template_folio_record->type = $folio;
+                $template_folio_record->helpintro = ' ';
+                $template_folio_record->helptext = ' ';
+                switch ($folio) {
+                    case 'pochette':
+                        $template_folio_record->title = 'Pochette';
+                        break;
+                    case 'territoire1':
+                        $template_folio_record->title = 'Présentation du territoire (A)';
+                        break;
+                    case 'territoire2':
+                        $template_folio_record->title = 'Présentation du territoire (B)';
+                        break;
+                    case 'territoire3':
+                        $template_folio_record->title = 'Présentation du territoire (C)';
+                        break;
+                    case 'locale':
+                        $template_folio_record->title = 'Offre locale';
+                        break;
+                    case 'ensemble':
+                        $template_folio_record->title = 'Bien vivre ensemble';
+                        break;
+                    case 'agenda':
+                        $template_folio_record->title = 'Agenda';
+                        break;
+                    default:
+                        $template_folio_record->title = 'Folio';
+                }
                 $template_folio_record->xownTemplatepageList = array();
+                $pages = array();
                 while (false !== ($page = readdir($handle_folio))) {
                     if ($page != "." && $page != "..") {
-                        $content = file_get_contents($templates_path . $folio . DIRECTORY_SEPARATOR . $page);
-                        $template_page_record = R::dispense('templatepage');
-                        $template_page_record->order = basename($page, '.html');
-                        $template_page_record->content = $content;
-                        $template_folio_record->xownTemplatepageList[] = $template_page_record;
+                        $pages[] = $page;
                     }
+                }
+                asort($pages);
+                foreach ($pages as $page) {
+                    $content = file_get_contents($templates_path . $folio . DIRECTORY_SEPARATOR . $page);
+                    $template_page_record = R::dispense('templatepage');
+                    $template_page_record->order = basename($page, '.html');
+                    $template_page_record->content = $content;
+                    $template_folio_record->xownTemplatepageList[] = $template_page_record;
                 }
                 R::store($template_folio_record);
                 closedir($handle_folio);
@@ -919,6 +951,30 @@ $app->get('/templates/init', function() use ($app) {
     }
     closedir($handle);
 });
+
+// REST Api get folio templates
+$app->get('/templates/folios', function() use ($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
+    // retrieve folio templates
+    $template_folio_record = R::findAll('templatefolio');
+    if (is_null($template_folio_record)) {
+        // no folio templates found
+        $app->response()->status(404);
+        return;
+    }
+    $results = R::exportAll($template_folio_record);
+    $data = array();
+    foreach ($results as $res) {
+        unset($res['ownTemplatepage']);
+        $data[$res['type']] = $res;
+    }
+    echo json_encode($data);
+});
+
 // REST Api library categories init
 $app->get('/library/init', function() use ($app) {
     $categories = array(

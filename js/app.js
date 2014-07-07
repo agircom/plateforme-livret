@@ -15,12 +15,12 @@
             requireMenu: false,
             requireLogin: false
         },
-        '/sitemap': {
-            templateUrl: 'partials/common/sitemap.html',
-            controller: 'HomeCtrl.Home',
-            requireMenu: false,
-            requireLogin: false
-        },
+//        '/sitemap': {
+//            templateUrl: 'partials/common/sitemap.html',
+//            controller: 'HomeCtrl.Home',
+//            requireMenu: false,
+//            requireLogin: false
+//        },
         '/contact': {
             templateUrl: 'partials/common/contact.html',
             controller: 'CommonCtrl.Contact',

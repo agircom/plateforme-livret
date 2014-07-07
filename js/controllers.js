@@ -771,8 +771,11 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$rout
             $location.path('/plateforme/booklet/' + $scope.booklet_id + '/folio/' + folio_id);
         };
         $scope.makeChoice = function(template_name) {
-            $scope.template = template_name;
-            $scope.confirmChoiceNext();
+            if (confirm('Une fois le modèle choisi vous ne pourrez changer de modèle. Lisez nos conseils en haut à droite de cette page pour en savoir plus.')) {
+                $scope.template = template_name;
+                $scope.confirmChoiceNext();
+            }
+            
         };
         $scope.confirmChoiceNext = function() {
             if ($scope.template === null) {

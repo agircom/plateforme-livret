@@ -230,7 +230,7 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'Too
             if ($scope.userInfos.username !== $scope.username2) {
                 $scope.userInfos.passwd = '';
                 $scope.passwd2 = '';
-                $scope.showError('Veuillez saisir les meme adresse mail');
+                $scope.showError('Veuillez saisir les mêmes adresses mail');
                 return;
             }
             if ($scope.userInfos.name === '' ||
@@ -282,7 +282,7 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'Too
                         var msg = '';
                         switch (status) {
                             case 400:
-                                msg = 'Les champs marqués d’un * doivent être complétés';
+                                msg = 'Les champs marqués d\'un * doivent être complétés';
                                 break;
                             case 423:
                                 msg = 'Ce nom d\'utilisateur existe deja';

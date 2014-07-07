@@ -68,6 +68,23 @@ FeaderAppDirectives.directive('ngEditable', ['ToolSvc', '$compile', function(Too
                     var maxLength = attrs.maxLength;
                     var oneLine = (typeof attrs.oneLine !== 'undefined') ? JSON.parse(attrs.oneLine) : false;
                     var toolbox = $('#ng-editable-toolbox').clone().removeAttr('id');
+                    var calcChars = function(e) {
+                        if (e.which !== 8 && element.text().length > maxLength) {
+                            e.preventDefault();
+                        } else if ((e.which === 8 || e.which === 46) && element.text().length === 0) {
+                            e.preventDefault();
+                        } else {
+                            toolbox.find('.ng-editable-toolbox-chars>b').html(maxLength - element.text().length);
+                        }
+                    };
+                    var clearNewLine = function() {
+                        element.text(element.text().replace(/(\r\n|\n|\r)/gm, " "));
+                    };
+                    var cropText = function() {
+                        if (element.text().length > maxLength) {
+                            element.text(element.text().substring(0, maxLength));
+                        }
+                    };
                     toolbox.insertAfter(element);
 
                     // place it
@@ -79,6 +96,11 @@ FeaderAppDirectives.directive('ngEditable', ['ToolSvc', '$compile', function(Too
 
                     element.on('focusout', function() {
                         scope.updateModel();
+                    });
+
+                    //event copy / cut
+                    element.bind("cut copy", function(e) {
+                        calcChars(e);
                     });
 
                     // event close
@@ -142,21 +164,14 @@ FeaderAppDirectives.directive('ngEditable', ['ToolSvc', '$compile', function(Too
 
                     if (typeof maxLength !== 'undefined') {
                         // tool chars
-                        element.bind("cut copy paste", function(e) {
-                            e.preventDefault();
-                        });
                         toolbox.find('.ng-editable-toolbox-chars>b').html(maxLength - element.text().length);
+                        element.bind("paste", function(e) {
+                            setTimeout(function() {
+                                cropText();
+                                calcChars(e);
+                            }, 0);
+                        });
 
-                        var calcChars = function(e) {
-                            if (e.which !== 8 && element.text().length > maxLength) {
-                                e.preventDefault();
-                            } else if ((e.which === 8 || e.which === 46) && element.text().length === 0) {
-                                e.preventDefault();
-                            } else {
-                                toolbox.find('.ng-editable-toolbox-chars>b').html(maxLength - element.text().length);
-
-                            }
-                        };
                         element.keyup(function(e) {
                             calcChars(e);
                         });
@@ -171,8 +186,21 @@ FeaderAppDirectives.directive('ngEditable', ['ToolSvc', '$compile', function(Too
                     }
 
                     if (oneLine === true) {
-                        element.bind("cut copy paste", function(e) {
-                            e.preventDefault();
+                        element.bind("paste", function(e) {
+                            setTimeout(function() {
+                                clearNewLine();
+                            }, 0);
+//                            e.stopPropagation();
+//                            e.preventDefault();
+//                            e.originalEvent.clipboardData.setData('Text', e.originalEvent.clipboardData.getData('Text'));
+//                            console.log(e.originalEvent.clipboardData.setData('text/plain', "plop"));
+//                            var data = e.originalEvent.clipboardData.getData('Text');
+//                            console.log(data);
+//                            if (data.length > 2) {
+//                                return false;
+//                            } else {
+//                                return true;
+//                            }
                         });
                         element.keydown(function(e) {
                             if (e.keyCode === 13) {

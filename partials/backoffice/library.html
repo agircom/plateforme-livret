@@ -19,17 +19,17 @@
         <div class="onglet-library"><h3 ng-class="{selected:(source === 'cat')}" ng-click="source = 'cat'">Sélectionner une catégorie</h3></div>   
         <div class="recherche-library"><input type="text" id="recherche-image" placeholder="Recherche par mots clés" ng-model="libraryFilter"><img src="images/pictos/ok.png"></div>   
     </div>
-    <div class="library-title">{{library_title}} <button ng-show="source === 'cat' && selected_cat > -1" ng-click="selectCat()">retour a la liste des categories</button></div>
-    <div ng-show="source === 'cat' && selected_cat === -1">
+    <div class="library-title">{{library_title}} <button ng-show="source === 'cat' && selected_cat > - 1" ng-click="selectCat()">retour a la liste des categories</button></div>
+    <div ng-show="source === 'cat' && selected_cat === - 1">
         <ul id="library-cats">
-            <li ng-repeat="cat in categories| orderBy:'name'" ng-click="selectCat(cat.id)">
+            <li ng-repeat="cat in categories | orderBy:'name'" ng-click="selectCat(cat.id)">
                 <p>{{cat.name}} ({{cat.ownLibrary}} images)</p>
             </li>
         </ul>
     </div>
-    <div ng-hide="source === 'cat' && selected_cat === -1" style="overflow: auto;">
+    <div ng-hide="source === 'cat' && selected_cat === - 1" style="overflow: auto;">
         <ul style="overflow: auto;" ng-if="view === 'thumb'" id="library-miniature">
-            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage*pageSize | limitTo:pageSize">
+            <li ng-repeat="image in library | filterLibrary:libraryFilter | startFrom:currentPage * pageSize | limitTo:pageSize">
                 <div><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}" style="max-width: 95%; max-height: 95%"></div>
                 <span>{{image.name}}</span>
                 <a href="#" class="link" ng-if="source === 'own'" style="float: right; cursor: pointer;" ng-click="deleteImage(image.id)"><img src="images/pictos/fermer.png" alt="Supprimer" title="Supprimer" style="width: 15px; height: 15px;"></a>
@@ -38,7 +38,7 @@
             </li>
         </ul>       
         <ul ng-if="view === 'list'" id="library-list">
-            <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage*pageSize | limitTo:pageSize">
+            <li ng-repeat="image in library | filterLibrary:libraryFilter | startFrom:currentPage * pageSize | limitTo:pageSize">
                 <div class="miniature-image"><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}"></div>
                 <div class="infos-image">
                     <h3>{{image.name}}</h3><h3 style="float: right; text-align: right;">{{image.credits}}</h3>
@@ -62,6 +62,9 @@
     <div id="library-add-popup" class="" ng-show="showPopupAdd">
         <div class="sheet-fade" ng-click="togglePopupAdd()"></div>
         <div class="sheet-content">
+            <button ng-click="togglePopupAdd()" class="sheet-close">
+                <img src="images/pictos/fermer.png" alt="Fermer" title="Fermer" /> Fermer
+            </button>
             <h2>Ajout d'une image</h2>
             <h3>Les champs obligatoires sont indiqués par un *</h3>
             <div id="library-form-add">
@@ -85,13 +88,14 @@
                     <button ng-click="startUpload()">Ajouter</button>
                 </p>
             </div>
-            <br>
-            <button ng-click="togglePopupAdd()">Fermer</button>
         </div>
     </div>
     <div id="library-edit-popup" class="" ng-show="showPopupEdit">
         <div class="sheet-fade" ng-click="togglePopupEdit()"></div>
         <div class="sheet-content">
+            <button ng-click="togglePopupEdit()" class="sheet-close">
+                <img src="images/pictos/fermer.png" alt="Fermer" title="Fermer" /> Fermer
+            </button>
             <h2>Modification d'une image</h2>
             <h3>Les champs obligatoires sont indiqués par un *</h3>
             <div id="library-form-edit">
@@ -114,9 +118,7 @@
                 <p>
                     <button ng-click="updateImage()">Sauvegarder</button>
                 </p>
-            </div>
-            <br>
-            <button ng-click="togglePopupEdit()">Fermer</button>
+            </div>            
         </div>
     </div>
 </div>

@@ -64,6 +64,9 @@
     <div id="library-add-popup" class="" ng-show="showPopupAdd">
         <div class="sheet-fade" ng-click="togglePopupAdd()"></div>
         <div class="sheet-content">
+            <button ng-click="togglePopupAdd()" class="sheet-close">
+                <img src="images/pictos/fermer.png" alt="Fermer" title="Fermer" /> Fermer
+            </button>
             <h2>Ajout d'une image</h2>
             <h3>Les champs obligatoires sont indiqués par un *</h3>
             <div id="library-form-add">
@@ -91,13 +94,14 @@
                     <button ng-click="startUpload()">Ajouter</button>
                 </p>
             </div>
-            <br>
-            <button ng-click="togglePopupAdd()">Fermer</button>
         </div>
     </div>
     <div id="library-edit-popup" class="" ng-show="showPopupEdit">
         <div class="sheet-fade" ng-click="togglePopupEdit()"></div>
         <div class="sheet-content">
+            <button ng-click="togglePopupEdit()" class="sheet-close">
+                <img src="images/pictos/fermer.png" alt="Fermer" title="Fermer" /> Fermer
+            </button>
             <h2>Modification d'une image</h2>
             <h3>Les champs obligatoires sont indiqués par un *</h3>
             <div id="library-form-edit">
@@ -125,13 +129,14 @@
                     <button ng-click="updateImage()">Sauvegarder</button>
                 </p>
             </div>
-            <br>
-            <button ng-click="togglePopupEdit()">Fermer</button>
         </div>
     </div>
     <div id="library-import-popup" class="" ng-show="showPopupImport">
         <div class="sheet-fade" ng-click="togglePopupImport()"></div>
         <div class="sheet-content">
+            <button ng-click="togglePopupImport()" class="sheet-close">
+                <img src="images/pictos/fermer.png" alt="Fermer" title="Fermer" /> Fermer
+            </button>
             <h2>Importer une image</h2>
             <h3>Les champs obligatoires sont indiqués par un *</h3>
             <div id="library-form-import">
@@ -159,8 +164,6 @@
                     <button ng-click="importImage()">Importer</button>
                 </p>
             </div>
-            <br>
-            <button ng-click="togglePopupImport()">Fermer</button>
         </div>
     </div>
 </div>

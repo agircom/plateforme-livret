@@ -119,6 +119,7 @@ and open the template in the editor.
     font-size: 16px;
     text-transform:uppercase;
     margin-bottom: 0;
+    margin: 0 0 10px 0;
 }
 
 .titre-creer-livret img {

@@ -450,7 +450,7 @@ $app->put('/booklet/:booklet_id/folio/:folio_id', function($booklet_id, $folio_i
 });
 
 // REST Api generate PDF from folio content
-$app->get('/booklet/:booklet_id/folio/:folio_id/export', function($booklet_id, $folio_id) use ($app) {
+$app->get('/booklet/:booklet_id/folio/:folio_id/export/:quality', function($booklet_id, $folio_id, $quality) use ($app) {
     // retrieve booklet
     $booklet_record = R::findOne('booklet', 'id=?', array($booklet_id));
     if (is_null($booklet_record)) {
@@ -470,21 +470,6 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export', function($booklet_id, $
     $format = getFormatPDF($folio_record->type);
 //    $mpdf = new mPDF('utf-8', $format);
     $mpdf = new mPDF('c', $format, '', '', 0, 0, 0, 0, 0, 0);
-    $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_pdf.css');
-    foreach ($folio_record->xownPageList as $page) {
-        $mpdf->WriteHTML($stylesheet, 1);
-        $html = '<style>@page {margin: 0px;padding:0;}</style>';
-        $html .= '<div class="cadre-folio-pf" style="width: 100%;height: 100%; margin:0;padding:0;">';
-        $content = preg_replace('/<img src\=\"([^\"]*)\"/', "<img src=\"../$1\"", $page->content);
-        $html .= $content;
-        $html .= '</div>';
-        $mpdf->WriteHTML($html);
-        if ($page->id !== end($folio_record->xownPageList)->id) {
-            $mpdf->AddPage('c', $format, '', '', 0, 0, 0, 0, 0, 0);
-        }
-    }
-    $mpdf->debug = true;
-    $mpdf->showImageErrors = true;
     $filename = 'livret';
     switch ($folio_record->type) {
         case 'locale':
@@ -506,6 +491,26 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export', function($booklet_id, $
             $filename = $folio_record->type;
             break;
     }
+    if ($quality === 'hq') {
+        $mpdf->dpi = 300;
+        $mpdf->img_dpi = 300;
+        $filename .= ' (HQ)';
+    }
+    $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_pdf.css');
+    foreach ($folio_record->xownPageList as $page) {
+        $mpdf->WriteHTML($stylesheet, 1);
+        $html = '<style>@page {margin: 0px;padding:0;}</style>';
+        $html .= '<div class="cadre-folio-pf" style="width: 100%;height: 100%; margin:0;padding:0;">';
+        $content = preg_replace('/<img src\=\"([^\"]*)\"/', "<img src=\"../$1\"", $page->content);
+        $html .= $content;
+        $html .= '</div>';
+        $mpdf->WriteHTML($html);
+        if ($page->id !== end($folio_record->xownPageList)->id) {
+            $mpdf->AddPage('c', $format, '', '', 0, 0, 0, 0, 0, 0);
+        }
+    }
+    $mpdf->debug = true;
+    $mpdf->showImageErrors = true;
     $mpdf->Output($filename . '.pdf', 'D');
     exit;
 });

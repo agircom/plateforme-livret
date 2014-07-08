@@ -1,12 +1,13 @@
 <div class="menu-folio">
     <img src="images/logo-menu-folio.png" alt="logo" title="Retour à l'accueil"/>
     <ul>
-        <li><a href="#" onclick="return false;" class="ng-marker-toggle ng-tooltip" title="Masque les reperes de l'edition"><img src="images/pictos/reperes.png" alt="reperes" title="Masquer les repères"/></a></li>
-        <li><a href="#"><img src="images/pictos/aperçu.png" alt="aperçu" title="Aperçu"/></a></li>
-        <li><a class="ng-tooltip" ng-click="toggleFullScreen()" title="Passer en edition plein ecran"><img src="images/pictos/fullscreen.png" alt="fullscreen" title="Afficher en plein écran"/></a></li>
-        <li><a href="#" onclick="return false;" ng-click="save()"><img src="images/pictos/enregistrer.png" alt="Enregistrer" title="Enregistrer"/></a></li>
-        <li><a class="ng-tooltip" title="Exporter PDF" ng-href="api/booklet/{{booklet_id}}/folio/{{folio_id}}/export"><img src="images/pictos/exporter.png" alt="Exporter" title="Exporter"/></a></li>
-        <li><a class="ng-tooltip" ng-click="toggleTooltips()"><img src="images/pictos/aide-faq.png" alt="Aide" title="Aide"/></a></li>
+        <li><a href="#" class="link ng-marker-toggle ng-tooltip" title="Masque les reperes de l'edition"><img src="images/pictos/reperes.png" alt="reperes" title="Masquer les repères"/></a></li>
+        <li><a href="#" class="link ng-tooltip" title="Afficher un apercu"><img src="images/pictos/aperçu.png" alt="aperçu" title="Aperçu"/></a></li>
+        <li><a href="#" class="link ng-tooltip" ng-click="toggleFullScreen()" title="Passer en edition plein ecran"><img src="images/pictos/fullscreen.png" alt="fullscreen" title="Afficher en plein écran"/></a></li>
+        <li><a href="#" class="link ng-tooltip" ng-click="saveAndStay()" title="Enregistrer et rester sur cette page"><img src="images/pictos/enregistrer.png" alt="Enregistrer" title="Enregistrer"/></a></li>
+        <!--<li><a href="#" class="link ng-tooltip" title="Exporter (basse résolution)" ng-href="api/booklet/{{booklet_id}}/folio/{{folio_id}}/export"><img src="images/pictos/exporter.png" alt="Exporter" title="Exporter"/></a></li>-->
+        <li><a href="#" class="link ng-tooltip" title="Exporter (basse résolution)" ng-click="exportPDF()"><img src="images/pictos/exporter.png" alt="Exporter" title="Exporter"/></a></li>
+        <li><a href="#" class="link ng-tooltip" ng-click="toggleTooltips()" title="Afficher les messages d'aides"><img src="images/pictos/aide-faq.png" alt="Aide" title="Aide"/></a></li>
         <li>
             <div ng-if="User.isLogged()" id="userPannel"> 
                 <div class="namePannel" style="float: left;">
@@ -20,14 +21,19 @@
         </li>
     </ul>
 </div>
-<div ng-if="folio !== null" class="fond-folio-pf" ng-class="{fullscreen: showFullscreen}">
+<div ng-if="folio !== null" class="fond-folio-pf" ng-class="{
+            fullscreen: showFullscreen
+        }">
     <h1 class="titre1fond-folio-pf">
         <img style="vertical-align: middle; padding-right:5px;" src="images/titre-folio.png" width="32" height="32" alt="Supprimer" title="Supprimer"/>
         {{templates[folio.type].title}} - {{booklet.name}}
     </h1>
     <div style="width:100%; display:inline-block;">
-        <div class="cadre-folio-pf" id="drawboard" compile="folio.ownPage[selected_page].content" ng-class="{cfpffullscreen: showFullscreen, menuHidden: (layout.menuShow === false), pochetteshow: (folio.type === 'pochette'), agendashow: (folio.type === 'agenda')}"></div>
-        <div class="right-folio-pf" ng-class="{rfpffullscreen: showFullscreen}">
+        <div class="cadre-folio-pf" id="drawboard" compile="folio.ownPage[selected_page].content" ng-class="{
+                    cfpffullscreen: showFullscreen, menuHidden: (layout.menuShow === false), pochetteshow: (folio.type === 'pochette'), agendashow: (folio.type === 'agenda')}"></div>
+        <div class="right-folio-pf" ng-class="{
+                    rfpffullscreen: showFullscreen
+                }">
             <div class="help-folio-pf">
                 <img src="images/pictos/help.png" width="16" height="16" alt="help" title="Aide"/>
                 {{templates[folio.type].helptitle}}
@@ -35,21 +41,11 @@
             </div>
             <div class="cadre-toolbox">
                 <h3 style="background-color: #DD6B5C">Votre sélection</h3>
-                <!--<button class="ng-tooltip" ng-click="toggleFullScreen()" title="Passer en edition plein ecran">
-                    Fullscreen
-                </button>
-                <button class="ng-tooltip" ng-click="toggleTooltips()">
-                    Afficher les aides
-                </button> --> 
                 <div ng-if="folio.ownPage.length === 2 && folio.type !== 'locale'" id="folio-edit-toolbox">
                     <div class="select-folio">
                         <a href="#" onclick="return false;" ng-click="selectPage(0)">
                             <span>> Recto</span>
                             <img src="images/pictos/pochette-petit.png" alt="recto" title="recto"/>
-                        </a>
-                        <a>
-                            <span>Enregistrer</span>
-                            <img src="images/pictos/enregistrer.png" width="32" height="32" alt="Enregistrer" title="Enregistrer"/>
                         </a>
                     </div>
                     <div class="select-folio">
@@ -57,12 +53,7 @@
                             <span>> Verso</span>
                             <img src="images/pictos/pochette-petit.png" alt="Verso" title="Verso"/>
                         </a>
-                        <a>
-                            <span>Enregistrer</span>
-                            <img src="images/pictos/enregistrer-nb.png" width="32" height="32" alt="Enregistrer" title="Enregistrer"/>
-                        </a>
                     </div>
-                    <!--<a href="#" onclick="return false;" class="ng-marker-toggle ng-tooltip" title="Masque les reperes de l'edition">Masquer les reperes</a>-->
                 </div>
                 <div ng-if="folio.ownPage.length > 2 || folio.type === 'locale'" id="folio-edit-toolbox">
                     <h3>Page</h3>
@@ -71,30 +62,41 @@
                             <span>> {{$index + 1}}</span>
                             <img src="images/pictos/folio-petit.png" alt="Page" title="Page"/>
                         </a>
-                        <a>
-                            <span style="font-size: 8px">Enregistrer</span>
-                            <img src="images/pictos/enregistrer.png" width="32" height="32" alt="Enregistrer" title="Enregistrer"/>
-                        </a>
                     </div>
-                    <!--<a href="#" onclick="return false;" class="ng-marker-toggle">Masquer les reperes</a>-->
                 </div>
-                <p style=margin-bottom:5px;">Vous avez terminé votre document.<br>
-                    Exporter le sur votre ordinateur au format pdf</p>
-                <a class="ng-tooltip" title="Exporter PDF" ng-href="api/booklet/{{booklet_id}}/folio/{{folio_id}}/export">
-                    <img style="vertical-align: middle;" src="images/pictos/exporter.png" alt="Exporter" title="Exporter"/>
-                    <span>Exporter</span>
-                </a>
+                <p style="margin-bottom:5px;">
+                    Vous avez terminé votre document.<br>
+                    Exporter le sur votre ordinateur au format pdf
+                </p>
                 <div class="link-folio-pf">
                     <div style="background-color: #f0b14e;">
-                        <a href="#" onclick="return false;" ng-click="save()">
+                        <a href="#" class="link" ng-click="saveAndStay()">
+                            <span>Enregistrer et rester sur cette page</span>
+                            <img src="images/pictos/enregistrer.png" width="32" height="32" alt="Enregistrer et rester sur cette page" title="Enregistrer et rester sur cette page"/>
+                        </a>
+                    </div>
+                    <div style="background-color: #f0b14e;">
+                        <a href="#" class="link" ng-click="saveAndLeave()">
                             <span>Enregistrer et revenir à mon livret</span>
-                            <img src="images/pictos/enregistrer.png" width="32" height="32" alt="Enregitrer" title="Enregistrer"/>
+                            <img src="images/pictos/enregistrer.png" width="32" height="32" alt="Enregistrer et revenir à mon livret" title="Enregistrer et revenir à mon livret"/>
                         </a>
                     </div>
                     <div style="background-color: #000;">
-                        <a ng-href="#/plateforme/booklets/{{booklet.id}}">
+                        <a ng-href="#/plateforme/booklets/{{booklet.id}}" class="ng-tooltip" title="Les modifications non enregistrées seront perdues">
                             <span>Annuler</span>
                             <img src="images/pictos/annuler.png" width="32" height="32" alt="Annuler" title="Annuler"/>
+                        </a>
+                    </div>
+                    <div style="background-color: #f0b14e;">
+                        <a href="#" class="link ng-tooltip" title="Adapté à l'impression" ng-click="exportPDF(true)">
+                            <img style="vertical-align: middle;" src="images/pictos/exporter.png" alt="Exporter (haute résolution)" title="Exporter (haute résolution)"/>
+                            <span>Exporter (haute résolution)</span>
+                        </a>
+                    </div>
+                    <div style="background-color: #f0b14e;">
+                        <a href="#" class="link ng-tooltip" title="Adapté aux publications web" ng-click="exportPDF()">
+                            <img style="vertical-align: middle;" src="images/pictos/exporter.png" alt="Exporter (basse résolution)" title="Exporter (basse résolution)"/>
+                            <span>Exporter (basse  résolution)</span>
                         </a>
                     </div>
                 </div>

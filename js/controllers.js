@@ -556,6 +556,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         $scope.folio_id = $routeParams.folio_id;
         $scope.folio = null;
         $scope.selected_page = 0;
+        $scope.updatedFolio = false;
         $scope.folioBuilding = false;
         BookletSvc.get($scope.booklet_id).success(function(data) {
             $scope.booklet = data.booklet;
@@ -588,6 +589,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             return content;
         };
         $scope.updateModel = function() {
+            $scope.updatedFolio = true;
             var content = $('#drawboard').clone();
             content = $scope.clearPlugins(content);
             $scope.folio.ownPage[$scope.selected_page].content = content.html();
@@ -723,12 +725,25 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             });
 
         };
-        $scope.save = function() {
+        $scope.save = function(callback) {
             $scope.updateModel();
             BookletSvc.updateFolio($scope.booklet.id, $scope.folio.id, $scope.folio.ownPage).success(function(data) {
-                $location.path('/plateforme/booklets/' + $scope.booklet.id);
+                if (typeof callback === 'function') {
+                    $scope.updatedFolio = false;
+                    callback();
+                }
             }).error(function(data, status) {
                 alert('Erreur de sauvegarde (' + status + ')');
+            });
+        };
+        $scope.saveAndStay = function() {
+            $scope.save(function() {
+                alert('Sauvegarde effectuée');
+            });
+        };
+        $scope.saveAndLeave = function() {
+            $scope.save(function() {
+                $location.path('/plateforme/booklets/' + $scope.booklet.id);
             });
         };
         $scope.togglePictureSelect = function() {
@@ -748,19 +763,29 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         $scope.toggleTooltips = function() {
             $rootScope.layout.showTooltips = !$rootScope.layout.showTooltips;
         };
-        $scope.exportPDF = function() {
+        $scope.exportPDF = function(highresolution) {
+            if ($scope.updatedFolio === true) {
+                alert('Merci de sauvegarder vos modifications avant d\'exporter le fichier PDF.');
+                return;
+            }
+            if (typeof highresolution !== 'undefined' && highresolution === true) {
+                window.location = 'api/booklet/' + $scope.booklet_id + '/folio/' + $scope.folio_id + '/export/hq';
+            } else {
+                window.location = 'api/booklet/' + $scope.booklet_id + '/folio/' + $scope.folio_id + '/export/lq';
+            }
 //            BookletSvc.exportPDF($scope.booklet_id, $scope.folio_id).success(function(data) {              
 //                var blob = new Blob([data], {type: 'application/pdf'});
 //                $scope.url = (window.URL || window.webkitURL).createObjectURL(blob);
-//                $window.open($scope.url);
-//                var element = angular.element('<a/>');
-//                element.attr({
-//                    href: 'data:application/pdf;charset=utf-8,' + encodeURI(data),
-//                    href: $sce.trustAsResourceUrl($scope.url),
-//                    download: 'livret.pdf'
-//                })[0].click();
+//                
 //            });
         };
+        $scope.$on('$locationChangeStart', function(event, next, current) {
+            if ($scope.updatedFolio === true) {
+                if (!confirm('Attention les modifications non enregistrées seront perdues')) {
+                    event.preventDefault();
+                }
+            }
+        });
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$routeParams', '$location', 'BookletSvc',
@@ -775,7 +800,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$rout
                 $scope.template = template_name;
                 $scope.confirmChoiceNext();
             }
-            
+
         };
         $scope.confirmChoiceNext = function() {
             if ($scope.template === null) {

@@ -1059,3 +1059,12 @@ h1.titre1fond-folio-pf{
 #library-cats li div img{
     border:1px solid #c5c5c5;
 }
+/* Agenda */
+.picto-jr-ferie{
+    background: url(../images/pictos/picto-jr-ferie.png) no-repeat;
+    vertical-align: middle;
+}
+
+.trait-vacances{
+    background: #e57e0c;
+}

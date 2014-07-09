@@ -288,6 +288,46 @@ FeaderAppDirectives.directive('ngPictureSelect', ['LibrarySvc', function(Library
     }
 ]);
 
+
+FeaderAppDirectives.directive('ngDateSelect', ['LibrarySvc', function(LibrarySvc) {
+        return {
+            restrict: 'AEC',
+            link: function(scope, element, attrs) {
+                // set element config
+                element.attr('title', 'Cliquez pour changer l\'année');
+                
+                // function generate calendar
+                var resetCalendar = function() {
+                    var current_date = parseInt(element.find('.ng-date-select-first').text() + element.find('.ng-date-select-second').text());
+                    if (isNaN(current_date)) {
+                        alert('Erreur lors de l\'actualisation de l\'agenda');
+                        return;
+                    }
+                    // check february
+                    var new_date = new Date(current_date, 2, 0);
+                    if (new_date.getDate() === 28) {
+                        $('table.calendar-month').eq(1).find('tr').eq(28).hide();
+                    } else {
+                        $('table.calendar-month').eq(1).find('tr').eq(28).show();
+                    }
+                };
+                // event click
+                element.on('click', function() {
+                    var first = element.find('.ng-date-select-first').text();
+                    var second = element.find('.ng-date-select-second').text();
+                    var new_year = prompt('Veuillez choisir l\'année', first + second);
+                    if (!isNaN(parseInt(new_year)) && parseInt(new_year) >= 2000 && parseInt(new_year) < 3000) {
+                        element.find('.ng-date-select-second').text(new_year.substring(2, 4));
+                        resetCalendar();
+                    } else if (new_year !== null) {
+                        alert('Le format de la date est incorrect');
+                    }
+                });
+            }
+        };
+    }
+]);
+
 FeaderAppDirectives.directive('ngDeletable', [function() {
         return {
             restrict: 'AEC',

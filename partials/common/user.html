@@ -35,7 +35,7 @@
                 <h3>{{User.getCompleteName()}}</h3>
             </div>
             <div class="menuPannel">
-                <span><a ng-if="isAtHome() && User.getPermissions() === 1" href="#/plateforme">Acc&eacute;der a la plateforme</a></span><br />
+                <span><a ng-if="isAtHome() && User.getPermissions() === 1" href="#/plateforme">Acc&eacute;der a la plate-forme</a></span><br />
                 <span><a ng-if="isAtHome() && User.getPermissions() === 2" href="#/admin">Console d'administration</a></span><br />
                 <span><a ng-if="!isAtHome()" href="#/home">Retour a l'accueil</a></span><br />
                 <span><a href="#" onclick="return false;" ng-click="logout()">Se d&eacute;connecter<img src="images/pictos/se-deconnecter.png" alt="se-deconnecter" title="Se déconnecter" /></a></span>

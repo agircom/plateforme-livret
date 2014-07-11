@@ -389,6 +389,14 @@
     cursor: pointer;
 }
 
+.ng-date-vac-select {
+    cursor: pointer;
+}
+
+.ng-date-ferie-select {
+    cursor: pointer;
+}
+
 #library-miniature li {
     cursor: pointer;
 }

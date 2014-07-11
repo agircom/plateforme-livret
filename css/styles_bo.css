@@ -1070,8 +1070,8 @@ h1.titre1fond-folio-pf{
 }
 
 .width70{
-    width: 70% !important;
-    max-height: 70% !important;
-    min-height: 70% !important;
+    /* width: 70% !important; */
+    /* max-height: 70% !important; */
+    /* min-height: 70% !important; */
     background-color: red;
 }

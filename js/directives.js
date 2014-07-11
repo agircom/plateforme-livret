@@ -295,7 +295,7 @@ FeaderAppDirectives.directive('ngDateSelect', ['LibrarySvc', function(LibrarySvc
             link: function(scope, element, attrs) {
                 // set element config
                 element.attr('title', 'Cliquez pour changer l\'année');
-                
+
                 // function generate calendar
                 var resetCalendar = function() {
                     var current_date = parseInt(element.find('.ng-date-select-first').text() + element.find('.ng-date-select-second').text());
@@ -303,12 +303,28 @@ FeaderAppDirectives.directive('ngDateSelect', ['LibrarySvc', function(LibrarySvc
                         alert('Erreur lors de l\'actualisation de l\'agenda');
                         return;
                     }
+                    // get pages
+                    var page_first = $('<div/>');
+                    page_first.append(scope.folio.ownPage[0].content);
+                    page_first = scope.clearPlugins(page_first);
+                    var page_second = $('<div/>');
+                    page_second.append(scope.folio.ownPage[1].content);
+                    page_second = scope.clearPlugins(page_second);
+                    
                     // check february
                     var new_date = new Date(current_date, 2, 0);
+                    if (scope.selected_page === 0) {
+                        page_first = $('#drawboard');
+                    }
                     if (new_date.getDate() === 28) {
-                        $('table.calendar-month').eq(1).find('tr').eq(28).hide();
+                        page_first.find('table.calendar-month').eq(1).find('tr').eq(28).hide();
                     } else {
-                        $('table.calendar-month').eq(1).find('tr').eq(28).show();
+                        page_first.find('table.calendar-month').eq(1).find('tr').eq(28).show();
+                    }
+                    if (scope.selected_page === 0) {
+                        scope.updateModel();
+                    } else {
+                        scope.folio.ownPage[0].content = page_first.html();
                     }
                 };
                 // event click

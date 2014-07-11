@@ -317,7 +317,7 @@ FeaderAppDirectives.directive('ngDateSelect', ['LibrarySvc', function(LibrarySvc
                         var page_second = $('<div/>');
                         page_second.append(scope.folio.ownPage[1].content);
                     }
-                    
+
                     // update another year
                     if (scope.selected_page === 0) {
                         page_second.find('.ng-date-select-second').text(current_date.toString().substring(2, 4));
@@ -371,7 +371,9 @@ FeaderAppDirectives.directive('ngDateSelect', ['LibrarySvc', function(LibrarySvc
                         alert('Le format de la date est incorrect');
                     }
                 });
-                resetCalendar();
+                scope.$on('$viewContentLoaded', function() {
+                    resetCalendar();
+                });
             }
         };
     }
@@ -384,82 +386,6 @@ FeaderAppDirectives.directive('ngDateVacSelect', ['LibrarySvc', function(Library
                 // set element config
                 element.attr('title', 'Cliquez pour changer l\'année');
 
-                // function generate calendar
-                var resetCalendar = function() {
-                    var current_date = parseInt(element.find('.ng-date-select-first').text() + element.find('.ng-date-select-second').text());
-                    if (isNaN(current_date)) {
-                        alert('Erreur lors de l\'actualisation de l\'agenda');
-                        return;
-                    }
-                    // get pages
-                    var page_first, page_second;
-                    if (scope.selected_page === 0) {
-                        page_first = $('#drawboard');
-                    } else {
-                        var page_first = $('<div/>');
-                        page_first.append(scope.folio.ownPage[0].content);
-                    }
-                    if (scope.selected_page === 1) {
-                        page_second = $('#drawboard');
-                    } else {
-                        var page_second = $('<div/>');
-                        page_second.append(scope.folio.ownPage[1].content);
-                    }
-                    
-                    // update another year
-                    if (scope.selected_page === 0) {
-                        page_second.find('.ng-date-select-second').text(current_date.toString().substring(2, 4));
-                    } else {
-                        page_first.find('.ng-date-select-second').text(current_date.toString().substring(2, 4));
-                    }
-
-                    // check february
-                    var date_feb = new Date(current_date, 2, 0);
-                    if (date_feb.getDate() === 28) {
-                        page_first.find('table.calendar-month').eq(1).find('tr').eq(28).hide();
-                    } else {
-                        page_first.find('table.calendar-month').eq(1).find('tr').eq(28).show();
-                    }
-
-                    // update days
-                    var week = new Array('D', 'L', 'M', 'M', 'J', 'V', 'S');
-                    page_first.find('table.calendar-month').each(function(i, el) {
-                        var month = parseInt(i);
-                        $(el).find('tr').each(function(j, ele) {
-                            var day = parseInt($(ele).find('td').eq(1).text());
-                            var tmp_date = new Date(current_date, month, day);
-                            $(ele).find('td').eq(0).text(week[tmp_date.getDay()]);
-                        });
-                    });
-                    page_second.find('table.calendar-month').each(function(i, el) {
-                        var month = 6 + parseInt(i);
-                        $(el).find('tr').each(function(j, ele) {
-                            var day = parseInt($(ele).find('td').eq(1).text());
-                            var tmp_date = new Date(current_date, month, day);
-                            $(ele).find('td').eq(0).text(week[tmp_date.getDay()]);
-                        });
-                    });
-
-                    // save updates
-                    page_first = scope.clearPlugins(page_first.clone());
-                    page_second = scope.clearPlugins(page_second.clone());
-                    scope.folio.ownPage[0].content = page_first.html();
-                    scope.folio.ownPage[1].content = page_second.html();
-                    scope.updatedFolio = true;
-                };
-                // event click
-                element.on('click', function() {
-                    var first = element.find('.ng-date-select-first').text();
-                    var second = element.find('.ng-date-select-second').text();
-                    var new_year = prompt('Veuillez choisir l\'année', first + second);
-                    if (!isNaN(parseInt(new_year)) && parseInt(new_year) >= 2000 && parseInt(new_year) < 3000) {
-                        element.find('.ng-date-select-second').text(new_year.substring(2, 4));
-                        resetCalendar();
-                    } else if (new_year !== null) {
-                        alert('Le format de la date est incorrect');
-                    }
-                });
-                resetCalendar();
             }
         };
     }

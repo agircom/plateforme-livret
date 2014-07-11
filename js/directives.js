@@ -54,7 +54,7 @@ FeaderAppDirectives.directive('ngLocked', [function() {
     }
 ]);
 
-FeaderAppDirectives.directive('ngEditable', ['ToolSvc', '$compile', function(ToolSvc, $compile) {
+FeaderAppDirectives.directive('ngEditable', [function() {
         return {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
@@ -258,7 +258,7 @@ FeaderAppDirectives.directive('ngMarkerToggle', [function() {
     }
 ]);
 
-FeaderAppDirectives.directive('ngPictureSelect', ['LibrarySvc', function(LibrarySvc) {
+FeaderAppDirectives.directive('ngPictureSelect', [function() {
         return {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
@@ -289,7 +289,7 @@ FeaderAppDirectives.directive('ngPictureSelect', ['LibrarySvc', function(Library
 ]);
 
 
-FeaderAppDirectives.directive('ngDateSelect', ['LibrarySvc', function(LibrarySvc) {
+FeaderAppDirectives.directive('ngDateSelect', [function() {
         return {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
@@ -379,13 +379,74 @@ FeaderAppDirectives.directive('ngDateSelect', ['LibrarySvc', function(LibrarySvc
     }
 ]);
 
-FeaderAppDirectives.directive('ngDateVacSelect', ['LibrarySvc', function(LibrarySvc) {
+FeaderAppDirectives.directive('ngDateVacSelect', [function() {
         return {
             restrict: 'AEC',
             link: function(scope, element, attrs) {
                 // set element config
-                element.attr('title', 'Cliquez pour changer l\'année');
+                element.attr('title', 'Cliquez pour sélectionner les dates de vacances');
+                // vars
+                scope.selectingVac = false;
+                var days = $('#drawboard').find('table.calendar-month').find('tr');
 
+                // click event
+                element.on('click', function() {
+                    if (scope.selectingFerie === true) {
+                        scope.selectingFerie = false;
+                        $('#drawboard').find('.ng-date-ferie-select-close').trigger('click');
+                    }
+                    scope.selectingVac = true;
+                    var tmp = $(document.createElement('button')).addClass('ng-date-vac-select-close').html('X');
+                    tmp.on('click', function() {
+                        scope.selectingVac = false;
+                        days.off('click');
+                        $(this).remove();
+                        scope.updateModel();
+                    });
+                    tmp.insertAfter(element);
+                    days.on('click', function() {
+                        if (scope.selectingVac === true) {
+                            $(this).find('td').eq(4).toggleClass('trait-vacances');
+//                            $(this).find('td').eq(2).toggleClass('picto-jr-ferie');
+                        }
+                    });
+                });
+            }
+        };
+    }
+]);
+
+FeaderAppDirectives.directive('ngDateFerieSelect', [function() {
+        return {
+            restrict: 'AEC',
+            link: function(scope, element, attrs) {
+                // set element config
+                element.attr('title', 'Cliquez pour sélectionner les jours fériés');
+                // vars
+                scope.selectingFerie = false;
+                var days = $('#drawboard').find('table.calendar-month').find('tr');
+
+                // click event
+                element.on('click', function() {
+                    if (scope.selectingVac === true) {
+                        scope.selectingVac = false;
+                        $('#drawboard').find('.ng-date-vac-select-close').trigger('click');
+                    }
+                    scope.selectingFerie = true;
+                    var tmp = $(document.createElement('button')).addClass('ng-date-ferie-select-close').html('X');
+                    tmp.on('click', function() {
+                        scope.selectingFerie = false;
+                        days.off('click');
+                        $(this).remove();
+                        scope.updateModel();
+                    });
+                    tmp.insertAfter(element);
+                    days.on('click', function() {
+                        if (scope.selectingFerie === true) {
+                            $(this).find('td').eq(2).toggleClass('picto-jr-ferie');
+                        }
+                    });
+                });
             }
         };
     }

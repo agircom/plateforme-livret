@@ -586,6 +586,8 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             content.find('.ng-remove-cat').find('h4').children('.ng-remove-cat-handler').remove();
             content.find('.ng-clone-orga').find('h5').children('.ng-clone-orga-handler').remove();
             content.find('.ng-remove-orga').find('h5').children('.ng-remove-orga-handler').remove();
+            content.find('.ng-date-ferie-select-close').remove();
+            content.find('.ng-date-vac-select-close').remove();
             return content;
         };
         $scope.updateModel = function() {

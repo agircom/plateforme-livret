@@ -1068,3 +1068,10 @@ h1.titre1fond-folio-pf{
 .trait-vacances{
     background: #e57e0c;
 }
+
+.width70{
+    width: 70% !important;
+    max-height: 70% !important;
+    min-height: 70% !important;
+    background-color: red;
+}

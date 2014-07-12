@@ -24,7 +24,9 @@
                 <td>{{user.date_create}}</td>
                 <td class="table-users-admin-colonnedif">{{user.date_last_connect}}</td>
                 <td><button ng-click="showUserSheet(user)">i</button></td>
-                <td class="table-users-admin-colonnedif"><button ng-click="deleteUser(user)">x</button></td>
+                <td class="table-users-admin-colonnedif">
+                    <button ng-if="user.permissions < 2" ng-click="deleteUser(user)">x</button>
+                </td>
             </tr>
         </tbody>
         <tfoot>

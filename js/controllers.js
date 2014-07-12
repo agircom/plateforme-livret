@@ -1042,7 +1042,14 @@ FeaderAppControllers.controller('AdminCtrl.Users', ['$scope', 'AdminSvc',
                 AdminSvc.deleteUser(user.id).success(function(data) {
                     $scope.Users.splice($scope.Users.indexOf(user), 1);
                 }).error(function(data, status) {
-
+                    switch (status) {
+                        case 403:
+                            alert('Impossible de supprimer un compte administrateur');
+                            break;
+                        default:
+                            alert('Impossible de supprimer cet utilisateur');
+                            break;
+                    }
                 });
             }
         };

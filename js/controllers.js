@@ -1260,9 +1260,42 @@ FeaderAppControllers.controller('AdminCtrl.ModHome', ['$scope',
         };
     }
 ]);
-FeaderAppControllers.controller('AdminCtrl.ModEditor', ['$scope',
-    function($scope) {
-
+FeaderAppControllers.controller('AdminCtrl.ModEditor', ['$scope', 'BookletSvc', 'AdminSvc',
+    function($scope, BookletSvc, AdminSvc) {
+        $scope.templates = [];
+        $scope.tmpTpl = {};
+        $scope.showHelpPopup = false;
+        $scope.showHelp = function(tpl) {
+            $scope.tmpTpl = tpl;
+            $scope.toggleHelpPopup();
+        };
+        $scope.toggleHelpPopup = function() {
+            $scope.showHelpPopup = !$scope.showHelpPopup;
+        };
+        $scope.reload = function() {
+            BookletSvc.getTemplates().success(function(data) {
+                $scope.templates = data;
+            }).error(function(data, status) {
+                alert('Impossible de charger les modeles de folio (Erreur: ' + status + ')');
+            });
+        };
+        $scope.editHelp = function() {
+            if ($scope.tmpTpl.helpintro === '' || $scope.tmpTpl.helptext === '') {
+                alert('Vous devez saisir une introduction et une explication complete');
+                return;
+            }
+            var tmpData = {
+                intro: $scope.tmpTpl.helpintro,
+                text: $scope.tmpTpl.helptext
+            };
+            AdminSvc.editTemplateHelp($scope.tmpTpl.id, tmpData).success(function() {
+                $scope.tmpTpl = {};
+                $scope.toggleHelpPopup();
+            }).error(function(data, status) {
+                alert('Impossible de sauvegarder l\'aide de ce modele.');
+            });
+        };
+        $scope.reload();
     }
 ]);
 FeaderAppControllers.controller('AdminCtrl.ModHelp', ['$scope', 'AdminSvc', 'FaqSvc',

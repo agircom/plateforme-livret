@@ -210,6 +210,12 @@ FeaderAppServices.factory('ApiSvc', ['$http',
             getFolioTemplates: function() {
                 return $http.get(this.apiUrl + '/templates/folios');
             },
+            putFolioTemplateHelp: function(tpl_id, tpl_help) {
+                return $http.put(this.apiUrl + '/admin/template/' + tpl_id + '/help', tpl_help);
+            },
+            putFolioTemplateContent: function(tpl_id, tpl_content) {
+                return $http.put(this.apiUrl + '/');
+            },
             postFolio: function(booklet_id, folio_type_template) {
                 return $http.post(this.apiUrl + '/booklet/' + booklet_id + '/folio/' + folio_type_template);
             },
@@ -420,6 +426,9 @@ FeaderAppServices.factory('AdminSvc', ['ApiSvc',
             },
             deleteFaq: function(faq_id) {
                 return ApiSvc.deleteFaq(faq_id);
+            },
+            editTemplateHelp: function(tpl_id, tpl_help) {
+                return ApiSvc.putFolioTemplateHelp(tpl_id, tpl_help);
             }
         };
     }

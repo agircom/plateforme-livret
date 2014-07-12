@@ -836,6 +836,7 @@ $app->get('/library/cats', function() use ($app) {
  * API Admin
  * 
  */
+// REST Api admin get stats
 $app->get('/admin/stats', function() use ($app) {
     // retrieve user
     $user_record = retrieveAdminByToken();
@@ -849,6 +850,7 @@ $app->get('/admin/stats', function() use ($app) {
     $stats['pictures'] = R::count('library');
     echo json_encode($stats);
 });
+// REST Api admin get users
 $app->get('/admin/users', function() use ($app) {
     // retrieve user
     $user_record = retrieveAdminByToken();
@@ -875,6 +877,7 @@ $app->get('/admin/users', function() use ($app) {
     }
     echo json_encode($user_list);
 });
+// REST Api admin delete user
 $app->delete('/admin/user/:user_id', function($user_id) use ($app) {
     // retrieve user
     $user_record = retrieveAdminByToken();
@@ -898,6 +901,7 @@ $app->delete('/admin/user/:user_id', function($user_id) use ($app) {
     }
     R::trash($user);
 });
+// REST Api admin create faq
 $app->post('/admin/faq', function() use ($app) {
     // retrieve user
     $user_record = retrieveAdminByToken();
@@ -916,6 +920,7 @@ $app->post('/admin/faq', function() use ($app) {
     $faq_record->answer = $postData['answer'];
     R::store($faq_record);
 });
+// REST Api admin update faq
 $app->put('/admin/faq/:faq_id', function($faq_id) use ($app) {
     // retrieve user
     $user_record = retrieveAdminByToken();
@@ -939,6 +944,7 @@ $app->put('/admin/faq/:faq_id', function($faq_id) use ($app) {
     $faq_record->answer = $putData['answer'];
     R::store($faq_record);
 });
+// REST Api admin delete faq
 $app->delete('/admin/faq/:faq_id', function($faq_id) use ($app) {
     // retrieve user
     $user_record = retrieveAdminByToken();
@@ -952,6 +958,30 @@ $app->delete('/admin/faq/:faq_id', function($faq_id) use ($app) {
         return;
     }
     R::trash($faq_record);
+});
+// REST Api admin update folio template help
+$app->put('/admin/template/:tpl_id/help', function($tpl_id) use ($app) {
+    // retrieve user
+    $user_record = retrieveAdminByToken();
+    if (!$user_record) {
+        return;
+    }
+    // get data
+    $putData = json_decode($app->request->getBody(), true);
+     if (!key_exists('intro', $putData) || is_null($putData['intro']) || !key_exists('text', $putData) || is_null($putData['text'])) {
+        // bad params
+        $app->response()->status(400);
+        return;
+    }
+    // retrieve folio template
+    $tpl_record = R::load('templatefolio', $tpl_id);
+    if (is_null($tpl_record)) {
+        $app->response()->status(404);
+        return;
+    }
+    $tpl_record->helpintro = $putData['intro'];
+    $tpl_record->helptext = $putData['text'];
+    R::store($tpl_record);
 });
 
 /*

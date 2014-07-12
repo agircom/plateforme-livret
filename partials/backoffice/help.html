@@ -7,7 +7,7 @@
     <div ng-repeat="faq in faqList| filter:faqFilter" class="faq-item">
         <h3>{{faq.ask}} ?</h3>
         <div>
-            <p ng-bind-html="faq.answer"></p>
+            <p ng-bind-html="faq.answer | breakFilter"></p>
         </div>
     </div>
 </div>

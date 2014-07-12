@@ -620,3 +620,23 @@ FeaderAppDirectives.directive('link', [function() {
         };
     }
 ]);
+
+FeaderAppDirectives.directive('ngAccordion', [function() {
+        return {
+            restrict: 'AEC',
+            link: function(scope, element, attrs) {
+                element.accordion({
+                    header: 'div>h3',
+                    collapsible: true,
+                    heightStyleType: 'content'
+                });
+                scope.$watch(function() {
+                    return scope.faqList;
+                }, function(newVal) {
+//                    alert('refresh accordion');
+                    element.accordion('refresh');
+                });
+            }
+        };
+    }
+]);

@@ -983,9 +983,18 @@ FeaderAppControllers.controller('BackofficeCtrl.PictureSelector', ['$scope', 'Li
     }
 ]);
 
-FeaderAppControllers.controller('BackofficeCtrl.Help', ['$scope',
-    function($scope) {
-
+FeaderAppControllers.controller('BackofficeCtrl.Help', ['$scope', 'FaqSvc', 
+    function($scope, FaqSvc) {
+        $scope.faqList = [];
+        $scope.faqFilter = '';
+        $scope.reload = function() {
+            FaqSvc.getList().success(function(data) {
+                $scope.faqList = data;
+            }).error(function(data, status) {
+                alert('Impossible de charger les FAQ (erreur: ' + status + ')');
+            });
+        };
+        $scope.reload();
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Contact', ['$scope',

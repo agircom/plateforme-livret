@@ -1,1 +1,13 @@
-help
+<h2>
+    <img style="vertical-align: middle; padding-right:5px;" src="images/pictos/aide-faq.png" width="32" height="32" alt="photothèque" title="photothèque">
+    Aide et FAQ
+</h2>
+<div class="recherche-faq"><input type="text" id="recherche-faq" placeholder="Recherche par mots clés" ng-model="faqFilter"><img src="images/pictos/ok.png"></div>   
+<div id="faq-list" class="ng-accordion">
+    <div ng-repeat="faq in faqList| filter:faqFilter" class="faq-item">
+        <h3>{{faq.ask}} ?</h3>
+        <div>
+            <p>{{faq.answer}}</p>
+        </div>
+    </div>
+</div>

@@ -1252,9 +1252,84 @@ FeaderAppControllers.controller('AdminCtrl.ModEditor', ['$scope',
 
     }
 ]);
-FeaderAppControllers.controller('AdminCtrl.ModHelp', ['$scope',
-    function($scope) {
-
+FeaderAppControllers.controller('AdminCtrl.ModHelp', ['$scope', 'AdminSvc', 'FaqSvc',
+    function($scope, AdminSvc, FaqSvc) {
+        $scope.faqList = [];
+        $scope.ask = '';
+        $scope.answer = '';
+        $scope.tmpFaq = {};
+        $scope.showAddPopup = false;
+        $scope.showSheetPopup = false;
+        $scope.toggleAddPopup = function() {
+            $scope.ask = '';
+            $scope.answer = '';
+            $scope.showAddPopup = !$scope.showAddPopup;
+        };
+        $scope.toggleSheetPopup = function() {
+            $scope.showSheetPopup = !$scope.showSheetPopup;
+        };
+        $scope.showFaqSheet = function(faq) {
+            if (typeof faq !== 'undefined') {
+                $scope.tmpFaq = faq;
+            } else {
+                $scope.tmpFaq = {};
+            }
+            $scope.toggleSheetPopup();
+        };
+        $scope.reload = function() {
+            FaqSvc.getList().success(function(data) {
+                $scope.faqList = data;
+            }).error(function(data, status) {
+                alert('Erreur de chargement des FAQ. (code: ' + status + ')');
+            });
+        };
+        $scope.addFaq = function() {
+            if ($scope.ask === '' || $scope.answer === '') {
+                alert('Vous devez renseigner les deux champs.');
+                return;
+            }
+            var tmpdata = {
+                ask: $scope.ask,
+                answer: $scope.answer
+            };
+            AdminSvc.addFaq(tmpdata).success(function(data, status) {
+                $scope.reload();
+                $scope.toggleAddPopup();
+            }).error(function(data, status) {
+                alert('Impossible d\'ajouter la FAQ.');
+            });
+        };
+        
+        $scope.editFaq = function() {
+            if ($scope.tmpFaq.ask === '' || $scope.tmpFaq.answer === '') {
+                alert('Vous devez renseigner les deux champs.');
+                return;
+            }
+            var tmpdata = {
+                ask: $scope.tmpFaq.ask,
+                answer: $scope.tmpFaq.answer
+            };
+            AdminSvc.editFaq($scope.tmpFaq.id, tmpdata).success(function(data, status) {
+                $scope.reload();
+                $scope.toggleSheetPopup();
+            }).error(function(data, status) {
+                alert('Impossible de modifier la FAQ.');
+            });
+        };
+        
+        $scope.deleteFaq = function(faq) {
+            if (confirm('Voulez-vous vraiment supprimer cette aide ?')) {
+                AdminSvc.deleteFaq(faq.id).success(function() {
+                   $scope.reload() ;
+                }).error(function(data, status) {
+                    alert('Impossible de supprimer cette aide');
+                });
+            }
+        };
+        
+        
+        
+        $scope.reload();
     }
 ]);
 

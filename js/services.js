@@ -260,6 +260,18 @@ FeaderAppServices.factory('ApiSvc', ['$http',
             },
             getStats: function() {
                 return $http.get(this.apiUrl + '/admin/stats');
+            },
+            getFaq: function() {
+                return $http.get(this.apiUrl + '/faq');
+            },
+            postFaq: function(faq_infos) {
+                return $http.post(this.apiUrl + '/admin/faq', faq_infos);
+            },
+            putFaq: function(faq_id, faq_infos) {
+                return $http.put(this.apiUrl + '/admin/faq/' + faq_id, faq_infos);
+            },
+            deleteFaq: function(faq_id) {
+                return $http.delete(this.apiUrl + '/admin/faq/' + faq_id);
             }
         };
     }
@@ -353,6 +365,16 @@ FeaderAppServices.factory('LibrarySvc', ['ApiSvc',
     }
 ]);
 
+FeaderAppServices.factory('FaqSvc', ['ApiSvc',
+    function(ApiSvc) {
+        return {
+            getList: function() {
+                return ApiSvc.getFaq();
+            }
+        };
+    }
+]);
+
 FeaderAppServices.factory('ToolSvc', ['ApiSvc',
     function(ApiSvc) {
         return {
@@ -389,6 +411,15 @@ FeaderAppServices.factory('AdminSvc', ['ApiSvc',
             },
             deleteUser: function(user_id) {
                 return ApiSvc.deleteUser(user_id);
+            },
+            addFaq: function(faq_infos) {
+                return ApiSvc.postFaq(faq_infos);
+            },
+            editFaq: function(faq_id, faq_infos) {
+                return ApiSvc.putFaq(faq_id, faq_infos);
+            },
+            deleteFaq: function(faq_id) {
+                return ApiSvc.deleteFaq(faq_id);
             }
         };
     }

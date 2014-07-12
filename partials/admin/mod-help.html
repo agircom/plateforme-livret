@@ -1,1 +1,72 @@
-help
+<label for="admin-faq-filter">Rechercher</label><input type="text" id="admin-faq-filter" ng-model="faqFilter">
+<br>
+<button ng-click="toggleAddPopup()">Ajouter</button>
+<button ng-click="reload()">Recharger la liste</button>
+<div id="admin-faq-list">
+    <table class="table-users-admin">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Fiche</th>
+                <th>Supprimer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="faq in faqList| filter: faqFilter | orderBy: 'ask'">
+                <td>{{faq.ask}}</td>
+                <td>
+                    <button ng-click="showFaqSheet(faq)">i</button>
+                </td>
+                <td class="table-users-admin-colonnedif">
+                    <button ng-click="deleteFaq(faq)">x</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div id="admin-faq-add" ng-show="showAddPopup">
+    <div class="sheet-fade" ng-click="toggleAddPopup()"></div>
+    <div class="sheet-content">
+        <button ng-click="toggleAddPopup()" class="sheet-close">
+            <img src="images/pictos/fermer.png" alt="Fermer" title="Fermer" /> Fermer
+        </button>
+        <h2>Ajout d'une FAQ</h2>
+        <h3>Les champs obligatoires sont indiqués par un *</h3>
+        <div id="admin-faq-form-add">
+            <p>
+                <label for="admin-faq-form-add-ask">Question* :</label>
+                <input type="text" name="ask" ng-model="ask" id="admin-faq-form-add-ask"> ?
+            </p>
+            <p>
+                <label for="admin-faq-form-add-answer">R&eacute;ponse* :</label>
+                <textarea id="admin-faq-form-add-answer" name="answer" ng-model="answer" ng-trim="true"></textarea>
+            </p>
+            <p>
+                <button ng-click="addFaq()">Ajouter</button>
+            </p>
+        </div>
+    </div>
+</div>
+<div id="admin-faq-sheet" ng-show="showSheetPopup">
+    <div class="sheet-fade" ng-click="toggleSheetPopup()"></div>
+    <div class="sheet-content">
+        <button ng-click="toggleSheetPopup()" class="sheet-close">
+            <img src="images/pictos/fermer.png" alt="Fermer" title="Fermer" /> Fermer
+        </button>
+        <h2>Fiche d'une FAQ</h2>
+        <h3>Les champs obligatoires sont indiqués par un *</h3>
+        <div id="admin-faq-form-add">
+            <p>
+                <label for="admin-faq-form-add-ask">Question* :</label>
+                <input type="text" name="ask" ng-model="tmpFaq.ask" id="admin-faq-form-add-ask"> ?
+            </p>
+            <p>
+                <label for="admin-faq-form-add-answer">R&eacute;ponse* :</label>
+                <textarea id="admin-faq-form-add-answer" name="answer" ng-model="tmpFaq.answer" ng-trim="true"></textarea>
+            </p>
+            <p>
+                <button ng-click="editFaq()">Modifier</button>
+            </p>
+        </div>
+    </div>
+</div>

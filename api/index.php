@@ -898,6 +898,77 @@ $app->delete('/admin/user/:user_id', function($user_id) use ($app) {
     }
     R::trash($user);
 });
+$app->post('/admin/faq', function() use ($app) {
+    // retrieve user
+    $user_record = retrieveAdminByToken();
+    if (!$user_record) {
+        return;
+    }
+    // get data
+    $postData = json_decode($app->request->getBody(), true);
+    if (!key_exists('ask', $postData) || is_null($postData['ask']) || !key_exists('answer', $postData) || is_null($postData['answer'])) {
+        // bad params
+        $app->response()->status(400);
+        return;
+    }
+    $faq_record = R::dispense('faq');
+    $faq_record->ask = $postData['ask'];
+    $faq_record->answer = $postData['answer'];
+    R::store($faq_record);
+});
+$app->put('/admin/faq/:faq_id', function($faq_id) use ($app) {
+    // retrieve user
+    $user_record = retrieveAdminByToken();
+    if (!$user_record) {
+        return;
+    }
+    // get data
+    $putData = json_decode($app->request->getBody(), true);
+     if (!key_exists('ask', $putData) || is_null($putData['ask']) || !key_exists('answer', $putData) || is_null($putData['answer'])) {
+        // bad params
+        $app->response()->status(400);
+        return;
+    }
+    // retrieve faq
+    $faq_record = R::load('faq', $faq_id);
+    if (is_null($faq_record)) {
+        $app->response()->status(404);
+        return;
+    }
+    $faq_record->ask = $putData['ask'];
+    $faq_record->answer = $putData['answer'];
+    R::store($faq_record);
+});
+$app->delete('/admin/faq/:faq_id', function($faq_id) use ($app) {
+    // retrieve user
+    $user_record = retrieveAdminByToken();
+    if (!$user_record) {
+        return;
+    }
+    // retrieve faq
+    $faq_record = R::load('faq', $faq_id);
+    if (is_null($faq_record)) {
+        $app->response()->status(404);
+        return;
+    }
+    R::trash($faq_record);
+});
+
+/*
+ * 
+ * API Faq
+ * 
+ */
+$app->get('/faq', function() use ($app) {
+    // retrieve user
+    $user_record = retrieveUserByToken();
+    if (!$user_record) {
+        return;
+    }
+    $faq_record = R::findAll('faq');
+    echo json_encode(R::exportAll($faq_record));
+});
+
 
 /*
  * 

@@ -85,37 +85,38 @@ FeaderAppDirectives.directive('ngEditable', [function() {
                             element.text(element.text().substring(0, maxLength));
                         }
                     };
-                    toolbox.insertAfter(element);
-                    toolbox.draggable({
-                        scroll: true,
-                        cursor: 'move',
-                        start: function(event, ui) {
-                            if ($('.cadre-folio-pf').hasClass('cfpffullscreen')) {
-                                ui.position.left = 0;
-                                ui.position.top = 0;
-                            }
-                        },
-                        drag: function(event, ui) {
-                            if ($('.cadre-folio-pf').hasClass('cfpffullscreen')) {
-                                var zoomScale = $('.cadre-folio-pf').css('zoom');
-                                var changeLeft = ui.position.left - ui.originalPosition.left; // find change in left
-                                var newLeft = ui.originalPosition.left + changeLeft / zoomScale; // adjust new left by our zoomScale
-
-                                var changeTop = ui.position.top - ui.originalPosition.top; // find change in top
-                                var newTop = ui.originalPosition.top + changeTop / zoomScale; // adjust new top by our zoomScale
-
-                                ui.position.left = newLeft;
-                                ui.position.top = newTop;
-                            }
-                        }
-                    });
+                    toolbox.insertAfter($('.menu-folio > ul'));
+//                    toolbox.insertAfter(element);
+//                    toolbox.draggable({
+//                        scroll: true,
+//                        cursor: 'move',
+//                        start: function(event, ui) {
+//                            if ($('.cadre-folio-pf').hasClass('cfpffullscreen')) {
+//                                ui.position.left = 0;
+//                                ui.position.top = 0;
+//                            }
+//                        },
+//                        drag: function(event, ui) {
+//                            if ($('.cadre-folio-pf').hasClass('cfpffullscreen')) {
+//                                var zoomScale = $('.cadre-folio-pf').css('zoom');
+//                                var changeLeft = ui.position.left - ui.originalPosition.left; // find change in left
+//                                var newLeft = ui.originalPosition.left + changeLeft / zoomScale; // adjust new left by our zoomScale
+//
+//                                var changeTop = ui.position.top - ui.originalPosition.top; // find change in top
+//                                var newTop = ui.originalPosition.top + changeTop / zoomScale; // adjust new top by our zoomScale
+//
+//                                ui.position.left = newLeft;
+//                                ui.position.top = newTop;
+//                            }
+//                        }
+//                    });
 
                     // place it
-                    toolbox.css({
-                        left: element.offset().left,
-                        top: element.offset().top + element.height,
-                        'margin-top': '-' + (element.css('margin-bottom'))
-                    });
+//                    toolbox.css({
+//                        left: element.offset().left,
+//                        top: element.offset().top + element.height,
+//                        'margin-top': '-' + (element.css('margin-bottom'))
+//                    });
 
                     element.on('focusout', function() {
                         scope.updateModel();

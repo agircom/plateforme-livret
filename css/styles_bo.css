@@ -366,6 +366,7 @@ h1.titre1fond-folio-pf{
     top: 0px;
     left: 0;
     background: url(../images/bg-menu-folio.png) repeat-x;
+    z-index: 150;
 }
 .menu-folio ul {
  padding:0;

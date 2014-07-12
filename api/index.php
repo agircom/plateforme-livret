@@ -913,7 +913,7 @@ $app->post('/admin/faq', function() use ($app) {
     }
     $faq_record = R::dispense('faq');
     $faq_record->ask = $postData['ask'];
-    $faq_record->answer = $postData['answer'];
+    $faq_record->answer = nl2br($postData['answer']);
     R::store($faq_record);
 });
 $app->put('/admin/faq/:faq_id', function($faq_id) use ($app) {
@@ -936,7 +936,7 @@ $app->put('/admin/faq/:faq_id', function($faq_id) use ($app) {
         return;
     }
     $faq_record->ask = $putData['ask'];
-    $faq_record->answer = $putData['answer'];
+    $faq_record->answer = nl2br($putData['answer']);
     R::store($faq_record);
 });
 $app->delete('/admin/faq/:faq_id', function($faq_id) use ($app) {

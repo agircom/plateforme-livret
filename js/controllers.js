@@ -539,8 +539,8 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
         $scope.reload();
     }
 ]);
-FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', '$rootScope', '$location', '$sce', 'BookletSvc', 'ToolSvc', '$compile', 'UserSvc',
-    function($scope, $routeParams, $rootScope, $location, $sce, BookletSvc, ToolSvc, $compile, UserSvc) {
+FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', '$rootScope', '$location', '$sce', 'BookletSvc', 'UserSvc',
+    function($scope, $routeParams, $rootScope, $location, $sce, BookletSvc, UserSvc) {
         $scope.logout = function() {
             UserSvc.Logout(function() {
                 $location.path('/home');
@@ -794,6 +794,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$rout
     function($scope, $routeParams, $location, BookletSvc) {
         $scope.booklet_id = $routeParams.booklet_id;
         $scope.template = null;
+        $scope.showHelp = false;
         $scope.editFolio = function(folio_id) {
             $location.path('/plateforme/booklet/' + $scope.booklet_id + '/folio/' + folio_id);
         };
@@ -823,7 +824,10 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$rout
             }
         };
         $scope.gotoBooklets = function() {
-            $location.path('/plateforme/booklets');
+            $location.path('/plateforme/booklets/' + $scope.booklet_id);
+        };
+        $scope.toggleHelp = function() {
+            $scope.showHelp = !$scope.showHelp;
         };
     }
 ]);

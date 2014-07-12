@@ -107,10 +107,15 @@
 
 <div ng-show="showPictureSelector" ng-include="'partials/backoffice/picture-select.html'"></div>
 
-<div ng-show="showHelp">
-    {{templates[folio.type].helptext}}
-    <br>
-    <button ng-click="toggleHelp()">X</button>
+<div class="popup-help" ng-show="showHelp">
+    <div class="sheet-fade" ng-click="toggleHelp()"></div>
+    <div class="sheet-content">
+        <button ng-click="toggleHelp()" class="sheet-close">
+            <img src="images/pictos/fermer.png" alt="Fermer" title="Fermer" /> Fermer
+        </button>
+        <h2>{{templates[folio.type].helptitle}}</h2>
+        {{templates[folio.type].helptext}}
+    </div>
 </div>
 
 <div id="ng-editable-toolbox" class="ng-editable-toolbox" style="display: none;">

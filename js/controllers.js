@@ -1064,11 +1064,29 @@ FeaderAppControllers.controller('AdminCtrl.Users', ['$scope', 'AdminSvc',
                     });
         };
         $scope.export = function() {
-            AdminSvc.exportUsers().success(function(data) {
-//                console.log(window.btoa(unescape(encodeURIComponent(data))));
-                window.location = 'data:application/vnd.ms-excel;base64,' + window.btoa(unescape(encodeURIComponent(data)));
+            var csvContent = "Nom,Prenom,Email,Fonction,Telephone,Adresse,Code postal,Ville,Date d\'inscription,Date derniere connexion,CGU\n";
+            $scope.Users.forEach(function(user, index) {
+                csvContent += user.last_name + ', ';
+                csvContent += user.first_name + ', ';
+                csvContent += user.username + ', ';
+                csvContent += user.function + ', ';
+                csvContent += user.phone + ', ';
+                csvContent += user.address + ', ';
+                csvContent += user.cp + ', ';
+                csvContent += user.city + ', ';
+                csvContent += user.date_create + ', ';
+                csvContent += user.date_last_connect + ', ';
+                csvContent += user.cgu_accepted + ', ';
+                csvContent += "\n";
             });
-//            window.location = 'api/admin/users/export';
+//            var encodedUri = encodeURI(csvContent);
+            var encodedUri = unescape(encodeURIComponent(csvContent));
+            var blob = new Blob([encodedUri], {type: "text/csv;charset=utf-8"});
+            saveAs(blob, "utilisateurs.csv");
+
+//            AdminSvc.exportUsers().success(function(data) {
+//                window.location = 'data:application/vnd.ms-excel;base64,' + window.btoa(unescape(encodeURIComponent(data)));
+//            });
         };
         $scope.reload();
     }

@@ -69,7 +69,7 @@ FeaderAppDirectives.directive('ngEditable', [function() {
                     var oneLine = (typeof attrs.oneLine !== 'undefined') ? JSON.parse(attrs.oneLine) : false;
                     var toolbox = $('#ng-editable-toolbox').clone().removeAttr('id');
                     var calcChars = function(e) {
-                        if (e.which !== 8 && element.text().length > maxLength) {
+                        if (e.which !== 8 && element.text().length >= maxLength) {
                             e.preventDefault();
                         } else if ((e.which === 8 || e.which === 46) && element.text().length === 0) {
                             e.preventDefault();

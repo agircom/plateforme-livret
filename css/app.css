@@ -187,6 +187,24 @@
     width: 12px;
     height: 12px;
 }
+.ng-editable-toolbox-textedit {
+    cursor: pointer;
+    float: left;
+    margin: 7px 0 0 2px;
+}
+.ng-editable-toolbox-textedit > img {
+    width: 16px;
+    height: 16px;
+}
+.ng-editable-toolbox-textedit-popup {
+    display: none;
+    width: 400px;
+    height: 300px;
+}
+.ng-editable-toolbox-textedit-popup > textarea {
+    width: 400px;
+    height: 300px;
+}
 
 .ng-deletable-handler {
     margin: 0;

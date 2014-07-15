@@ -160,6 +160,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
             getUsers: function() {
                 return $http.get(this.apiUrl + '/admin/users');
             },
+            getUsersExport: function() {
+                return $http.get(this.apiUrl + '/admin/users/export');
+            },
             postUser: function(userInfos) {
                 return $http.post(this.apiUrl + '/user', {
                     userInfos: userInfos
@@ -429,6 +432,9 @@ FeaderAppServices.factory('AdminSvc', ['ApiSvc',
             },
             editTemplateHelp: function(tpl_id, tpl_help) {
                 return ApiSvc.putFolioTemplateHelp(tpl_id, tpl_help);
+            },
+            exportUsers: function() {
+                return ApiSvc.getUsersExport();
             }
         };
     }

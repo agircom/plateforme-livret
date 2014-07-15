@@ -73,9 +73,8 @@ FeaderAppDirectives.directive('ngEditable', [function() {
                             e.preventDefault();
                         } else if ((e.which === 8 || e.which === 46) && element.text().length === 0) {
                             e.preventDefault();
-                        } else {
-                            toolbox.find('.ng-editable-toolbox-chars>b').html(maxLength - element.text().length);
                         }
+                        toolbox.find('.ng-editable-toolbox-chars>b').html(maxLength - element.text().length);
                     };
                     var clearNewLine = function() {
                         element.text(element.text().replace(/(\r\n|\n|\r)/gm, " "));
@@ -125,6 +124,25 @@ FeaderAppDirectives.directive('ngEditable', [function() {
                     //event copy / cut
                     element.bind("cut copy", function(e) {
                         calcChars(e);
+                    });
+
+                    // event textedit
+                    toolbox.find('.ng-editable-toolbox-textedit').on('click', function() {
+                        if ($('.ng-editable-toolbox-textedit-popup').is(':visible')) {
+                            toolbox.find('.ng-editable-toolbox-textedit-popup').slideUp();
+                            $(this).find('img').attr('src', 'images/pictos/expand.png');
+                        } else {
+                            toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').text(element.text());
+                            toolbox.find('.ng-editable-toolbox-textedit-popup').slideDown();
+                            $(this).find('img').attr('src', 'images/pictos/collapse.png');
+                        }
+                    });
+                    toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').on('keyup keydown keypress paste', function(e) {
+                        element.text($(this).val());
+                        element.trigger(e);
+                    });
+                    toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').on('focusout', function() {
+                        scope.updateModel();
                     });
 
                     // event close

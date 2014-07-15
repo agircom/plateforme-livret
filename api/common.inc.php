@@ -206,3 +206,17 @@ function getFormatPDF($folio_type) {
     }
     return $format;
 }
+
+function exportUsers() {
+    require_once './PHPExcel/PHPExcel.php';
+    require_once './PHPExcel/PHPExcel/Writer/Excel2007.php';
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="your_name.xls"');
+    header('Cache-Control: max-age=0');
+    $objPHPExcel = new PHPExcel();
+    $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
+//    $objWriter->save('plop.xlsx');
+    $objWriter->save('php://output');
+//    echo file_get_contents('plop.xlsx');
+//    unlink('plop.xlsx');
+}

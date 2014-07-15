@@ -1,7 +1,5 @@
 'use strict';
-
 var FeaderAppControllers = angular.module('FeaderApp.Controllers', ['ngSanitize']);
-
 FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'UserSvc',
     function($scope, $location, UserSvc) {
         $scope.identifiant = '';
@@ -183,7 +181,6 @@ FeaderAppControllers.controller('HomeCtrl.Home', ['$scope', '$location', 'UserSv
         };
     }
 ]);
-
 /*
  * 
  * CONTROLLER ACCOUNT
@@ -424,7 +421,6 @@ FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'Too
         };
     }
 ]);
-
 /*
  * 
  * CONTROLLER BACKOFFICE BOOKLETS
@@ -568,6 +564,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             $scope.templates = data;
         });
         $scope.selectPage = function(page_index) {
+            $('.ng-editable-toolbox:not(#ng-editable-toolbox)').remove();
             $scope.selected_page = page_index;
         };
         $scope.getFolioContent = function() {
@@ -602,7 +599,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             var header = container.find('.page-header').clone();
             var footer = container.find('.page-footer').clone();
             var full_content = $('<div/>');
-
             // concat all html pages
             for (var i = 0; i < $scope.folio.ownPage.length; ++i) {
                 if (i === $scope.selected_page) {
@@ -616,7 +612,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
 
             // remove plugin content
             full_content = $scope.clearPlugins(full_content);
-
             var order = 1;
             var pages = [{
                     folio_id: $scope.folio_id,
@@ -625,7 +620,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                 }];
             var entry_count = 0;
             var max_cat_index = full_content.find('.ng-clone-cat').length - 1;
-
             // backup container attributes
             var content = $('<div/>');
             var cat_content = $('<div/>');
@@ -640,7 +634,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                 cat_header.find('.ng-clone-orga').remove();
                 // count orga in this cat
                 var max_orga_index = $(this).find('.ng-clone-orga').length - 1;
-
                 // parse all orga in this cat
                 $(this).find('.ng-clone-orga').each(function(index_orga) {
                     // check header
@@ -725,7 +718,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                     $scope.selected_page = $scope.folio.ownPage.length - 1;
                 }
             });
-
         };
         $scope.save = function(callback) {
             $scope.updateModel();
@@ -831,7 +823,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$rout
         };
     }
 ]);
-
 /*
  * 
  * CONTROLLER BACKOFFICE LIBRARY
@@ -986,8 +977,7 @@ FeaderAppControllers.controller('BackofficeCtrl.PictureSelector', ['$scope', 'Li
         $scope.refreshLibrary();
     }
 ]);
-
-FeaderAppControllers.controller('BackofficeCtrl.Help', ['$scope', 'FaqSvc', 
+FeaderAppControllers.controller('BackofficeCtrl.Help', ['$scope', 'FaqSvc',
     function($scope, FaqSvc) {
         $scope.faqList = [];
         $scope.faqFilter = '';
@@ -1006,8 +996,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Contact', ['$scope',
 
     }
 ]);
-
-
 FeaderAppControllers.controller('AdminCtrl.Stats', ['$scope', 'AdminSvc',
     function($scope, AdminSvc) {
         $scope.stats = {
@@ -1074,6 +1062,13 @@ FeaderAppControllers.controller('AdminCtrl.Users', ['$scope', 'AdminSvc',
                     .error(function(data, status) {
 
                     });
+        };
+        $scope.export = function() {
+            AdminSvc.exportUsers().success(function(data) {
+//                console.log(window.btoa(unescape(encodeURIComponent(data))));
+                window.location = 'data:application/vnd.ms-excel;base64,' + window.btoa(unescape(encodeURIComponent(data)));
+            });
+//            window.location = 'api/admin/users/export';
         };
         $scope.reload();
     }
@@ -1345,7 +1340,6 @@ FeaderAppControllers.controller('AdminCtrl.ModHelp', ['$scope', 'AdminSvc', 'Faq
                 alert('Impossible d\'ajouter la FAQ.');
             });
         };
-        
         $scope.editFaq = function() {
             if ($scope.tmpFaq.ask === '' || $scope.tmpFaq.answer === '') {
                 alert('Vous devez renseigner les deux champs.');
@@ -1362,19 +1356,15 @@ FeaderAppControllers.controller('AdminCtrl.ModHelp', ['$scope', 'AdminSvc', 'Faq
                 alert('Impossible de modifier la FAQ.');
             });
         };
-        
         $scope.deleteFaq = function(faq) {
             if (confirm('Voulez-vous vraiment supprimer cette aide ?')) {
                 AdminSvc.deleteFaq(faq.id).success(function() {
-                   $scope.reload() ;
+                    $scope.reload();
                 }).error(function(data, status) {
                     alert('Impossible de supprimer cette aide');
                 });
             }
         };
-        
-        
-        
         $scope.reload();
     }
 ]);

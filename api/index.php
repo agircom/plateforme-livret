@@ -877,6 +877,15 @@ $app->get('/admin/users', function() use ($app) {
     }
     echo json_encode($user_list);
 });
+// REST Api admin get user export
+$app->get('/admin/users/export', function() use ($app) {
+    // retrieve user
+    $user_record = retrieveAdminByToken();
+    if (!$user_record) {
+        return;
+    }
+    exportUsers();
+});
 // REST Api admin delete user
 $app->delete('/admin/user/:user_id', function($user_id) use ($app) {
     // retrieve user

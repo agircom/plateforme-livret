@@ -270,16 +270,21 @@ h2.titre2fond-pres-territoire{
     text-decoration: none;
 }
 
+.template-pres-territoire img{
+    border: 3px solid #b1b1b1;
+}
+
+
 .template-pres-territoire h3{
     background-color:#00a295;
     -webkit-border-radius: 0px 10px 0px 10px;
     -moz-border-radius: 0px 10px 0px 10px;
-    border-radius: 0px 11px 0px 10px;
-    padding: 5px;
+    border-radius: 0px 10px 0px 10px;
+    padding: 2px;
     color: #fff;
     text-transform:uppercase;
-    width: 50%;
-    margin: 0 auto;
+    width: 40%;
+    margin: 2px auto;
     font-family: Arial;
     font-size: 10px;
     text-align: center;
@@ -288,7 +293,7 @@ h2.titre2fond-pres-territoire{
 
 .template-pres-territoire h3 span{
     float: left;
-    margin-left: 15px;
+    margin: 0 auto;
 }
 
 .right-pres-territoire{

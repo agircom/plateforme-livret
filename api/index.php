@@ -505,14 +505,9 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export/:quality', function($book
     $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_bo.css');
     $mpdf->WriteHTML($stylesheet, 1);
     foreach ($folio_record->xownPageList as $page) {
-        $html = '<style>@page {margin: 0px;padding:0;} body {font-family: "Lato" !important;}</style>';
-        $html .= '<div class="cadre-folio-pf" style="width: 100%;height: 100%; margin:0;padding:0;">';
-        $content = preg_replace('/<img src\=\"([^\"]*)\"/', "<img src=\"../$1\"", $page->content);
-        $html .= $content;
-        $html .= '</div>';
-        $mpdf->WriteHTML($html);
+        $mpdf->WriteHTML(generate_pdf_page($page->content, $quality));
         if ($page->id !== end($folio_record->xownPageList)->id) {
-            $mpdf->AddPage('c', $format, '', '', 0, 0, 0, 0, 0, 0);
+            $mpdf->AddPage('', $format, '', '', 0, 0, 0, 0, 0, 0);
         }
     }
     $mpdf->debug = true;

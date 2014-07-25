@@ -207,6 +207,59 @@ function getFormatPDF($folio_type) {
     return $format;
 }
 
+function generate_pdf_page($html_content, $quality) {
+    $html = '<style>@page {margin: 0px;padding:0;} body {font-family: "Lato" !important;}</style>';
+    $html .= '<div class="cadre-folio-pf" style="width: 100%;height: 100%; margin:0;padding:0;">';
+    $html .= preg_replace_callback('/<img src\=\"([^\"]*)\"/', function ($matches) {
+        $filename = pathinfo($matches[1], PATHINFO_FILENAME);
+        $ext = pathinfo($matches[1], PATHINFO_EXTENSION);
+        $percent = 0.5;
+        list($width, $height) = getimagesize('../' . $matches[1]);
+        $newwidth = $width * $percent;
+        $newheight = $height * $percent;
+        if ($quality == 'lq') {
+            switch ($ext) {
+                case 'jpg':
+                    $thumb = imagecreatetruecolor($newwidth, $newheight);
+                    $source = imagecreatefromjpeg('../' . $matches[1]);
+                    imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+                    imagejpeg($thumb, './tmp/' . $filename . '.' . $ext);
+                    break;
+                case 'png':
+                    $source = imagecreatefrompng('../' . $matches[1]);
+                    $thumb = imagecreatetruecolor($newwidth, $newheight);
+                    imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+ 
+//$largeur_source = imagesx($source);
+//$hauteur_source = imagesy($source);
+//$largeur_destination = imagesx($destination);
+//$hauteur_destination = imagesy($destination);
+//
+// 
+//imagesavealpha($source, true);
+//$newImage = imagecreatetruecolor($largeur_destination, $hauteur_destination);
+// 
+//// Make a new transparent image and turn off alpha blending to keep the alpha channel
+//$background = imagecolorallocatealpha($newImage, 255, 255, 255, 127);
+//imagecolortransparent($newImage, $background);
+//imagealphablending($newImage, false);
+//imagesavealpha($newImage, true);
+// 
+//imagecopyresampled($newImage, $source, 0, 0, 0, 0, $largeur_destination, $hauteur_destination,  $largeur_source, $hauteur_source);
+//$source = $newImage;
+                    
+                    imagepng($thumb, './tmp/' . $filename . '.' . $ext);
+                    break;
+            }
+        }
+
+
+        return '<img src="./tmp/' . $filename . '.' . $ext . '"';
+    }, $html_content);
+    $html .= '</div>';
+    return $html;
+}
+
 function exportUsers() {
     require_once './PHPExcel/PHPExcel.php';
     require_once './PHPExcel/PHPExcel/Writer/Excel2007.php';

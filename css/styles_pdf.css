@@ -2,7 +2,22 @@
     Created on : 23 juin 2014, 10:35:30
     Author     : Thomas Beauvallet
 */
-
+/*@font-face {
+  font-family: "Lato";
+  src: url("../mPDF/ttfonts/Lato-Regular.ttf");
+  -fs-pdf-font-embed: embed;
+  -fs-pdf-font-encoding: Identity-H;
+}
+@font-face {
+  font-family: "Lato";
+  src: url("../mPDF/ttfonts/Lato-Light.ttf");
+  font-weight:300;
+  -fs-pdf-font-embed: embed;
+  -fs-pdf-font-encoding: Identity-H;
+}
+.normal{font-family:"Lato" !important;}
+.lighter{font-family:"Lato" !important;font-weight:300 !important;}
+*/
 body {
     font-size: 1em;
     font-family: "Lato" !important;
@@ -38,6 +53,8 @@ body {
 
 h1, h2, h3, h4, h5 {font-family: "Lato";}
 
-.h1pochette{ font-weight: lighter; font-size: 1.8rem}
+.h1pochette{ font-size: 1.8rem}
 
-.h2pochette{ font-weight: bolder; font-size: 1.8rem}
+.h2pochette{ font-size: 1.8rem}
+
+.ul-pochette {margin-left: 20px !important; line-height: 2rem !important; list-style-image: url('../images/pictos/puce-liste-folio-orange.png') !important;}

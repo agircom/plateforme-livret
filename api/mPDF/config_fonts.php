@@ -105,6 +105,7 @@ $this->fontdata = array(
 		'B' => "Lato-Bold.ttf",
 		'I' => "Lato-Italic.ttf",
 		'BI' => "Lato-BoldItalic.ttf",
+		'L' => "Lato-Light.ttf",
 		),
     /* PT_Sans fonts */
 	"ptsans" => array(

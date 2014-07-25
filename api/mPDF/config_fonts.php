@@ -92,6 +92,14 @@ starting at 1, as they appear in the .ttc file e.g.
 */
 
 $this->fontdata = array(
+    /* Jura fonts */
+	"Jura" => array(
+		'R' => "Jura-Regular.ttf",
+		'B' => "Jura-DemiBold.ttf",
+		'I' => "Jura-Medium.ttf",
+		'BI' => "Jura-Light.ttf",
+		),
+    
 	"dejavusanscondensed" => array(
 		'R' => "DejaVuSansCondensed.ttf",
 		'B' => "DejaVuSansCondensed-Bold.ttf",
@@ -189,16 +197,13 @@ $this->fontdata = array(
 		'B' => "XB RiyazBd.ttf",
 		'I' => "XB RiyazIt.ttf",
 		'BI' => "XB RiyazBdIt.ttf",
-		'unAGlyphs' => true,
 		),
 	"xbzar" => array(
 		'R' => "XB Zar.ttf",
 		'B' => "XB Zar Bd.ttf",
 		'I' => "XB Zar It.ttf",
 		'BI' => "XB Zar BdIt.ttf",
-		'unAGlyphs' => true,
 		),
-
 
 
 

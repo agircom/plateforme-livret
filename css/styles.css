@@ -7,7 +7,7 @@ and open the template in the editor.
     Created on : 7 mars 2014, 16:45:16
     Author     : SH
 */
-	@font-face {
+/*	@font-face {
         font-family: 'EurostileRomanDTCRegular';
         src: url('font/eurostile/eurosti1-webfont.eot');
         src: url('font/eurostile/eurosti1-webfont.eot?#iefix') format('embedded-opentype'),
@@ -37,7 +37,6 @@ and open the template in the editor.
         url('font/345520020-helvetica-neue-regular-1361522098.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
-        /* letter-spacing:15px; */
     }
     
 	@font-face {
@@ -50,6 +49,7 @@ and open the template in the editor.
         font-weight: normal;
         font-style: normal;
     }
+*/
     	
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -427,7 +427,7 @@ h2 {
     color: #000;
     font-weight: 300;
     font-size:18px;
-    line-height:1.2em;
+    line-height: 1.2em;
     margin-bottom: 20px;}
 h2 span {
     color:#f85811

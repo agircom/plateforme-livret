@@ -494,6 +494,7 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export/:quality', function($book
     if ($quality === 'hq') {
         $mpdf->dpi = 300;
         $mpdf->img_dpi = 300;
+        $mpdf->SetCompression(false);
         $filename .= ' (HQ)';
     }
     $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_pdf.css');

@@ -3,19 +3,9 @@
     Author     : Thomas Beauvallet
 */
 
-/*  @import url("../css/styles.css");
-  @import url("../css/styles_bo.css");
-  @import url("http://fonts.googleapis.com/css?family=Jura:400,300,500,600");
-  @import url("http://fonts.googleapis.com/css?family=Lato:300,400,700,900");
-  @import url("http://fonts.googleapis.com/css?family=PT+Sans:400,700");*/
-
-
-/*@page *{
-    margin: 0;
-    padding: 0;
-    background-color: red;
+body {
+    font-size: 1rem;
 }
-</style>';*/
 #main {
     margin: 0;
 }
@@ -24,19 +14,22 @@
     padding: 0;
     width: 95%;
     height: 95%;
-    /*background-color: red;*/
+    background-color: red;
 }
-/*
-h4 {
-    padding: 0;
-    margin:0;
-}
-h5 {
-    padding: 0;
-    margin:0;
-}
-p {
-    padding: 0;
-    margin:0;
-}
-*/
+.texte-pochette-recto {font-size: 1rem; color: #808080; line-height: 1rem}
+.texte-pochette-recto p {line-height: 1rem}
+.texte-pochette-verso {font-size: 1rem; line-height: 1rem}
+.texte-pochette-verso p {line-height: 1.2rem}
+
+.block-img-pochette-recto {margin-top: -40px;}
+.img-pochette {width: 100%;}
+
+.logo-region{width: 8%; height: 10%; float: right;padding-top: 50px;padding-right: 5px;}
+.logo-prefet{max-width: 100%; height: auto;}
+.logo-europe{max-width: 100%; height: 40px; float: left;padding-left: 5px;}
+
+h1, h2, h3, h4, h5 {}
+
+.h1pochette{ font-weight: 300; font-size: 1.8rem}
+
+.h2pochette{ font-weight: 900; font-size: 1.8rem}

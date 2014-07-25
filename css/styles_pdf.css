@@ -4,9 +4,14 @@
 */
 
 body {
-    font-size: 1rem;
-    font-family: "Jura";
+    font-size: 1em;
+    font-family: "Jura" !important;
 }
+* {
+    font-size: 1em;
+    font-family: "Jura" !important;
+}
+
 #main {
     margin: 0;
 }

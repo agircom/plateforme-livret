@@ -93,7 +93,7 @@ starting at 1, as they appear in the .ttc file e.g.
 
 $this->fontdata = array(
     /* Jura fonts */
-	"Jura" => array(
+	"jura" => array(
 		'R' => "Jura-Regular.ttf",
 		'B' => "Jura-DemiBold.ttf",
 		'I' => "Jura-Medium.ttf",

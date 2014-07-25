@@ -469,7 +469,7 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export/:quality', function($book
     require_once './mPDF/mpdf.php';
     $format = getFormatPDF($folio_record->type);
 //    $mpdf = new mPDF('utf-8', $format);
-    $mpdf = new mPDF('c', $format, '', '', 0, 0, 0, 0, 0, 0);
+    $mpdf = new mPDF('', $format, '', '', 0, 0, 0, 0, 0, 0);
     $filename = 'livret';
     switch ($folio_record->type) {
         case 'locale':
@@ -497,6 +497,7 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export/:quality', function($book
         $mpdf->SetCompression(false);
         $filename .= ' (HQ)';
     }
+    $mpdf->SetAutoFont();
     $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_pdf.css');
     $mpdf->WriteHTML($stylesheet, 1);
     $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles.css');
@@ -504,7 +505,7 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export/:quality', function($book
     $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_bo.css');
     $mpdf->WriteHTML($stylesheet, 1);
     foreach ($folio_record->xownPageList as $page) {
-        $html = '<style>@page {margin: 0px;padding:0;} body {font-family: "Jura";}</style>';
+        $html = '<style>@page {margin: 0px;padding:0;} body {font-family: "Jura" !important;}</style>';
         $html .= '<div class="cadre-folio-pf" style="width: 100%;height: 100%; margin:0;padding:0;">';
         $content = preg_replace('/<img src\=\"([^\"]*)\"/', "<img src=\"../$1\"", $page->content);
         $html .= $content;

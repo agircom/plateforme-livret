@@ -99,6 +99,20 @@ $this->fontdata = array(
 		'I' => "Jura-Medium.ttf",
 		'BI' => "Jura-Light.ttf",
 		),
+    /* Lato fonts */
+	"lato" => array(
+		'R' => "Lato-Regular.ttf",
+		'B' => "Lato-Bold.ttf",
+		'I' => "Lato-Italic.ttf",
+		'BI' => "Lato-BoldItalic.ttf",
+		),
+    /* PT_Sans fonts */
+	"ptsans" => array(
+		'R' => "PT_Sans-Web-Regular.ttf",
+		'B' => "PT_Sans-Web-Bold.ttf",
+		'I' => "PT_Sans-Web-Italic.ttf",
+		'BI' => "PT_Sans-Web-BoldItalic.ttf",
+		),
     
 	"dejavusanscondensed" => array(
 		'R' => "DejaVuSansCondensed.ttf",

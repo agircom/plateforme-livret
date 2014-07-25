@@ -5,11 +5,11 @@
 
 body {
     font-size: 1em;
-    font-family: "Jura" !important;
+    font-family: "Lato" !important;
 }
 * {
     font-size: 1em;
-    font-family: "Jura" !important;
+    font-family: "Lato" !important;
 }
 
 #main {
@@ -23,19 +23,21 @@ body {
     background-color: red;
 }
 .texte-pochette-recto {font-size: 1rem; color: #808080; line-height: 1rem}
-.texte-pochette-recto p {line-height: 1rem; font-family: "Jura";}
+.texte-pochette-recto p {line-height: 1rem; font-family: "Lato";}
 .texte-pochette-verso {font-size: 1rem; line-height: 1rem}
-.texte-pochette-verso p {line-height: 1.2rem; font-family: 'Jura';}
+.texte-pochette-verso p {line-height: 1.2rem; font-family: "Lato";}
 
 .block-img-pochette-recto {margin-top: -40px;}
 .img-pochette {width: 100%;}
+.img-pochette-lateral-verso {width: 100% !important;}
+.logo-pochette {max-width: 100% !important;}
 
 .logo-region{max-width: 60% !important; height: 80px !important; float: right; margin-left: 5px !important; margin-top:20px !important;}
 .logo-prefet{max-width: 100% !important; height: 100% !important;}
 .logo-europe{max-width: 100px !important; width: 100px !important; height: 20px !important; max-height: 20px !important; float: left;margin-right: 5px !important; margin-top:60px !important;}
 
-h1, h2, h3, h4, h5 {font-family: "Jura";}
+h1, h2, h3, h4, h5 {font-family: "Lato";}
 
-.h1pochette{ font-weight: 300; font-size: 1.8rem}
+.h1pochette{ font-weight: lighter; font-size: 1.8rem}
 
-.h2pochette{ font-weight: 900; font-size: 1.8rem}
+.h2pochette{ font-weight: bolder; font-size: 1.8rem}

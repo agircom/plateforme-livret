@@ -58,3 +58,15 @@ h1, h2, h3, h4, h5 {font-family: "Lato";}
 .h2pochette{ font-size: 1.8rem}
 
 .ul-pochette {margin-left: 20px !important; line-height: 2rem !important; list-style-image: url('../images/pictos/puce-liste-folio-orange.png') !important;}
+
+.text-agenda {font-size: 4px !important;}
+
+.block-mois-agenda {font-size: 4px !important; line-height: 4px !important; width: 100% !important; height: 400px !important;}
+
+.mois-agenda {width: 200px !important; height: 400px !important; background-color: green;}
+
+.table-agenda {line-height: 0.9em !important; font-size: 0.9em !important;}
+
+.tbody-agenda tr {border: 1px solid #fff !important;}
+
+.table-agenda tr {border: 1px solid #fff !important;}

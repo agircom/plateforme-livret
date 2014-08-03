@@ -1081,3 +1081,19 @@ h1.titre1fond-folio-pf{
     /* min-height: 70% !important; */
     background-color: red;
 }
+
+.ui-accordion-content-active{
+    height: auto !important;
+}
+
+.faq-item h3{
+    text-transform: none;
+    font-size: 16px;
+    margin: 10px 0;
+    font-weight: 700;
+}
+
+.faq-item p {
+margin-bottom: 10px;
+margin-left: 20px;
+}

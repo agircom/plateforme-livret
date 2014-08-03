@@ -55,6 +55,7 @@
 
 .ng-editable-toolbox * {
     z-index: 150;   
+    font-size: 10px;
 }
 .ng-editable-toolbox {
     /*position: absolute;*/
@@ -66,9 +67,11 @@
 }
 .ng-editable-toolbox-cadre {
     z-index: 150;
-    height: 30px;
-    width: 120px;
-    background-image: url('../images/toolbox-rectangle.png');
+    height: 25px;
+    width: 430px;
+    /*background-image: url('../images/toolbox-rectangle.png');*/
+    background-color: #fff;
+    border: 1px solid #9c9ea3;
     background-size: auto;
     background-repeat: no-repeat;
     background-position: left top;
@@ -108,16 +111,16 @@
 .ng-editable-toolbox-font-button {
     cursor: pointer;
     float: left;
-    margin: 3px 0 0 2px;
+    margin: 3px 0 0 22px;
 }
 .ng-editable-toolbox-font-button > img {
     width: 20px;
     height: 20px;
 }
 .ng-editable-toolbox-chars {
-    margin: 3px 0 0 2px;
+    margin: 3px 0 0 22px;
     float: left;
-    width: 46px;
+    width: 55px;
     height: 20px;
     line-height: 10px;
     font-size: 0.8em;
@@ -189,12 +192,12 @@
 }
 .ng-editable-toolbox-textedit {
     cursor: pointer;
-    float: left;
-    margin: 7px 0 0 2px;
+    float: right;
+    margin: 0px 0 0 2px;
 }
 .ng-editable-toolbox-textedit > img {
-    width: 16px;
-    height: 16px;
+    width: 32px;
+    height: 32px;
 }
 .ng-editable-toolbox-textedit-popup {
     display: none;
@@ -204,6 +207,7 @@
 .ng-editable-toolbox-textedit-popup > textarea {
     width: 400px;
     height: 300px;
+    font-size: 14px;
 }
 
 .ng-deletable-handler {

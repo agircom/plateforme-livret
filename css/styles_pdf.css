@@ -43,7 +43,7 @@ body {
 .texte-pochette-verso p {line-height: 1.2rem; font-family: "Lato";}
 
 .block-img-pochette-recto {margin-top: -40px;}
-.img-pochette {width: 100%;}
+.img-pochette {width: 150px !important; max-width: 150px !important; height: 150px !important; max-height: 150px !important;}
 .img-pochette-lateral-verso {width: 100% !important;}
 .logo-pochette {max-width: 100% !important; max-height: 300px !important;}
 

@@ -33,9 +33,9 @@ body {
 .cadre-folio-pf {
     margin: 0;
     padding: 0;
-    width: 95%;
-    height: 95%;
-    background-color: red;
+    width: 3500px !important;
+    height: 2000px !important;
+    //background-color: red;
 }
 .texte-pochette-recto {font-size: 1rem; color: #808080; line-height: 1rem}
 .texte-pochette-recto p {line-height: 1rem; font-family: "Lato";}
@@ -62,7 +62,7 @@ h1, h2, h3, h4, h5 {font-family: "Lato";}
 .titre-folio h1 {font-size: 1.8rem !important; line-height: 1.8rem !important}
 .titre-folio h2 {font-size: 1.8rem !important; line-height: 1.8rem !important}
 .titre-folio h3 {font-size: 1.8rem !important; line-height: 1.8rem !important}
-.logo-titre-folio {width: 600px !important; height: 300px !important; max-width: 600px !important; max-height: 300px !important;}
+.logo-titre-folio {width: auto !important; height: auto !important; max-width: 600px !important; max-height: 300px !important;}
 .page-footer {position: absolute; bottom: 0mm; width: 200mm; padding-bottom: -35mm;}
 
 .block-pres-territoire h5 {font-size: 1rem !important; line-height: 1rem !important}
@@ -100,11 +100,43 @@ h1, h2, h3, h4, h5 {font-family: "Lato";}
 }*/
 
 .picto-jr-ferie {
-background: url(../images/pictos/picto-jr-ferie.png) no-repeat;
-width: 50px !important;
-height: 50px !important;
-//margin-top: 1em !important;
-    vertical-align: middle !important;
+background: url(../images/pictos/picto-jr-ferie-pdf.png) no-repeat;
+//width: 150px !important;
+//height: 150px !important;
+padding-top: 20px !important;
+padding-left: 20px !important;
+}
+
+.trait-vacances{
+    background: #e57e0c;
+}
+
+.picto-jr-ferie-footer{
+    margin-right: 20px;
+}
+
+.trait-vacances-footer{
+    margin-right: 20px;
+}
+
+.footer-month{
+    position: absolute;
+    bottom: 425px;
+    width: 560px;
+    height: 200px;
+    padding: 0;
+    margin: 0;
+    color: #fff;
+    font-size: 60%;
+    text-align: left;
+}
+
+.footer-month-fev{
+    margin-top:100px;
+}
+
+.footer-month30{
+    margin-top:50px;
 }
 
 .ul-ensemble {margin-left: 20px !important; font-size: 0.8rem; line-height: 0.8rem !important;}

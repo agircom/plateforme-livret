@@ -6,7 +6,7 @@
         <li><a href="#" class="link ng-tooltip" ng-click="toggleFullScreen()" title="Passer en edition plein ecran"><img src="images/pictos/fullscreen.png" alt="fullscreen" title="Afficher en plein écran"/></a></li>
         <li><a href="#" class="link ng-tooltip" ng-click="saveAndStay()" title="Enregistrer et rester sur cette page"><img src="images/pictos/enregistrer.png" alt="Enregistrer" title="Enregistrer"/></a></li>
         <!--<li><a href="#" class="link ng-tooltip" title="Exporter (basse résolution)" ng-href="api/booklet/{{booklet_id}}/folio/{{folio_id}}/export"><img src="images/pictos/exporter.png" alt="Exporter" title="Exporter"/></a></li>-->
-        <li><a href="#" class="link ng-tooltip" title="Exporter (basse résolution)" ng-click="exportPDF()"><img src="images/pictos/exporter.png" alt="Exporter" title="Exporter"/></a></li>
+        <!--<li><a href="#" class="link ng-tooltip" title="Exporter (basse résolution)" ng-click="exportPDF()"><img src="images/pictos/exporter.png" alt="Exporter" title="Exporter"/></a></li>-->
         <li><a href="#" class="link ng-tooltip" ng-click="toggleTooltips()" title="Afficher les messages d'aides"><img src="images/pictos/aide-faq.png" alt="Aide" title="Aide"/></a></li>
         <li>
             <div ng-if="User.isLogged()" id="userPannel"> 
@@ -45,13 +45,13 @@
                     <div class="select-folio">
                         <a href="#" onclick="return false;" ng-click="selectPage(0)">
                             <span>> Recto</span>
-                            <img src="images/pictos/pochette-petit.png" alt="recto" title="recto"/>
+                            <img src="images/pictos/pochette-petit.png" alt="recto" title="Recto - Ceci est la couverture de votre pochette"/>
                         </a>
                     </div>
                     <div class="select-folio">
                         <a href="#" onclick="return false;" ng-click="selectPage(1)">
                             <span>> Verso</span>
-                            <img src="images/pictos/pochette-petit.png" alt="Verso" title="Verso"/>
+                            <img src="images/pictos/pochette-petit.png" alt="Verso" title="Verso - Ceci est le dos de votre pochette"/>
                         </a>
                     </div>
                 </div>
@@ -93,12 +93,12 @@
                             <span>Exporter (haute résolution)</span>
                         </a>
                     </div>
-                    <div style="background-color: #00b3ff;">
+                    <!--<div style="background-color: #00b3ff;">
                         <a href="#" class="link ng-tooltip" title="Adapté aux publications web" ng-click="exportPDF()">
                             <img style="vertical-align: middle;" src="images/pictos/exporter.png" alt="Exporter (basse résolution)" title="Exporter (basse résolution)"/>
                             <span>Exporter (basse  résolution)</span>
                         </a>
-                    </div>
+                    </div>-->
                 </div>
             </div>            
         </div>
@@ -132,7 +132,6 @@
         </div>
         <div class="ng-editable-toolbox-textedit">
             <span style="margin-right: 10px;">CLIQUER ICI POUR EDITER LE TEXTE</span>
-            <!--<img src="images/pictos/expand.png" title="Editer le texte" alt="Editer le texte">-->
         </div>
         <!--        <div class="ng-editable-toolbox-close">
                     <img src="images/pictos/fermer.png" title="Fermer" alt="Fermer">
@@ -201,6 +200,9 @@
         <div style="clear: both;"></div>
     </div>
     <div class="ng-editable-toolbox-textedit-popup">
+        <div style="position: absolute;margin-left: 400px;" class="ng-editable-toolbox-textedit">
+            <img src="images/pictos/fermer.png" alt="Fermer" title="Fermer" style="width: 16px; height: 16px;">
+        </div>
         <textarea></textarea>
     </div>
 </div>       

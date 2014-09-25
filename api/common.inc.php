@@ -174,7 +174,7 @@ function sendContactEmail($dest, $contactinfos) {
 function sendAccountCreationConfirmEmail($dest, $confirm_key) {
     $subject = 'Création de votre compte pour créer votre livret d’accueil';
     $body = 'Cher (chère) ' . $dest['name'] . ', <br>';
-    $body .= 'Pour valider compte, merci de cliquer sur le lien ci après (Si le lien ne fonctionne pas, copiez-le et collez-le dans votre navigateur.)<br><br>';
+    $body .= 'Pour valider votre compte, merci de cliquer sur le lien ci après (Si le lien ne fonctionne pas, copiez-le et collez-le dans votre navigateur.)<br><br>';
     $body .= '<a href="http://livret-accueil-haute-normandie.fr/index.html#/account/confirm/' . $confirm_key . '">http://livret-accueil-haute-normandie.fr/index.html#/account/confirm/' . $confirm_key . '</a> <br><br>';
     $body .= 'Votre compte sera alors immédiatement activé et vous pourrez commencer la création de votre livret.<br>';
     $body .= 'Le Réseau Rural Haut-Normand';

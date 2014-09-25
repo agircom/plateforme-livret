@@ -367,7 +367,7 @@ h1.titre1fond-folio-pf{
 .menu-folio{
     width: 100%;
     height: 50px;
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0;
     background: url(../images/bg-menu-folio.png) repeat-x;
@@ -1069,6 +1069,7 @@ h1.titre1fond-folio-pf{
 .picto-jr-ferie{
     background: url(../images/pictos/picto-jr-ferie.png) no-repeat;
     vertical-align: middle;
+    width: 10%;
 }
 
 .trait-vacances{
@@ -1097,3 +1098,23 @@ h1.titre1fond-folio-pf{
 margin-bottom: 10px;
 margin-left: 20px;
 }
+
+.titre-folio h1 {font-size: 200%; line-height: 100%;}
+.titre-folio h2 {font-size: 200%; line-height: 100%;}
+.titre-folio h3 {font-size: 240%; line-height: 100%;}
+
+.block-pres-territoire h5 {font-size: 12px; line-height: 12px}
+.block-pres-territoire h4 {font-size: 18px; line-height: 18px;}
+.block-pres-territoire p {font-size: 100%; line-height: 100%}
+.pres-terri-img-defaut-moyenne {width: 70%; max-height: 70%;}
+.logo-titre-folio {max-width: 80%; height:auto;}
+.pres-terri-img-defaut-grande {max-width: 90%; max-height: 80%; min-height: 80%;}
+.pres-terri-img-defaut-moyenne-portrait {max-width: 40%; max-height: 70%;}
+.img-pres-terri-3 {max-width: 30%; max-height: 50%;}
+.img-pres-terri-large {max-width: 100%; max-height: 80%;}
+
+.block-locale h5 {font-size: 10px; line-height: 10px}
+.block-locale h4 {font-size: 14px; line-height: 14px;}
+.block-locale p {font-size: 80%; line-height: 120%;}
+.block-locale ul {font-size: 80%; line-height: 100%}
+.img-cat-locale {max-width: 100%; height: auto; max-height: 12%;}

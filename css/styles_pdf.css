@@ -43,13 +43,13 @@ body {
 .texte-pochette-verso p {line-height: 1.2rem; font-family: "Lato";}
 
 .block-img-pochette-recto {margin-top: -40px;}
-.img-pochette {width: 150px !important; max-width: 150px !important; height: 150px !important; max-height: 150px !important;}
+.img-pochette {width: 500px !important; max-width: 500px !important; height: 500px !important; max-height: 500px !important;}
 .img-pochette-lateral-verso {width: 100% !important;}
-.logo-pochette {max-width: 100% !important; max-height: 300px !important;}
+.logo-pochette {max-width: 100% !important; max-height: 800px !important;}
 
-.logo-region{max-width: 60% !important; height: 80px !important; float: right; margin-left: 5px !important; margin-top:20px !important;}
+.logo-region{max-width: 60% !important; height: 200px !important; float: right; margin-left: 20px !important; margin-top:120px !important;}
 .logo-prefet{max-width: 100% !important; height: 100% !important;}
-.logo-europe{max-width: 100px !important; width: 100px !important; height: 20px !important; max-height: 20px !important; float: left;margin-right: 5px !important; margin-top:60px !important;}
+.logo-europe{max-width: 300px !important; width: 300px !important; height: 100px !important; max-height: 100px !important; float: left;margin-right: 20px !important; margin-top:140px !important;}
 
 h1, h2, h3, h4, h5 {font-family: "Lato";}
 
@@ -59,11 +59,26 @@ h1, h2, h3, h4, h5 {font-family: "Lato";}
 
 .ul-pochette {margin-left: 20px !important; line-height: 2rem !important; list-style-image: url('../images/pictos/puce-liste-folio-orange.png') !important;}
 
-.img-pres-terri-3 {width: 200px !important; height: 200px !important; max-width: 200px !important; max-height: 200px !important;}
+.titre-folio h1 {font-size: 1.8rem !important; line-height: 1.8rem !important}
+.titre-folio h2 {font-size: 1.8rem !important; line-height: 1.8rem !important}
+.titre-folio h3 {font-size: 1.8rem !important; line-height: 1.8rem !important}
+.logo-titre-folio {width: 600px !important; height: 300px !important; max-width: 600px !important; max-height: 300px !important;}
+.page-footer {position: absolute; bottom: 0mm; width: 200mm; padding-bottom: -35mm;}
 
-.img-pres-terri-large {height: 300px !important; max-height: 300px !important;}
+.block-pres-territoire h5 {font-size: 1rem !important; line-height: 1rem !important}
+.block-pres-territoire h4 {font-size: 1.2rem !important; line-height: 1.2rem !important}
+.block-pres-territoire p {font-size: 0.8rem !important; line-height: 0.8rem !important}
+.pres-terri-img-defaut-moyenne {width: 600px !important; height: 400px !important; max-width: 600px !important; max-height: 400px !important;}
+.pres-terri-img-defaut-grande {width: 1000px !important; height: 800px !important; max-width: 1000px !important; max-height: 800px !important;}
+.pres-terri-img-defaut-moyenne-portrait {width: 400px !important; height: 600px !important; max-width: 400px !important; max-height: 600px !important;}
+.img-pres-terri-3 {width: 600px !important; height: 400px !important; max-width: 600px !important; max-height: 400px !important;}
+.img-pres-terri-large {height: 800px !important; max-height: 800px !important;}
 
-.img-cat-locale {height: 100% !important; max-height: 100% !important; height: 100%; max-height: 100%;}
+.block-locale h5 {font-size: 0.8rem !important; line-height: 0.8rem !important}
+.block-locale h4 {font-size: 1.2rem !important; line-height: 1.2rem !important}
+.block-locale p {font-size: 0.8rem !important; line-height: 0.8rem !important}
+.block-locale ul {font-size: 0.8rem !important; line-height: 0.8rem !important}
+.img-cat-locale {height: 100% !important; max-height: 350px !important; height: 100%; max-height: 350px; padding-bottom: 20px;}
 
 .text-agenda {font-size: 18pt !important;}
 
@@ -86,7 +101,10 @@ h1, h2, h3, h4, h5 {font-family: "Lato";}
 
 .picto-jr-ferie {
 background: url(../images/pictos/picto-jr-ferie.png) no-repeat;
-margin-top: 1em !important;
+width: 50px !important;
+height: 50px !important;
+//margin-top: 1em !important;
+    vertical-align: middle !important;
 }
 
 .ul-ensemble {margin-left: 20px !important; font-size: 0.8rem; line-height: 0.8rem !important;}

@@ -64,6 +64,7 @@ h1, h2, h3, h4, h5 {font-family: "Lato";}
 .titre-folio h3 {font-size: 1.8rem !important; line-height: 1.8rem !important}
 .logo-titre-folio {width: auto !important; height: auto !important; max-width: 600px !important; max-height: 300px !important;}
 .page-footer {position: absolute; bottom: 0mm; width: 200mm; padding-bottom: -35mm;}
+.footer-folio {position: absolute; bottom: 100mm;}
 
 .block-pres-territoire h5 {font-size: 1rem !important; line-height: 1rem !important}
 .block-pres-territoire h4 {font-size: 1.2rem !important; line-height: 1.2rem !important}
@@ -71,6 +72,7 @@ h1, h2, h3, h4, h5 {font-family: "Lato";}
 .pres-terri-img-defaut-moyenne {width: 600px !important; height: 400px !important; max-width: 600px !important; max-height: 400px !important;}
 .pres-terri-img-defaut-grande {width: 1000px !important; height: 800px !important; max-width: 1000px !important; max-height: 800px !important;}
 .pres-terri-img-defaut-moyenne-portrait {width: 400px !important; height: 600px !important; max-width: 400px !important; max-height: 600px !important;}
+.img-pres-terri-2 {width: auto !important; height: 400px !important; max-width: 600px !important; max-height: 400px !important;}
 .img-pres-terri-3 {width: 600px !important; height: 400px !important; max-width: 600px !important; max-height: 400px !important;}
 .img-pres-terri-large {height: 800px !important; max-height: 800px !important;}
 

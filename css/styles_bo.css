@@ -1139,6 +1139,7 @@ margin-left: 20px;
 .logo-titre-folio {max-width: 80%; height:auto;}
 .pres-terri-img-defaut-grande {max-width: 90%; max-height: 80%; min-height: 80%;}
 .pres-terri-img-defaut-moyenne-portrait {max-width: 40%; max-height: 70%;}
+.img-pres-terri-2 {max-width: 30%; max-height: 40%;}
 .img-pres-terri-3 {max-width: 30%; max-height: 50%;}
 .img-pres-terri-large {max-width: 100%; max-height: 80%;}
 
@@ -1147,3 +1148,5 @@ margin-left: 20px;
 .block-locale p {font-size: 80%; line-height: 120%;}
 .block-locale ul {font-size: 80%; line-height: 100%}
 .img-cat-locale {max-width: 100%; height: auto; max-height: 12%;}
+
+.footer-folio {display: block; width: 100%; height: 8%; padding-top: 1%;}

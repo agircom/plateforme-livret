@@ -844,6 +844,14 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
         $scope.showPopupEdit = false;
         $scope.currentPage = 0;
         $scope.pageSize = 20;
+
+        $scope.initPictureSelect = function() {
+            $scope.source = 'cat';
+            $scope.library_title = 'Selectionner une categorie';
+            $scope.selected_cat = -1;
+            $scope.library = [];
+            $scope.refreshLibrary();
+        };
         $scope.numberOfPages = function() {
             if ($scope.library === null || $scope.library.length === 0) {
                 return 0;

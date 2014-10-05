@@ -251,7 +251,7 @@ FeaderAppDirectives.directive('ngEditable', [function() {
                             }
                         });
                     }
-
+                    toolbox.find('.ng-editable-toolbox-textedit').trigger('click');
                     // show it
                     toolbox.show();
                 });

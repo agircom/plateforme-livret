@@ -33,9 +33,35 @@ body {
 .cadre-folio-pf {
     margin: 0;
     padding: 0;
+    //width: 3500px !important;
+    //height: 2000px !important;
+    //background-color: red;
+}
+
+.size-pochette{
+    width: 4961px !important;
+    height: 2000px !important;
+    max-width: 4961px !important;
+    max-height: 2000px !important;    
+}
+.size-pochette-pli{
+    width: 2478px !important;
+    height: 2000px !important;
+    max-width: 2478px !important;
+    max-height: 2000px !important;
+}
+
+.size-folio-a4{
+    width: 2480px !important;
+    height: 3400px !important;
+    max-width: 2480px !important;
+    max-height: 3400px !important;
+}
+.size-agenda-a4{
     width: 3500px !important;
     height: 2000px !important;
-    //background-color: red;
+    max-width: 3500px !important;
+    max-height: 2000px !important;
 }
 .texte-pochette-recto {font-size: 1rem; color: #808080; line-height: 1rem}
 .texte-pochette-recto p {line-height: 1rem; font-family: "Lato";}

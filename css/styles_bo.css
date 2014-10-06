@@ -1150,3 +1150,21 @@ margin-left: 20px;
 .img-cat-locale {max-width: 100%; height: auto; max-height: 12%;}
 
 .footer-folio {display: block; width: 100%; height: 8%; padding-top: 1%;}
+
+.size-pochette{
+    width: 100%;
+    height: 100%;
+}
+.size-pochette-pli{
+     width: 49%;
+     height:100%;
+}
+
+.size-folio-a4{
+    width: 100%;
+    height: 100%;
+}
+.size-agenda-a4{
+    width: 100%;
+    height: 100%;
+}

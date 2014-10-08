@@ -40,15 +40,11 @@ body {
 
 .size-pochette{
     width: 4961px !important;
-    height: 2000px !important;
-    max-width: 4961px !important;
-    max-height: 2000px !important;    
+    height: inherit !important;
 }
 .size-pochette-pli{
     width: 2478px !important;
-    height: 2000px !important;
-    max-width: 2478px !important;
-    max-height: 2000px !important;
+    height: 3485px !important;
 }
 
 .size-folio-a4{
@@ -63,19 +59,36 @@ body {
     max-width: 3500px !important;
     max-height: 2000px !important;
 }
+
+
+.block-pochette-recto-left-1{width: 1778px; height: 700px; padding: 800px 350px 0 350px;}
+.block-pochette-recto-left-2{display: block; width: 1678px; height: 250px; padding: 300px 400px 50px 400px;}
+.block-pochette-recto-left-3{display: block; width: 2478px; height: 400px; padding-top: 800px;}
+.block-pochette-recto-right-1{width: 2478px; height: 300px; padding-left: 100px;}
+.block-pochette-recto-right-2{width: 2478px; height: 100px; font-size: 120%; text-align: center;padding-top: 250px;}
+.block-pochette-recto-right-3{width: 2478px; height: 800px; text-align: center;}
+.block-pochette-recto-right-4{display: block; width: 2478px; height: 800px; font-weight: 300; padding-left: 100px; font-size: 72px;}
+
+.block-pochette-verso-left-1{width: 2478px; height: 1000px;}
+.block-pochette-verso-left-2{float: left; width: 600px; height: 2200px; background-color: #e9e9e9;}
+.block-pochette-verso-left-3{float: left; width: 1800px; height:2000px; padding: 30px;}
+
+.img-pochette-memo{width: 2478px !important; height: 3485px !important;}
+
 .texte-pochette-recto {font-size: 1rem; color: #808080; line-height: 1rem}
 .texte-pochette-recto p {line-height: 1rem; font-family: "Lato";}
 .texte-pochette-verso {font-size: 1rem; line-height: 1rem}
 .texte-pochette-verso p {line-height: 1.2rem; font-family: "Lato";}
 
-.block-img-pochette-recto {margin-top: -40px;}
+.block-img-pochette-recto {/*margin-top: -40px; */display: block; width: 2478px; height: 500px; text-align: center; padding-top: 500px; padding-left: 150px;}
+.div-img-pochette-recto{width: 500px; float: left; padding-right: 50px; height: 500px;}
 .img-pochette {width: 500px !important; max-width: 500px !important; height: 500px !important; max-height: 500px !important;}
 .img-pochette-lateral-verso {width: 100% !important;}
 .logo-pochette {max-width: 100% !important; max-height: 800px !important;}
 
-.logo-region{max-width: 60% !important; height: 200px !important; float: right; margin-left: 20px !important; margin-top:120px !important;}
-.logo-prefet{max-width: 100% !important; height: 100% !important;}
-.logo-europe{max-width: 300px !important; width: 300px !important; height: 100px !important; max-height: 100px !important; float: left;margin-right: 20px !important; margin-top:140px !important;}
+.logo-region{max-width: 200px !important; width: 200px !important; height: 400px !important; max-height: 400px !important;  float: left; margin-left: 20px !important;}
+.logo-prefet{max-width: 300px !important; width: 300px !important; height: 400px !important; max-height: 400px !important;}
+.logo-europe{max-width: 400px !important; width: 400px !important; height: 300px !important; max-height: 300px !important; float: right;margin-right: 20px !important; margin-top:140px !important;}
 
 h1, h2, h3, h4, h5 {font-family: "Lato";}
 

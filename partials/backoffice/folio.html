@@ -41,7 +41,7 @@
             </div>
             <div class="cadre-toolbox">
                 <h3 style="background-color: #DD6B5C">Votre sélection</h3>
-                <div ng-if="folio.ownPage.length === 2 && folio.type !== 'locale'" id="folio-edit-toolbox">
+                <div ng-if="folio.ownPage.length === 2 && folio.type !== 'locale' && !(folio.type == 'territoire1' || folio.type == 'territoire2' || folio.type == 'territoire3')" id="folio-edit-toolbox">
                     <div class="select-folio">
                         <a href="#" onclick="return false;" ng-click="selectPage(0)">
                             <span>> Recto</span>
@@ -55,7 +55,7 @@
                         </a>
                     </div>
                 </div>
-                <div ng-if="folio.ownPage.length > 2 || folio.type === 'locale'" id="folio-edit-toolbox">
+                <div ng-if="folio.ownPage.length > 2 || folio.type === 'locale' || folio.type == 'territoire1' || folio.type == 'territoire2' || folio.type == 'territoire3'" id="folio-edit-toolbox">
                     <h3>Page</h3>
                     <div ng-repeat="page in folio.ownPage" class="select-folio" style="width: 30%; float: left; height: auto; margin: 0 2px;">
                         <a href="#" onclick="return false;" ng-click="selectPage($index)">

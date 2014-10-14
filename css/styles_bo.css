@@ -1177,6 +1177,11 @@ margin-left: 20px;
 .block-pochette-recto-right-3{width: 100%; height: 30%; text-align: center;}
 .block-pochette-recto-right-4{display: block; width: 100%; height: 25%; font-weight: 300;}
 
+.mot-pochette-1 {font-size: 340%; line-height: 80%; float: left; margin-left: 10%; margin-top: 1%;}
+.mot-pochette-2 {font-size: 420%; line-height: 80%; float: left; margin-left: 25%; margin-top: 1%;}
+.mot-pochette-3 {font-size: 180%; line-height: 80%; float: left; margin-left: 30%; margin-top: 1%;}
+.mot-pochette-4 {font-size: 220%; line-height: 80%; float: left; margin-left: 40%; margin-top: 1%;}
+
 .block-pochette-verso-left-1{width: 100%; height: 30%;}
 .block-pochette-verso-left-2{float: left; width: 25%; height: 69%; background-color: #e9e9e9;}
 .block-pochette-verso-left-3{float: left; width: 70%; height:67%; padding: 2%;}

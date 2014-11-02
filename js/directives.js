@@ -295,9 +295,9 @@ FeaderAppDirectives.directive('ngPictureSelect', [function () {
                     return scope.imageSelected;
                 }, function (newVal) {
                     if (newVal !== null) {
-                        element.prop('src', newVal);
-                        scope.updateModel();
                         unregister();
+                        element.prop('src', newVal);
+                        scope.$parent.updateModel();
                     }
                 });
 

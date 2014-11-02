@@ -589,6 +589,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         };
         $scope.updateModel = function() {
             $scope.updatedFolio = true;
+            $scope.imageSelected = null;
             var content = $('#drawboard').clone();
             content = $scope.clearPlugins(content);
             $scope.folio.ownPage[$scope.selected_page].content = content.html();

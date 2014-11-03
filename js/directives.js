@@ -270,6 +270,7 @@ FeaderAppDirectives.directive('ngMarkerToggle', [function () {
                 content.find('.ng-draggable').children('.ng-draggable-handler').toggle();
                 content.find('.ng-locked').children('.ng-locked-handler').toggle();
                 content.find('.ng-editable').toggleClass('ng-editable-marker');
+                content.find('.ng-picture-select').toggleClass('ng-editable-marker');
                 content.find('.ng-deletable').children('.ng-deletable-handler').toggle();
             });
         }
@@ -286,6 +287,7 @@ FeaderAppDirectives.directive('ngPictureSelect', [function () {
                 return;
             }
             element.css('cursor', 'pointer');
+            element.addClass('ng-editable-marker');
             element.attr('title', 'Cliquez pour personnaliser avec votre image');
             element.on('click', function () {
                 scope.$apply(function () {

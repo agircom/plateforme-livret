@@ -1,23 +1,23 @@
 'use strict';
 var FeaderAppControllers = angular.module('FeaderApp.Controllers', ['ngSanitize']);
 FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'UserSvc',
-    function($scope, $location, UserSvc) {
+    function ($scope, $location, UserSvc) {
         $scope.identifiant = '';
         $scope.passwd = '';
         $scope.loginInProgress = false;
         $scope.rememberMe = 'on';
         $scope.error = '';
-        $scope.switchRememberMe = function() {
+        $scope.switchRememberMe = function () {
             if ($scope.rememberMe === 'on') {
                 $scope.rememberMe = 'off';
             } else if ($scope.rememberMe === 'off') {
                 $scope.rememberMe = 'on';
             }
         };
-        $scope.isAtHome = function() {
+        $scope.isAtHome = function () {
             return ($location.path().split('/')[1] === 'plateforme' || $location.path().split('/')[1] === 'admin' || $location.path().split('/')[1] === 'denied') ? false : true;
         };
-        $scope.login = function() {
+        $scope.login = function () {
             $scope.error = '';
             if ($scope.identifiant === '' || $scope.passwd === '') {
                 return;
@@ -25,46 +25,46 @@ FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'User
             $scope.loginInProgress = true;
             var store = ($scope.rememberMe === 'on') ? true : false;
             UserSvc.Login($scope.identifiant, $scope.passwd, store,
-                    function(data, status) {
-                        $scope.identifiant = '';
-                        $scope.passwd = '';
-                        $scope.loginInProgress = false;
-                        switch (UserSvc.getPermissions()) {
-                            case 1:
+                function (data, status) {
+                    $scope.identifiant = '';
+                    $scope.passwd = '';
+                    $scope.loginInProgress = false;
+                    switch (UserSvc.getPermissions()) {
+                        case 1:
 //                                $location.path('/plateforme');
-                                break;
-                            case 2:
-                                $location.path('/admin');
-                                break;
-                        }
-                    },
-                    function(data, status) {
-                        var msg = '';
-                        switch (status) {
-                            case 400:
-                                msg = 'Vous devez saisir vos identifiants';
-                                break;
-                            case 403:
-                                msg = 'Les identifants sont incorrects';
-                                break;
-                            default:
-                                msg = 'Erreur de connexion';
-                                break;
-                        }
-                        $scope.error = msg;
-                        $scope.passwd = '';
-                        $scope.loginInProgress = false;
-                    });
+                            break;
+                        case 2:
+                            $location.path('/admin');
+                            break;
+                    }
+                },
+                function (data, status) {
+                    var msg = '';
+                    switch (status) {
+                        case 400:
+                            msg = 'Vous devez saisir vos identifiants';
+                            break;
+                        case 403:
+                            msg = 'Les identifants sont incorrects';
+                            break;
+                        default:
+                            msg = 'Erreur de connexion';
+                            break;
+                    }
+                    $scope.error = msg;
+                    $scope.passwd = '';
+                    $scope.loginInProgress = false;
+                });
         };
-        $scope.logout = function() {
-            UserSvc.Logout(function() {
+        $scope.logout = function () {
+            UserSvc.Logout(function () {
                 $location.path('/home');
             });
         };
     }
 ]);
 FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'ApiSvc', 'UserSvc',
-    function($scope, ToolSvc, ApiSvc, UserSvc) {
+    function ($scope, ToolSvc, ApiSvc, UserSvc) {
         $scope.contactInfos = {
             name: '',
             last_name: '',
@@ -84,7 +84,7 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
             text: '',
             show: false
         };
-        $scope.prepareFormLoggedUser = function() {
+        $scope.prepareFormLoggedUser = function () {
             if (UserSvc.isLogged()) {
                 $scope.contactInfos.email = UserSvc.getInfos().username;
                 $scope.email2 = UserSvc.getInfos().username;
@@ -99,15 +99,15 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
                 $scope.contactInfos.city = UserSvc.getInfos().city;
             }
         };
-        $scope.contact = function() {
+        $scope.contact = function () {
             $scope.message.show = false;
             $scope.contactInProgress = true;
             $scope.prepareFormLoggedUser();
             if ($scope.contactInfos.name === '' ||
-                    $scope.contactInfos.last_name === '' ||
-                    $scope.contactInfos.first_name === '' ||
-                    $scope.contactInfos.email === '' ||
-                    $scope.contactInfos.question === '') {
+                $scope.contactInfos.last_name === '' ||
+                $scope.contactInfos.first_name === '' ||
+                $scope.contactInfos.email === '' ||
+                $scope.contactInfos.question === '') {
                 $scope.showError('Les champs marqués d’un * doivent être complétés');
                 return;
             }
@@ -119,7 +119,7 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
                 $scope.showError('Le format de l\'adresse mail n\'est pas correct.');
                 return;
             }
-            ApiSvc.postContact($scope.contactInfos).success(function(data) {
+            ApiSvc.postContact($scope.contactInfos).success(function (data) {
                 $scope.showSuccess("Nous avons bien en compte votre demande, nous vous recontacterons très rapidement.Le Réseau Rural Haut-Normand");
                 $scope.contactInfos = {
                     name: '',
@@ -133,17 +133,17 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
                     city: '',
                     question: ''
                 };
-            }).error(function(data, status) {
+            }).error(function (data, status) {
 
             });
         };
-        $scope.showError = function(message) {
+        $scope.showError = function (message) {
             $scope.message.type = 'error';
             $scope.message.text = message;
             $scope.message.show = true;
             $scope.contactInProgress = false;
         };
-        $scope.showSuccess = function(message) {
+        $scope.showSuccess = function (message) {
             $scope.message.type = 'success';
             $scope.message.text = message;
             $scope.message.show = true;
@@ -152,25 +152,25 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
     }
 ]);
 FeaderAppControllers.controller('CommonCtrl.LibraryCats', ['$scope', 'LibrarySvc',
-    function($scope, LibrarySvc) {
+    function ($scope, LibrarySvc) {
         $scope.error = '';
         $scope.cats = [];
-        $scope.init = function() {
+        $scope.init = function () {
             $scope.cats = [];
-            LibrarySvc.getCats().success(function(data) {
+            LibrarySvc.getCats().success(function (data) {
                 $scope.cats = data.categories;
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 $scope.showError();
             });
         };
-        $scope.showError = function() {
+        $scope.showError = function () {
             $scope.error = 'Impossible de charger la liste des categories';
         };
     }
 ]);
 FeaderAppControllers.controller('HomeCtrl.Home', ['$scope', '$location', 'UserSvc',
-    function($scope, $location, UserSvc) {
-        $scope.goto = function(target) {
+    function ($scope, $location, UserSvc) {
+        $scope.goto = function (target) {
             if (!UserSvc.isLogged()) {
                 alert('Pour accéder à la trousse à outils, merci de vous identifier ou de créer un compte');
             } else if (UserSvc.getPermissions() === 2) {
@@ -187,7 +187,7 @@ FeaderAppControllers.controller('HomeCtrl.Home', ['$scope', '$location', 'UserSv
  * 
  */
 FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'ToolSvc',
-    function($scope, UserSvc, ToolSvc) {
+    function ($scope, UserSvc, ToolSvc) {
         $scope.userInfos = {
             name: '',
             last_name: '',
@@ -209,7 +209,7 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'Too
             show: false
         };
         $scope.createInProgress = false;
-        $scope.create = function() {
+        $scope.create = function () {
             $scope.message.show = false;
             $scope.createInProgress = true;
             if ($scope.userInfos.passwd !== $scope.passwd2) {
@@ -231,13 +231,13 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'Too
                 return;
             }
             if ($scope.userInfos.name === '' ||
-                    $scope.userInfos.last_name === '' ||
-                    $scope.userInfos.first_name === '' ||
-                    $scope.userInfos.address === '' ||
-                    $scope.userInfos.username === '' ||
-                    $scope.userInfos.cp === '' ||
-                    $scope.userInfos.city === '' ||
-                    $scope.userInfos.passwd === '') {
+                $scope.userInfos.last_name === '' ||
+                $scope.userInfos.first_name === '' ||
+                $scope.userInfos.address === '' ||
+                $scope.userInfos.username === '' ||
+                $scope.userInfos.cp === '' ||
+                $scope.userInfos.city === '' ||
+                $scope.userInfos.passwd === '') {
                 $scope.userInfos.passwd = '';
                 $scope.passwd2 = '';
                 $scope.showError('Les champs marqués d’un * doivent être complétés');
@@ -250,56 +250,56 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'Too
                 return;
             }
             UserSvc.Subscribe($scope.userInfos,
-                    function(data, status) {
-                        var msg = '';
-                        switch (status) {
-                            case 201:
-                                msg = 'Votre compte a été créé avec succès. Validez votre compte en cliquant sur le lien que vous venez de recevoir par e-mail puis connectez vous pour commencer votre premier livret (votre login sera votre adresse e-mail).';
-                                break;
-                            default:
-                                msg = 'Votre compte a été créé avec succès. Validez votre compte en cliquant sur le lien que vous venez de recevoir par e-mail puis connectez vous pour commencer votre premier livret (votre login sera votre adresse e-mail).';
-                                break;
-                        }
-                        $scope.showSuccess(msg);
-                        $scope.userInfos = {
-                            name: '',
-                            last_name: '',
-                            first_name: '',
-                            fonction: '',
-                            username: '',
-                            phone: '',
-                            address: '',
-                            cp: '',
-                            city: '',
-                            passwd: '',
-                            contract_accepted: false
-                        };
-                    },
-                    function(data, status) {
-                        var msg = '';
-                        switch (status) {
-                            case 400:
-                                msg = 'Les champs marqués d\'un * doivent être complétés';
-                                break;
-                            case 423:
-                                msg = 'Ce nom d\'utilisateur existe deja';
-                                break;
-                            default :
-                                msg = 'Une erreur inconnue s\'est produite';
-                                break;
-                        }
-                        $scope.userInfos.passwd = '';
-                        $scope.passwd2 = '';
-                        $scope.showError(msg);
-                    });
+                function (data, status) {
+                    var msg = '';
+                    switch (status) {
+                        case 201:
+                            msg = 'Votre compte a été créé avec succès. Validez votre compte en cliquant sur le lien que vous venez de recevoir par e-mail puis connectez vous pour commencer votre premier livret (votre login sera votre adresse e-mail).';
+                            break;
+                        default:
+                            msg = 'Votre compte a été créé avec succès. Validez votre compte en cliquant sur le lien que vous venez de recevoir par e-mail puis connectez vous pour commencer votre premier livret (votre login sera votre adresse e-mail).';
+                            break;
+                    }
+                    $scope.showSuccess(msg);
+                    $scope.userInfos = {
+                        name: '',
+                        last_name: '',
+                        first_name: '',
+                        fonction: '',
+                        username: '',
+                        phone: '',
+                        address: '',
+                        cp: '',
+                        city: '',
+                        passwd: '',
+                        contract_accepted: false
+                    };
+                },
+                function (data, status) {
+                    var msg = '';
+                    switch (status) {
+                        case 400:
+                            msg = 'Les champs marqués d\'un * doivent être complétés';
+                            break;
+                        case 423:
+                            msg = 'Ce nom d\'utilisateur existe deja';
+                            break;
+                        default :
+                            msg = 'Une erreur inconnue s\'est produite';
+                            break;
+                    }
+                    $scope.userInfos.passwd = '';
+                    $scope.passwd2 = '';
+                    $scope.showError(msg);
+                });
         };
-        $scope.showError = function(message) {
+        $scope.showError = function (message) {
             $scope.message.type = 'error';
             $scope.message.text = message;
             $scope.message.show = true;
             $scope.createInProgress = false;
         };
-        $scope.showSuccess = function(message) {
+        $scope.showSuccess = function (message) {
             $scope.message.type = 'success';
             $scope.message.text = message;
             $scope.message.show = true;
@@ -308,24 +308,24 @@ FeaderAppControllers.controller('AccountCtrl.Create', ['$scope', 'UserSvc', 'Too
     }
 ]);
 FeaderAppControllers.controller('AccountCtrl.Confirm', ['$scope', '$routeParams', 'UserSvc',
-    function($scope, $routeParams, UserSvc) {
+    function ($scope, $routeParams, UserSvc) {
         $scope.error = false;
         $scope.success = false;
-        UserSvc.Confirm($routeParams.confirm_key).success(function(data) {
+        UserSvc.Confirm($routeParams.confirm_key).success(function (data) {
             $scope.success = true;
-        }).error(function(data, status) {
+        }).error(function (data, status) {
             $scope.error = true;
         });
     }
 ]);
 FeaderAppControllers.controller('AccountCtrl.ResetPasswd', ['$scope', 'UserSvc', 'ToolSvc',
-    function($scope, UserSvc, ToolSvc) {
+    function ($scope, UserSvc, ToolSvc) {
         $scope.email = '';
         $scope.error = false;
         $scope.error_message = '';
         $scope.passwdChanged = false;
         $scope.resetInProgress = false;
-        $scope.resetPasswd = function() {
+        $scope.resetPasswd = function () {
             $scope.error = false;
             $scope.resetInProgress = true;
             if ($scope.email === '') {
@@ -340,10 +340,10 @@ FeaderAppControllers.controller('AccountCtrl.ResetPasswd', ['$scope', 'UserSvc',
                 $scope.error_message = 'Le format de votre adresse mail est incorrect.';
                 return;
             }
-            UserSvc.ResetPasswd($scope.email).success(function(data) {
+            UserSvc.ResetPasswd($scope.email).success(function (data) {
                 $scope.passwdChanged = true;
                 $scope.resetInProgress = false;
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 $scope.resetInProgress = false;
                 $scope.error = true;
                 $scope.error_message = 'Cette adresse mail est inconnue.';
@@ -352,7 +352,7 @@ FeaderAppControllers.controller('AccountCtrl.ResetPasswd', ['$scope', 'UserSvc',
     }
 ]);
 FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'ToolSvc',
-    function($scope, UserSvc, ToolSvc) {
+    function ($scope, UserSvc, ToolSvc) {
         $scope.saveInProgress = false;
         $scope.userInfos = {
             name: UserSvc.getInfos().name,
@@ -371,14 +371,14 @@ FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'Too
             text: '',
             show: false
         };
-        $scope.save = function() {
+        $scope.save = function () {
             $scope.saveInProgress = true;
             if ($scope.userInfos.name === '' ||
-                    $scope.userInfos.last_name === '' ||
-                    $scope.userInfos.first_name === '' ||
-                    $scope.userInfos.address === '' ||
-                    $scope.userInfos.city === '' ||
-                    $scope.userInfos.cp === '') {
+                $scope.userInfos.last_name === '' ||
+                $scope.userInfos.first_name === '' ||
+                $scope.userInfos.address === '' ||
+                $scope.userInfos.city === '' ||
+                $scope.userInfos.cp === '') {
                 $scope.showError('Les champs marqués d’un * doivent être complétés');
                 return;
             }
@@ -388,13 +388,13 @@ FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'Too
                     return;
                 }
             }
-            UserSvc.ProfilUpdate($scope.userInfos).success(function(data) {
+            UserSvc.ProfilUpdate($scope.userInfos).success(function (data) {
                 $scope.showSuccess('Les modifications ont bien ete effectuees.');
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 $scope.showError('Impossible de sauvegarder vos nouvelles informations');
             });
         };
-        $scope.showError = function(message) {
+        $scope.showError = function (message) {
             $scope.message.type = 'error';
             $scope.message.text = message;
             $scope.message.show = true;
@@ -411,7 +411,7 @@ FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'Too
             };
             $scope.passwd2 = '';
         };
-        $scope.showSuccess = function(message) {
+        $scope.showSuccess = function (message) {
             $scope.message.type = 'success';
             $scope.message.text = message;
             $scope.message.show = true;
@@ -427,7 +427,7 @@ FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'Too
  * 
  */
 FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routeParams', '$location', 'BookletSvc',
-    function($scope, $routeParams, $location, BookletSvc) {
+    function ($scope, $routeParams, $location, BookletSvc) {
         $scope.newBookName = '';
         $scope.booklets = null;
         $scope.loading = false;
@@ -436,16 +436,20 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
             $scope.selectedBooklet = parseInt($routeParams.booklet_focus);
         }
         $scope.error = '';
-        $scope.reload = function() {
+        $scope.reload = function () {
             $scope.loading = true;
-            BookletSvc.getAll().success(function(data) {
+            BookletSvc.getAll().success(function (data) {
                 if (data.booklets !== false) {
                     $scope.booklets = data.booklets;
                     for (var booklet in $scope.booklets) {
                         $scope.booklets[booklet].folios = {};
                         if ($scope.booklets[booklet].ownFolio !== undefined) {
                             for (var folio in $scope.booklets[booklet].ownFolio) {
-                                if ($scope.booklets[booklet].ownFolio[folio].type in {'territoire1': null, 'territoire2': null, 'territoire3': null}) {
+                                if ($scope.booklets[booklet].ownFolio[folio].type in {
+                                        'territoire1': null,
+                                        'territoire2': null,
+                                        'territoire3': null
+                                    }) {
                                     $scope.booklets[booklet].folios['territoire'] = $scope.booklets[booklet].ownFolio[folio].id;
                                 } else {
                                     $scope.booklets[booklet].folios[$scope.booklets[booklet].ownFolio[folio].type] = $scope.booklets[booklet].ownFolio[folio].id;
@@ -457,17 +461,17 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
                 $scope.loading = false;
             });
         };
-        $scope.createBooklet = function() {
+        $scope.createBooklet = function () {
             $scope.error = '';
             if ($scope.newBookName.length === 0) {
                 $scope.error = 'Vous devez saisir un nom de livret';
                 return;
             }
-            BookletSvc.create($scope.newBookName).success(function(data) {
+            BookletSvc.create($scope.newBookName).success(function (data) {
                 $scope.newBookName = '';
                 $scope.selectedBooklet = data.booklet_id;
                 $scope.reload();
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 switch (status) {
                     case 400:
                         $scope.error = 'Vous devez saisir un nom de livret';
@@ -478,36 +482,36 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
                 }
             });
         };
-        $scope.selectBooklet = function(booklet_id) {
+        $scope.selectBooklet = function (booklet_id) {
             if ($scope.selectedBooklet === booklet_id) {
                 $scope.selectedBooklet = false;
             } else {
                 $scope.selectedBooklet = booklet_id;
             }
         };
-        $scope.duplicateBooklet = function(booklet_id) {
-            BookletSvc.duplicate(booklet_id).success(function(data) {
+        $scope.duplicateBooklet = function (booklet_id) {
+            BookletSvc.duplicate(booklet_id).success(function (data) {
                 $scope.selectedBooklet = data.booklet_id;
                 $scope.reload();
             });
         };
-        $scope.deleteBooklet = function(booklet_id) {
-            BookletSvc.delete(booklet_id).success(function() {
+        $scope.deleteBooklet = function (booklet_id) {
+            BookletSvc.delete(booklet_id).success(function () {
                 if ($scope.selectedBooklet === booklet_id) {
                     $scope.selectedBooklet = false;
                 }
                 $scope.reload();
             });
         };
-        $scope.createFolio = function(booklet_id, folio_type) {
+        $scope.createFolio = function (booklet_id, folio_type) {
             switch (folio_type) {
                 case 'territoire':
                     $location.path('/plateforme/booklet/' + booklet_id + '/folio2choice');
                     break;
                 default:
-                    BookletSvc.createFolio(booklet_id, folio_type).success(function(data) {
+                    BookletSvc.createFolio(booklet_id, folio_type).success(function (data) {
                         $scope.editFolio(booklet_id, data.folio_id);
-                    }).error(function(data, status) {
+                    }).error(function (data, status) {
                         switch (status) {
                             case 401:
                                 alert('Vous devez etre connecte pour creer un folio');
@@ -529,16 +533,16 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
                     break;
             }
         };
-        $scope.editFolio = function(booklet_id, folio_id) {
+        $scope.editFolio = function (booklet_id, folio_id) {
             $location.path('/plateforme/booklet/' + booklet_id + '/folio/' + folio_id);
         };
         $scope.reload();
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', '$rootScope', '$location', '$sce', 'BookletSvc', 'UserSvc',
-    function($scope, $routeParams, $rootScope, $location, $sce, BookletSvc, UserSvc) {
-        $scope.logout = function() {
-            UserSvc.Logout(function() {
+    function ($scope, $routeParams, $rootScope, $location, $sce, BookletSvc, UserSvc) {
+        $scope.logout = function () {
+            UserSvc.Logout(function () {
                 $location.path('/home');
             });
         };
@@ -554,23 +558,23 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         $scope.selected_page = 0;
         $scope.updatedFolio = false;
         $scope.folioBuilding = false;
-        BookletSvc.get($scope.booklet_id).success(function(data) {
+        BookletSvc.get($scope.booklet_id).success(function (data) {
             $scope.booklet = data.booklet;
         });
-        BookletSvc.getFolio($scope.booklet_id, $scope.folio_id).success(function(data) {
+        BookletSvc.getFolio($scope.booklet_id, $scope.folio_id).success(function (data) {
             $scope.folio = data.folio[0];
         });
-        BookletSvc.getTemplates().success(function(data) {
+        BookletSvc.getTemplates().success(function (data) {
             $scope.templates = data;
         });
-        $scope.selectPage = function(page_index) {
+        $scope.selectPage = function (page_index) {
             $('.ng-editable-toolbox:not(#ng-editable-toolbox)').remove();
             $scope.selected_page = page_index;
         };
-        $scope.getFolioContent = function() {
+        $scope.getFolioContent = function () {
             return $sce.trustAsHtml($scope.folio.ownPage[$scope.selected_page].content);
         };
-        $scope.clearPlugins = function(content) {
+        $scope.clearPlugins = function (content) {
             content.find('.ng-draggable').removeClass('ui-draggable');
             content.find('.ng-draggable').removeClass('ui-draggable-dragging');
             content.find('.ng-draggable').children('.ng-draggable-handler').remove();
@@ -587,14 +591,14 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             content.find('.ng-date-vac-select-close').remove();
             return content;
         };
-        $scope.updateModel = function() {
+        $scope.updateModel = function () {
             $scope.updatedFolio = true;
             $scope.imageSelected = null;
             var content = $('#drawboard').clone();
             content = $scope.clearPlugins(content);
             $scope.folio.ownPage[$scope.selected_page].content = content.html();
         };
-        $scope.buildFolio = function(container) {
+        $scope.buildFolio = function (container) {
             // backup header and footer
             var container_attrs = container.prop('attributes');
             var header = container.find('.page-header').clone();
@@ -615,20 +619,20 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             full_content = $scope.clearPlugins(full_content);
             var order = 1;
             var pages = [{
-                    folio_id: $scope.folio_id,
-                    order: 1,
-                    content: ''
-                }];
+                folio_id: $scope.folio_id,
+                order: 1,
+                content: ''
+            }];
             var entry_count = 0;
             var max_cat_index = full_content.find('.ng-clone-cat').length - 1;
             // backup container attributes
             var content = $('<div/>');
             var cat_content = $('<div/>');
-            $.each(container_attrs, function() {
+            $.each(container_attrs, function () {
                 content.attr(this.name, this.value);
             });
             // parse all cats in content
-            full_content.find('.ng-clone-cat').each(function(index) {
+            full_content.find('.ng-clone-cat').each(function (index) {
                 // backups cat
                 var cat_header = $(this).clone();
                 // empty orga in this cat
@@ -636,7 +640,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                 // count orga in this cat
                 var max_orga_index = $(this).find('.ng-clone-orga').length - 1;
                 // parse all orga in this cat
-                $(this).find('.ng-clone-orga').each(function(index_orga) {
+                $(this).find('.ng-clone-orga').each(function (index_orga) {
                     // check header
                     if (entry_count === 0) {
                         // first element => add header
@@ -712,7 +716,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                     }
                 });
             });
-            $scope.$apply(function() {
+            $scope.$apply(function () {
                 $scope.folio.ownPage = pages;
                 if ($scope.selected_page >= $scope.folio.ownPage.length) {
                     // last page deletion
@@ -720,45 +724,50 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                 }
             });
         };
-        $scope.save = function(callback) {
+        $scope.save = function (callback) {
             $scope.updateModel();
-            BookletSvc.updateFolio($scope.booklet.id, $scope.folio.id, $scope.folio.ownPage).success(function(data) {
+            BookletSvc.updateFolio($scope.booklet.id, $scope.folio.id, $scope.folio.ownPage).success(function (data) {
                 if (typeof callback === 'function') {
                     $scope.updatedFolio = false;
                     callback();
                 }
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 alert('Erreur de sauvegarde (' + status + ')');
             });
         };
-        $scope.saveAndStay = function() {
-            $scope.save(function() {
+        $scope.saveAndStay = function () {
+            $scope.save(function () {
                 alert('Sauvegarde effectuée');
             });
         };
-        $scope.saveAndLeave = function() {
-            $scope.save(function() {
+        $scope.saveAndLeave = function () {
+            $scope.save(function () {
                 $location.path('/plateforme/booklets/' + $scope.booklet.id);
             });
         };
-        $scope.togglePictureSelect = function() {
+        $scope.togglePictureSelect = function () {
             $scope.showPictureSelector = !$scope.showPictureSelector;
         };
-        $scope.selectImage = function(filename, source) {
-            $scope.imageSelected = (source === 'own') ? 'images/uploaded/' + filename : 'images/library/' + filename;
+        $scope.selectImage = function (filename, source) {
+            if (source === 'own')
+                $scope.imageSelected = 'images/uploaded/' + filename;
+            else if (source === 'fixed')
+                $scope.imageSelected = filename;
+            else
+                $scope.imageSelected = 'images/library/' + filename
             $scope.showPictureSelector = false;
         };
-        $scope.toggleHelp = function() {
+        $scope.toggleHelp = function () {
             $scope.showHelp = !$scope.showHelp;
         };
-        $scope.toggleFullScreen = function() {
+        $scope.toggleFullScreen = function () {
             angular.element('.ng-editable-toolbox:not(#ng-editable-toolbox)').remove();
             $scope.showFullscreen = !$scope.showFullscreen;
         };
-        $scope.toggleTooltips = function() {
+        $scope.toggleTooltips = function () {
             $rootScope.layout.showTooltips = !$rootScope.layout.showTooltips;
         };
-        $scope.exportPDF = function(highresolution) {
+        $scope.exportPDF = function (highresolution) {
             if ($scope.updatedFolio === true) {
                 alert('Merci de sauvegarder vos modifications avant d\'exporter le fichier PDF.');
                 return;
@@ -774,7 +783,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
 //                
 //            });
         };
-        $scope.$on('$locationChangeStart', function(event, next, current) {
+        $scope.$on('$locationChangeStart', function (event, next, current) {
             if ($scope.updatedFolio === true) {
                 if (!confirm('Attention les modifications non enregistrées seront perdues')) {
                     event.preventDefault();
@@ -784,42 +793,42 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$routeParams', '$location', 'BookletSvc',
-    function($scope, $routeParams, $location, BookletSvc) {
+    function ($scope, $routeParams, $location, BookletSvc) {
         $scope.booklet_id = $routeParams.booklet_id;
         $scope.template = null;
         $scope.showHelp = false;
-        $scope.editFolio = function(folio_id) {
+        $scope.editFolio = function (folio_id) {
             $location.path('/plateforme/booklet/' + $scope.booklet_id + '/folio/' + folio_id);
         };
-        $scope.makeChoice = function(template_name) {
+        $scope.makeChoice = function (template_name) {
             if (confirm('Attention, ce choix est définitif, vous ne pourrez plus changer de modèle après avoir commencé la mise en page. Lisez la suite pour savoir comment choisir le modèle plus adapté. Nous vous conseillons de copier votre livret avant de procéder à votre sélection.')) {
                 $scope.template = template_name;
                 $scope.confirmChoiceNext();
             }
 
         };
-        $scope.confirmChoiceNext = function() {
+        $scope.confirmChoiceNext = function () {
             if ($scope.template === null) {
                 alert('Vous devez selectionner un modele');
             } else {
-                BookletSvc.createFolio($scope.booklet_id, $scope.template).success(function(data) {
+                BookletSvc.createFolio($scope.booklet_id, $scope.template).success(function (data) {
                     $scope.editFolio(data.folio_id);
                 });
             }
         };
-        $scope.confirmChoiceReturn = function() {
+        $scope.confirmChoiceReturn = function () {
             if ($scope.template === null) {
                 alert('Vous devez selectionner un modele');
             } else {
-                BookletSvc.createFolio($scope.booklet_id, $scope.template).success(function(data) {
+                BookletSvc.createFolio($scope.booklet_id, $scope.template).success(function (data) {
                     $location.path('/plateforme/booklets');
                 });
             }
         };
-        $scope.gotoBooklets = function() {
+        $scope.gotoBooklets = function () {
             $location.path('/plateforme/booklets/' + $scope.booklet_id);
         };
-        $scope.toggleHelp = function() {
+        $scope.toggleHelp = function () {
             $scope.showHelp = !$scope.showHelp;
         };
     }
@@ -830,7 +839,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio2Choice', ['$scope', '$rout
  * 
  */
 FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc',
-    function($scope, LibrarySvc) {
+    function ($scope, LibrarySvc) {
         $scope.name = '';
         $scope.description = '';
         $scope.credits = '';
@@ -846,23 +855,23 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
         $scope.currentPage = 0;
         $scope.pageSize = 20;
 
-        $scope.initPictureSelect = function() {
+        $scope.initPictureSelect = function () {
             $scope.source = 'cat';
             $scope.library_title = 'Selectionner une categorie';
             $scope.selected_cat = -1;
             $scope.library = [];
             $scope.refreshLibrary();
         };
-        $scope.numberOfPages = function() {
+        $scope.numberOfPages = function () {
             if ($scope.library === null || $scope.library.length === 0) {
                 return 0;
             }
             return Math.ceil($scope.library.length / $scope.pageSize);
         };
-        $scope.togglePopupAdd = function() {
+        $scope.togglePopupAdd = function () {
             $scope.showPopupAdd = !$scope.showPopupAdd;
         };
-        $scope.togglePopupEdit = function(image) {
+        $scope.togglePopupEdit = function (image) {
             if (typeof image !== 'undefined') {
                 $scope.tmpImage = image;
             } else {
@@ -870,35 +879,35 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
             }
             $scope.showPopupEdit = !$scope.showPopupEdit;
         };
-        $scope.selectCat = function(cat_id) {
+        $scope.selectCat = function (cat_id) {
             if (typeof cat_id === 'undefined') {
                 $scope.selected_cat = -1;
             } else {
                 $scope.selected_cat = cat_id;
             }
         };
-        $scope.refreshLibrary = function() {
+        $scope.refreshLibrary = function () {
             $scope.library = [];
             $scope.refreshLibraryCategories();
             if ($scope.source === 'own') {
-                LibrarySvc.getImages().success(function(data) {
+                LibrarySvc.getImages().success(function (data) {
                     $scope.library = data.library;
                 });
             } else if ($scope.source === 'cat' && $scope.selected_cat > -1) {
-                LibrarySvc.getImagesByCat($scope.selected_cat).success(function(data) {
+                LibrarySvc.getImagesByCat($scope.selected_cat).success(function (data) {
                     $scope.library_title = data.name;
                     $scope.library = data.library;
                 });
             }
 
         };
-        $scope.refreshLibraryCategories = function() {
+        $scope.refreshLibraryCategories = function () {
             $scope.categories = [];
-            LibrarySvc.getCats().success(function(data) {
+            LibrarySvc.getCats().success(function (data) {
                 $scope.categories = data.categories;
             });
         };
-        $scope.setFile = function(element) {
+        $scope.setFile = function (element) {
             if (element.files[0].size > 5000000) {
                 alert('Le fichier est trop volumineux. Poids accepté : jusqu\'à 5 mégas.');
                 angular.element('#library-form-add-image').val(null);
@@ -906,7 +915,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
                 $scope.image = element.files[0];
             }
         };
-        $scope.startUpload = function() {
+        $scope.startUpload = function () {
             if ($scope.name === '' || $scope.description === '' || $scope.image === '') {
                 alert('Vous devez renseigner les informations de la photo.');
                 return;
@@ -916,7 +925,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
             form.append('description', $scope.description);
             form.append('credits', $scope.credits);
             form.append('image', $scope.image);
-            LibrarySvc.addImage(form).success(function(data, status) {
+            LibrarySvc.addImage(form).success(function (data, status) {
                 $scope.name = '';
                 $scope.description = '';
                 $scope.credits = '';
@@ -928,16 +937,16 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
                     $scope.source = 'own';
                 }
                 $scope.togglePopupAdd();
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 alert('image upload error : ' + data.error);
             });
         };
-        $scope.updateImage = function() {
+        $scope.updateImage = function () {
             if ($scope.tmpImage.name === '' || $scope.tmpImage.description === '') {
                 alert('Vous devez renseigner les informations de la photo.');
                 return;
             }
-            LibrarySvc.updateImage($scope.tmpImage).success(function() {
+            LibrarySvc.updateImage($scope.tmpImage).success(function () {
                 if ($scope.source === 'own') {
                     $scope.refreshLibrary();
                 } else {
@@ -947,14 +956,14 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
                 $scope.togglePopupEdit();
             });
         };
-        $scope.deleteImage = function(image_id) {
+        $scope.deleteImage = function (image_id) {
             if (confirm("Voulez-vous vraiment supprimer cette photo ?")) {
-                LibrarySvc.deleteImage(image_id).success(function() {
+                LibrarySvc.deleteImage(image_id).success(function () {
                     $scope.refreshLibrary();
                 });
             }
         };
-        $scope.$watch('source', function(newval, oldval) {
+        $scope.$watch('source', function (newval, oldval) {
             if (newval === 'own') {
                 $scope.selected_cat = -1;
                 $scope.library_title = 'Mes images';
@@ -964,7 +973,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
                 $scope.library = [];
             }
         });
-        $scope.$watch('selected_cat', function(newval, oldval) {
+        $scope.$watch('selected_cat', function (newval, oldval) {
             if ($scope.source === 'cat' && newval > -1) {
                 $scope.library_title = '';
                 $scope.refreshLibrary();
@@ -976,24 +985,25 @@ FeaderAppControllers.controller('BackofficeCtrl.Library', ['$scope', 'LibrarySvc
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.PictureSelector', ['$scope', 'LibrarySvc',
-    function($scope, LibrarySvc) {
+    function ($scope, LibrarySvc) {
         $scope.library = null;
-        $scope.refreshLibrary = function() {
-            LibrarySvc.getImages().success(function(data) {
+        $scope.refreshLibrary = function () {
+            LibrarySvc.getImages().success(function (data) {
                 $scope.library = data.library;
             });
         };
+        $scope.selectNo
         $scope.refreshLibrary();
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Help', ['$scope', 'FaqSvc',
-    function($scope, FaqSvc) {
+    function ($scope, FaqSvc) {
         $scope.faqList = [];
         $scope.faqFilter = '';
-        $scope.reload = function() {
-            FaqSvc.getList().success(function(data) {
+        $scope.reload = function () {
+            FaqSvc.getList().success(function (data) {
                 $scope.faqList = data;
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 alert('Impossible de charger les FAQ (erreur: ' + status + ')');
             });
         };
@@ -1001,20 +1011,20 @@ FeaderAppControllers.controller('BackofficeCtrl.Help', ['$scope', 'FaqSvc',
     }
 ]);
 FeaderAppControllers.controller('BackofficeCtrl.Contact', ['$scope',
-    function($scope) {
+    function ($scope) {
 
     }
 ]);
 FeaderAppControllers.controller('AdminCtrl.Stats', ['$scope', 'AdminSvc',
-    function($scope, AdminSvc) {
+    function ($scope, AdminSvc) {
         $scope.stats = {
             users_confirmed: 0,
             users_not_confirmed: 0,
             booklets: 0,
             pictures: 0
         };
-        $scope.reloadStats = function() {
-            AdminSvc.getStats().success(function(data) {
+        $scope.reloadStats = function () {
+            AdminSvc.getStats().success(function (data) {
                 $scope.stats.users_confirmed = data.users_confirmed;
                 $scope.stats.users_not_confirmed = data.users_not_confirmed;
                 $scope.stats.booklets = data.booklets;
@@ -1025,13 +1035,13 @@ FeaderAppControllers.controller('AdminCtrl.Stats', ['$scope', 'AdminSvc',
     }
 ]);
 FeaderAppControllers.controller('AdminCtrl.Users', ['$scope', 'AdminSvc',
-    function($scope, AdminSvc) {
+    function ($scope, AdminSvc) {
         $scope.Users = [];
         $scope.userOrderBy = 'last_name';
         $scope.userFilter = '';
         $scope.showSheet = false;
         $scope.selectedUser = -1;
-        $scope.changeOrder = function(field) {
+        $scope.changeOrder = function (field) {
             if ($scope.userOrderBy === field) {
                 $scope.userOrderBy = '-' + field;
             } else if ($scope.userOrderBy === ('-' + field)) {
@@ -1040,18 +1050,18 @@ FeaderAppControllers.controller('AdminCtrl.Users', ['$scope', 'AdminSvc',
                 $scope.userOrderBy = field;
             }
         };
-        $scope.toggleSheet = function() {
+        $scope.toggleSheet = function () {
             $scope.showSheet = !$scope.showSheet;
         };
-        $scope.showUserSheet = function(user) {
+        $scope.showUserSheet = function (user) {
             $scope.selectedUser = $scope.Users.indexOf(user);
             $scope.toggleSheet();
         };
-        $scope.deleteUser = function(user) {
+        $scope.deleteUser = function (user) {
             if (confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) {
-                AdminSvc.deleteUser(user.id).success(function(data) {
+                AdminSvc.deleteUser(user.id).success(function (data) {
                     $scope.Users.splice($scope.Users.indexOf(user), 1);
-                }).error(function(data, status) {
+                }).error(function (data, status) {
                     switch (status) {
                         case 403:
                             alert('Impossible de supprimer un compte administrateur');
@@ -1063,18 +1073,18 @@ FeaderAppControllers.controller('AdminCtrl.Users', ['$scope', 'AdminSvc',
                 });
             }
         };
-        $scope.reload = function() {
+        $scope.reload = function () {
             AdminSvc.getUserList()
-                    .success(function(data) {
-                        $scope.Users = data;
-                    })
-                    .error(function(data, status) {
+                .success(function (data) {
+                    $scope.Users = data;
+                })
+                .error(function (data, status) {
 
-                    });
+                });
         };
-        $scope.export = function() {
+        $scope.export = function () {
             var csvContent = "Nom,Prenom,Email,Fonction,Telephone,Adresse,Code postal,Ville,Date d\'inscription,Date derniere connexion,CGU\n";
-            $scope.Users.forEach(function(user, index) {
+            $scope.Users.forEach(function (user, index) {
                 csvContent += user.last_name + ', ';
                 csvContent += user.first_name + ', ';
                 csvContent += user.username + ', ';
@@ -1101,7 +1111,7 @@ FeaderAppControllers.controller('AdminCtrl.Users', ['$scope', 'AdminSvc',
     }
 ]);
 FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
-    function($scope, LibrarySvc) {
+    function ($scope, LibrarySvc) {
         $scope.name = '';
         $scope.description = '';
         $scope.credits = '';
@@ -1118,16 +1128,16 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
         $scope.showPopupImport = false;
         $scope.currentPage = 0;
         $scope.pageSize = 20;
-        $scope.numberOfPages = function() {
+        $scope.numberOfPages = function () {
             if ($scope.library === null || $scope.library.length === 0) {
                 return 0;
             }
             return Math.ceil($scope.library.length / $scope.pageSize);
         };
-        $scope.togglePopupAdd = function() {
+        $scope.togglePopupAdd = function () {
             $scope.showPopupAdd = !$scope.showPopupAdd;
         };
-        $scope.togglePopupEdit = function(image) {
+        $scope.togglePopupEdit = function (image) {
             if (typeof image !== 'undefined') {
                 $scope.tmpImage = image;
             } else {
@@ -1135,7 +1145,7 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
             }
             $scope.showPopupEdit = !$scope.showPopupEdit;
         };
-        $scope.togglePopupImport = function(image) {
+        $scope.togglePopupImport = function (image) {
             if (typeof image !== 'undefined') {
                 $scope.tmpImage = image;
             } else {
@@ -1143,34 +1153,34 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
             }
             $scope.showPopupImport = !$scope.showPopupImport;
         };
-        $scope.selectCat = function(cat_id) {
+        $scope.selectCat = function (cat_id) {
             if (typeof cat_id === 'undefined') {
                 $scope.selected_cat = -1;
             } else {
                 $scope.selected_cat = cat_id;
             }
         };
-        $scope.refreshLibrary = function() {
+        $scope.refreshLibrary = function () {
             $scope.library = [];
             $scope.refreshLibraryCategories();
             if ($scope.source === 'own') {
-                LibrarySvc.getAllImages().success(function(data) {
+                LibrarySvc.getAllImages().success(function (data) {
                     $scope.library = data.library;
                 });
             } else if ($scope.source === 'cat' && $scope.selected_cat > -1) {
-                LibrarySvc.getImagesByCat($scope.selected_cat).success(function(data) {
+                LibrarySvc.getImagesByCat($scope.selected_cat).success(function (data) {
                     $scope.library_title = data.name;
                     $scope.library = data.library;
                 });
             }
         };
-        $scope.refreshLibraryCategories = function() {
+        $scope.refreshLibraryCategories = function () {
             $scope.categories = [];
-            LibrarySvc.getCats().success(function(data) {
+            LibrarySvc.getCats().success(function (data) {
                 $scope.categories = data.categories;
             });
         };
-        $scope.setFile = function(element) {
+        $scope.setFile = function (element) {
             if (element.files[0].size > 5000000) {
                 alert('Le fichier est trop volumineux.');
                 angular.element('#library-form-add-image').val(null);
@@ -1178,7 +1188,7 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
                 $scope.image = element.files[0];
             }
         };
-        $scope.startUpload = function() {
+        $scope.startUpload = function () {
             if ($scope.name === '' || $scope.description === '' || $scope.image === '' || $scope.category === -1) {
                 alert('Vous devez renseigner les informations de la photo.');
                 return;
@@ -1188,7 +1198,7 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
             form.append('description', $scope.description);
             form.append('credits', $scope.credits);
             form.append('image', $scope.image);
-            LibrarySvc.addImageCat($scope.category, form).success(function(data, status) {
+            LibrarySvc.addImageCat($scope.category, form).success(function (data, status) {
                 $scope.name = '';
                 $scope.description = '';
                 $scope.credits = '';
@@ -1204,16 +1214,16 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
                 }
                 $scope.category = -1;
                 $scope.togglePopupAdd();
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 alert('image upload error : ' + data.error);
             });
         };
-        $scope.updateImage = function() {
+        $scope.updateImage = function () {
             if ($scope.tmpImage.name === '' || $scope.tmpImage.description === '' || $scope.tmpImage.librarycategory_id === -1) {
                 alert('Vous devez renseigner les informations de la photo.');
                 return;
             }
-            LibrarySvc.updateImage($scope.tmpImage).success(function() {
+            LibrarySvc.updateImage($scope.tmpImage).success(function () {
                 if ($scope.source === 'own') {
                     $scope.source = 'cat';
                     $scope.selected_cat = $scope.tmpImage.librarycategory_id;
@@ -1226,26 +1236,26 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
                 $scope.togglePopupEdit();
             });
         };
-        $scope.importImage = function() {
+        $scope.importImage = function () {
             if ($scope.tmpImage.name === '' || $scope.tmpImage.description === '' || $scope.tmpImage.librarycategory_id === null) {
                 alert('Vous devez renseigner les informations de la photo.');
                 return;
             }
-            LibrarySvc.importImage($scope.tmpImage).success(function() {
+            LibrarySvc.importImage($scope.tmpImage).success(function () {
                 $scope.source = 'cat';
                 $scope.selected_cat = $scope.tmpImage.librarycategory_id;
                 $scope.tmpImage = {};
                 $scope.togglePopupImport();
             });
         };
-        $scope.deleteImage = function(image_id) {
+        $scope.deleteImage = function (image_id) {
             if (confirm("Voulez-vous vraiment supprimer cette photo ?")) {
-                LibrarySvc.deleteImage(image_id).success(function() {
+                LibrarySvc.deleteImage(image_id).success(function () {
                     $scope.refreshLibrary();
                 });
             }
         };
-        $scope.$watch('source', function(newval, oldval) {
+        $scope.$watch('source', function (newval, oldval) {
             if (newval === 'own') {
                 $scope.selected_cat = -1;
                 $scope.library_title = 'Images des utilisateurs';
@@ -1255,7 +1265,7 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
                 $scope.library = [];
             }
         });
-        $scope.$watch('selected_cat', function(newval, oldval) {
+        $scope.$watch('selected_cat', function (newval, oldval) {
             if ($scope.source === 'cat' && newval > -1) {
                 $scope.library_title = '';
                 $scope.refreshLibrary();
@@ -1267,7 +1277,7 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
     }
 ]);
 FeaderAppControllers.controller('AdminCtrl.ModHome', ['$scope',
-    function($scope) {
+    function ($scope) {
         $scope.home = {
             contact_button: true,
             feedback: 'plop',
@@ -1277,31 +1287,31 @@ FeaderAppControllers.controller('AdminCtrl.ModHome', ['$scope',
             home_text: 'test',
             home_picture: 'images/demarche-reseau-rural-normand.jpg'
         };
-        $scope.save = function() {
+        $scope.save = function () {
             alert('TODO: save');
         };
     }
 ]);
 FeaderAppControllers.controller('AdminCtrl.ModEditor', ['$scope', 'BookletSvc', 'AdminSvc',
-    function($scope, BookletSvc, AdminSvc) {
+    function ($scope, BookletSvc, AdminSvc) {
         $scope.templates = [];
         $scope.tmpTpl = {};
         $scope.showHelpPopup = false;
-        $scope.showHelp = function(tpl) {
+        $scope.showHelp = function (tpl) {
             $scope.tmpTpl = tpl;
             $scope.toggleHelpPopup();
         };
-        $scope.toggleHelpPopup = function() {
+        $scope.toggleHelpPopup = function () {
             $scope.showHelpPopup = !$scope.showHelpPopup;
         };
-        $scope.reload = function() {
-            BookletSvc.getTemplates().success(function(data) {
+        $scope.reload = function () {
+            BookletSvc.getTemplates().success(function (data) {
                 $scope.templates = data;
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 alert('Impossible de charger les modeles de folio (Erreur: ' + status + ')');
             });
         };
-        $scope.editHelp = function() {
+        $scope.editHelp = function () {
             if ($scope.tmpTpl.helpintro === '' || $scope.tmpTpl.helptext === '') {
                 alert('Vous devez saisir une introduction et une explication complete');
                 return;
@@ -1310,10 +1320,10 @@ FeaderAppControllers.controller('AdminCtrl.ModEditor', ['$scope', 'BookletSvc', 
                 intro: $scope.tmpTpl.helpintro,
                 text: $scope.tmpTpl.helptext
             };
-            AdminSvc.editTemplateHelp($scope.tmpTpl.id, tmpData).success(function() {
+            AdminSvc.editTemplateHelp($scope.tmpTpl.id, tmpData).success(function () {
                 $scope.tmpTpl = {};
                 $scope.toggleHelpPopup();
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 alert('Impossible de sauvegarder l\'aide de ce modele.');
             });
         };
@@ -1321,22 +1331,22 @@ FeaderAppControllers.controller('AdminCtrl.ModEditor', ['$scope', 'BookletSvc', 
     }
 ]);
 FeaderAppControllers.controller('AdminCtrl.ModHelp', ['$scope', 'AdminSvc', 'FaqSvc',
-    function($scope, AdminSvc, FaqSvc) {
+    function ($scope, AdminSvc, FaqSvc) {
         $scope.faqList = [];
         $scope.ask = '';
         $scope.answer = '';
         $scope.tmpFaq = {};
         $scope.showAddPopup = false;
         $scope.showSheetPopup = false;
-        $scope.toggleAddPopup = function() {
+        $scope.toggleAddPopup = function () {
             $scope.ask = '';
             $scope.answer = '';
             $scope.showAddPopup = !$scope.showAddPopup;
         };
-        $scope.toggleSheetPopup = function() {
+        $scope.toggleSheetPopup = function () {
             $scope.showSheetPopup = !$scope.showSheetPopup;
         };
-        $scope.showFaqSheet = function(faq) {
+        $scope.showFaqSheet = function (faq) {
             if (typeof faq !== 'undefined') {
                 $scope.tmpFaq = faq;
             } else {
@@ -1344,14 +1354,14 @@ FeaderAppControllers.controller('AdminCtrl.ModHelp', ['$scope', 'AdminSvc', 'Faq
             }
             $scope.toggleSheetPopup();
         };
-        $scope.reload = function() {
-            FaqSvc.getList().success(function(data) {
+        $scope.reload = function () {
+            FaqSvc.getList().success(function (data) {
                 $scope.faqList = data;
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 alert('Erreur de chargement des FAQ. (code: ' + status + ')');
             });
         };
-        $scope.addFaq = function() {
+        $scope.addFaq = function () {
             if ($scope.ask === '' || $scope.answer === '') {
                 alert('Vous devez renseigner les deux champs.');
                 return;
@@ -1360,14 +1370,14 @@ FeaderAppControllers.controller('AdminCtrl.ModHelp', ['$scope', 'AdminSvc', 'Faq
                 ask: $scope.ask,
                 answer: $scope.answer
             };
-            AdminSvc.addFaq(tmpdata).success(function(data, status) {
+            AdminSvc.addFaq(tmpdata).success(function (data, status) {
                 $scope.reload();
                 $scope.toggleAddPopup();
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 alert('Impossible d\'ajouter la FAQ.');
             });
         };
-        $scope.editFaq = function() {
+        $scope.editFaq = function () {
             if ($scope.tmpFaq.ask === '' || $scope.tmpFaq.answer === '') {
                 alert('Vous devez renseigner les deux champs.');
                 return;
@@ -1376,18 +1386,18 @@ FeaderAppControllers.controller('AdminCtrl.ModHelp', ['$scope', 'AdminSvc', 'Faq
                 ask: $scope.tmpFaq.ask,
                 answer: $scope.tmpFaq.answer
             };
-            AdminSvc.editFaq($scope.tmpFaq.id, tmpdata).success(function(data, status) {
+            AdminSvc.editFaq($scope.tmpFaq.id, tmpdata).success(function (data, status) {
                 $scope.reload();
                 $scope.toggleSheetPopup();
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                 alert('Impossible de modifier la FAQ.');
             });
         };
-        $scope.deleteFaq = function(faq) {
+        $scope.deleteFaq = function (faq) {
             if (confirm('Voulez-vous vraiment supprimer cette aide ?')) {
-                AdminSvc.deleteFaq(faq.id).success(function() {
+                AdminSvc.deleteFaq(faq.id).success(function () {
                     $scope.reload();
-                }).error(function(data, status) {
+                }).error(function (data, status) {
                     alert('Impossible de supprimer cette aide');
                 });
             }

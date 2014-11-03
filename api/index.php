@@ -507,7 +507,9 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export/:quality', function($book
     foreach ($folio_record->xownPageList as $page) {
         $html = '<style>@page {margin: 0;padding:0;} body {font-family: "Lato" !important;}</style>';
         $html .= '<div style="margin:0;padding:0;">';
-        $content = preg_replace('/<img src\=\"([^\"]*)\"/', "<img src=\"../$1\"", $page->content);
+        $content = preg_replace('/<img([^>]+)src\=\"([^\"]*)\"/', "<img$1src=\"../$2\"", $page->content);
+        //$content = preg_replace('#<img(.*?)src="([^"]*/)"([^>]*?)>#', '<img\\1src="../\\2"\\3>', $page-content);
+        //$content = preg_replace('/<img([^>]+)src="([^"]+)"/i','<img$1src="../$2"', $page-content);
         $html .= $content;
         $html .= '</div>';
         //$mpdf->SetFooter('Document Title');

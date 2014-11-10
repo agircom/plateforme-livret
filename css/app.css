@@ -202,7 +202,7 @@
 .ng-editable-toolbox-textedit-popup {
     display: none;
     width: 400px;
-    height: 300px;
+    /*height: 300px;*/
 }
 .ng-editable-toolbox-textedit-popup > textarea {
     width: 400px;

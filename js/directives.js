@@ -272,6 +272,7 @@ FeaderAppDirectives.directive('ngMarkerToggle', [function () {
                 content.find('.ng-editable').toggleClass('ng-editable-marker');
                 content.find('.ng-picture-select').toggleClass('ng-editable-marker');
                 content.find('.ng-deletable').children('.ng-deletable-handler').toggle();
+                content.find('.ng-date-select').toggleClass('ng-editable-marker');
             });
         }
     };
@@ -316,7 +317,7 @@ FeaderAppDirectives.directive('ngDateSelect', [function () {
         link: function (scope, element, attrs) {
             // set element config
             element.attr('title', 'Cliquez pour changer l\'année');
-
+            element.addClass('ng-editable-marker');
             // function generate calendar
             var resetCalendar = function () {
                 var current_date = parseInt(element.find('.ng-date-select-first').text() + element.find('.ng-date-select-second').text());

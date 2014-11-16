@@ -601,11 +601,12 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         };
         $scope.buildFolio = function (container) {
             // backup header and footer
+            var header = $scope.clearPlugins(container.find('.page-header').clone());
+            var footer = $scope.clearPlugins(container.find('.page-footer').clone());
+            // backup container attrs
             var container_attrs = container.prop('attributes');
-            var header = container.find('.page-header').clone();
-            var footer = container.find('.page-footer').clone();
-            var full_content = $('<div/>');
             // concat all html pages
+            var full_content = $('<div/>');
             for (var i = 0; i < $scope.folio.ownPage.length; ++i) {
                 if (i === $scope.selected_page) {
                     // current page editing (not saved in model)
@@ -618,70 +619,48 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
 
             // remove plugin content
             full_content = $scope.clearPlugins(full_content);
+            // init future pages
             var order = 1;
             var pages = [{
                 folio_id: $scope.folio_id,
                 order: 1,
                 content: ''
             }];
+            // init need page creation
+            var need_new_page = false;
+            // init entry counter
             var entry_count = 0;
+            // init max index category
             var max_cat_index = full_content.find('.ng-clone-cat').length - 1;
-            // backup container attributes
+            // create future content
             var content = $('<div/>');
-            var cat_content = $('<div/>');
+            // add container attributes
             $.each(container_attrs, function () {
                 content.attr(this.name, this.value);
             });
+            // add header to content
+            content.append(header);
+            // create future category content
+            var cat_content = '';
+            var last_cat_title = -42;
             // parse all cats in content
             full_content.find('.ng-clone-cat').each(function (index) {
-                // backups cat
+                // backups category header
                 var cat_header = $(this).clone();
-                // empty orga in this cat
                 cat_header.find('.ng-clone-orga').remove();
-                // count orga in this cat
-                var max_orga_index = $(this).find('.ng-clone-orga').length - 1;
-                // parse all orga in this cat
+                // check if new category (by title)
+                if (last_cat_title != $.trim($(this).find('.block-locale').find('h4').text())) {
+                    // insert previous category in content
+                    if (last_cat_title !== -42 && cat_content.find('.block-locale').find('.ng-clone-orga').length > 0) {
+                        content.append(cat_content.clone());
+                    }
+                    // init new category content
+                    cat_content = cat_header.clone();
+                    last_cat_title = $.trim($(this).find('.block-locale').find('h4').text());
+                }
+                // boucle sur les organismes de cette category
                 $(this).find('.ng-clone-orga').each(function (index_orga) {
-                    // check header
-                    if (entry_count === 0) {
-                        // first element => add header
-                        header.appendTo(content);
-                    }
-                    // check place => there is a place
-                    if (entry_count < 6) {
-                        // store orga in cat content
-                        cat_content.append($(this));
-                        entry_count++;
-                    }
-                    // page is not full and no more orga exists
-                    if (entry_count < 6 && index_orga === max_orga_index) {
-                        // store orgas in cloned cat header
-                        cat_header.find('div:eq(1)').append(cat_content.children().clone());
-                        cat_content.html('');
-                        // store cat in content
-                        content.append(cat_header.clone());
-                        cat_header.find('.ng-clone-orga').remove();
-                        if (index === max_cat_index) {
-                            // create page
-                            // store footer
-                            footer.appendTo(content);
-                            // save page
-                            pages[pages.length - 1].content = content.clone().prop('outerHTML');
-                        }
-                    }
-                    // page is full and more orga exists
-                    if (entry_count === 6 && index_orga < max_orga_index) {
-                        // store orgas in cloned cat header
-                        cat_header.find('div:eq(1)').append(cat_content.children().clone());
-                        cat_content.html('');
-                        // store cat in content
-                        content.append(cat_header.clone());
-                        cat_header.find('.ng-clone-orga').remove();
-                        // store footer
-                        footer.appendTo(content);
-                        // save page
-                        pages[pages.length - 1].content = content.clone().prop('outerHTML');
-                        content.html('');
+                    if (need_new_page) {
                         // create page
                         order++;
                         pages.push({
@@ -689,34 +668,36 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                             order: order,
                             content: ''
                         });
-                        entry_count = 0;
+                        need_new_page = false;
                     }
-                    // page is full and no more orga exists
-                    if (entry_count === 6 && index_orga === max_orga_index) {
-                        // store orgas in cloned cat header
-                        cat_header.find('div:eq(1)').append(cat_content.children().clone());
-                        cat_content.html('');
-                        // store cat in content
-                        content.append(cat_header.clone());
-                        cat_header.find('.ng-clone-orga').remove();
-                        // store footer
-                        footer.appendTo(content);
+                    // add cat content
+                    cat_content.find('.block-locale').append($(this).clone());
+                    entry_count++;
+                    // max number item
+                    if (entry_count === 6) {
+                        // add category to current content
+                        content.append(cat_content.clone());
+                        // add footer to content
+                        content.append(footer);
                         // save page
                         pages[pages.length - 1].content = content.clone().prop('outerHTML');
+                        need_new_page = true;
+                        // init new content
                         content.html('');
-                        if (index < max_cat_index) {
-                            // create page
-                            order++;
-                            pages.push({
-                                folio_id: $scope.folio_id,
-                                order: order,
-                                content: ''
-                            });
-                            entry_count = 0;
-                        }
+                        content.append(header);
+                        // restart with current category (empty organismes)
+                        cat_content = cat_header.clone();
+                        // reset entry count
+                        entry_count = 0;
                     }
                 });
             });
+            if (!need_new_page) {
+                content.append(cat_content.clone());
+                content.append(footer);
+                pages[pages.length - 1].content = content.clone().prop('outerHTML');
+            }
+
             $scope.$apply(function () {
                 $scope.folio.ownPage = pages;
                 if ($scope.selected_page >= $scope.folio.ownPage.length) {

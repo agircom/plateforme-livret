@@ -531,33 +531,33 @@ FeaderAppDirectives.directive('ngTooltip', [function () {
 }
 ]);
 
-FeaderAppDirectives.directive('ngCloneCat', ['$compile', function ($compile) {
-    return {
-        restrict: 'AEC',
-        link: function (scope, element, attrs) {
-            // create handler
-            $(document.createElement('div')).addClass('ng-clone-cat-handler').attr('title', 'Ajouter une categorie').appendTo(element.find('h4'));
-
-            // onclick
-            element.find('.ng-clone-cat-handler').on('click', function (e, ui) {
-                if (scope.folioBuilding === false) {
-                    scope.folioBuilding = true;
-                    // clone processing
-                    var parent = $('#drawboard > div').first();
-                    element.clone().insertAfter(element);
-
-                    // build folio pages
-                    scope.buildFolio(parent);
-                    var el = angular.element(scope.folio.ownPage[scope.selected_page].content);
-                    var compiled = $compile(el)(scope);
-                    $('#drawboard').html(compiled);
-                    scope.folioBuilding = false;
-                }
-            });
-        }
-    };
-}
-]);
+//FeaderAppDirectives.directive('ngCloneCat', ['$compile', function ($compile) {
+//    return {
+//        restrict: 'AEC',
+//        link: function (scope, element, attrs) {
+//            // create handler
+//            $(document.createElement('div')).addClass('ng-clone-cat-handler').attr('title', 'Ajouter une categorie').appendTo(element.find('h4'));
+//
+//            // onclick
+//            element.find('.ng-clone-cat-handler').on('click', function (e, ui) {
+//                if (scope.folioBuilding === false) {
+//                    scope.folioBuilding = true;
+//                    // clone processing
+//                    var parent = $('#drawboard > div').first();
+//                    element.clone().insertAfter(element);
+//
+//                    // build folio pages
+//                    scope.buildFolio(parent);
+//                    var el = angular.element(scope.folio.ownPage[scope.selected_page].content);
+//                    var compiled = $compile(el)(scope);
+//                    $('#drawboard').html(compiled);
+//                    scope.folioBuilding = false;
+//                }
+//            });
+//        }
+//    };
+//}
+//]);
 FeaderAppDirectives.directive('ngRemoveCat', ['$compile', function ($compile) {
     return {
         restrict: 'AEC',

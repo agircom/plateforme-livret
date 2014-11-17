@@ -630,8 +630,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             var need_new_page = false;
             // init entry counter
             var entry_count = 0;
-            // init max index category
-            var max_cat_index = full_content.find('.ng-clone-cat').length - 1;
             // create future content
             var content = $('<div/>');
             // add container attributes
@@ -678,7 +676,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                         // add category to current content
                         content.append(cat_content.clone());
                         // add footer to content
-                        content.append(footer);
+                        content.append(footer.clone().css('margin-top', '14%'));
                         // save page
                         pages[pages.length - 1].content = content.clone().prop('outerHTML');
                         need_new_page = true;
@@ -694,7 +692,25 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             });
             if (!need_new_page) {
                 content.append(cat_content.clone());
-                content.append(footer);
+                var marginTop = '14%';
+                switch (entry_count) {
+                    case 1:
+                        marginTop = '98%';
+                        break;
+                    case 2:
+                        marginTop = '81%';
+                        break;
+                    case 3:
+                        marginTop = '64%';
+                        break;
+                    case 4:
+                        marginTop = '47%';
+                        break;
+                    case 5:
+                        marginTop = '29%';
+                        break;
+                }
+                content.append(footer.clone().css('margin-top', marginTop));
                 pages[pages.length - 1].content = content.clone().prop('outerHTML');
             }
 

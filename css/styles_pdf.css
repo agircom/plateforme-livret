@@ -75,8 +75,8 @@ body {
 .mot-pochette-4 {font-size: 220%; line-height: 80%; float: left; margin-left: 40%; margin-top: 90px;}
 
 .block-pochette-verso-left-1{width: 2478px; height: 1000px;}
-.block-pochette-verso-left-2{float: left; width: 600px; height: 2200px; background-color: #e9e9e9;}
-.block-pochette-verso-left-3{float: left; width: 1800px; height:2000px; padding: 30px;}
+.block-pochette-verso-left-2{float: left; width: 575px; height: 2200px; background-color: #e9e9e9; margin-left: 50px;}
+.block-pochette-verso-left-3{float: left; width: 1775px; height:2000px; padding: 30px;}
 
 .img-pochette-memo{width: 2478px !important; height: 3485px !important;}
 

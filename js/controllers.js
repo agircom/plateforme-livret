@@ -115,7 +115,7 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
                 $scope.showError('Veuillez saisir les meme adresse mail');
                 return;
             }
-            if (!ToolSvc.isValidEmail($scope.contactInfos.email)) {
+            if (!ToolSvc.isValidEmail($scope.contactInfos.email))   {
                 $scope.showError('Le format de l\'adresse mail n\'est pas correct.');
                 return;
             }

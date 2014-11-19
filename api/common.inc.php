@@ -153,11 +153,11 @@ function sendMail($dest, $subject, $body) {
     $mail->Body = $body;
 
     if (!$mail->Send()) {
-//        echo 'Message could not be sent.';
-//        echo 'Mailer Error: ' . $mail->ErrorInfo;
+        //echo 'Message could not be sent.';
+        //echo 'Mailer Error: ' . $mail->ErrorInfo;
         return false;
     } else {
-//        echo 'Message has been sent';
+        //echo 'Message has been sent';
         return true;
     }
 }

@@ -318,6 +318,7 @@ FeaderAppDirectives.directive('ngDateSelect', [function () {
             // set element config
             element.attr('title', 'Cliquez pour changer l\'année');
             element.addClass('ng-editable-marker');
+            scope.isReseting = false;
             // function generate calendar
             var resetCalendar = function () {
                 var current_date = parseInt(element.find('.ng-date-select-first').text() + element.find('.ng-date-select-second').text());
@@ -380,6 +381,8 @@ FeaderAppDirectives.directive('ngDateSelect', [function () {
                 scope.folio.ownPage[0].content = page_first.html();
                 scope.folio.ownPage[1].content = page_second.html();
                 scope.updatedFolio = true;
+
+                scope.isReseting = false;
             };
             // event click
             element.on('click', function () {
@@ -393,8 +396,11 @@ FeaderAppDirectives.directive('ngDateSelect', [function () {
                     alert('Le format de la date est incorrect');
                 }
             });
-            scope.$on('$viewContentLoaded', function () {
-                resetCalendar();
+            scope.$watch('$viewContentLoaded', function () {
+                if (!scope.isReseting) {
+                    scope.isReseting = true;
+                    resetCalendar();
+                }
             });
         }
     };

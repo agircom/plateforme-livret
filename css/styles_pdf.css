@@ -52,6 +52,7 @@ body {
     height: 3400px !important;
     max-width: 2480px !important;
     max-height: 3400px !important;
+    margin-left: 50px;
 }
 .size-agenda-a4{
     width: 3500px !important;
@@ -113,11 +114,11 @@ h1, h2, h3, h4, h5 {font-family: "Lato";}
 .block-pres-territoire h5 {font-size: 1rem !important; line-height: 1rem !important}
 .block-pres-territoire h4 {font-size: 1.2rem !important; line-height: 1.2rem !important}
 .block-pres-territoire p {font-size: 0.8rem !important; line-height: 0.8rem !important}
-.pres-terri-img-defaut-moyenne {width: 600px !important; height: 400px !important; max-width: 600px !important; max-height: 400px !important;}
-.pres-terri-img-defaut-grande {width: 1000px !important; height: 800px !important; max-width: 1000px !important; max-height: 800px !important;}
-.pres-terri-img-defaut-moyenne-portrait {width: 400px !important; height: 600px !important; max-width: 400px !important; max-height: 600px !important;}
+.pres-terri-img-defaut-moyenne {max-width: 600px !important; max-height: 400px !important;}
+.pres-terri-img-defaut-grande {max-width: 1000px !important; max-height: 800px !important;}
+.pres-terri-img-defaut-moyenne-portrait {max-width: 400px !important; max-height: 600px !important;}
 .img-pres-terri-2 {width: auto !important; height: 400px !important; max-width: 600px !important; max-height: 400px !important;}
-.img-pres-terri-3 {width: 600px !important; height: 400px !important; max-width: 600px !important; max-height: 400px !important;}
+.img-pres-terri-3 {max-width: 600px !important; max-height: 400px !important;}
 .img-pres-terri-large {height: 800px !important; max-height: 800px !important;}
 
 .block-locale h5 {font-size: 0.8rem !important; line-height: 0.8rem !important}

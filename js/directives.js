@@ -77,7 +77,7 @@ FeaderAppDirectives.directive('ngEditable', [function () {
                     toolbox.find('.ng-editable-toolbox-chars>b').html(maxLength - element.text().length);
                 };
                 var clearNewLine = function () {
-                    element.text(element.text().replace(/(\r\n|\n|\r)/gm, " "));
+                    element.html(element.html().replace(/(\r\n|\n|\r)/gm, " "));
                 };
                 var cropText = function () {
                     if (element.text().length > maxLength) {
@@ -139,7 +139,11 @@ FeaderAppDirectives.directive('ngEditable', [function () {
                 });
                 toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').on('keyup keydown keypress paste', function (e) {
                     element.text($(this).val());
-                    element.trigger(e);
+                    //clearNewLine();
+                });
+                element.on('keyup keydown keypress paste', function (e) {
+                    toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').val($(this).text());
+                    //clearNewLine();
                 });
                 toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').on('focusout', function () {
                     scope.updateModel();

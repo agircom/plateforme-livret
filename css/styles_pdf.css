@@ -33,9 +33,9 @@ body {
 .cadre-folio-pf {
     margin: 0;
     padding: 0;
-    //width: 3500px !important;
-    //height: 2000px !important;
-    //background-color: red;
+    /*width: 3500px !important;*/
+    /*height: 2000px !important;*/
+    /*background-color: red;*/
 }
 
 .size-pochette{
@@ -88,7 +88,7 @@ body {
 
 .block-img-pochette-recto {/*margin-top: -40px; */display: block; width: 2478px; height: 500px; text-align: center; padding-top: 200px; padding-left: 150px;}
 .div-img-pochette-recto{min-width: 550px !important; min-height: 550px !important; width: 550px !important; height: 550px !important;  max-width: 550px !important; max-height: 550px !important; float: left; /*padding-right: 10px;*/}
-.img-pochette {min-width: 500px; min-height: 500px; width: 500px; height: 500px;  max-width: 500px; max-height: 500px;}
+.img-pochette {min-height: 500px; height: 500px;  max-width: 500px; max-height: 500px;}
 .img-pochette-lateral-verso {width: 100% !important;}
 .logo-pochette {max-width: 100% !important; max-height: 800px !important;}
 
@@ -114,11 +114,11 @@ h1, h2, h3, h4, h5 {font-family: "Lato";}
 .block-pres-territoire h5 {font-size: 1rem !important; line-height: 1rem !important}
 .block-pres-territoire h4 {font-size: 1.2rem !important; line-height: 1.2rem !important}
 .block-pres-territoire p {font-size: 0.8rem !important; line-height: 0.8rem !important}
-.pres-terri-img-defaut-moyenne {max-width: 600px !important; max-height: 400px !important;}
-.pres-terri-img-defaut-grande {max-width: 1000px !important; max-height: 800px !important;}
-.pres-terri-img-defaut-moyenne-portrait {max-width: 400px !important; max-height: 600px !important;}
+.pres-terri-img-defaut-moyenne {max-width: 600px !important; height: 400px !important;}
+.pres-terri-img-defaut-grande {max-width: 1000px !important; height: 800px !important;}
+.pres-terri-img-defaut-moyenne-portrait {max-width: 400px !important; height: 600px !important;}
 .img-pres-terri-2 {width: auto !important; height: 400px !important; max-width: 600px !important; max-height: 400px !important;}
-.img-pres-terri-3 {max-width: 600px !important; max-height: 400px !important;}
+.img-pres-terri-3 {max-width: 600px !important; height: 400px !important; max-height: 400px !important;}
 .img-pres-terri-large {height: 800px !important; max-height: 800px !important;}
 
 .block-locale h5 {font-size: 0.8rem !important; line-height: 0.8rem !important}
@@ -148,8 +148,8 @@ h1, h2, h3, h4, h5 {font-family: "Lato";}
 
 .picto-jr-ferie {
 background: url(../images/pictos/picto-jr-ferie-pdf.png) no-repeat;
-//width: 150px !important;
-//height: 150px !important;
+/*width: 150px !important;*/
+/*height: 150px !important;*/
 padding-top: 20px !important;
 padding-left: 20px !important;
 }

@@ -470,7 +470,7 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export/:quality', function($book
     $format = getFormatPDF($folio_record->type);
 //    $mpdf = new mPDF('utf-8', $format);
     $mpdf = new mPDF('', $format, '', '', 0, 0, 0, 0, 0, 0);
-    $filename = 'livret';
+//    $filename = 'livret';
     switch ($folio_record->type) {
         case 'locale':
             $filename = 'offre-locale';
@@ -502,8 +502,8 @@ $app->get('/booklet/:booklet_id/folio/:folio_id/export/:quality', function($book
     $mpdf->WriteHTML($stylesheet, 1);
     $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles.css');
     $mpdf->WriteHTML($stylesheet, 1);
-    //$stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_bo.css');
-    //$mpdf->WriteHTML($stylesheet, 1);
+//    $stylesheet = file_get_contents('..' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'styles_bo.css');
+//    $mpdf->WriteHTML($stylesheet, 1);
     foreach ($folio_record->xownPageList as $page) {
         $html = '<style>@page {margin: 0;padding:0;} body {font-family: "Lato" !important;}</style>';
         $html .= '<div style="margin:0;padding:0;">';

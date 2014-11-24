@@ -1,39 +1,39 @@
 <div class="inside">
-        <div class="liens-sidebar">
-            <div ng-if="!User.isLogged()" style="padding-bottom: 20px;">
-                <a href="#/account/create"><img src="images/pictos/mon-compte.png" alt="mon-compte" title="Mon Compte" width="32" height="32" /><span>CREER UN COMPTE</span></a>
-            </div>
-            <div>
-                <a href="#/contact"><img src="images/pictos/contact.png" alt="contact" title="Contact" width="32" height="32" /><span>NOUS CONTACTER</span></a>
-            </div>    
-        </div>
-        <div class="ligne-sidebar"></div>
-        <div class="trousse-outils-sidebar">
-            <h2> > TROUSSE A OUTILS</h2>
-            <div class="bloc-trousse-outils-sidebar" ng-click="goto('booklets')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
-                <span>Mes livrets</span>
-                <img ng-src="images/pictos/mes-livrets{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="Créer et modifier mon livret" title="Créer et modifier mon livret"/>
-            </div>
-            <div class="bloc-trousse-outils-sidebar" ng-click="goto('library')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
-                <span>Photothèque</span>
-                <img ng-src="images/pictos/phototheque{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="Accéder à la photothèque" title="Accéder à la photothèque"/>
-            </div>
-            <div class="bloc-trousse-outils-sidebar" ng-click="goto('account')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
-                <span>Mon compte</span>
-                <img ng-src="images/pictos/mon-compte{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="Gérer mon compte" title="Gérer mon compte"/>
-            </div>
-            <div class="bloc-trousse-outils-sidebar" ng-click="goto('help')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
-                <span>Aide et FAQ</span>
-                <img ng-src="images/pictos/aide-faq{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="Consulter l’aide et la FAQ" title="Consulter l’aide et la FAQ"/>
-            </div>
-            <div class="bloc-trousse-outils-sidebar" ng-click="goto('contact')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
-                <span>Contact</span>
-                <img ng-src="images/pictos/contact{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="Contact" title="Contact"/>
-            </div>
-        </div> 
-        <div class="temoignage-sidebar">
-            <h2>Témoignage d'utlisateurs</h2> 
-            <p>jqhdjksqhfh jhqsdjhsq hqshh  qshdjhsqfhhf sqjdksqjkf  qshfhdfh hqsdhsqhd  qshdqiodio qshdsqhfh hqshdqshdqd iqshdisq.</p>
-            <a href="#" onclick="return false;"><span> > Voir la réalisation</span></a>
-        </div>
-    </div>
+	<div class="liens-sidebar">
+		<div ng-if="!User.isLogged()" style="padding-bottom: 20px;">
+			<a href="#/account/create"><img src="images/pictos/mon-compte.png" alt="mon-compte" title="Mon Compte" width="32" height="32" /><span>CREER UN COMPTE</span></a>
+		</div>
+		<div>
+			<a href="#/contact"><img src="images/pictos/contact.png" alt="contact" title="Contact" width="32" height="32" /><span>NOUS CONTACTER</span></a>
+		</div>    
+	</div>
+	<div class="ligne-sidebar"></div>
+	<div class="trousse-outils-sidebar">
+		<h2> > TROUSSE A OUTILS</h2>
+		<div class="bloc-trousse-outils-sidebar" ng-click="goto('booklets')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
+			<span>Mes livrets</span>
+			<img ng-src="images/pictos/mes-livrets{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="Créer et modifier mon livret" title="Créer et modifier mon livret"/>
+		</div>
+		<div class="bloc-trousse-outils-sidebar" ng-click="goto('library')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
+			<span>Photothèque</span>
+			<img ng-src="images/pictos/phototheque{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="Accéder à la photothèque" title="Accéder à la photothèque"/>
+		</div>
+		<div class="bloc-trousse-outils-sidebar" ng-click="goto('account')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
+			<span>Mon compte</span>
+			<img ng-src="images/pictos/mon-compte{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="Gérer mon compte" title="Gérer mon compte"/>
+		</div>
+		<div class="bloc-trousse-outils-sidebar" ng-click="goto('help')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
+			<span>Aide et FAQ</span>
+			<img ng-src="images/pictos/aide-faq{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="Consulter l’aide et la FAQ" title="Consulter l’aide et la FAQ"/>
+		</div>
+		<div class="bloc-trousse-outils-sidebar" ng-click="goto('contact')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
+			<span>Contact</span>
+			<img ng-src="images/pictos/contact{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="Contact" title="Contact"/>
+		</div>
+	</div> 
+	<div class="temoignage-sidebar">
+		<h2>Témoignage d'utlisateurs</h2> 
+		<p>jqhdjksqhfh jhqsdjhsq hqshh  qshdjhsqfhhf sqjdksqjkf  qshfhdfh hqsdhsqhd  qshdqiodio qshdsqhfh hqshdqshdqd iqshdisq.</p>
+		<a href="#" onclick="return false;"><span> > Voir la réalisation</span></a>
+	</div>
+</div>

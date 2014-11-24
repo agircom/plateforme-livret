@@ -361,6 +361,7 @@ FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'Too
             fonction: UserSvc.getInfos().fonction,
             phone: UserSvc.getInfos().phone,
             address: UserSvc.getInfos().address,
+            username: UserSvc.getInfos().username,
             cp: UserSvc.getInfos().cp,
             city: UserSvc.getInfos().city,
             passwd: ''
@@ -399,16 +400,6 @@ FeaderAppControllers.controller('AccountCtrl.Profil', ['$scope', 'UserSvc', 'Too
             $scope.message.text = message;
             $scope.message.show = true;
             $scope.saveInProgress = false;
-            $scope.userInfos = {
-                name: UserSvc.getInfos().name,
-                last_name: UserSvc.getInfos().last_name,
-                first_name: UserSvc.getInfos().first_name,
-                fonction: UserSvc.getInfos().fonction,
-                phone: UserSvc.getInfos().phone,
-                address: UserSvc.getInfos().address,
-                cp: UserSvc.getInfos().cp,
-                passwd: ''
-            };
             $scope.passwd2 = '';
         };
         $scope.showSuccess = function (message) {
@@ -747,6 +738,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             $scope.showPictureSelector = !$scope.showPictureSelector;
         };
         $scope.selectImage = function (filename, source) {
+            console.log(filename, source);
             if (source === 'own')
                 $scope.imageSelected = 'images/uploaded/' + filename;
             else if (source === 'fixed')

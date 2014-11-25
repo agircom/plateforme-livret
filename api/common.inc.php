@@ -151,7 +151,6 @@ function sendMail($dest, $subject, $body) {
     $mail->addAddress($dest['mail'], $dest['name']);
     $mail->Subject = $subject;
     $mail->Body = $body;
-    $mail->SMTPDebug = false;
 
     return $mail->Send();
 }

@@ -525,12 +525,16 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
 FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams', '$rootScope', '$location', '$sce', 'BookletSvc', 'UserSvc',
     function ($scope, $routeParams, $rootScope, $location, $sce, BookletSvc, UserSvc) {
         $scope.logout = function () {
-            UserSvc.Logout(function () {
-                $location.path('/home');
-            });
+            if ($scope.updatedFolio === true) {
+                if (confirm('Attention les modifications non enregistrées seront perdues')) {
+                    $scope.updatedFolio = false;
+                    UserSvc.Logout(function () {
+                        $location.path('/home');
+                    });
+                }
+            }
         };
         $scope.showPictureSelector = false;
-        $scope.showFullscreen = false;
         $scope.showHelp = false;
         $scope.imageSelected = null;
         $scope.templates = [];
@@ -743,10 +747,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
         };
         $scope.toggleFullScreen = function () {
             angular.element('.ng-editable-toolbox:not(#ng-editable-toolbox)').remove();
-            $scope.showFullscreen = !$scope.showFullscreen;
-        };
-        $scope.toggleTooltips = function () {
-            $rootScope.layout.showTooltips = !$rootScope.layout.showTooltips;
+            $rootScope.layout.showFullscreen = !$rootScope.layout.showFullscreen;
         };
         $scope.exportPDF = function (highresolution) {
             if ($scope.updatedFolio === true) {
@@ -770,6 +771,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                     event.preventDefault();
                 }
             }
+            $rootScope.layout.showFullscreen = false;
         });
     }
 ]);

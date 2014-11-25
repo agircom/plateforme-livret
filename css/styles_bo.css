@@ -434,7 +434,7 @@ h1.titre1fond-folio-pf{
 .right-folio-pf{
     float: right;
     z-index: 100;
-    margin-top: -40px;
+    margin-top: 20px;
     width: 140px;
 }
 
@@ -522,219 +522,71 @@ h1.titre1fond-folio-pf{
     margin: 0;
 }
 
+#drawboard {
+    box-sizing: border-box;
+    padding-right: 12px;
+}
+#drawboard.pochetteshow {
+    padding-right: 0;
+}
 /* fullscreen */
-.fullscreen {
-    width: 97%;
-    height: 98%;
-    position: absolute;
-    z-index: 10;
-    left: 0;
-    top: 40px;
-    margin: 0;      
+.fullscreen .menu-bo {
+    display: none;
 }
-.cfpffullscreen {
-    position: absolute;
-    z-index: 100;
-    /* left: 30px; */
-    /* top: 65px; */
-    /* font-size: 160%; */
-    margin: 0;
-    /* width: 86%; */
-    /* zoom: 2; */
-    //-ms-zoom: 2;
-    //-webkit-zoom: 2;    
-    //-moz-transform-origin: left center;
-    //transform: scale(2,4);    
-    //-webkit-transform: scale(2.2,2.2); /* Safari and Chrome */
-    //-o-transform: scale(2,4); /* Opera */
-    //-moz-transform: scale(2,4); /* Firefox */
-    /* height: 100%; */  
-    -moz-transform:  scale(2.2,2.2);
-    transform: scale(2.2);
-    transform-origin: 0 20% 0;
-    -ms-transform: scale(2.2,2.2); /* IE 9 */
-    -ms-transform-origin:-15% 5%; /* IE 9 */
-    -webkit-transform: scale(2.2); /* Chrome, Safari, Opera */
-    -webkit-transform-origin: -5% -5%; /* Chrome, Safari, Opera */
+.fullscreen #drawboard {
+    transform-origin: 0 0;
+}
+.fullscreen .cadre-folio-pf{
+    width: 632px;
+    height: 894px;
+}
+.fullscreen .pochetteshow {
+    height: 447px;
+    width: 632px;
 }
 
-@-moz-document url-prefix()
-{
-    .cfpffullscreen {
-    left: 5%;
-    top: 70%;
+.fullscreen #main, .fullscreen .container {
+    width: 98%;
+}
+.fullscreen .container, .fullscreen .fond-folio-pf {
+    height: 95%;
+}
+
+
+.fullscreen #drawboard {
+    transform: scale(1.5);
+}
+.fullscreen #main{
+    height: 1550px;
+}
+
+@media screen and (min-width: 1550px) {
+    .fullscreen #drawboard {
+        transform: scale(2);
+    }
+    .fullscreen #main{
+        height: 2042px;
     }
 }
 
-  .cfpffullscreen/**/ {
-    //top: 340px;
-    //left: 530px;
-    }
-
-.rfpffullscreen{
-    /* width: 10%; */
-    /* zoom: 1.8; */
-}
-
-/*@media screen and (max-width: 1440px) {
-  .rfpffullscreen {
-    width: 13%;
-  }
-  .cfpffullscreen {
-     width: 80%;
-  
-     height: 100%; 
-    zoom: 1.2;
-}
-}*/
-@media screen and (min-width: 640px) {
-.cfpffullscreen {
-    /* zoom: 1; */
-    -moz-transform:  scale(0.9,0.9);
-    transform: scale(0.9);
-    transform-origin: 0 20% 0;
-    -ms-transform: scale(0.9,0.9); /* IE 9 */
-    -ms-transform-origin:-15% 5%; /* IE 9 */
-    -webkit-transform: scale(0.9); /* Chrome, Safari, Opera */
-    -webkit-transform-origin: -5% -5%; /* Chrome, Safari, Opera */
-}
-
-@-moz-document url-prefix()
-{
-    .cfpffullscreen {
-    left: 5%;
-    top: 20%;
-    }
-}
-}
-
-@media screen and (min-width: 800px) {
-.cfpffullscreen {
-    /* zoom: 1.2; */
-    -moz-transform:  scale(1.1,1.1);
-    transform: scale(1.2);
-    transform-origin: 0 20% 0;
-    -ms-transform: scale(1.1,1.1); /* IE 9 */
-    -ms-transform-origin:-15% 5%; /* IE 9 */
-    -webkit-transform: scale(1.1); /* Chrome, Safari, Opera */
-    -webkit-transform-origin: -5% -5%; /* Chrome, Safari, Opera */
-}
-
-@-moz-document url-prefix()
-{
-    .cfpffullscreen {
-    left: 5%;
-    top: 30%;
-    }
-}
-}
-@media screen and (min-width: 1024px) {
-.cfpffullscreen {
-    /* zoom: 1.4; */
-    -moz-transform:  scale(1.2,1.2);
-    transform: scale(1.2);
-    transform-origin: 0 20% 0;
-    -ms-transform: scale(1.2,1.2); /* IE 9 */
-    -ms-transform-origin:-15% 5%; /* IE 9 */
-    -webkit-transform: scale(1.2); /* Chrome, Safari, Opera */
-    -webkit-transform-origin: -5% -5%; /* Chrome, Safari, Opera */
-}
-
-@-moz-document url-prefix()
-{
-    .cfpffullscreen {
-    left: 5%;
-    top: 30%;
-    }
-}
-}
-@media screen and (min-width: 1280px) {
-.cfpffullscreen {
-    /* zoom: 1.6; */
--moz-transform:  scale(1.4,1.4);
-    transform: scale(1.4);
-    transform-origin: 0 20% 0;
-    -ms-transform: scale(1.4,1.4); /* IE 9 */
-    -ms-transform-origin:-15% 5%; /* IE 9 */
-    -webkit-transform: scale(1.4); /* Chrome, Safari, Opera */
-    -webkit-transform-origin: -5% -5%; /* Chrome, Safari, Opera */
-}
-
-@-moz-document url-prefix()
-{
-    .cfpffullscreen {
-    left: 5%;
-    top: 40%;
-    }
-}
-}
-@media screen and (min-width: 1400px) {
-.cfpffullscreen {
-    /* zoom: 1.8; */
-    -moz-transform:  scale(1.6,1.6);
-    transform: scale(1.6);
-    transform-origin: 0 20% 0;
-    -ms-transform: scale(1.6,1.6); /* IE 9 */
-    -ms-transform-origin:-15% 5%; /* IE 9 */
-    -webkit-transform: scale(1.6); /* Chrome, Safari, Opera */
-    -webkit-transform-origin: -5% -5%; /* Chrome, Safari, Opera */
-}
-
-@-moz-document url-prefix()
-{
-    .cfpffullscreen {
-    left: 5%;
-    top: 50%;
-    }
-}
-}
-@media screen and (min-width: 1600px) {
-.cfpffullscreen {
-    /* zoom: 2; */
--moz-transform:  scale(2,2);
-    transform: scale(2);
-    transform-origin: 0 20% 0;
-    -ms-transform: scale(2,2); /* IE 9 */
-    -ms-transform-origin:-15% 5%; /* IE 9 */
-    -webkit-transform: scale(2); /* Chrome, Safari, Opera */
-    -webkit-transform-origin: -5% -5%; /* Chrome, Safari, Opera */
-}
-
-@-moz-document url-prefix()
-{
-    .cfpffullscreen {
-    left: 5%;
-    top: 70%;
-    }
-}
-}
 @media screen and (min-width: 1900px) {
-.cfpffullscreen {
-    /* zoom: 2.5; */
--moz-transform:  scale(2.2,2.2);
-    transform: scale(2.2);
-    transform-origin: 0 20% 0;
-    -ms-transform: scale(2.2,2.2); /* IE 9 */
-    -ms-transform-origin:-15% 5%; /* IE 9 */
-    -webkit-transform: scale(2.2); /* Chrome, Safari, Opera */
-    -webkit-transform-origin: -5% -5%; /* Chrome, Safari, Opera */
-}
-
-@-moz-document url-prefix()
-{
-    .cfpffullscreen {
-    left: 5%;
-    top: 70%;
+    .fullscreen #drawboard {
+        transform: scale(2.5);
+    }
+    .fullscreen #main{
+        height: 2575px;
     }
 }
+
+.fullscreen .right-folio-pf {
+    margin-top: 21px;
 }
+
+/* end - fullscreen */
+
 .menuHidden{
     width: 750px;
     height: 1061px;
-}
-.menuHidden[class~="cfpffullscreen"]{
-    /* width: 83%; */
-    /* height: 100%; */
 }
 
 .pochetteshow{
@@ -747,12 +599,6 @@ h1.titre1fond-folio-pf{
     height: 530px;
 }
 
-.pochetteshow[class~="cfpffullscreen"] {
-    /* width: 82%; */
-    /* height: 100%; */
-    /* zoom: 2.4; */
-}
-
 .agendashow{
     width: 632px;
     height: 447px;
@@ -763,10 +609,6 @@ h1.titre1fond-folio-pf{
     height: 530px;
 }
 
-.agendashow[class~="cfpffullscreen"] {
-    /*width: 83%;
-    height: 100%;*/
-}
 /* library liste*/
 #library-list li{
     width: 100%;

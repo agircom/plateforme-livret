@@ -191,7 +191,7 @@
 
             $rootScope.layout = {
                 requireMenu: false,
-                showTooltips: false,
+                showFullscreen : false,
                 needFolioToolbar: false,
                 menuShow: true,
                 crossBrowser: browser()

@@ -7,7 +7,7 @@
         <li><a href="#" class="link ng-tooltip" ng-click="saveAndStay()" title="Enregistrer et rester sur cette page"><img src="images/pictos/enregistrer.png" alt="Enregistrer" title="Enregistrer"/></a></li>
         <!--<li><a href="#" class="link ng-tooltip" title="Exporter (basse résolution)" ng-href="api/booklet/{{booklet_id}}/folio/{{folio_id}}/export"><img src="images/pictos/exporter.png" alt="Exporter" title="Exporter"/></a></li>-->
         <!--<li><a href="#" class="link ng-tooltip" title="Exporter (basse résolution)" ng-click="exportPDF()"><img src="images/pictos/exporter.png" alt="Exporter" title="Exporter"/></a></li>-->
-        <li><a href="#" class="link ng-tooltip" ng-click="toggleTooltips()" title="Afficher les messages d'aides"><img src="images/pictos/aide-faq.png" alt="Aide" title="Aide"/></a></li>
+        <li><a href="#" class="link ng-tooltip" ng-click="todo()" title="Afficher les messages d'aides"><img src="images/pictos/aide-faq.png" alt="Aide" title="Aide"/></a></li>
         <li>
             <div ng-if="User.isLogged()" id="userPannel"> 
                 <div class="namePannel" style="float: left;">
@@ -21,19 +21,15 @@
         </li>
     </ul>
 </div>
-<div ng-if="folio !== null" class="fond-folio-pf" ng-class="{
-            fullscreen: showFullscreen
-        }">
+<div ng-if="folio !== null" class="fond-folio-pf">
     <h1 class="titre1fond-folio-pf">
         <img style="vertical-align: middle; padding-right:5px;" src="images/titre-folio.png" width="32" height="32" alt="Supprimer" title="Supprimer"/>
         {{templates[folio.type].title}} - {{booklet.name}}
     </h1>
     <div style="width:100%; display:inline-block;">
         <div class="cadre-folio-pf" id="drawboard" compile="folio.ownPage[selected_page].content" ng-class="{
-                    cfpffullscreen: showFullscreen, menuHidden: (layout.menuShow === false), pochetteshow: (folio.type === 'pochette'), agendashow: (folio.type === 'agenda')}"></div>
-        <div class="right-folio-pf" ng-class="{
-                    rfpffullscreen: showFullscreen
-                }">
+                    menuHidden: (layout.menuShow === false), pochetteshow: (folio.type === 'pochette'), agendashow: (folio.type === 'agenda')}"></div>
+        <div class="right-folio-pf"">
             <div class="help-folio-pf">
                 <img src="images/pictos/help.png" width="16" height="16" alt="help" title="Aide"/>
                 {{templates[folio.type].helpintro}}

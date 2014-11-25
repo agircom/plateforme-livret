@@ -17,7 +17,7 @@
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,700">
     </head>
     <body>
-        <div id="rrhn-app">
+        <div id="rrhn-app" ng-class="{fullscreen: layout.showFullscreen}">
             <div id="main" ng-class="{foliotoolbar: (layout.needFolioToolbar === true)}">
                 <header ng-hide="layout.needFolioToolbar === true" ng-include="'partials/common/header.html'"></header>
                 <div class="menu-bo" ng-if="layout.requireMenu && User.getPermissions() === 1" ng-include="'partials/common/menu.html'"></div>

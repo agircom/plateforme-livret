@@ -29,7 +29,9 @@ $app->post('/contact', function() use ($app) {
     $mail_data = array();
     $mail_data['mail'] = 'contact@livret-accueil-haute-normandie.fr';
     $mail_data['name'] = 'Contact Plateforme Livret Accueil Haute Normandie';
-    sendContactEmail($mail_data, $givenContactInfos);
+    if (!sendContactEmail($mail_data, $givenContactInfos)) {
+        $app->response()->status(500);
+    }
 });
 
 /*

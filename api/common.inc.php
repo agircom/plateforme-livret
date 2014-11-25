@@ -151,15 +151,9 @@ function sendMail($dest, $subject, $body) {
     $mail->addAddress($dest['mail'], $dest['name']);
     $mail->Subject = $subject;
     $mail->Body = $body;
+    $mail->SMTPDebug = false;
 
-    if (!$mail->Send()) {
-        //echo 'Message could not be sent.';
-        //echo 'Mailer Error: ' . $mail->ErrorInfo;
-        return false;
-    } else {
-        //echo 'Message has been sent';
-        return true;
-    }
+    return $mail->Send();
 }
 
 function sendContactEmail($dest, $contactinfos) {

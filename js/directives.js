@@ -85,37 +85,6 @@ FeaderAppDirectives.directive('ngEditable', [function () {
                     }
                 };
                 toolbox.insertAfter($('.menu-folio > ul'));
-//                    toolbox.insertAfter(element);
-//                    toolbox.draggable({
-//                        scroll: true,
-//                        cursor: 'move',
-//                        start: function(event, ui) {
-//                            if ($('.cadre-folio-pf').hasClass('cfpffullscreen')) {
-//                                ui.position.left = 0;
-//                                ui.position.top = 0;
-//                            }
-//                        },
-//                        drag: function(event, ui) {
-//                            if ($('.cadre-folio-pf').hasClass('cfpffullscreen')) {
-//                                var zoomScale = $('.cadre-folio-pf').css('zoom');
-//                                var changeLeft = ui.position.left - ui.originalPosition.left; // find change in left
-//                                var newLeft = ui.originalPosition.left + changeLeft / zoomScale; // adjust new left by our zoomScale
-//
-//                                var changeTop = ui.position.top - ui.originalPosition.top; // find change in top
-//                                var newTop = ui.originalPosition.top + changeTop / zoomScale; // adjust new top by our zoomScale
-//
-//                                ui.position.left = newLeft;
-//                                ui.position.top = newTop;
-//                            }
-//                        }
-//                    });
-
-                // place it
-//                    toolbox.css({
-//                        left: element.offset().left,
-//                        top: element.offset().top + element.height,
-//                        'margin-top': '-' + (element.css('margin-bottom'))
-//                    });
 
                 element.on('focusout', function () {
                     scope.updateModel();
@@ -123,7 +92,7 @@ FeaderAppDirectives.directive('ngEditable', [function () {
 
                 //event copy / cut
                 element.bind("cut copy", function (e) {
-                    calcChars(e);
+                        calcChars(e);
                 });
 
                 // event textedit
@@ -132,18 +101,49 @@ FeaderAppDirectives.directive('ngEditable', [function () {
                         toolbox.find('.ng-editable-toolbox-textedit-popup').slideUp();
                         $(this).find('img').attr('src', 'images/pictos/expand.png');
                     } else {
-                        toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').text(element.text());
+                        element.keyup();
                         toolbox.find('.ng-editable-toolbox-textedit-popup').slideDown();
                         $(this).find('img').attr('src', 'images/pictos/collapse.png');
                     }
                 });
                 toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').on('keyup keydown keypress paste', function (e) {
-                    element.text($(this).val());
-                    //clearNewLine();
+                    if (element.hasClass("editable-list")) {
+                        var txt = toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').val()
+                            .replace(/(\r\n|\n|\r)/gm, "</li><li>");
+                        txt = "<ul style=\"list-style-type: circle;\"><li>"+txt+"</li></ul>";
+                        txt = txt.replace(/<li[^>]*>[ \n\r\t]*<\/li>/gm, "");
+                        element.html(txt.trim());
+                    } else {
+                        element.text($(this).val());
+                    }
                 });
                 element.on('keyup keydown keypress paste', function (e) {
-                    toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').val($(this).text());
-                    //clearNewLine();
+                    if (element.hasClass("editable-list")) {
+                        var txt = "";
+                        if (element.find("li").length === 0) {
+                            var emptyul = $("<ul>")
+                                .css("list-style-type", "circle")
+                                .append($("<li>").text(element.text()));
+                            element.html(emptyul);
+
+                            // focus du caret sur le li
+                            var el = element.get(0);
+                            var node = el.childNodes[0].childNodes[0];
+                            var range = document.createRange();
+                            var sel = window.getSelection();
+                            range.setStart(node, 0);
+                            range.collapse(true);
+                            sel.removeAllRanges();
+                            sel.addRange(range);
+
+                        }
+                        element.find("li").each(function () {
+                            txt += $(this).text() + "\n";
+                        });
+                        toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').val(txt);
+                    } else {
+                        toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').val($(this).text());
+                    }
                 });
                 toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').on('focusout', function () {
                     scope.updateModel();

@@ -119,8 +119,8 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
                 $scope.showError('Le format de l\'adresse mail n\'est pas correct.');
                 return;
             }
-            ApiSvc.postContact($scope.contactInfos).success(function (data) {
-                $scope.showSuccess("Nous avons bien en compte votre demande, nous vous recontacterons très rapidement.Le Réseau Rural Haut-Normand");
+            ApiSvc.postContact($scope.contactInfos).success(function () {
+                $scope.showSuccess("Nous avons bien en compte votre demande, nous vous recontacterons très rapidement. Le Réseau Rural Haut-Normand");
                 $scope.contactInfos = {
                     name: '',
                     last_name: '',
@@ -134,7 +134,7 @@ FeaderAppControllers.controller('CommonCtrl.Contact', ['$scope', 'ToolSvc', 'Api
                     question: ''
                 };
             }).error(function (data, status) {
-
+                $scope.showError("Une erreur est survenue lors de l'envoi du mail. Merci de réessayer plus tard.")
             });
         };
         $scope.showError = function (message) {
@@ -738,7 +738,6 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             $scope.showPictureSelector = !$scope.showPictureSelector;
         };
         $scope.selectImage = function (filename, source) {
-            console.log(filename, source);
             if (source === 'own')
                 $scope.imageSelected = 'images/uploaded/' + filename;
             else if (source === 'fixed')

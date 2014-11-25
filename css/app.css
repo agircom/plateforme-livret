@@ -205,7 +205,7 @@
     /*height: 300px;*/
 }
 .ng-editable-toolbox-textedit-popup > textarea {
-    width: 400px;
+    min-width: 400px;
     min-height: 100px;
     font-size: 14px;
 }

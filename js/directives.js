@@ -69,9 +69,16 @@ FeaderAppDirectives.directive('ngEditable', [function () {
                 var oneLine = (typeof attrs.oneLine !== 'undefined') ? JSON.parse(attrs.oneLine) : false;
                 var toolbox = $('#ng-editable-toolbox').clone().removeAttr('id');
                 var calcChars = function (e) {
-                    if (e.which !== 8 && element.text().length >= maxLength) {
+                    if (!e.which) return;
+                    var allowedKeys = [
+                        $.ui.keyCode.DELETE, $.ui.keyCode.BACKSPACE,
+                        $.ui.keyCode.UP, $.ui.keyCode.DOWN, $.ui.keyCode.LEFT, $.ui.keyCode.RIGHT,
+                        112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, // F1 - F12
+                    ];
+                    var isAllowedKeys = $.inArray(e.which, allowedKeys) !== -1;
+                    if (!isAllowedKeys && element.text().length >= maxLength) {
                         e.preventDefault();
-                    } else if ((e.which === 8 || e.which === 46) && element.text().length === 0) {
+                    } else if (isAllowedKeys && element.text().length === 0) {
                         e.preventDefault();
                     }
                     toolbox.find('.ng-editable-toolbox-chars>b').html(maxLength - element.text().length);
@@ -107,6 +114,7 @@ FeaderAppDirectives.directive('ngEditable', [function () {
                     }
                 });
                 toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').on('keyup keydown keypress paste', function (e) {
+                    calcChars(e);
                     if (element.hasClass("editable-list")) {
                         var txt = toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').val()
                             .replace(/(\r\n|\n|\r)/gm, "</li><li>");
@@ -118,6 +126,7 @@ FeaderAppDirectives.directive('ngEditable', [function () {
                     }
                 });
                 element.on('keyup keydown keypress paste', function (e) {
+                    calcChars(e);
                     if (element.hasClass("editable-list")) {
                         var txt = "";
                         if (element.find("li").length === 0) {

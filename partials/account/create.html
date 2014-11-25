@@ -16,7 +16,7 @@
             <br>
             <img src="images/loading.gif">
         </div>
-        <div ng-hide="(message.show && message.type === 'success') || createInProgress" id="form-subscribe">
+        <div ng-hide="(message.show && message.type === 'success') || createInProgress" id="form-subscribe" ng-keypress="($event.keyCode === 13) ? create() : null">
             <fieldset>
                 <legend>Votre identité</legend>
                 <label for="form-subscribe-name-compagny">Nom de votre structure* : </label>
@@ -31,11 +31,11 @@
                 <label for="form-subscribe-fonction">Fonction : </label>
                 <input type="text" ng-model="userInfos.fonction" id="form-subscribe-fonction">
                 <br>
-                <label for="form-subscribe-identifiant">Adresse mail* :</label>
-                <input type="text" ng-model="userInfos.username" id="form-subscribe-identifiant">
+                <label for="form-subscribe-username">Adresse mail* :</label>
+                <input type="text" ng-model="userInfos.username" id="form-subscribe-username">
                 <br>
-                <label for="form-subscribe-identifiant">Confirmez votre adresse mail* :</label>
-                <input type="text" ng-model="username2" id="form-subscribe-identifiant">
+                <label for="form-subscribe-username2">Confirmez votre adresse mail* :</label>
+                <input type="text" ng-model="username2" id="form-subscribe-username2">
                 <br>
                 <label for="form-subscribe-phone">Téléphone :</label>
                 <input type="text" ng-model="userInfos.phone" id="form-subscribe-phone">
@@ -51,10 +51,10 @@
                 <br>
                 <label for="form-subscribe-passwd">Mot de passe choisi* :</label>
                 <input type="password" ng-model="userInfos.passwd" id="form-subscribe-passwd">
-                <br>   
-                <label for="form-subscribe-passwd">Confirmez le mot de passe choisi* :</label>
-                <input type="password" ng-model="passwd2" id="form-subscribe-passwd">
-                <br> 
+                <br>
+                <label for="form-subscribe-passwd2">Confirmez le mot de passe choisi* :</label>
+                <input type="password" ng-model="passwd2" id="form-subscribe-passwd2">
+                <br>
                 <input type="checkbox" ng-model="userInfos.contract_accepted" id="form-subscribe-accept"> <label for="form-subscribe-accept">J’accepte les conditions d’utilisation de la plate-forme (<a href="#" onclick="return false;" ng-click="showCGU = !showCGU">Consulter les conditions d'utilisation</a>) :</label>
                 <div style="clear: both;"></div>
                 <br>

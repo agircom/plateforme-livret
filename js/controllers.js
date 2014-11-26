@@ -479,12 +479,14 @@ FeaderAppControllers.controller('BackofficeCtrl.Booklets', ['$scope', '$routePar
             });
         };
         $scope.deleteBooklet = function (booklet_id) {
-            BookletSvc.delete(booklet_id).success(function () {
-                if ($scope.selectedBooklet === booklet_id) {
-                    $scope.selectedBooklet = false;
-                }
-                $scope.reload();
-            });
+            if (confirm("Êtes-vous sur de vouloir supprimer ce livret ?")) {
+                BookletSvc.delete(booklet_id).success(function () {
+                    if ($scope.selectedBooklet === booklet_id) {
+                        $scope.selectedBooklet = false;
+                    }
+                    $scope.reload();
+                });
+            }
         };
         $scope.createFolio = function (booklet_id, folio_type) {
             switch (folio_type) {

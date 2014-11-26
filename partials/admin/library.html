@@ -17,7 +17,9 @@
             <h3 ng-click="togglePopupAdd()">+ Ajouter une image</h3>
         </div>
         <div class="onglet-library"><h3 ng-class="{selected:(source === 'cat')}" ng-click="source = 'cat'">Accès à la banque d'images partagées</h3></div>
-        <div class="recherche-library"><input type="text" id="recherche-image" placeholder="Recherche par mots clés" ng-model="libraryFilter"><img src="images/pictos/ok.png"></div>   
+        <div class="recherche-library">
+            <input type="text" id="recherche-image" placeholder="Recherche par mots clés" ng-model="libraryFilter">
+        </div>
     </div>
     <div class="library-title">{{library_title}} <button ng-show="source === 'cat' && selected_cat > -1" ng-click="selectCat()">retour à la banque d'images partagées</button></div>
     <div ng-show="source === 'cat' && selected_cat === -1">

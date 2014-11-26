@@ -115,6 +115,7 @@ FeaderAppDirectives.directive('ngEditable', [function () {
                         $(this).find('img').attr('src', 'images/pictos/collapse.png');
                     }
                 });
+                // toolbox -> element
                 toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').on('keyup keydown keypress paste', function (e) {
                     calcChars(e);
                     if (element.hasClass("editable-list")) {
@@ -124,9 +125,10 @@ FeaderAppDirectives.directive('ngEditable', [function () {
                         txt = txt.replace(/<li[^>]*>[ \n\r\t]*<\/li>/gm, "");
                         element.html(txt.trim());
                     } else {
-                        element.text($(this).val());
+                        element.html($(this).val().replace(/(\r\n|\n|\r)/gm, "<br>").trim());
                     }
                 });
+                // element -> toolbox
                 element.on('keyup keydown keypress paste', function (e) {
                     calcChars(e);
                     if (element.hasClass("editable-list")) {
@@ -153,7 +155,9 @@ FeaderAppDirectives.directive('ngEditable', [function () {
                         });
                         toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').val(txt);
                     } else {
-                        toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').val($(this).text());
+                        var val = $(this).html().replace(/<br[^>]*>/gm, "\n").trim();
+                        val = $("<p>").html(val).text();
+                        toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').val(val);
                     }
                 });
                 toolbox.find('.ng-editable-toolbox-textedit-popup > textarea').on('focusout', function () {

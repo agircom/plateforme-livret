@@ -26,14 +26,14 @@
 			<span>Aide et FAQ</span>
 			<img ng-src="images/pictos/aide-faq{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="Consulter l’aide et la FAQ" title="Consulter l’aide et la FAQ"/>
 		</div>
-		<div class="bloc-trousse-outils-sidebar" ng-click="goto('contact')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
+		<div ng-show="$root.layout.param['enable_contact']" class="bloc-trousse-outils-sidebar" ng-click="goto('contact')" ng-class="{enabled:(User.isLogged() && User.getPermissions() === 1)}">
 			<span>Contact</span>
 			<img ng-src="images/pictos/contact{{!(User.isLogged() && User.getPermissions() === 1)  ? ('-nb') : ''}}.png" alt="Contact" title="Contact"/>
 		</div>
 	</div> 
-	<div class="temoignage-sidebar">
-		<h2>Témoignage d'utlisateurs</h2> 
-		<p>jqhdjksqhfh jhqsdjhsq hqshh  qshdjhsqfhhf sqjdksqjkf  qshfhdfh hqsdhsqhd  qshdqiodio qshdsqhfh hqshdqshdqd iqshdisq.</p>
-		<a href="#" onclick="return false;"><span> > Voir la réalisation</span></a>
+	<div ng-show="$root.layout.param['feedback']" class="temoignage-sidebar">
+		<h2>Témoignage d'utlisateurs</h2>
+		<p>{{$root.layout.param['feedback']}}</p>
+		<!--<a href="#" onclick="return false;"><span> > Voir la réalisation</span></a>-->
 	</div>
 </div>

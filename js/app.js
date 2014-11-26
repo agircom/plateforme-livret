@@ -186,16 +186,23 @@
         }
     ]);
 
-    FeaderApp.run(['$rootScope', '$location', 'UserSvc', 'browser',
-        function($rootScope, $location, UserSvc, browser) {
+    FeaderApp.run(['$rootScope', '$location', 'UserSvc', 'browser', 'ApiSvc',
+        function($rootScope, $location, UserSvc, browser, ApiSvc) {
 
             $rootScope.layout = {
                 requireMenu: false,
                 showFullscreen : false,
                 needFolioToolbar: false,
                 menuShow: true,
+                param: {},
                 crossBrowser: browser()
             };
+
+            ApiSvc.getParam().success(function (params) {
+                $.each(params, function(k, param) {
+                    $rootScope.layout.param[param.key] = param.value;
+                })
+            });
 
             UserSvc.restoreSession();
             $rootScope.User = UserSvc;

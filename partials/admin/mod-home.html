@@ -2,12 +2,16 @@
     <img style="vertical-align: middle; padding-right:5px;" src="images/pictos/a4.png" width="32" height="32" alt="Accueil" title="Accueil">
     Accueil
 </h2>
+
 <p>Bouton "Nous contacter"</p>
-<input type="radio" name="home_contact" ng-model="home.contact_button" ng-value="true"> Actif <input type="radio" name="home_contact" ng-model="home.contact_button" ng-value="false"> Inactif
-<br><br>
+<input type="radio" name="enable_contact" ng-model="home.enable_contact" ng-value="true"> Actif
+<input type="radio" name="enable_contact" ng-model="home.enable_contact" ng-value="false"> Inactif
+<br>
+<br>
 <p>T&eacute;moignage utilisateur</p>
 <textarea ng-trim="true" ng-model="home.feedback"></textarea>
 <br><br>
+<!--
 <p>Logo de la r&eacute;gion</p>
 <img ng-src="{{home.logo_region}}">
 <br><br>
@@ -23,4 +27,5 @@
 <p>Image d'accueil</p>
 <img ng-src="{{home.home_picture}}" width="300" height="230">
 <br><br>
+-->
 <button ng-click="save()">Sauvegarder les changements</button>

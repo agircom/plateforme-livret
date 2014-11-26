@@ -281,6 +281,12 @@ FeaderAppServices.factory('ApiSvc', ['$http',
             },
             deleteFaq: function(faq_id) {
                 return $http.delete(this.apiUrl + '/admin/faq/' + faq_id);
+            },
+            getParam: function() {
+                return $http.get(this.apiUrl + '/param');
+            },
+            putParam: function(param_key, data) {
+                return $http.put(this.apiUrl + '/admin/param/' + param_key, data);
             }
         };
     }
@@ -316,9 +322,6 @@ FeaderAppServices.factory('BookletSvc', ['ApiSvc',
             },
             updateFolio: function(booklet_id, folio_id, folio_data) {
                 return ApiSvc.putFolio(booklet_id, folio_id, folio_data);
-            },
-            createSheet: function() {
-
             },
             exportPDF: function(booklet_id, folio_id) {
                 return ApiSvc.getPDF(booklet_id, folio_id);

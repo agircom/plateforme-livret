@@ -31,7 +31,7 @@
             <img src="images/pictos/menu-liste.png" ng-hide="!layout.menuShow" alt="Consulter l’aide et la FAQ" title="Consulter l’aide et la FAQ"/>
         </a>
     </li>
-    <li>
+    <li ng-show="$root.layout.param['enable_contact']" >
         <a href="#/plateforme/contact">
             <img src="images/pictos/contact.png" alt="contact" title="Contact"/>
             <span ng-hide="!layout.menuShow" class="menubo">CONTACT</span>

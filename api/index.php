@@ -1140,6 +1140,36 @@ $app->get('/library/init', function() use ($app) {
 });
 
 
+// REST Api parameters
+
+$app->get('/param', function() use ($app) {
+    $params = R::findAll('param');
+    echo json_encode(R::exportAll($params));
+});
+
+$app->put('/admin/param/:param_key', function($param_key) use ($app) {
+    // retrieve user
+    $user_record = retrieveAdminByToken();
+    if (!$user_record) {
+        return;
+    }
+    // get data
+    $putData = json_decode($app->request->getBody(), true);
+    if (!key_exists('value', $putData) || is_null($putData['value'])) {
+        // bad params
+        $app->response()->status(400);
+        return;
+    }
+    // retrieve folio template
+    $param_record = R::findOne('param', '`key`=?', array($param_key));
+    if (is_null($param_record)) {
+        $app->response()->status(404);
+        return;
+    }
+    $param_record->value = $putData['value'];
+    R::store($param_record);
+});
+
 // run REST Api
 $app->run();
 R::close();

@@ -6,34 +6,50 @@
                 La photothèque
             </h2>
         </div>
-        <div class="menu-library"><span>Vue par :</span></div> 
-        <div class="menu-library menu-library-link" ng-click="view = 'list'" ng-class="{selected: (view === 'list')}"><span>Liste</span><img src="images/pictos/liste.png"></div>  
-        <div class="menu-library menu-library-link" ng-click="view = 'thumb'" ng-class="{selected: (view === 'thumb')}"><span>Miniature</span><img src="images/pictos/miniature.png"></div>   
-        <div class="menu-library menu-library-link"><span>Aide</span><img src="images/pictos/help.png"></div>   
-    </div>  
+
+        <div ng-hide="source === 'cat' && selected_cat < 0" >
+            <div class="menu-library"><span>Vue par :</span></div>
+            <div class="menu-library menu-library-link" ng-click="view = 'list'" ng-class="{selected: (view === 'list')}"><span>Liste</span><img src="images/pictos/liste.png"></div>
+            <div class="menu-library menu-library-link" ng-click="view = 'thumb'" ng-class="{selected: (view === 'thumb')}"><span>Miniature</span><img src="images/pictos/miniature.png"></div>
+        </div>
+
+        <div style="float: right;text-align: right" class="menu-library menu-library-link"><a href="#/plateforme/help"><span>Aide</span><img src="images/pictos/help.png"></a></div>
+    </div>
     <div class="block-select-library">
         <div class="onglet-library">
             <h3 ng-class="{selected:(source === 'own')}" ng-click="source = 'own'">Image des utilisateurs</h3>
             <h3 ng-click="togglePopupAdd()">+ Ajouter une image</h3>
         </div>
         <div class="onglet-library"><h3 ng-class="{selected:(source === 'cat')}" ng-click="source = 'cat'">Accès à la banque d'images partagées</h3></div>
-        <div class="recherche-library">
-            <input type="text" id="recherche-image" placeholder="Recherche par mots clés" ng-model="libraryFilter">
+
+        <div ng-hide="source === 'cat' && selected_cat < 0" >
+            <div style="float: right;text-align: right" class="recherche-library">
+                <input type="text" id="recherche-image" placeholder="Recherche par mots clés" ng-model="libraryFilter">
+            </div>
         </div>
     </div>
-    <div class="library-title">{{library_title}} <button ng-show="source === 'cat' && selected_cat > -1" ng-click="selectCat()">retour à la banque d'images partagées</button></div>
-    <div ng-show="source === 'cat' && selected_cat === -1">
-        <ul style="overflow: auto;" id="library-cats">
-            <li ng-repeat="cat in categories| orderBy:'name'" ng-click="selectCat(cat.id)">
-                <p>{{cat.name}} ({{cat.ownLibrary}} images)</p>
+
+    <h2 class="library-title">{{library_title}}</h2>
+    <div style="text-align: center">
+        <button ng-show="source === 'cat' && selected_cat > - 1" ng-click="selectCat()">retour à la banque d'images partagées</button>
+    </div>
+    <div ng-show="source === 'cat' && selected_cat === - 1">
+        <ul id="library-cats">
+            <li ng-repeat="cat in categories | orderBy:'name'" ng-click="selectCat(cat.id)">
+                <img src="images/folder.png" style="max-width:100%"/>
+                <p>{{cat.name}}</p>
+                <p>({{cat.ownLibrary}} images)</p>
             </li>
         </ul>
     </div>
     <div ng-hide="source === 'cat' && selected_cat === -1" style="overflow: auto;">
         <ul style="overflow: auto;" ng-if="view === 'thumb'" id="library-miniature">
             <li ng-repeat="image in library| filterLibrary:libraryFilter | startFrom:currentPage * pageSize | limitTo:pageSize">
-                <div><img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}" style="max-width: 95%; max-height: 95%"></div>
-                <span>{{image.name}}</span>
+                <div>
+                    <img ng-src="images/{{(source === 'own') ? 'uploaded' : 'library'}}/{{image.filename}}" style="max-width: 95%; max-height: 95%">
+                </div>
+                <p>{{image.name}}</p>
+
                 <a style="float: right; cursor: pointer;" ng-click="deleteImage(image.id)"><img src="images/pictos/fermer.png" style="width: 15px; height: 15px;"></a>
                 <a ng-if="source === 'cat'" style="float: right; cursor: pointer;" ng-click="togglePopupEdit(image)"><img src="images/pictos/modifier.png" alt="Modifier" title="Modifier" style="width: 15px; height: 15px; margin-right: 5px;"></a>
                 <a ng-if="source === 'own'" style="float: right; cursor: pointer;" ng-click="togglePopupImport(image)"><img src="images/pictos/importer.png" alt="Importer" title="Importer" style="width: 15px; height: 15px; margin-right: 5px;"></a>

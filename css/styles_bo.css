@@ -903,7 +903,7 @@ h1.titre1fond-folio-pf{
     z-index: 100;
 }
 
-#library-form-add label, #library-form-edit label {
+#library-form-add label, #library-form-edit label, #library-form-import label {
     display: inline-block;
     min-width: 100px;
 }

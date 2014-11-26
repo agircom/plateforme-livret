@@ -1,11 +1,18 @@
 <div class="inside">
-	<div class="liens-sidebar">
-		<div ng-if="!User.isLogged()" style="padding-bottom: 20px;">
+	<div  class="liens-sidebar">
+		<div ng-if="!User.isLogged()">
 			<a href="#/account/create"><img src="images/pictos/mon-compte.png" alt="mon-compte" title="Mon Compte" width="32" height="32" /><span>CREER UN COMPTE</span></a>
 		</div>
-		<div>
-			<a href="#/contact"><img src="images/pictos/contact.png" alt="contact" title="Contact" width="32" height="32" /><span>NOUS CONTACTER</span></a>
-		</div>    
+		<div ng-show="$root.layout.param['enable_contact']">
+			<div style="padding-top: 20px;" ng-if="!User.isLogged()">
+				<div>
+					<a href="#/contact"><img src="images/pictos/contact.png" alt="contact" title="Contact" width="32" height="32" /><span>NOUS CONTACTER</span></a>
+				</div>
+			</div>
+			<div ng-if="User.isLogged()">
+				<a href="" ng-click="goto('contact')"><img src="images/pictos/contact.png" alt="contact" title="Contact" width="32" height="32" /><span>NOUS CONTACTER</span></a>
+			</div>
+		</div>
 	</div>
 	<div class="ligne-sidebar"></div>
 	<div class="trousse-outils-sidebar">

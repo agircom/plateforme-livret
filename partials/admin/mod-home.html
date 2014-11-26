@@ -3,14 +3,35 @@
     Accueil
 </h2>
 
-<p>Bouton "Nous contacter"</p>
+<br><hr><br>
+<h2>Bouton "Nous contacter"</h2>
 <input type="radio" name="enable_contact" ng-model="home.enable_contact" ng-value="true"> Actif
 <input type="radio" name="enable_contact" ng-model="home.enable_contact" ng-value="false"> Inactif
-<br>
-<br>
-<p>T&eacute;moignage utilisateur</p>
+<br><hr><br>
+<h2>T&eacute;moignage utilisateur</h2>
 <textarea ng-trim="true" ng-model="home.feedback"></textarea>
+<br><hr><br>
+<h2>Logo de la r&eacute;gion</h2>
+    <img ng-show="home.logo_region.base64" ng-src="data:{{home.logo_region.filetype}};base64,{{home.logo_region.base64}}" style="height: 80px;">
+    <p ng-hide="home.logo_region.base64">Aucune image</p>
 <br><br>
+<input type="file" ng-model="home.logo_region" base-sixty-four-input />
+
+<br><hr><br>
+<h2>Logo du pr&eacute;fet de la r&eacute;gion</h2>
+<img ng-show="home.logo_prefet.base64" ng-src="data:{{home.logo_prefet.filetype}};base64,{{home.logo_prefet.base64}}" style="height: 80px;">
+<p ng-hide="home.logo_prefet.base64">Aucune image</p>
+<br><br>
+<input type="file" ng-model="home.logo_prefet" base-sixty-four-input />
+
+<br><hr><br>
+<h2>Logo de l'europe</h2>
+<img ng-show="home.logo_europe.base64" ng-src="data:{{home.logo_europe.filetype}};base64,{{home.logo_europe.base64}}" style="height: 80px;">
+<p ng-hide="home.logo_europe.base64">Aucune image</p>
+<br><br>
+<input type="file" ng-model="home.logo_europe" base-sixty-four-input />
+
+<br><hr><br>
 <!--
 <p>Logo de la r&eacute;gion</p>
 <img ng-src="{{home.logo_region}}">

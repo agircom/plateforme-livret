@@ -1,5 +1,5 @@
 'use strict';
-var FeaderAppControllers = angular.module('FeaderApp.Controllers', ['ngSanitize']);
+var FeaderAppControllers = angular.module('FeaderApp.Controllers', ['ngSanitize', 'naif.base64']);
 FeaderAppControllers.controller('CommonCtrl.User', ['$scope', '$location', 'UserSvc',
     function ($scope, $location, UserSvc) {
         $scope.identifiant = '';
@@ -1262,27 +1262,28 @@ FeaderAppControllers.controller('AdminCtrl.Library', ['$scope', 'LibrarySvc',
 FeaderAppControllers.controller('AdminCtrl.ModHome', ['$rootScope', '$scope', 'ApiSvc',
     function ($rootScope, $scope, ApiSvc) {
         //$scope.home = {
-        //    contact_button: true,
-        //    feedback: 'plop',
-        //    logo_region: 'images/region-haute-normandie.png',
-        //    logo_prefet: 'images/prefet-haute-normandie.jpg',
-        //    logo_europe: 'images/europe-feader.png',
         //    home_text: 'test',
         //    home_picture: 'images/demarche-reseau-rural-normand.jpg'
         //};
         $scope.home = {};
         ApiSvc.getParam().success(function (params) {
             $.each(params, function(k, param) {
-                $scope.home[param.key] = param.value;
+                var val = param.value;
+                try {
+                    val = JSON.parse(val);
+                } catch (e) {}
+                $scope.home[param.key] = val;
             })
         });
+        $scope.home.logo_region = {};
+
 
         $scope.save = function () {
             var count = 0;
             $.each($scope.home, function(key, val) {
                 if (val !== $rootScope.layout.param[key]) {
                     count++;
-                    ApiSvc.putParam(key, {value: val}).success(function() {
+                    ApiSvc.putParam(key, {value: JSON.stringify(val)}).success(function() {
                         $rootScope.layout.param[key] = val;
                         if (--count === 0) {
                             alert("Sauvegarde effectuée");

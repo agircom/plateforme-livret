@@ -523,6 +523,10 @@ aside h2 {
     cursor: pointer;
 }
 
+.temoignage-sidebar {
+    margin-top: 30px;
+}
+
 .temoignage-sidebar a span{
     text-transform:uppercase;
     color: #808080;

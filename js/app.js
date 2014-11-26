@@ -200,7 +200,11 @@
 
             ApiSvc.getParam().success(function (params) {
                 $.each(params, function(k, param) {
-                    $rootScope.layout.param[param.key] = param.value;
+                    var val = param.value;
+                    try {
+                        val = JSON.parse(param.value)
+                    } catch (e) { }
+                    $rootScope.layout.param[param.key] = val;
                 })
             });
 

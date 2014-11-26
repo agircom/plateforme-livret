@@ -27,8 +27,10 @@ FeaderAppDirectives.directive('ngDraggable', [function () {
                 handle: '.ng-draggable-handler',
                 containment: "parent",
                 create: function () {
-                    $(document.createElement('div')).addClass('ng-draggable-handler').appendTo(element);
-                    $(".ng-draggable-handler").disableSelection();
+                    $("<div>")
+                        .addClass('ng-draggable-handler')
+                        .appendTo(element)
+                        .disableSelection();
                 },
                 drag: null,
                 start: null,
@@ -45,7 +47,7 @@ FeaderAppDirectives.directive('ngLocked', [function () {
     return {
         restrict: 'AEC',
         link: function (scope, element) {
-//                $(document.createElement('div')).addClass('ng-locked-handler').appendTo(element);
+//                $("<div>").addClass('ng-locked-handler').appendTo(element);
 //                $(".ng-locked-handler").disableSelection();
             element.disableSelection();
             element.attr('title', 'Ces informations ne sont pas modifiables');
@@ -515,11 +517,14 @@ FeaderAppDirectives.directive('ngDeletable', [function () {
     return {
         restrict: 'AEC',
         link: function (scope, element, attrs) {
-            $(document.createElement('div')).addClass('ng-deletable-handler').attr('title', 'Cliquez ici pour supprimer l\'element').appendTo(element);
-            element.find('.ng-deletable-handler').on('click', function (e, ui) {
-                element.remove();
-                scope.updateModel();
-            });
+            $("<div>")
+                .addClass('ng-deletable-handler')
+                .attr('title', 'Cliquez ici pour supprimer l\'element')
+                .appendTo(element)
+                .on('click', function (e, ui) {
+                    element.remove();
+                    scope.updateModel();
+                });
         }
     };
 }
@@ -555,7 +560,7 @@ FeaderAppDirectives.directive('ngTooltip', [function () {
 //        restrict: 'AEC',
 //        link: function (scope, element, attrs) {
 //            // create handler
-//            $(document.createElement('div')).addClass('ng-clone-cat-handler').attr('title', 'Ajouter une categorie').appendTo(element.find('h4'));
+//            $("<div>").addClass('ng-clone-cat-handler').attr('title', 'Ajouter une categorie').appendTo(element.find('h4'));
 //
 //            // onclick
 //            element.find('.ng-clone-cat-handler').on('click', function (e, ui) {
@@ -582,29 +587,30 @@ FeaderAppDirectives.directive('ngRemoveCat', ['$compile', function ($compile) {
         restrict: 'AEC',
         link: function (scope, element, attrs) {
             // create handler
-            $(document.createElement('div')).addClass('ng-remove-cat-handler').attr('title', 'Supprimer la categorie').appendTo(element.find('h4'));
+            $("<div>")
+                .addClass('ng-remove-cat-handler')
+                .attr('title', 'Supprimer la categorie')
+                .appendTo(element.find('h4'))
+                .on('click', function (e, ui) {
+                    if (scope.folioBuilding === false) {
+                        // clone processing
+                        var parent = $('#drawboard > div').first();
+                        if (scope.folio.ownPage.length === 1 && parent.find('.ng-remove-cat').length === 1) {
+                            alert('Vous devez avoir au minimum une categorie');
+                        } else {
+                            scope.folioBuilding = true;
+                            // remove processing
+                            element.remove();
 
-            // onclick
-            element.find('.ng-remove-cat-handler').on('click', function (e, ui) {
-                if (scope.folioBuilding === false) {
-                    // clone processing
-                    var parent = $('#drawboard > div').first();
-                    if (scope.folio.ownPage.length === 1 && parent.find('.ng-remove-cat').length === 1) {
-                        alert('Vous devez avoir au minimum une categorie');
-                    } else {
-                        scope.folioBuilding = true;
-                        // remove processing
-                        element.remove();
-
-                        // build folio pages
-                        scope.buildFolio(parent);
-                        var el = angular.element(scope.folio.ownPage[scope.selected_page].content);
-                        var compiled = $compile(el)(scope);
-                        $('#drawboard').html(compiled);
-                        scope.folioBuilding = false;
+                            // build folio pages
+                            scope.buildFolio(parent);
+                            var el = angular.element(scope.folio.ownPage[scope.selected_page].content);
+                            var compiled = $compile(el)(scope);
+                            $('#drawboard').html(compiled);
+                            scope.folioBuilding = false;
+                        }
                     }
-                }
-            });
+                });
         }
     };
 }
@@ -615,24 +621,25 @@ FeaderAppDirectives.directive('ngCloneOrga', ['$compile', function ($compile) {
         restrict: 'AEC',
         link: function (scope, element, attrs) {
             // create handler
-            $(document.createElement('div')).addClass('ng-clone-orga-handler').attr('title', 'Ajouter un organisme').appendTo(element.find('h5'));
+            $("<div>")
+                .addClass('ng-clone-orga-handler')
+                .attr('title', 'Ajouter un organisme')
+                .appendTo(element.find('h5'))
+                .on('click', function (e, ui) {
+                    if (scope.folioBuilding === false) {
+                        scope.folioBuilding = true;
+                        // clone processing
+                        var parent = $('#drawboard > div').first();
+                        element.clone().insertAfter(element);
 
-            // onclick
-            element.find('.ng-clone-orga-handler').on('click', function (e, ui) {
-                if (scope.folioBuilding === false) {
-                    scope.folioBuilding = true;
-                    // clone processing
-                    var parent = $('#drawboard > div').first();
-                    element.clone().insertAfter(element);
-
-                    // build folio pages
-                    scope.buildFolio(parent);
-                    var el = angular.element(scope.folio.ownPage[scope.selected_page].content);
-                    var compiled = $compile(el)(scope);
-                    $('#drawboard').html(compiled);
-                    scope.folioBuilding = false;
-                }
-            });
+                        // build folio pages
+                        scope.buildFolio(parent);
+                        var el = angular.element(scope.folio.ownPage[scope.selected_page].content);
+                        var compiled = $compile(el)(scope);
+                        $('#drawboard').html(compiled);
+                        scope.folioBuilding = false;
+                    }
+                });
         }
     };
 }
@@ -642,29 +649,30 @@ FeaderAppDirectives.directive('ngRemoveOrga', ['$compile', function ($compile) {
         restrict: 'AEC',
         link: function (scope, element, attrs) {
             // create handler
-            $(document.createElement('div')).addClass('ng-remove-orga-handler').attr('title', 'supprimer un organisme').appendTo(element.find('h5'));
+            $("<div>")
+                .addClass('ng-remove-orga-handler')
+                .attr('title', 'supprimer un organisme')
+                .appendTo(element.find('h5'))
+                .on('click', function (e, ui) {
+                    if (scope.folioBuilding === false) {
+                        // clone processing
+                        if (element.siblings('.ng-remove-orga').length === 0) {
+                            alert('Vous devez avoir au minimum un organisme par categorie');
+                        } else {
+                            scope.folioBuilding = true;
+                            var parent = $('#drawboard > div').first();
+                            // remove processing
+                            element.remove();
 
-            // onclick
-            element.find('.ng-remove-orga-handler').on('click', function (e, ui) {
-                if (scope.folioBuilding === false) {
-                    // clone processing
-                    if (element.siblings('.ng-remove-orga').length === 0) {
-                        alert('Vous devez avoir au minimum un organisme par categorie');
-                    } else {
-                        scope.folioBuilding = true;
-                        var parent = $('#drawboard > div').first();
-                        // remove processing
-                        element.remove();
-
-                        // build folio pages
-                        scope.buildFolio(parent);
-                        var el = angular.element(scope.folio.ownPage[scope.selected_page].content);
-                        var compiled = $compile(el)(scope);
-                        $('#drawboard').html(compiled);
-                        scope.folioBuilding = false;
+                            // build folio pages
+                            scope.buildFolio(parent);
+                            var el = angular.element(scope.folio.ownPage[scope.selected_page].content);
+                            var compiled = $compile(el)(scope);
+                            $('#drawboard').html(compiled);
+                            scope.folioBuilding = false;
+                        }
                     }
-                }
-            });
+                });
         }
     };
 }

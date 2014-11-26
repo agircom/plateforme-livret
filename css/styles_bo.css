@@ -637,11 +637,12 @@ h1.titre1fond-folio-pf{
 #library-list li .miniature-image{
     width: 25%;
     float: left;
+    text-align: center;
 }
 #library-list li .miniature-image img{
     border:1px solid #c5c5c5;
     max-width: 95%;
-    max-height: 95%;
+    max-height: 160px;
 }
 
 #library-list li .infos-image{
@@ -677,10 +678,9 @@ h1.titre1fond-folio-pf{
 /* library miniature*/
 #library-miniature li{
     width: 15%;
-    float: left;
     margin: 0 10px 10px 0;
     padding: 15px;
-    display: inline-block;
+    display: inline-table;
 }
 
 #library-miniature li.active {
@@ -691,14 +691,16 @@ h1.titre1fond-folio-pf{
     background-color: #ebebeb;
 }
 
-#library-miniature li div{
+#library-miniature li div {
     height: 120px;
     text-align: center;
 }
-#library-miniature li div img{
+#library-miniature li div img {
     border:1px solid #c5c5c5;
 }
-
+#library-miniature p {
+    text-align: center;
+}
 
 .haut-library{
     width: 100%;
@@ -706,7 +708,7 @@ h1.titre1fond-folio-pf{
 }
 
 .titre-library{
-    width: 50%;
+    width: 270px;
     float: left;
 }
 
@@ -718,7 +720,7 @@ h1.titre1fond-folio-pf{
 }
 
 .menu-library{
-    width: 12%;
+    width: 13%;
     float: left;
 }
 .menu-library-link {
@@ -776,18 +778,19 @@ h1.titre1fond-folio-pf{
 }
 
 .recherche-library input{
-    width: 90%;
+    width: 88%;
+    float: left;
 }
 
 #library-add-popup {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
 }
 #library-add-popup > .sheet-fade {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
@@ -803,7 +806,7 @@ h1.titre1fond-folio-pf{
 }
 
 #library-add-popup > .sheet-content {
-    position: absolute;
+    position: fixed;
     left: 20%;
     right: 20%;
     top: 20%;
@@ -814,14 +817,14 @@ h1.titre1fond-folio-pf{
     z-index: 100;
 }
 #library-edit-popup {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
 }
 #library-edit-popup > .sheet-fade {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
@@ -837,7 +840,7 @@ h1.titre1fond-folio-pf{
 }
 
 #library-edit-popup > .sheet-content {
-    position: absolute;
+    position: fixed;
     left: 20%;
     right: 20%;
     top: 10%;
@@ -848,14 +851,14 @@ h1.titre1fond-folio-pf{
     z-index: 100;
 }
 #library-import-popup {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
 }
 #library-import-popup > .sheet-fade {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
@@ -871,7 +874,7 @@ h1.titre1fond-folio-pf{
 }
 
 #library-import-popup > .sheet-content {
-    position: absolute;
+    position: fixed;
     left: 20%;
     right: 20%;
     top: 10%;
@@ -881,15 +884,20 @@ h1.titre1fond-folio-pf{
     background-color: #ffffff;
     z-index: 100;
 }
+
+#library-form-add label, #library-form-edit label {
+    display: inline-block;
+    min-width: 100px;
+}
+
 #library-cats {
     cursor: pointer;
 }
 #library-cats li{
     width: 15%;
-    float: left;
     margin: 0 10px 10px 0;
     padding: 15px;
-    display: inline-block;
+    display: inline-table;
 }
 
 #library-cats li.active {
@@ -906,6 +914,27 @@ h1.titre1fond-folio-pf{
 }
 #library-cats li div img{
     border:1px solid #c5c5c5;
+}
+
+#library-cats li p {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+#library-manager {
+    margin-top: 10px;
+}
+
+.library-title {
+    color: #808080;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: "Lato","Jura","EurostileRomanDTCRegular",Arial;
+    line-height: 1.2em;
+    margin-bottom: 20px;
+    text-align: center;
 }
 /* Agenda */
 .picto-jr-ferie{

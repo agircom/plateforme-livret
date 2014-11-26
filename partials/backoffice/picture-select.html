@@ -4,9 +4,6 @@
         <button ng-click="togglePictureSelect()" class="sheet-close">
             <img src="images/pictos/fermer.png" alt="Fermer" title="Fermer" /> Fermer
         </button>
-        <button ng-click="selectImage('images/img-no-image.png', 'fixed')">
-            <img src="images/pictos/fermer.png" alt="Fermer" title="Fermer" /> Aucune image
-        </button>
         <div id="library-manager" ng-init="view = 'thumb'">
             <div class="haut-library">
                 <div class="titre-library">
@@ -15,11 +12,13 @@
                         La photothèque
                     </h2>
                 </div>
-                <div class="menu-library"><span>Vue par :</span></div> 
-                <div class="menu-library menu-library-link" ng-click="view = 'list'" ng-class="{selected: (view === 'list')}"><span>Liste</span><img src="images/pictos/liste.png"></div>  
-                <div class="menu-library menu-library-link" ng-click="view = 'thumb'" ng-class="{selected: (view === 'thumb')}"><span>Miniature</span><img src="images/pictos/miniature.png"></div>   
-                <div class="menu-library menu-library-link"><span>Aide</span><img src="images/pictos/help.png"></div>   
-            </div>  
+                <div ng-hide="source === 'cat' && selected_cat < 0" >
+                    <div class="menu-library"><span>Vue par :</span></div>
+                    <div class="menu-library menu-library-link" ng-click="view = 'list'" ng-class="{selected: (view === 'list')}"><span>Liste</span><img src="images/pictos/liste.png"></div>
+                    <div class="menu-library menu-library-link" ng-click="view = 'thumb'" ng-class="{selected: (view === 'thumb')}"><span>Miniature</span><img src="images/pictos/miniature.png"></div>
+                </div>
+                <div style="float: right;text-align: right" class="menu-library menu-library-link"><a href="#/plateforme/help"><span>Aide</span><img src="images/pictos/help.png"></a></div>
+            </div>
             <div class="block-select-library">
                 <div class="onglet-library">
                     <h3 ng-class="{selected:(source === 'own')}" ng-click="source = 'own'">Mes images personnelles</h3>
@@ -27,15 +26,25 @@
                 </div>
                 <div class="onglet-library">
                     <h3 ng-class="{selected:(source === 'cat')}" ng-click="source = 'cat'">Accès à la banque d'images partagées</h3>
-                    <h3 ng-click="selectNoImage()">Aucune image</h3>
+                    <h3 ng-click="selectImage('images/img-no-image.png', 'fixed')">Aucune image</h3>
                 </div>
-                <div class="recherche-library"><input type="text" id="recherche-image" placeholder="Recherche par mots clés" ng-model="libraryFilter"><img src="images/pictos/ok.png"></div>   
+                <div ng-hide="source === 'cat' && selected_cat < 0" >
+                    <div style="float: right;text-align: right" class="recherche-library">
+                        <input type="text" id="recherche-image" placeholder="Recherche par mots clés" ng-model="libraryFilter">
+                        <img src="images/pictos/ok.png">
+                    </div>
+                </div>
             </div>
-            <div class="library-title">{{library_title}} <button ng-show="source === 'cat' && selected_cat > -1" ng-click="selectCat()">retour à la banque d'images partagées</button></div>
-            <div ng-show="source === 'cat' && selected_cat === -1">
+            <h2 class="library-title">{{library_title}}</h2>
+            <div style="text-align: center">
+                <button ng-show="source === 'cat' && selected_cat > - 1" ng-click="selectCat()">retour à la banque d'images partagées</button>
+            </div>
+            <div ng-show="source === 'cat' && selected_cat === - 1">
                 <ul id="library-cats">
-                    <li ng-repeat="cat in categories| orderBy:'name'" ng-click="selectCat(cat.id)">
-                        <p>{{cat.name}} ({{cat.ownLibrary}} images)</p>
+                    <li ng-repeat="cat in categories | orderBy:'name'" ng-click="selectCat(cat.id)">
+                        <img src="images/folder.png" style="max-width:100%"/>
+                        <p>{{cat.name}}</p>
+                        <p>({{cat.ownLibrary}} images)</p>
                     </li>
                 </ul>
             </div>

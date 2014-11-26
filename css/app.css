@@ -385,14 +385,14 @@
     text-align: center;
 }
 #picture-selector {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
 }
 #picture-selector > .sheet-fade {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
@@ -409,7 +409,7 @@
 
 #picture-selector > .sheet-content {
     overflow-y: auto;
-    position: absolute;
+    position: fixed;
     left: 20%;
     right: 20%;
     top: 10%;
@@ -441,7 +441,7 @@
 
 
 .sheet-fade {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
@@ -458,7 +458,7 @@
 
 .sheet-content {
     overflow-y: auto;
-    position: absolute;
+    position: fixed;
     left: 20%;
     right: 20%;
     top: 10%;
@@ -484,10 +484,6 @@
 .sheet-close > img {
     vertical-align: middle;
     height: 20px;
-}
-
-#faq-list {
-
 }
 
 #faq-list > .faq-item  {

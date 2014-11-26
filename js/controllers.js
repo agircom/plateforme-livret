@@ -532,6 +532,10 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                         $location.path('/home');
                     });
                 }
+            } else {
+                UserSvc.Logout(function () {
+                    $location.path('/home');
+                });
             }
         };
         $scope.showPictureSelector = false;

@@ -125,7 +125,10 @@ FeaderAppDirectives.directive('ngEditable', [function () {
                         txt = txt.replace(/<li[^>]*>[ \n\r\t]*<\/li>/gm, "");
                         element.html(txt.trim());
                     } else {
-                        element.html($(this).val().replace(/(\r\n|\n|\r)/gm, "<br>").trim());
+                        element.html($(this).val()
+                            .replace(/</gm, "&lt;")
+                            .replace(/>/gm, "&gt;")
+                            .replace(/(\r\n|\n|\r)/gm, "<br>").trim());
                     }
                 });
                 // element -> toolbox

@@ -37,9 +37,9 @@
                 </p>
                 <a href="#" class="link" ng-click="toggleHelp()">Lire la suite...</a>
             </div>
-            <div class="cadre-toolbox">
-                <h3 style="text-align: center; background-color: #DD6B5C">Votre sélection</h3>
-                <div ng-if="folio.ownPage.length === 2 && folio.type !== 'locale' && !(folio.type == 'territoire1' || folio.type == 'territoire2' || folio.type == 'territoire3')" id="folio-edit-toolbox">
+            <div class="cadre-toolbox" id="folio-edit-toolbox">
+                <div ng-if="folio.ownPage.length === 2 && folio.type !== 'locale' && !(folio.type == 'territoire1' || folio.type == 'territoire2' || folio.type == 'territoire3')">
+                    <h3>Page</h3>
                     <div class="select-folio">
                         <a href="#" onclick="return false;" ng-click="selectPage(0)">
                             <span>> Recto</span>
@@ -53,7 +53,7 @@
                         </a>
                     </div>
                 </div>
-                <div ng-if="folio.ownPage.length > 2 || folio.type === 'locale' || folio.type == 'territoire1' || folio.type == 'territoire2' || folio.type == 'territoire3'" id="folio-edit-toolbox">
+                <div ng-if="folio.ownPage.length > 2 || folio.type === 'locale' || folio.type == 'territoire1' || folio.type == 'territoire2' || folio.type == 'territoire3'">
                     <h3>Page</h3>
                     <div ng-repeat="page in folio.ownPage" class="select-folio" style="width: 30%; float: left; height: auto; margin: 0 2px;">
                         <a href="#" onclick="return false;" ng-click="selectPage($index)">
@@ -79,14 +79,14 @@
                             <img src="images/pictos/enregistrer.png" width="32" height="32" alt="Enregistrer et revenir à mon livret" title="Enregistrer et revenir à mon livret"/>
                         </a>
                     </div>
-                    <div style="background-color: #00aa9d;">
-                        <a ng-href="#/plateforme/booklets/{{booklet.id}}" class="ng-tooltip" title="Les modifications non enregistrées seront perdues">
+                    <div style="background-color: #00aa9d;" class="ng-tooltip" title="Les modifications non enregistrées seront perdues">
+                        <a ng-href="#/plateforme/booklets/{{booklet.id}}">
                             <span>Annuler</span>
                             <img src="images/pictos/annuler.png" width="32" height="32" alt="Annuler" title="Annuler"/>
                         </a>
                     </div>
-                    <div style="background-color: #0078ff;">
-                        <a href="#" class="link ng-tooltip" title="Adapté à l'impression" ng-click="exportPDF(true)">
+                    <div style="background-color: #0078ff;" class="ng-tooltip" title="Adapté à l'impression">
+                        <a href="#" class="link" ng-click="exportPDF(true)">
                             <img style="vertical-align: middle;" src="images/pictos/exporter.png" alt="Exporter (haute résolution)" title="Exporter (haute résolution)"/>
                             <span>Exporter (haute résolution)</span>
                         </a>

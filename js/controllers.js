@@ -635,7 +635,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             var cat_content = '';
             var last_cat_title = -42;
             // parse all cats in content
-            full_content.find('.ng-clone-cat').each(function (index) {
+            full_content.find('.ng-clone-cat').each(function () {
                 // backups category header
                 var cat_header = $(this).clone();
                 cat_header.find('.ng-clone-orga').remove();
@@ -650,7 +650,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                     last_cat_title = $.trim($(this).find('.block-locale').find('h4').text());
                 }
                 // boucle sur les organismes de cette category
-                $(this).find('.ng-clone-orga').each(function (index_orga) {
+                $(this).find('.ng-clone-orga').each(function () {
                     if (need_new_page) {
                         // create page
                         order++;
@@ -716,6 +716,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             });
         };
         $scope.save = function (callback) {
+            $('.ng-editable-toolbox-textedit-popup').slideUp(); // Ferme la toolbox
             $scope.updateModel();
             BookletSvc.updateFolio($scope.booklet.id, $scope.folio.id, $scope.folio.ownPage).success(function (data) {
                 if (typeof callback === 'function') {

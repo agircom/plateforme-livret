@@ -404,12 +404,15 @@ h1.titre1fond-folio-pf{
     width: 632px;
     float: left;
     text-align:center;
-    min-height: 940px;
     overflow: hidden;
     font-size: 12px;
     line-height: 100%;
 	background: white;
 	position: relative;
+}
+
+.localeshow {
+    min-height: 940px;
 }
 
 .template-folio-pf{
@@ -1023,12 +1026,16 @@ margin-left: 20px;
 .titre-folio h2 {font-size: 200%; line-height: 100%;}
 .titre-folio h3 {font-size: 240%; line-height: 100%;}
 
-.block-pres-territoire h5 {font-size: 12px; line-height: 12px}
+.block-pres-territoire { min-height:220px;}
+.block-pres-territoire-title { height:360px;}
+.block-pres-territoire-title-1{ height:285px;}
+.block-pres-territoire-title-2{ height:100px;}
+.block-pres-territoire h5 {font-size: 12px; line-height: 12px;}
 .block-pres-territoire h4 {font-size: 18px; line-height: 18px;}
 .block-pres-territoire p {font-size: 100%; line-height: 100%}
 .pres-terri-img-defaut-moyenne {/*width: 70%; max-height: 70%;*/max-width: 70%;max-height: 130px;}
 .height100{height: 100%}
-.logo-titre-folio {max-width: 126px; max-height:95px;}
+.logo-titre-folio {max-width: 126px; max-height:95px;min-height: 92px;}
 .agendashow .logo-titre-folio {max-height:70px;}
 .pres-terri-img-defaut-grande {max-width: 90%; /*max-height: 80%;*/ max-height: 230px; min-height: 80%;}
 .pres-terri-img-defaut-moyenne-portrait {max-width: 40%; max-height: 70%;}
@@ -1063,7 +1070,7 @@ margin-left: 20px;
 
 .block-pochette-recto-left-1{width: 70%; height: 20%; padding: 35% 15% 0 15%;}
 .block-pochette-recto-left-2{display: block; width: 70%; height: 25%; padding: 15% 15% 5% 15%;}
-.block-pochette-recto-left-3{display: block; width: 100%; height: 13%; padding-top: 1%;}
+.block-pochette-recto-left-3{display: block; width: 100%; height: 13%; padding: 0 6%; box-sizing: border-box;}
 .block-pochette-recto-right-1{width:100%; height: 12%;}
 .block-pochette-recto-right-2{width: 100%; height: 10%; font-size: 120%; text-align: center;padding-top: 10%;}
 .block-pochette-recto-right-3{width: 100%; height: 30%; text-align: center;}
@@ -1095,4 +1102,8 @@ margin-left: 20px;
 
 .page-header {
 	height: 100px !important;
+}
+
+.pres-terr-title {
+	height: 120px;
 }

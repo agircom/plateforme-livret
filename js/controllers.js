@@ -671,7 +671,7 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                     cat_content.find('.block-locale').append($(this).clone());
                     entry_count++;
                     // max number item
-                    if (entry_count === 8) {
+                    if (entry_count === 7) {
                         // add category to current content
                         body.append(cat_content.clone());
                         // add footer to content

@@ -54,8 +54,19 @@ body {
     max-height: 3400px !important;
     margin-left: 50px;
     margin-right: 50px;
-	position: relative !important;;
+	position: relative !important;
 }
+/*
+.size-folio-a4{
+    width: 2350px !important;
+    height: 3400px !important;
+    max-width: 2350px !important;
+    max-height: 3400px !important;
+    margin-left: 50px;
+    margin-right: 50px;
+	position: relative !important;
+}
+*/
 .size-agenda-a4{
     width: 3500px !important;
     height: 2000px !important;
@@ -66,7 +77,7 @@ body {
 
 .block-pochette-recto-left-1{width: 1778px; height: 700px; padding: 800px 350px 0 350px;}
 .block-pochette-recto-left-2{display: block; width: 1678px; height: 250px; padding: 300px 400px 50px 400px;}
-.block-pochette-recto-left-3{display: block; width: 2478px; height: 400px; padding-top: 800px;}
+.block-pochette-recto-left-3{display: block; width: 2478px; height: 400px; padding-top: 800px; padding-left: 100px;padding-right: 100px;}
 .block-pochette-recto-right-1{width: 2478px; height: 300px; padding-left: 100px;}
 .block-pochette-recto-right-2{width: 2478px; height: 100px; font-size: 120%; text-align: center;padding-top: 250px;}
 .block-pochette-recto-right-3{width: 2478px; height: 800px; text-align: center;}
@@ -83,10 +94,10 @@ body {
 
 .img-pochette-memo{width: 2478px !important; height: 3485px !important;}
 
-.texte-pochette-recto {font-size: 1rem; color: #808080; line-height: 1rem}
-.texte-pochette-recto p {line-height: 1rem; font-family: "Lato";}
-.texte-pochette-verso {font-size: 1rem; line-height: 1rem}
-.texte-pochette-verso p {line-height: 1.2rem; font-family: "Lato";}
+.texte-pochette-recto {font-size: 1rem; color: #808080; line-height: 1.2rem}
+.texte-pochette-recto p {line-height: 1.2rem; font-family: "Lato";}
+.texte-pochette-verso {font-size: 1rem; line-height: 2rem}
+.texte-pochette-verso p { font-family: "Lato";}
 
 .block-img-pochette-recto {/*margin-top: -40px; */display: block; width: 2478px; height: 500px; text-align: center; padding-top: 200px; padding-left: 150px;}
 .div-img-pochette-recto{min-width: 550px !important; min-height: 550px !important; width: 550px !important; height: 550px !important;  max-width: 550px !important; max-height: 550px !important; float: left; /*padding-right: 10px;*/}
@@ -104,28 +115,26 @@ h1, h2, h3, h4, h5 {font-family: "Lato";}
 
 .h2pochette{ font-size: 1.8rem}
 
-.ul-pochette {margin-left: 20px !important; line-height: 2rem !important; list-style-image: url('../images/pictos/puce-liste-folio-orange.png') !important;}
-
 .titre-folio h1 {font-size: 1.8rem !important; line-height: 1.8rem !important}
 .titre-folio h2 {font-size: 1.8rem !important; line-height: 1.8rem !important}
 .titre-folio h3 {font-size: 1.8rem !important; line-height: 1.8rem !important}
-.logo-titre-folio {width: auto !important; height: auto !important; max-width: 600px !important; max-height: 300px !important;}
+.logo-titre-folio {width: auto !important; height: auto !important; max-width: 600px !important; max-height: 600px !important;}
 .page-footer {position: absolute; bottom: 0mm; width: 200mm; padding-bottom: -35mm;}
 .footer-folio {position: absolute; bottom: 100mm;}
 
 .block-pres-territoire h5 {font-size: 1rem !important; line-height: 1rem !important}
 .block-pres-territoire h4 {font-size: 1.2rem !important; line-height: 1.2rem !important}
-.block-pres-territoire p {font-size: 0.8rem !important; line-height: 0.8rem !important}
+.block-pres-territoire p {font-size: 1rem !important; line-height: 1.3rem !important}
 .pres-terri-img-defaut-moyenne {max-width: 600px !important; height: 400px !important;}
 .pres-terri-img-defaut-grande {max-width: 1000px !important; height: 800px !important;}
 .pres-terri-img-defaut-moyenne-portrait {max-width: 400px !important; height: 600px !important;}
 .img-pres-terri-2 {width: auto !important; height: 400px !important; max-width: 600px !important; max-height: 400px !important;}
-.img-pres-terri-3 {max-width: 600px !important; height: 400px !important; max-height: 400px !important;}
+.img-pres-terri-3 {max-width: 700px !important; height: 600px !important; max-height: 600px !important;}
 .img-pres-terri-large {height: 800px !important; max-height: 800px !important;}
 
 .block-locale h5 {font-size: 0.8rem !important; line-height: 0.8rem !important}
 .block-locale h4 {font-size: 1.2rem !important; line-height: 1.2rem !important}
-.block-locale p {font-size: 0.8rem !important; line-height: 0.8rem !important}
+.block-locale p {font-size: 0.9rem !important; line-height: 1.1rem !important}
 .block-locale ul {font-size: 0.8rem !important; line-height: 0.8rem !important}
 .img-cat-locale {height: 100% !important; max-height: 350px !important; height: 100%; max-height: 350px; padding-bottom: 20px;}
 
@@ -203,3 +212,5 @@ padding-left: 20px !important;
 .page-body {
     height: 2800px !important; /* size a4 (3400) - footer - header*/
 }
+
+.ng-date-ferie-select-apply, .ng-date-vac-select-apply { display:none !important; visibility:hidden !important; }

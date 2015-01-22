@@ -53,6 +53,8 @@ body {
     max-width: 2480px !important;
     max-height: 3400px !important;
     margin-left: 50px;
+    margin-right: 50px;
+	position: relative !important;;
 }
 .size-agenda-a4{
     width: 3500px !important;
@@ -189,3 +191,15 @@ padding-left: 20px !important;
 .ul-ensemble {margin-left: 20px !important; font-size: 0.8rem; line-height: 0.8rem !important;}
 .texte-ensemble {font-size: 0.8rem; color: #808080; line-height: 0.8rem}
 .texte-ensemble p {line-height: 1rem; font-family: "Lato";}
+
+.page-header {
+	height: 300px !important;
+}
+
+.page-footer {
+	height: 300px !important;
+}
+
+.page-body {
+    height: 2800px !important; /* size a4 (3400) - footer - header*/
+}

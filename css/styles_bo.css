@@ -404,10 +404,12 @@ h1.titre1fond-folio-pf{
     width: 632px;
     float: left;
     text-align:center;
-    height: 894px;
+    min-height: 940px;
     overflow: hidden;
     font-size: 12px;
     line-height: 100%;
+	background: white;
+	position: relative;
 }
 
 .template-folio-pf{
@@ -1086,3 +1088,11 @@ margin-left: 20px;
 .logo-region{max-width: 8%; float: left;padding-top: 5%;padding-left: 1%;}
 .logo-prefet{max-width: 13%;padding-top: 2%; padding-left: 10%;}
 .logo-europe{max-width: 17%; float: right;padding-top: 8%;padding-right: 1%;}
+
+.selectedPage {
+	outline: solid 1px red;
+}
+
+.page-header {
+	height: 100px !important;
+}

@@ -40,13 +40,13 @@
             <div class="cadre-toolbox" id="folio-edit-toolbox">
                 <div ng-if="folio.ownPage.length === 2 && folio.type !== 'locale' && !(folio.type == 'territoire1' || folio.type == 'territoire2' || folio.type == 'territoire3')">
                     <h3>Page</h3>
-                    <div class="select-folio">
+                    <div class="select-folio" ng-class="selected_page == 0 ? 'selectedPage' : ''">
                         <a href="#" onclick="return false;" ng-click="selectPage(0)">
                             <span>> Recto</span>
                             <img src="images/pictos/pochette-petit.png" alt="recto" title="Recto - Ceci est la couverture de votre pochette"/>
                         </a>
                     </div>
-                    <div class="select-folio">
+                    <div class="select-folio" ng-class="selected_page == 1 ? 'selectedPage' : ''">
                         <a href="#" onclick="return false;" ng-click="selectPage(1)">
                             <span>> Verso</span>
                             <img src="images/pictos/pochette-petit.png" alt="Verso" title="Verso - Ceci est le dos de votre pochette"/>
@@ -55,14 +55,14 @@
                 </div>
                 <div ng-if="folio.ownPage.length > 2 || folio.type === 'locale' || folio.type == 'territoire1' || folio.type == 'territoire2' || folio.type == 'territoire3'">
                     <h3>Page</h3>
-                    <div ng-repeat="page in folio.ownPage" class="select-folio" style="width: 30%; float: left; height: auto; margin: 0 2px;">
+                    <div ng-repeat="page in folio.ownPage" ng-class="selected_page == $index ? 'selectedPage' : ''" class="select-folio" style="width: 30%; float: left; height: auto; margin: 0 2px;">
                         <a href="#" onclick="return false;" ng-click="selectPage($index)">
                             <span>> {{$index + 1}}</span>
                             <img src="images/pictos/folio-petit.png" alt="Page" title="Page"/>
                         </a>
                     </div>
                 </div>
-                <p style="margin-bottom:5px;">
+                <p style="float: left;margin-top: 10px;">
                     Vous avez terminé votre document.<br>
                     Exporter le sur votre ordinateur au format pdf
                 </p>
@@ -81,7 +81,7 @@
                     </div>
                     <div style="background-color: #00aa9d;" class="ng-tooltip" title="Les modifications non enregistrées seront perdues">
                         <a ng-href="#/plateforme/booklets/{{booklet.id}}">
-                            <span>Annuler</span>
+                            <span>Quitter sans enregistrer</span>
                             <img src="images/pictos/annuler.png" width="32" height="32" alt="Annuler" title="Annuler"/>
                         </a>
                     </div>
@@ -121,9 +121,11 @@
         <div class="ng-editable-toolbox-color-button">
             <img src="images/toolbox-color-palette.png" title="palette de couleur" alt="palette de couleur">
         </div>
-        <div class="ng-editable-toolbox-font-button">
+        <!--
+		<div class="ng-editable-toolbox-font-button">
             <img src="images/toolbox-font-majuscule.png" title="palette de texte" alt="palette de texte">
         </div>
+		-->
         <div class="ng-editable-toolbox-chars">
             <label>Caractères</label>
             <b></b>

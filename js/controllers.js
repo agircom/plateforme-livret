@@ -593,9 +593,11 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             $scope.folio.ownPage[$scope.selected_page].content = content.html();
         };
         $scope.buildFolio = function (container) {
+			var firstpage = $scope.folio.ownPage[0];
+			var lastpage = $scope.folio.ownPage[$scope.folio.ownPage.length - 1];
             // backup header and footer
-            var header = $scope.clearPlugins(container.find('.page-header').clone());
-            var footer = $scope.clearPlugins(container.find('.page-footer').clone());
+            var header = $scope.clearPlugins($(firstpage.content).find('.page-header').clone());
+            var footer = $scope.clearPlugins($(lastpage.content).find('.page-footer').clone());
             // backup container attrs
             var container_attrs = container.prop('attributes');
             // concat all html pages
@@ -631,19 +633,23 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
             });
             // add header to content
             content.append(header);
+			// add body to content
+			var body = $("<div>").addClass("page-body");
+            content.append(body);
+			
             // create future category content
             var cat_content = '';
             var last_cat_title = -42;
-            // parse all cats in content
+            // parse all cats in body
             full_content.find('.ng-clone-cat').each(function () {
                 // backups category header
                 var cat_header = $(this).clone();
                 cat_header.find('.ng-clone-orga').remove();
                 // check if new category (by title)
                 if (last_cat_title != $.trim($(this).find('.block-locale').find('h4').text())) {
-                    // insert previous category in content
+                    // insert previous category in body
                     if (last_cat_title !== -42 && cat_content.find('.block-locale').find('.ng-clone-orga').length > 0) {
-                        content.append(cat_content.clone());
+                        body.append(cat_content.clone());
                     }
                     // init new category content
                     cat_content = cat_header.clone();
@@ -665,17 +671,16 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                     cat_content.find('.block-locale').append($(this).clone());
                     entry_count++;
                     // max number item
-                    if (entry_count === 6) {
+                    if (entry_count === 8) {
                         // add category to current content
-                        content.append(cat_content.clone());
+                        body.append(cat_content.clone());
                         // add footer to content
-                        content.append(footer.clone().css('margin-top', '14%'));
+                        //content.append(footer.clone().css('margin-top', '14%'));
                         // save page
                         pages[pages.length - 1].content = content.clone().prop('outerHTML');
                         need_new_page = true;
                         // init new content
-                        content.html('');
-                        content.append(header);
+                        body.html('');
                         // restart with current category (empty organismes)
                         cat_content = cat_header.clone();
                         // reset entry count
@@ -684,29 +689,22 @@ FeaderAppControllers.controller('BackofficeCtrl.Folio', ['$scope', '$routeParams
                 });
             });
             if (!need_new_page) {
-                content.append(cat_content.clone());
-                var marginTop = '14%';
-                switch (entry_count) {
-                    case 1:
-                        marginTop = '98%';
-                        break;
-                    case 2:
-                        marginTop = '81%';
-                        break;
-                    case 3:
-                        marginTop = '64%';
-                        break;
-                    case 4:
-                        marginTop = '47%';
-                        break;
-                    case 5:
-                        marginTop = '29%';
-                        break;
-                }
-                content.append(footer.clone().css('margin-top', marginTop));
+                body.append(cat_content.clone());
+                //content.append(footer.clone().css('margin-top', marginTop));
                 pages[pages.length - 1].content = content.clone().prop('outerHTML');
             }
 
+			// Suppréssion des footers sur toutes les pages sauf la dernière
+			for (var i = 0;  i < pages.length; i++) {
+				var content = $(pages[i].content);
+				content.find('.page-footer').remove();
+				pages[i].content = content.prop('outerHTML');
+			}
+			var entry_count = $(pages[pages.length - 1].content).find(".block-locale > div").length;
+			pages[pages.length - 1].content = $(pages[pages.length - 1].content).append(footer.clone()).prop('outerHTML');
+			// Fin : Suppréssion des footers sur toutes les pages sauf la dernière
+			
+			
             $scope.$apply(function () {
                 $scope.folio.ownPage = pages;
                 if ($scope.selected_page >= $scope.folio.ownPage.length) {

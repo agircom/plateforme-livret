@@ -16,7 +16,7 @@
                 style="color: #ea5515; font-weight: 700;" class="ng-date-select-second">14</b></span></h3>
     </div>
     <div style="width: 20%; height: auto; float: right;">
-        <img src="images/logo.png" alt="logo" title="Logo" class="ng-picture-select logo-titre-folio"/>
+        <img src="images/logo.png" alt="logo" title="Logo" class="ng-picture-select logo-titre-agenda"/>
     </div>
 </div>
 <!-- <div style="display: inline-block; width: 100%; height: 75%; font-size: 120%;">
@@ -24,7 +24,7 @@
 <div style="display: inline-block; width: 100%; height: 75%; font-size: 120%;" class="block-mois-agenda">
 <div style="display: inline-block; float: left; width: 16%; padding-bottom: 1%; margin-left: 1%;" class="mois-agenda">
 <div>
-<h3 style="background: #00aa9d; line-height: 200%; color: #fff; font-size: 100%;" class="titre-mois-agenda">Janvier</h3>
+<h3 style="background: #00aa9d; color: #fff;" class="titre-mois-agenda">Janvier</h3>
 <table class="calendar-month table-agenda"
        style="width: 100%; height: auto; border: 1px solid #9c9ea3; border-collapse:collapse; vertical-align:middle;">
 <tbody style="line-height: 90%;" class="tbody-agenda">
@@ -254,7 +254,7 @@
 </div>
 <div style="display: inline-block; float: left; width: 16%;" class="mois-agenda">
 <div>
-<h3 style="background: #51b849; line-height: 200%; color: #fff; font-size: 100%;">Février</h3>
+<h3 style="background: #51b849; color: #fff;" class="titre-mois-agenda">Février</h3>
 <table class="calendar-month table-agenda"
        style="width: 100%; height: auto; border: 1px solid #9c9ea3; border-collapse:collapse; vertical-align:middle;">
 <tbody style="line-height: 90%;" class="tbody-agenda">
@@ -470,7 +470,7 @@
 </div>
 <div style="display: inline-block; float: left; width: 16%;" class="mois-agenda">
 <div>
-<h3 style="background: #8ea83f; line-height: 200%; color: #fff; font-size: 100%;">Mars</h3>
+<h3 style="background: #8ea83f; color: #fff;" class="titre-mois-agenda">Mars</h3>
 <table class="calendar-month table-agenda"
        style="width: 100%; height: auto; border: 1px solid #9c9ea3; border-collapse:collapse; vertical-align:middle;">
 <tbody style="line-height: 90%;" class="tbody-agenda">
@@ -700,7 +700,7 @@
 </div>
 <div style="display: inline-block; float: left; width: 16%;" class="mois-agenda">
 <div>
-<h3 style="background: #e78026; line-height: 200%; color: #fff; font-size: 100%;">Avril</h3>
+<h3 style="background: #e78026; color: #fff;" class="titre-mois-agenda">Avril</h3>
 <table class="calendar-month table-agenda"
        style="width: 100%; height: auto; border: 1px solid #9c9ea3; border-collapse:collapse; vertical-align:middle;">
 <tbody style="line-height: 90%;" class="tbody-agenda">
@@ -923,7 +923,7 @@
 </div>
 <div style="display: inline-block; float: left; width: 16%;" class="mois-agenda">
 <div>
-<h3 style="background: #f7931e; line-height: 200%; color: #fff; font-size: 100%;">Mai</h3>
+<h3 style="background: #f7931e; color: #fff;" class="titre-mois-agenda">Mai</h3>
 <table class="calendar-month table-agenda"
        style="width: 100%; height: auto; border: 1px solid #9c9ea3; border-collapse:collapse; vertical-align:middle;">
 <tbody style="line-height: 90%;" class="tbody-agenda">
@@ -1153,7 +1153,7 @@
 </div>
 <div style="display: inline-block; float: left; width: 16%;" class="mois-agenda">
 <div>
-<h3 style="background: #fbb040; line-height: 200%; color: #fff; font-size: 100%;">Juin</h3>
+<h3 style="background: #fbb040; color: #fff;" class="titre-mois-agenda">Juin</h3>
 <table class="calendar-month table-agenda"
        style="width: 100%; height: auto; border: 1px solid #9c9ea3; border-collapse:collapse; vertical-align:middle;">
 <tbody style="line-height: 90%;" class="tbody-agenda">
@@ -1376,25 +1376,27 @@
 </div>
 </div>
 <div style="display: block; width: 100%; height: 5%; font-size: 140%">
-    <h5 style="color: #58595b; float: left; width: 15%;" class="ng-date-vac-select">
-        <img src="images/pictos/puces-vacances-agenda.png" alt="puces-titre-folio" title="puces-titre-folio"
-             class="trait-vacances-footer"/>
-        Vacances scolaires
-    </h5>
-    <h5 style="color: #58595b; float: left; width: 15%;" class="ng-date-ferie-select">
-        <img src="images/pictos/picto-jr-ferie-pdf.png" alt="puces-titre-folio" title="puces-titre-folio"
-             class="picto-jr-ferie-footer"/>
-        Jour férié
-    </h5>
-    <h5 style="display: none; cursor: pointer;" class="ng-date-vac-select-apply">
-        <img src="images/pictos/check-jaune.png" alt="Terminer la sélection des vacances"
-             title="Terminer la sélection des vacances">
-        Terminer la sélection des vacances
-    </h5>
-    <h5 style="display: none;cursor: pointer;" class="ng-date-ferie-select-apply">
-        <img src="images/pictos/check-jaune.png" alt="Terminer la sélection des jours fériés"
-             title="Terminer la sélection des jours fériés">
-        Terminer la sélection des jours fériés
-    </h5>
+    <div style="display: block; width: 100%; height: 5%; font-size: 140%">
+        <h5 style="color: #58595b; float: left; width: 15%;" class="ng-date-vac-select">
+            <img src="images/pictos/puces-vacances-agenda.png" alt="puces-titre-folio" title="puces-titre-folio"
+                 class="trait-vacances-footer"/>
+            Vacances scolaires
+        </h5>
+        <h5 style="color: #58595b; float: left; width: 15%;" class="ng-date-ferie-select">
+            <img src="images/pictos/picto-jr-ferie-pdf.png" alt="puces-titre-folio" title="puces-titre-folio"
+                 class="picto-jr-ferie-footer"/>
+            Jour férié
+        </h5>
+        <h5 style="display: none; cursor: pointer;" class="ng-date-vac-select-apply">
+            <img src="images/pictos/check-jaune.png" alt="Terminer la sélection des vacances"
+                 title="Terminer la sélection des vacances">
+            Terminer la sélection des vacances
+        </h5>
+        <h5 style="display: none;cursor: pointer;" class="ng-date-ferie-select-apply">
+            <img src="images/pictos/check-jaune.png" alt="Terminer la sélection des jours fériés"
+                 title="Terminer la sélection des jours fériés">
+            Terminer la sélection des jours fériés
+        </h5>
+    </div>
 </div>
 </div>

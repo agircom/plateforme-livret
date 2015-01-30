@@ -118,7 +118,8 @@ h1, h2, h3, h4, h5 {font-family: "Lato";}
 .titre-folio h1 {font-size: 1.8rem !important; line-height: 1.8rem !important}
 .titre-folio h2 {font-size: 1.8rem !important; line-height: 1.8rem !important}
 .titre-folio h3 {font-size: 1.8rem !important; line-height: 1.8rem !important}
-.logo-titre-folio {width: auto !important; height: auto !important; max-width: 600px !important; max-height: 600px !important;}
+.logo-titre-folio {width: auto !important; height: auto !important; min-height: 200px; max-width: 600px !important; max-height: 400px !important;}
+.logo-titre-agenda {width: auto !important; height: auto !important; min-height: 200px; max-width: 600px !important; max-height: 300px !important;}
 .page-footer {position: absolute; bottom: 0mm; width: 200mm; padding-bottom: -35mm;}
 .footer-folio {position: absolute; bottom: 100mm;}
 
@@ -130,7 +131,7 @@ h1, h2, h3, h4, h5 {font-family: "Lato";}
 .pres-terri-img-defaut-moyenne-portrait {max-width: 400px !important; height: 600px !important;}
 .img-pres-terri-2 {width: auto !important; height: 400px !important; max-width: 600px !important; max-height: 400px !important;}
 .img-pres-terri-3 {max-width: 700px !important; height: 600px !important; max-height: 600px !important;}
-.img-pres-terri-large {height: 800px !important; max-height: 800px !important;}
+.img-pres-terri-large { min-height: 1000px !important; }
 
 .block-locale h5 {font-size: 0.8rem !important; line-height: 0.8rem !important}
 .block-locale h4 {font-size: 1.2rem !important; line-height: 1.2rem !important}
@@ -142,7 +143,7 @@ h1, h2, h3, h4, h5 {font-family: "Lato";}
 
 .block-mois-agenda {font-size: 0.8em !important; line-height: 0.8em !important; width: 100% !important; height: 400px !important;}
 
-.titre-mois-agenda {font-size: 18pt !important; line-height: 18pt !important;}
+.titre-mois-agenda {font-size: 1.5em !important; line-height: 1.5em !important;}
 
 .table-agenda {line-height: 1.2em !important; font-size: 0.9em !important;}
 
@@ -185,8 +186,9 @@ padding-left: 20px !important;
     padding: 0;
     margin: 0;
     color: #fff;
-    font-size: 60%;
     text-align: left;
+	font-size: 1em !important;
+	line-height: 1.2em !important;
 }
 
 .footer-month-fev{
@@ -197,9 +199,9 @@ padding-left: 20px !important;
     margin-top:50px;
 }
 
-.ul-ensemble {margin-left: 20px !important; font-size: 0.8rem; line-height: 0.8rem !important;}
-.texte-ensemble {font-size: 0.8rem; color: #808080; line-height: 0.8rem}
-.texte-ensemble p {line-height: 1rem; font-family: "Lato";}
+.ul-ensemble {margin: 20px  !important;}
+.texte-ensemble {font-size: 1rem; color: #808080; line-height: 1.2rem}
+.texte-ensemble p {font-family: "Lato"; padding-right: 20px}
 
 .page-header {
 	height: 300px !important;
@@ -214,3 +216,10 @@ padding-left: 20px !important;
 }
 
 .ng-date-ferie-select-apply, .ng-date-vac-select-apply { display:none !important; visibility:hidden !important; }
+
+.size-folio-a4 h1.texte-ensemble-h1 { margin: 115px 0 !important; }
+.texte-ensemble-bruits { margin-bottom: 100px; }
+.texte-ensemble-dechets { margin-bottom: 100px; }
+.texte-ensemble-animaux { margin: 100px 0; height: 15%; }
+.texte-ensemble-chasse { margin: 100px 0; height: 30%; }
+.texte-ensemble-feu { margin: 100px 0 80px 0; height: 20%; }

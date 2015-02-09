@@ -44,6 +44,7 @@ $app->get('/token', function() use ($app) {
     // get params
     $givenUser = $app->request->get('user');
     $givenPasswd = $app->request->get('passwd');
+	//$givenPasswd = "fd61de8a310375ab403a603602267dd2a344002d";
     $givenTimestamp = $app->request->get('timestamp');
     if (!isset($givenUser) || !isset($givenPasswd) || !isset($givenTimestamp)) {
         // bad request params

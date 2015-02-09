@@ -621,7 +621,7 @@ footer .inside {
 .voir-tuto-pres {
     width:21%;
     color: #808080 ;
-    padding-top: 50px;
+    padding-top: 40px;
 }
 
 .img-voir-tuto-pres {
@@ -630,6 +630,7 @@ footer .inside {
 
 .img-voir-tuto-pres img {
     padding-top: 30px;
+	float: right;
 }
 
 .img-demarche-accueil{

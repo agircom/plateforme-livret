@@ -322,6 +322,7 @@ FeaderAppDirectives.directive('ngPictureSelect', [function () {
                     if (newVal !== null) {
                         unregister();
                         element.prop('src', newVal);
+                        element.attr('src', newVal);
                         scope.$parent.updateModel();
                     }
                 });

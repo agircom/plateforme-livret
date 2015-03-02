@@ -1,3 +1,5 @@
+<div id="modhome"> 
+
 <h2>
     <img style="vertical-align: middle; padding-right:5px;" src="images/pictos/a4.png" width="32" height="32" alt="Accueil" title="Accueil">
     Accueil
@@ -11,6 +13,11 @@
 <h2>T&eacute;moignage utilisateur</h2>
 <textarea ng-trim="true" ng-model="home.feedback"></textarea>
 <br><hr><br>
+
+<h2>Texte RRHN</h2>
+<textarea ng-trim="true" ng-model="home.rrhn"></textarea>
+<br><hr><br>
+
 <h2>Logo de la r&eacute;gion</h2>
     <img ng-show="home.logo_region.base64" ng-src="data:{{home.logo_region.filetype}};base64,{{home.logo_region.base64}}" style="height: 80px;">
     <p ng-hide="home.logo_region.base64">Aucune image</p>
@@ -50,3 +57,5 @@
 <br><br>
 -->
 <button ng-click="save()">Sauvegarder les changements</button>
+
+</div>

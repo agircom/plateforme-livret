@@ -2,7 +2,7 @@
     <section id="content">
         <div class="article-accueil">
             <h2>Témoignage d'utilisateur</h2>
-			<p ng-repeat="(key, value) in $root.layout.param['feedback'].split('\n')">{{value}}</p>
+			<p ng-repeat="(key, value) in $root.layout.param['feedback'].split('\n') track by $index">{{value}}</p>
         </div>
     </section>
     <aside ng-include="'partials/home/right.html'"></aside>

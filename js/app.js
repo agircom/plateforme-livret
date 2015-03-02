@@ -39,6 +39,12 @@
             requireMenu: false,
             requireLogin: false
         },
+        '/home/temoignage': {
+            templateUrl: 'partials/home/temoignage.html',
+            controller: 'HomeCtrl.Home',
+            requireMenu: false,
+            requireLogin: false
+        },
         '/account/create': {
             templateUrl: 'partials/account/create.html',
             controller: 'AccountCtrl.Create',

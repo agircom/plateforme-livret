@@ -39,8 +39,8 @@
 		</div>
 	</div> 
 	<div ng-show="$root.layout.param['feedback']" class="temoignage-sidebar">
-		<h2>Témoignage d'utilisateurs</h2>
-		<p>{{$root.layout.param['feedback']}}</p>
+		<h2>Témoignage d'utilisateur</h2>
+		<div>{{$root.layout.param['feedback'].split('\n')[0]}} (...) <br/><a href="#/home/temoignage"> > Lire la suite</a></div>
 		<!--<a href="#" onclick="return false;"><span> > Voir la réalisation</span></a>-->
 	</div>
 </div>

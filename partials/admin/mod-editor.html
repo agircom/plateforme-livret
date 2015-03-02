@@ -1,49 +1,76 @@
-<h2>
-    <img style="vertical-align: middle; padding-right:5px;" src="images/pictos/a3.png" width="32" height="32" alt="&Eacute;dition" title="&Eacute;dition">
-    &Eacute;dition
-</h2>
-<div id="admin-template-list">
-    <table class="table-users-admin">
-        <thead>
-            <tr>
-                <th>Modele de folio</th>
-                <th>Aide</th>
-                <!--<th>Modifier</th>-->
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="tpl in templates | orderBy: 'title'">
-                <td>{{tpl.title}}</td>
-                <td>
-                    <button ng-click="showHelp(tpl)">Modifier l'aide</button>
-                </td>
-                <!--<td>-->
-                    <!--<button ng-click="showTemplate(tpl)">Modifier le mod&egrave;le</button>-->
-                <!--</td>-->
-            </tr>
-        </tbody>
-    </table>
-</div>
-<div id="admin-template-help-popup" ng-show="showHelpPopup">
-    <div class="sheet-fade" ng-click="toggleHelpPopup()"></div>
-    <div class="sheet-content">
-        <button ng-click="toggleHelpPopup()" class="sheet-close">
-            <img src="images/pictos/fermer.png" alt="Fermer" title="Fermer" /> Fermer
-        </button>
-        <h2>Modifier l'aide du mod&egrave;le {{tmpTpl.title}}</h2>
-        <h3>Les champs obligatoires sont indiqués par un *</h3>
-        <div id="admin-template-form-help">
-            <p>
-                <label for="admin-template-form-help-intro">Introduction* :</label>
-                <input type="text" name="intro" ng-model="tmpTpl.helpintro" id="admin-template-form-help-intro" ng-trim='true'>
-            </p>
-            <p>
-                <label for="admin-template-form-help-text">Explication* :</label>
-                <textarea id="admin-template-form-help-text" name="text" ng-model="tmpTpl.helptext" ng-trim="true"></textarea>
-            </p>
-            <p>
-                <button ng-click="editHelp()">Modifier</button>
-            </p>
-        </div>
-    </div>
+<div id="modeditor">
+	<h2>
+		<img style="vertical-align: middle; padding-right:5px;" src="images/pictos/a3.png" width="32" height="32" alt="&Eacute;dition" title="&Eacute;dition">
+		&Eacute;dition
+	</h2>
+	<div id="admin-template-list">
+		<table class="table-users-admin">
+			<thead>
+				<tr>
+					<th>Modele de folio</th>
+					<th>Aide</th>
+					<th>Modifier</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="tpl in templates | orderBy: 'title'">
+					<td>{{tpl.title}}</td>
+					<td>
+						<button ng-click="showHelp(tpl)">Modifier l'aide</button>
+					</td>
+					<td>
+						<button ng-click="showTemplate(tpl)">Modifier les textes</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div id="admin-template-help-popup" ng-show="showHelpPopup">
+		<div class="sheet-fade" ng-click="toggleHelpPopup()"></div>
+		<div class="sheet-content">
+			<button ng-click="toggleHelpPopup()" class="sheet-close">
+				<img src="images/pictos/fermer.png" alt="Fermer" title="Fermer" /> Fermer
+			</button>
+			<h2>Modifier l'aide du mod&egrave;le {{tmpTpl.title}}</h2>
+			<h3>Les champs obligatoires sont indiqués par un *</h3>
+			<div id="admin-template-form-help">
+				<p>
+					<label for="admin-template-form-help-intro">Introduction* :</label>
+					<input type="text" name="intro" ng-model="tmpTpl.helpintro" id="admin-template-form-help-intro" ng-trim='true'>
+				</p>
+				<p>
+					<label for="admin-template-form-help-text">Explication* :</label>
+					<textarea id="admin-template-form-help-text" name="text" ng-model="tmpTpl.helptext" ng-trim="true"></textarea>
+				</p>
+				<p>
+					<button ng-click="editHelp()">Modifier</button>
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div id="admin-template-template-popup" ng-show="showTemplatePopup">
+		<div class="sheet-fade" ng-click="toggleTemplatePopup()"></div>
+		<div class="sheet-content">
+			<button ng-click="toggleTemplatePopup()" class="sheet-close">
+				<img src="images/pictos/fermer.png" alt="Fermer" title="Fermer" /> Fermer
+			</button>
+			<h2>Modifier les textes du template {{tmpTpl.title}}</h2>
+			
+			<button ng-repeat="page in tmpPages | orderBy: 'order'" ng-click="changePage(page)">page {{page.order}}</button>
+			
+			<fieldset ng-show="tmpPage">
+			<legend>Modification de la page {{tmpPage.order}}</legend>
+				<div ng-repeat="field in tmpPage.ownDefaulttext | orderBy: 'id'">
+					<label for="{{field.id}}">{{field.key}} :</label>
+					<textarea id="{{field.id}}" name="text" ng-model="field.value" ng-trim="true"></textarea>
+					<hr/>
+				</div>
+				<p>
+					<button ng-click="editTemplate()">Sauvegarder</button>
+				</p>
+			</fieldset>
+		</div>
+	</div>
 </div>

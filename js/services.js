@@ -287,7 +287,14 @@ FeaderAppServices.factory('ApiSvc', ['$http',
             },
             putParam: function(param_key, data) {
                 return $http.put(this.apiUrl + '/admin/param/' + param_key, data);
-            }
+            },
+			
+            getPages: function(templatefolio_id) {
+                return $http.get(this.apiUrl + '/default/text/pages/' + templatefolio_id);
+            },
+            putDefaultText: function(defaulttext_id, value) {
+                return $http.put(this.apiUrl + '/default/text/' + defaulttext_id, value);
+            },
         };
     }
 ]);
@@ -438,7 +445,13 @@ FeaderAppServices.factory('AdminSvc', ['ApiSvc',
             },
             exportUsers: function() {
                 return ApiSvc.getUsersExport();
-            }
+            },
+            getPages: function(templatefolio_id) {
+                return ApiSvc.getPages(templatefolio_id);
+            },
+            putDefaultText: function(defaulttext_id, value) {
+                return ApiSvc.putDefaultText(defaulttext_id, value);
+            },
         };
     }
 ]);

@@ -1305,6 +1305,9 @@ FeaderAppControllers.controller('AdminCtrl.ModEditor', ['$scope', 'BookletSvc', 
     function ($scope, BookletSvc, AdminSvc) {
         $scope.templates = [];
         $scope.tmpTpl = {};
+        $scope.tmpPages = {};
+        $scope.tmpPage = null;
+		
         $scope.showHelpPopup = false;
         $scope.showHelp = function (tpl) {
             $scope.tmpTpl = tpl;
@@ -1313,6 +1316,38 @@ FeaderAppControllers.controller('AdminCtrl.ModEditor', ['$scope', 'BookletSvc', 
         $scope.toggleHelpPopup = function () {
             $scope.showHelpPopup = !$scope.showHelpPopup;
         };
+		
+        $scope.showTemplatePopup = false;
+        $scope.showTemplate = function (tpl) {
+			$scope.tmpTpl = tpl;
+			AdminSvc.getPages(tpl.id).success(function (params) {
+				$scope.tmpPages = params;
+				$scope.toggleTemplatePopup();
+			});
+        };
+        $scope.toggleTemplatePopup = function () {
+            $scope.showTemplatePopup = !$scope.showTemplatePopup;
+			if (!$scope.showTemplatePopup) $scope.tmpPage = null;
+        };
+		
+		$scope.changePage = function(page) {
+			$scope.tmpPage = page;
+		};
+		
+        $scope.editTemplate = function () {
+            var count = 0;
+            $.each($scope.tmpPage.ownDefaulttext, function(key, val) {
+				count++;
+				AdminSvc.putDefaultText(val.id, {value: val.value}).success(function() {
+					if (--count === 0) {
+						alert("Sauvegarde effectuée");
+					}
+				}).error(function() {
+					alert("Une erreur est survenue lors de la sauvegarde du paramètre " + key);
+				});
+            })
+		};
+		
         $scope.reload = function () {
             BookletSvc.getTemplates().success(function (data) {
                 $scope.templates = data;

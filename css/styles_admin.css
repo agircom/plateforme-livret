@@ -97,7 +97,11 @@
     color: #fff;
 }
 
-#modhome textarea {
+#modhome textarea{
 	width:98%;
 	min-height: 150px;
+}
+#modeditor textarea {
+	width:98%;
+	min-height: 50px;
 }

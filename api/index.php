@@ -16,6 +16,17 @@ require_once 'PHPMailer' . DIRECTORY_SEPARATOR . 'PHPMailerAutoload.php';
 
 require_once 'common.inc.php';
 
+/*
+$app->get('/test', function() use ($app) {
+    $params = R::findAll('defaulttext', 'templatepage_id=?', array(3035));
+	foreach($params as $param) {
+		echo $param->key;
+		echo $param->value;
+	}
+    echo json_encode(R::exportAll($params));
+});
+//*/
+
 // REST Api post contact
 $app->post('/contact', function() use ($app) {
     // get params
@@ -388,6 +399,13 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
         $page_record = R::dispense('page');
         $page_record->order = $tpl_page->order;
         $page_record->content = $tpl_page->content;
+		
+		// Replacement des textes par défault
+		$params = R::findAll('defaulttext', 'templatepage_id=?', array($tpl_page->id));
+		foreach($params as $param) {
+			$page_record->content = str_replace("###".$param->key."###", str_replace("\n", "<br>", $param->value), $page_record->content);
+		}
+		
         $folio_record->xownPageList[] = $page_record;
     }
     // save folio to booklet
@@ -1170,6 +1188,45 @@ $app->put('/admin/param/:param_key', function($param_key) use ($app) {
     $param_record->value = $putData['value'];
     R::store($param_record);
 });
+
+// REST Api Default Text
+
+$app->get('/default/text/pages/:template_id', function($templatefolio_id) use ($app) {
+	// retrieve user
+    $user_record = retrieveAdminByToken();
+    if (!$user_record) {
+        return;
+    }
+    $params = R::findAll('templatepage', 'templatefolio_id=?', array($templatefolio_id));
+    foreach ($params as $res) {
+        unset($res['content']);
+    }
+    echo json_encode(R::exportAll($params));
+});
+
+$app->put('/default/text/:defaulttext_id', function($defaulttext_id) use ($app) {
+    // retrieve user
+    $user_record = retrieveAdminByToken();
+    if (!$user_record) {
+        return;
+    }
+    // get data
+    $putData = json_decode($app->request->getBody(), true);
+    if (!key_exists('value', $putData) || is_null($putData['value'])) {
+        // bad params
+        $app->response()->status(400);
+        return;
+    }
+    // retrieve folio template
+    $param_record = R::findOne('defaulttext', '`id`=?', array($defaulttext_id));
+    if (is_null($param_record)) {
+        $app->response()->status(404);
+        return;
+    }
+    $param_record->value = $putData['value'];
+    R::store($param_record);
+});
+
 
 // run REST Api
 $app->run();

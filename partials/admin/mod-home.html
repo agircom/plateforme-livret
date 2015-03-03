@@ -39,6 +39,13 @@
 <input type="file" ng-model="home.logo_europe" base-sixty-four-input />
 
 <br><hr><br>
+<h2>Logo RRHN</h2>
+<img ng-show="home.logo_rrhn.base64" ng-src="data:{{home.logo_rrhn.filetype}};base64,{{home.logo_rrhn.base64}}" style="height: 80px;">
+<p ng-hide="home.logo_rrhn.base64">Aucune image</p>
+<br><br>
+<input type="file" ng-model="home.logo_rrhn" base-sixty-four-input />
+
+<br><hr><br>
 <!--
 <p>Logo de la r&eacute;gion</p>
 <img ng-src="{{home.logo_region}}">

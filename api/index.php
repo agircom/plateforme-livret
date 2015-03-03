@@ -401,9 +401,32 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
         $page_record->content = $tpl_page->content;
 		
 		// Replacement des textes par défault
-		$params = R::findAll('defaulttext', 'templatepage_id=?', array($tpl_page->id));
+		$defaulttexts = R::findAll('defaulttext', 'templatepage_id=?', array($tpl_page->id));
+		foreach($defaulttexts as $defaulttext) {
+			$page_record->content = str_replace("###".$defaulttext->key."###", str_replace("\n", "<br>", $defaulttext->value), $page_record->content);
+		}
+		$params = R::findAll('param');
 		foreach($params as $param) {
-			$page_record->content = str_replace("###".$param->key."###", str_replace("\n", "<br>", $param->value), $page_record->content);
+			if ($param->key === 'logo_region') {
+				$json = json_decode($param->value, true);
+				$value = "data:image/png;base64," . $json['base64'];
+				$page_record->content = str_replace("###IMAGE_RHN###", $value, $page_record->content);
+			}
+			if ($param->key === 'logo_prefet') {
+				$json = json_decode($param->value, true);
+				$value = "data:image/png;base64," . $json['base64'];
+				$page_record->content = str_replace("###IMAGE_PHN###", $value, $page_record->content);
+			}
+			if ($param->key === 'logo_europe') {
+				$json = json_decode($param->value, true);
+				$value = "data:image/png;base64," . $json['base64'];
+				$page_record->content = str_replace("###IMAGE_EF###", $value, $page_record->content);
+			}
+			if ($param->key === 'logo_rrhn') {
+				$json = json_decode($param->value, true);
+				$value = "data:image/png;base64," . $json['base64'];
+				$page_record->content = str_replace("###IMAGE_RR###", $value, $page_record->content);
+			}	
 		}
 		
         $folio_record->xownPageList[] = $page_record;

@@ -11,7 +11,7 @@
 				Si vous souhaitez par ailleurs en savoir plus sur les activités du réseau rural en Haute-Normandie, cliquez sur ce logo
 				<br><br><br>
                 <a href="http://pdrh.draf.haute-normandie.agriculture.gouv.fr/Le-Reseau-Rural-Haut-Normand" target="_blank">
-                    <img src="images/logo-reseau-rural.png" alt="reseau-rural-haute-normandie" width="50%" title="Réseau Rural Haute-Normandie"/>
+					<img ng-show="$root.layout.param['logo_rrhn'].base64" src="data:{{$root.layout.param['logo_rrhn'].filetype}};base64,{{$root.layout.param['logo_rrhn'].base64}}" alt="Réseau Rural Haute-Normandie" title="Réseau Rural Haute-Normandie" width="50%"/>
                 </a>
 			</p>
         </div>

@@ -408,8 +408,9 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
 		// Replacement des images par défault
 		$defaultimages = R::findAll('defaultimage', 'templatepage_id=?', array($tpl_page->id));
 		foreach($defaultimages as $defaultimage) {
-				$json = json_decode($defaultimage->value, true);
-				$value = "data:image/png;base64," . $json['base64'];
+			$json = json_decode($defaultimage->value, true);
+			//$value = "data:image/png;base64," . $json['base64'];
+			$value = str_replace(basename($_SERVER["SCRIPT_NAME"]), '', $_SERVER["SCRIPT_NAME"]) . "default/image/" . $defaultimage->templatepage_id . "/" . $defaultimage->key;
 			$page_record->content = str_replace("###".$defaultimage->key."###", $value, $page_record->content);
 		}
 		// Replacement des logos par défault
@@ -1280,6 +1281,15 @@ $app->put('/default/image/:defaultimage_id', function($defaultimage_id) use ($ap
     }
     $param_record->value = $putData['value'];
     R::store($param_record);
+});
+
+$app->get('/default/image/:templatepage_id/:key', function($templatepage_id, $key) use ($app) {
+    $defaultimage = R::findOne('defaultimage', '`templatepage_id`=? AND `key`=?', array($templatepage_id, $key));
+	$json = json_decode($defaultimage->value, true);
+	$img = imagecreatefromstring(base64_decode($json['base64']));
+	$app->response->headers->set('Content-Type', 'image/png');
+	imagepng($img);
+	imagedestroy($img);
 });
 
 // run REST Api

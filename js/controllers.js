@@ -1330,6 +1330,28 @@ FeaderAppControllers.controller('AdminCtrl.ModEditor', ['$scope', 'BookletSvc', 
 			if (!$scope.showTemplatePopup) $scope.tmpPage = null;
         };
 		
+        $scope.showImageTemplatePopup = false;
+        $scope.showImageTemplate = function (tpl) {
+			$scope.tmpTpl = tpl;
+			AdminSvc.getPages(tpl.id).success(function (params) {
+				$scope.tmpPages = params;
+				$.each($scope.tmpPages, function(key, page) {
+					if (page.ownDefaultimage) {
+						$.each(page.ownDefaultimage, function(key, val) {
+							try {
+								val.value = JSON.parse(val.value);
+							} catch (e) {}
+						});
+					}
+				});
+				$scope.toggleImageTemplatePopup();
+			});
+        };
+        $scope.toggleImageTemplatePopup = function () {
+            $scope.showImageTemplatePopup = !$scope.showImageTemplatePopup;
+			if (!$scope.showImageTemplatePopup) $scope.tmpPage = null;
+        };
+		
 		$scope.changePage = function(page) {
 			$scope.tmpPage = page;
 		};
@@ -1339,6 +1361,20 @@ FeaderAppControllers.controller('AdminCtrl.ModEditor', ['$scope', 'BookletSvc', 
             $.each($scope.tmpPage.ownDefaulttext, function(key, val) {
 				count++;
 				AdminSvc.putDefaultText(val.id, {value: val.value}).success(function() {
+					if (--count === 0) {
+						alert("Sauvegarde effectuée");
+					}
+				}).error(function() {
+					alert("Une erreur est survenue lors de la sauvegarde du paramètre " + key);
+				});
+            })
+		};
+		
+        $scope.editImageTemplate = function () {
+            var count = 0;
+            $.each($scope.tmpPage.ownDefaultimage, function(key, val) {
+				count++;
+				AdminSvc.putDefaultImage(val.id, {value: JSON.stringify(val.value)}).success(function() {
 					if (--count === 0) {
 						alert("Sauvegarde effectuée");
 					}

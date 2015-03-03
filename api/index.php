@@ -405,6 +405,14 @@ $app->post('/booklet/:booklet_id/folio/:folio_type', function($booklet_id, $foli
 		foreach($defaulttexts as $defaulttext) {
 			$page_record->content = str_replace("###".$defaulttext->key."###", str_replace("\n", "<br>", $defaulttext->value), $page_record->content);
 		}
+		// Replacement des images par défault
+		$defaultimages = R::findAll('defaultimage', 'templatepage_id=?', array($tpl_page->id));
+		foreach($defaultimages as $defaultimage) {
+				$json = json_decode($defaultimage->value, true);
+				$value = "data:image/png;base64," . $json['base64'];
+			$page_record->content = str_replace("###".$defaultimage->key."###", $value, $page_record->content);
+		}
+		// Replacement des logos par défault
 		$params = R::findAll('param');
 		foreach($params as $param) {
 			if ($param->key === 'logo_region') {
@@ -1250,6 +1258,29 @@ $app->put('/default/text/:defaulttext_id', function($defaulttext_id) use ($app) 
     R::store($param_record);
 });
 
+
+$app->put('/default/image/:defaultimage_id', function($defaultimage_id) use ($app) {
+    // retrieve user
+    $user_record = retrieveAdminByToken();
+    if (!$user_record) {
+        return;
+    }
+    // get data
+    $putData = json_decode($app->request->getBody(), true);
+    if (!key_exists('value', $putData) || is_null($putData['value'])) {
+        // bad params
+        $app->response()->status(400);
+        return;
+    }
+    // retrieve folio template
+    $param_record = R::findOne('defaultimage', '`id`=?', array($defaultimage_id));
+    if (is_null($param_record)) {
+        $app->response()->status(404);
+        return;
+    }
+    $param_record->value = $putData['value'];
+    R::store($param_record);
+});
 
 // run REST Api
 $app->run();

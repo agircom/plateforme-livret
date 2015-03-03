@@ -295,6 +295,9 @@ FeaderAppServices.factory('ApiSvc', ['$http',
             putDefaultText: function(defaulttext_id, value) {
                 return $http.put(this.apiUrl + '/default/text/' + defaulttext_id, value);
             },
+            putDefaultImage: function(defaultimage_id, value) {
+                return $http.put(this.apiUrl + '/default/image/' + defaultimage_id, value);
+            },
         };
     }
 ]);
@@ -451,6 +454,9 @@ FeaderAppServices.factory('AdminSvc', ['ApiSvc',
             },
             putDefaultText: function(defaulttext_id, value) {
                 return ApiSvc.putDefaultText(defaulttext_id, value);
+            },
+            putDefaultImage: function(defaultimage_id, value) {
+                return ApiSvc.putDefaultImage(defaultimage_id, value);
             },
         };
     }

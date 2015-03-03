@@ -9,7 +9,7 @@
 				<tr>
 					<th>Modele de folio</th>
 					<th>Aide</th>
-					<th>Modifier</th>
+					<th colspan="2">Modifier</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -20,6 +20,9 @@
 					</td>
 					<td>
 						<button ng-click="showTemplate(tpl)">Modifier les textes</button>
+					</td>
+					<td>
+						<button ng-click="showImageTemplate(tpl)">Modifier les images</button>
 					</td>
 				</tr>
 			</tbody>
@@ -69,6 +72,33 @@
 				</div>
 				<p>
 					<button ng-click="editTemplate()">Sauvegarder</button>
+				</p>
+			</fieldset>
+		</div>
+	</div>
+	
+	<div id="admin-image-template-popup" ng-show="showImageTemplatePopup">
+		<div class="sheet-fade" ng-click="toggleImageTemplatePopup()"></div>
+		<div class="sheet-content">
+			<button ng-click="toggleImageTemplatePopup()" class="sheet-close">
+				<img src="images/pictos/fermer.png" alt="Fermer" title="Fermer" /> Fermer
+			</button>
+			<h2>Modifier les images du template {{tmpTpl.title}}</h2>
+			
+			<button ng-repeat="page in tmpPages | orderBy: 'order'" ng-click="changePage(page)">page {{page.order}}</button>
+			
+			<fieldset ng-show="tmpPage">
+			<legend>Modification de la page {{tmpPage.order}}</legend>
+				<div ng-repeat="field in tmpPage.ownDefaultimage | orderBy: 'id'">
+					<label for="{{field.id}}">{{field.key}} :</label>
+					<img ng-show="field.value.base64" ng-src="data:{{field.value.filetype}};base64,{{field.value.base64}}" style="height: 80px;">
+					<p ng-hide="field.value.base64">Aucune image</p>
+					<br><br>
+					<input type="file" ng-model="field.value" base-sixty-four-input />
+					<hr/>
+				</div>
+				<p>
+					<button ng-click="editImageTemplate()">Sauvegarder</button>
 				</p>
 			</fieldset>
 		</div>

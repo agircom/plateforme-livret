@@ -10,6 +10,10 @@
 <input type="radio" name="enable_contact" ng-model="home.enable_contact" ng-value="true"> Actif
 <input type="radio" name="enable_contact" ng-model="home.enable_contact" ng-value="false"> Inactif
 <br><hr><br>
+<h2>Emails de reception des demandes de contact</h2>
+<small>Un email par ligne</small>
+<textarea ng-trim="true" ng-model="home.emails_contact"></textarea>
+<br><hr><br>
 <h2>T&eacute;moignage utilisateur</h2>
 <textarea ng-trim="true" ng-model="home.feedback"></textarea>
 <br><hr><br>

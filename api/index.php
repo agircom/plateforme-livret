@@ -29,6 +29,7 @@ $app->get('/test', function() use ($app) {
 
 // REST Api post contact
 $app->post('/contact', function() use ($app) {
+	
     // get params
     $data = json_decode($app->request->getBody(), true);
     $givenContactInfos = $data['contactInfos'];
@@ -38,11 +39,16 @@ $app->post('/contact', function() use ($app) {
         return;
     }
     $mail_data = array();
-    $mail_data['mail'] = 'contact@livret-accueil-haute-normandie.fr';
     $mail_data['name'] = 'Contact Plateforme Livret Accueil Haute Normandie';
-    if (!sendContactEmail($mail_data, $givenContactInfos)) {
-        $app->response()->status(500);
-    }
+	
+    $param = R::findOne('param', '`key`=?', array('emails_contact'));
+	$emails = explode("\n", json_decode($param['value']));
+	foreach($emails as $key => $email) {
+		$mail_data['mail'] = $email;
+		if (!sendContactEmail($mail_data, $givenContactInfos)) {
+			$app->response()->status(500);
+		}
+	}
 });
 
 /*
